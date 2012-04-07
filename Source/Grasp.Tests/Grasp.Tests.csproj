@@ -8,7 +8,7 @@
     <ProjectGuid>{177B3825-0297-44E1-AFA9-FFC86DF13194}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Grasp.Tests</RootNamespace>
+    <RootNamespace>Grasp</RootNamespace>
     <AssemblyName>Grasp.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -31,6 +31,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Cloak.NUnit">
+      <HintPath>..\packages\Cloak.NUnit.0.4.0.0\lib\net40\Cloak.NUnit.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework">
+      <HintPath>..\packages\NUnit.2.5.10.11092\lib\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.mocks">
+      <HintPath>..\packages\NUnit.2.5.10.11092\lib\nunit.mocks.dll</HintPath>
+    </Reference>
+    <Reference Include="pnunit.framework">
+      <HintPath>..\packages\NUnit.2.5.10.11092\lib\pnunit.framework.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -40,8 +52,32 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="Variables\VariableToString.cs" />
+    <Compile Include="Variables\IsNameUnderscoreAtEnd.cs" />
+    <Compile Include="Variables\IsNameSymbolAtEnd.cs" />
+    <Compile Include="Variables\IsNameSpaceAtEnd.cs" />
+    <Compile Include="Variables\IsNameDigitAtEnd.cs" />
+    <Compile Include="Variables\IsNameSpaceInMiddle.cs" />
+    <Compile Include="Variables\IsNameSpaceFirst.cs" />
+    <Compile Include="Variables\IsNameDigitInMiddle.cs" />
+    <Compile Include="Variables\IsNameUnderscoreInMiddle.cs" />
+    <Compile Include="Variables\IsNameSymbolInMiddle.cs" />
+    <Compile Include="Variables\IsNameSymbolFirst.cs" />
+    <Compile Include="Variables\IsNameEmpty.cs" />
+    <Compile Include="Variables\IsNameDigitFirst.cs" />
+    <Compile Include="Variables\IsNameUnderscoreFirst.cs" />
+    <Compile Include="Variables\IsName.cs" />
+    <Compile Include="Variables\CreateVariable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Grasp\Grasp.csproj">
+      <Project>{0A728107-2D52-4E6B-B651-793048876837}</Project>
+      <Name>Grasp</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
