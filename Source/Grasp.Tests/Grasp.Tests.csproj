@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Variables\VariableExpressionToString.cs" />
     <Compile Include="Variables\CreateExpression.cs" />
     <Compile Include="Variables\Namespaces\EmptyIsNamespace.cs" />
     <Compile Include="Variables\Namespaces\MultipleParts\DotAtEndIsNamespace.cs" />

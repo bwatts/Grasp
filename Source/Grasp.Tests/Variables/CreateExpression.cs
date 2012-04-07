@@ -23,6 +23,18 @@ namespace Grasp.Variables
 		}
 
 		[Then]
+		public void NodeTypeIsVariableExpressionType()
+		{
+			Assert.That(_expression.NodeType, Is.EqualTo(VariableExpression.ExpressionType));
+		}
+
+		[Then]
+		public void TypeIsVariableType()
+		{
+			Assert.That(_expression.Type, Is.EqualTo(_variable.Type));
+		}
+
+		[Then]
 		public void VariableIsOriginal()
 		{
 			Assert.That(_expression.Variable, Is.EqualTo(_variable));
