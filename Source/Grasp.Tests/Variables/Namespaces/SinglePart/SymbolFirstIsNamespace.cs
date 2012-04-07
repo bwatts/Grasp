@@ -5,24 +5,24 @@ using System.Text;
 using Cloak.NUnit;
 using NUnit.Framework;
 
-namespace Grasp.Variables
+namespace Grasp.Variables.Namespaces.SinglePart
 {
-	public class IsNameSymbolInMiddle : Behavior
+	public class SymbolFirstIsNamespace : Behavior
 	{
-		bool _isName;
+		bool _isNamespace;
 
 		protected override void Given()
 		{}
 
 		protected override void When()
 		{
-			_isName = Variable.IsName("Te$t");
+			_isNamespace = Variable.IsNamespace("$Test");
 		}
 
 		[Then]
 		public void IsFalse()
 		{
-			Assert.That(_isName, Is.False);
+			Assert.That(_isNamespace, Is.False);
 		}
 	}
 }

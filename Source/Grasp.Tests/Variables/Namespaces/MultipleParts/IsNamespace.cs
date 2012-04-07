@@ -5,24 +5,24 @@ using System.Text;
 using Cloak.NUnit;
 using NUnit.Framework;
 
-namespace Grasp.Variables
+namespace Grasp.Variables.Namespaces.MultipleParts
 {
-	public class IsNameUnderscoreAtEnd : Behavior
+	public class IsNamespace : Behavior
 	{
-		bool _isName;
+		bool _isNamespace;
 
 		protected override void Given()
 		{}
 
 		protected override void When()
 		{
-			_isName = Variable.IsName("Test_");
+			_isNamespace = Variable.IsNamespace("TestA.TestB");
 		}
 
 		[Then]
 		public void IsTrue()
 		{
-			Assert.That(_isName, Is.True);
+			Assert.That(_isNamespace, Is.True);
 		}
 	}
 }

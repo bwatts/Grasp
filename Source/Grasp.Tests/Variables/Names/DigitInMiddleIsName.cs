@@ -5,9 +5,9 @@ using System.Text;
 using Cloak.NUnit;
 using NUnit.Framework;
 
-namespace Grasp.Variables
+namespace Grasp.Variables.Names
 {
-	public class IsNameUnderscoreFirst : Behavior
+	public class DigitInMiddleIsName : Behavior
 	{
 		bool _isName;
 
@@ -16,7 +16,7 @@ namespace Grasp.Variables
 
 		protected override void When()
 		{
-			_isName = Variable.IsName("_Test");
+			_isName = Variable.IsName("Te0st");
 		}
 
 		[Then]

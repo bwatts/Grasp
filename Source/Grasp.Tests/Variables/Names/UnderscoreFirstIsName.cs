@@ -5,9 +5,9 @@ using System.Text;
 using Cloak.NUnit;
 using NUnit.Framework;
 
-namespace Grasp.Variables
+namespace Grasp.Variables.Names
 {
-	public class IsNameEmpty : Behavior
+	public class UnderscoreFirstIsName : Behavior
 	{
 		bool _isName;
 
@@ -16,13 +16,13 @@ namespace Grasp.Variables
 
 		protected override void When()
 		{
-			_isName = Variable.IsName("");
+			_isName = Variable.IsName("_Test");
 		}
 
 		[Then]
-		public void IsFalse()
+		public void IsTrue()
 		{
-			Assert.That(_isName, Is.False);
+			Assert.That(_isName, Is.True);
 		}
 	}
 }

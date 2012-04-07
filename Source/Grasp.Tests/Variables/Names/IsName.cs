@@ -5,7 +5,7 @@ using System.Text;
 using Cloak.NUnit;
 using NUnit.Framework;
 
-namespace Grasp.Variables
+namespace Grasp.Variables.Names
 {
 	public class IsName : Behavior
 	{
