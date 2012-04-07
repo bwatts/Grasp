@@ -53,6 +53,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CalculationToString.cs" />
+    <Compile Include="CompileGraspSchema.cs" />
+    <Compile Include="CreateGraspSchema.cs" />
     <Compile Include="CreateCalculation.cs" />
     <Compile Include="Variables\VariableExpressionToString.cs" />
     <Compile Include="Variables\CreateExpression.cs" />
