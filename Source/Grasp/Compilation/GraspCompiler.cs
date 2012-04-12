@@ -17,9 +17,9 @@ namespace Grasp.Compilation
 		{
 			_schema = schema;
 
-			_variables = new HashSet<Variable>(schema.Variables);
-
 			_calculations = schema.Calculations.Select(calculation => new CalculationSchema(calculation)).ToList();
+
+			_variables = new HashSet<Variable>(schema.Variables.Concat(_calculations.Select(calculation => calculation.OutputVariable)));
 		}
 
 		internal GraspExecutable Compile()
