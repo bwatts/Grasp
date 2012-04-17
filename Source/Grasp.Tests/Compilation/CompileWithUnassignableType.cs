@@ -40,6 +40,12 @@ namespace Grasp.Compilation
 		}
 
 		[Then]
+		public void HasOriginatingSchema()
+		{
+			Assert.That(_exception.Schema, Is.EqualTo(_schema));
+		}
+
+		[Then]
 		public void HasInvalidCalculationResultTypeInnerException()
 		{
 			Assert.That(_exception.InnerException, Is.InstanceOf<InvalidCalculationResultTypeException>());
