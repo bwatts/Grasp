@@ -15,7 +15,6 @@ namespace Grasp.Runtime
 		GraspSchema _schema;
 		GraspRuntime _runtime;
 		int _value;
-		object _boundValue;
 
 		protected override void Given()
 		{
@@ -31,14 +30,12 @@ namespace Grasp.Runtime
 		protected override void When()
 		{
 			_runtime.SetVariableValue(_variable, _value);
-
-			_boundValue = _runtime.GetVariableValue(_variable);
 		}
 
 		[Then]
 		public void VariableIsBound()
 		{
-			Assert.That(_boundValue, Is.EqualTo(_value));
+			Assert.That(_runtime.GetVariableValue(_variable), Is.EqualTo(_value));
 		}
 	}
 }

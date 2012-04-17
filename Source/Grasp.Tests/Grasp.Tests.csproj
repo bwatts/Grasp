@@ -60,6 +60,10 @@
   <ItemGroup>
     <Compile Include="CalculationToString.cs" />
     <Compile Include="CompileGraspSchema.cs" />
+    <Compile Include="Calculators\ApplyFunctionCalculator.cs" />
+    <Compile Include="Calculators\ApplyCompositeCalculator.cs" />
+    <Compile Include="Calculators\CreateCompositeCalculator.cs" />
+    <Compile Include="Calculators\CreateFunctionCalculator.cs" />
     <Compile Include="CreateVariableBinding.cs" />
     <Compile Include="Runtime\ApplyCalculations.cs" />
     <Compile Include="Runtime\SetUnboundVariableValue.cs" />
