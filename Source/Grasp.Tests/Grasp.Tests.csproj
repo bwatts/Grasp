@@ -59,6 +59,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CalculationToString.cs" />
+    <Compile Include="Compilation\GetRuntime.cs" />
+    <Compile Include="Compilation\CreateGraspExecutable.cs" />
     <Compile Include="CompileGraspSchema.cs" />
     <Compile Include="Calculators\ApplyFunctionCalculator.cs" />
     <Compile Include="Calculators\ApplyCompositeCalculator.cs" />

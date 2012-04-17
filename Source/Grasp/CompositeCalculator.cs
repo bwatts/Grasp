@@ -16,6 +16,9 @@ namespace Grasp
 			Calculators = calculators.ToList().AsReadOnly();
 		}
 
+		public CompositeCalculator(params ICalculator[] calculators) : this(calculators as IEnumerable<ICalculator>)
+		{}
+
 		public ReadOnlyCollection<ICalculator> Calculators { get; private set; }
 
 		public void ApplyCalculation(GraspRuntime runtime)
