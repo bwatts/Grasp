@@ -41,7 +41,7 @@ namespace Grasp
 		}
 
 		[Then]
-		public void SchemaIsOriginal()
+		public void HasOriginalSchema()
 		{
 			Assert.That(_executable.Schema, Is.EqualTo(_schema));
 		}

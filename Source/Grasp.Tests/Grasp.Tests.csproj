@@ -60,6 +60,7 @@
   <ItemGroup>
     <Compile Include="CalculationToString.cs" />
     <Compile Include="CompileGraspSchema.cs" />
+    <Compile Include="CreateVariableBinding.cs" />
     <Compile Include="Runtime\ApplyCalculations.cs" />
     <Compile Include="Runtime\SetUnboundVariableValue.cs" />
     <Compile Include="Runtime\SetBoundVariableValue.cs" />

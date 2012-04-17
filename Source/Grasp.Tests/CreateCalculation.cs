@@ -26,13 +26,13 @@ namespace Grasp
 		}
 
 		[Then]
-		public void OutputVariableIsOriginal()
+		public void HasOriginalOutputVariable()
 		{
 			Assert.That(_calculation.OutputVariable, Is.EqualTo(_outputVariable));
 		}
 
 		[Then]
-		public void ExpressionIsOriginal()
+		public void HasOriginalExpression()
 		{
 			Assert.That(_calculation.Expression, Is.EqualTo(_expression));
 		}

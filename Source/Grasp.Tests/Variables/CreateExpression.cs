@@ -35,7 +35,7 @@ namespace Grasp.Variables
 		}
 
 		[Then]
-		public void VariableIsOriginal()
+		public void HasOriginalVariable()
 		{
 			Assert.That(_expression.Variable, Is.EqualTo(_variable));
 		}

@@ -27,19 +27,19 @@ namespace Grasp.Variables
 		}
 
 		[Then]
-		public void NamespaceIsOriginal()
+		public void HasOriginalNamespace()
 		{
 			Assert.That(_variable.Namespace, Is.EqualTo(_namespace));
 		}
 
 		[Then]
-		public void NameIsOriginal()
+		public void HasOriginalName()
 		{
 			Assert.That(_variable.Name, Is.EqualTo(_name));
 		}
 
 		[Then]
-		public void TypeIsOriginal()
+		public void HasOriginalType()
 		{
 			Assert.That(_variable.Type, Is.EqualTo(_type));
 		}
