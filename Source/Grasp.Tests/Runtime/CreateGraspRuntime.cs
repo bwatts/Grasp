@@ -7,7 +7,7 @@ using Cloak.NUnit;
 using FakeItEasy;
 using NUnit.Framework;
 
-namespace Grasp
+namespace Grasp.Runtime
 {
 	public class CreateGraspRuntime : Behavior
 	{

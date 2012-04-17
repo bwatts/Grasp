@@ -18,6 +18,8 @@ namespace Grasp
 			Contract.Requires(calculator != null);
 			Contract.Requires(bindings != null);
 
+			// TODO: Ensure that all bound variables exist in schema
+
 			Schema = schema;
 			Calculator = calculator;
 
