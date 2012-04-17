@@ -24,7 +24,14 @@ namespace Grasp
 
 		public GraspExecutable Compile()
 		{
-			return new GraspCompiler(this).Compile();
+			try
+			{
+				return new GraspCompiler(this).Compile();
+			}
+			catch(Exception ex)
+			{
+				throw new CompilationException(this, Resources.CompilationError, ex);
+			}
 		}
 	}
 }

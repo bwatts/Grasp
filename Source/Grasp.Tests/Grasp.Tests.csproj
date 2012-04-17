@@ -62,6 +62,7 @@
     <Compile Include="Compilation\CompileWithUnknownVariable.cs" />
     <Compile Include="Compilation\CompileWithImplicitVariable.cs" />
     <Compile Include="Compilation\CompileWithUnassignableType.cs" />
+    <Compile Include="Compilation\CompileWithInvalidExpression.cs" />
     <Compile Include="Compilation\GetRuntime.cs" />
     <Compile Include="Compilation\CreateGraspExecutable.cs" />
     <Compile Include="CompileGraspSchema.cs" />

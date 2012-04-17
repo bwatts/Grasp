@@ -61,15 +61,6 @@ namespace Grasp.Compilation {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to An exception occurred while compiling a calculation function.
-        /// </summary>
-        internal static string CalculationCompilationError {
-            get {
-                return ResourceManager.GetString("CalculationCompilationError", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to |&gt; {0}.
         /// </summary>
         internal static string CalculationCycleReference {

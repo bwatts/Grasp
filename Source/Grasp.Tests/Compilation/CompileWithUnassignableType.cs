@@ -12,7 +12,7 @@ namespace Grasp.Compilation
 	{
 		Calculation _calculation;
 		GraspSchema _schema;
-		InvalidCalculationResultTypeException _exception;
+		CompilationException _exception;
 
 		protected override void Given()
 		{
@@ -27,7 +27,7 @@ namespace Grasp.Compilation
 			{
 				_schema.Compile();
 			}
-			catch(InvalidCalculationResultTypeException ex)
+			catch(CompilationException ex)
 			{
 				_exception = ex;
 			}
@@ -40,9 +40,15 @@ namespace Grasp.Compilation
 		}
 
 		[Then]
-		public void HasOriginalCalculation()
+		public void HasInvalidCalculationResultTypeInnerException()
 		{
-			Assert.That(_exception.Calculation, Is.EqualTo(_calculation));
+			Assert.That(_exception.InnerException, Is.InstanceOf<InvalidCalculationResultTypeException>());
+		}
+
+		[Then]
+		public void InnerInvalidCalculationResultTypeExceptionHasOriginalCalculation()
+		{
+			Assert.That(((InvalidCalculationResultTypeException) _exception.InnerException).Calculation, Is.EqualTo(_calculation));
 		}
 	}
 }

@@ -16,18 +16,9 @@ namespace Grasp.Compilation
 		{
 			_runtimeParameter = Expression.Parameter(typeof(GraspRuntime), "runtime");
 
-			var lambdaBody = schema.Expression;
+			var lambdaBody = Visit(schema.Expression);
 
-			try
-			{
-				lambdaBody = Visit(lambdaBody);
-
-				return new FunctionCalculator(schema.OutputVariable, CompileFunction(lambdaBody));
-			}
-			catch(Exception ex)
-			{
-				throw new CalculationCompilationException(schema.Source, lambdaBody, Resources.CalculationCompilationError, ex);
-			}
+			return new FunctionCalculator(schema.OutputVariable, CompileFunction(lambdaBody));
 		}
 
 		protected override Expression VisitVariable(VariableExpression node)

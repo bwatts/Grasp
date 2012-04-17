@@ -91,7 +91,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Calculation.cs" />
-    <Compile Include="Compilation\CalculationCompilationException.cs" />
+    <Compile Include="Compilation\CompilationException.cs" />
     <Compile Include="Compilation\CalculationCompiler.cs" />
     <Compile Include="Compilation\CalculationCycleException.cs" />
     <Compile Include="Compilation\CalculationExpressionVisitor.cs" />

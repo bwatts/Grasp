@@ -120,6 +120,9 @@
   <data name="Calculation" xml:space="preserve">
     <value>{0} = {1}</value>
   </data>
+  <data name="CompilationError" xml:space="preserve">
+    <value>An exception occurred while compiling a schema</value>
+  </data>
   <data name="Variable" xml:space="preserve">
     <value>{0}.{1}</value>
   </data>

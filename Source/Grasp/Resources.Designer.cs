@@ -70,6 +70,15 @@ namespace Grasp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to An exception occurred while compiling a schema.
+        /// </summary>
+        internal static string CompilationError {
+            get {
+                return ResourceManager.GetString("CompilationError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0}.{1}.
         /// </summary>
         internal static string Variable {
