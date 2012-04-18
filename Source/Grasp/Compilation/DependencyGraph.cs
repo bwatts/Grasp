@@ -32,8 +32,6 @@ namespace Grasp.Compilation
 
 		// http://en.wikipedia.org/wiki/Topological_sorting
 
-		// http://www.patrickdewane.com/2009/03/topological-sort.html
-
 		private sealed class TopologicalSort
 		{
 			private readonly VisitHistory _visitHistory = new VisitHistory();

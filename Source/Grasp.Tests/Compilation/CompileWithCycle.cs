@@ -22,9 +22,9 @@ namespace Grasp.Compilation
 			var variable2 = new Variable("Grasp", "Variable2", typeof(int));
 			var variable3 = new Variable("Grasp", "Variable3", typeof(int));
 
-			_calculation1 = new Calculation(variable1, Variable.Expression(variable3));
-			_calculation2 = new Calculation(variable2, Variable.Expression(variable1));
-			_calculation3 = new Calculation(variable3, Variable.Expression(variable2));
+			_calculation1 = new Calculation(variable1, Variable.Expression(variable2));
+			_calculation2 = new Calculation(variable2, Variable.Expression(variable3));
+			_calculation3 = new Calculation(variable3, Variable.Expression(variable1));
 
 			_schema = new GraspSchema(Enumerable.Empty<Variable>(), new[] { _calculation1, _calculation2, _calculation3 });
 		}
@@ -62,7 +62,7 @@ namespace Grasp.Compilation
 		[Then]
 		public void CalculationCycleInnerExceptionHasCalculationsInDependencyOrder()
 		{
-			Assert.That(((CalculationCycleException) _exception.InnerException).Calculations.SequenceEqual(new[] { _calculation1, _calculation3, _calculation2 }), Is.True);
+			Assert.That(((CalculationCycleException) _exception.InnerException).Calculations.SequenceEqual(new[] { _calculation1, _calculation2, _calculation3 }), Is.True);
 		}
 
 		[Then]
