@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Grasp", "Grasp\Grasp.csproj", "{0A728107-2D52-4E6B-B651-793048876837}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Grasp.Tests", "Grasp.Tests\Grasp.Tests.csproj", "{177B3825-0297-44E1-AFA9-FFC86DF13194}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Grasp.Examples", "Grasp.Examples\Grasp.Examples.csproj", "{177B3825-0297-44E1-AFA9-FFC86DF13194}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
