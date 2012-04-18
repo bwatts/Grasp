@@ -9,36 +9,36 @@ namespace Grasp.Compilation
 {
 	public class CalculationCycleException : Exception
 	{
-		public CalculationCycleException(IEnumerable<Calculation> calculations, Calculation repeatedCalculation)
+		public CalculationCycleException(IEnumerable<Calculation> context, Calculation repeatedCalculation)
 		{
-			Contract.Requires(calculations != null);
+			Contract.Requires(context != null);
 			Contract.Requires(repeatedCalculation != null);
 
-			Calculations = calculations.ToList().AsReadOnly();
+			Context = context.ToList().AsReadOnly();
 			RepeatedCalculation = repeatedCalculation;
 		}
 
-		public CalculationCycleException(IEnumerable<Calculation> calculations, Calculation repeatedCalculation, string message)
+		public CalculationCycleException(IEnumerable<Calculation> context, Calculation repeatedCalculation, string message)
 			: base(message)
 		{
-			Contract.Requires(calculations != null);
+			Contract.Requires(context != null);
 			Contract.Requires(repeatedCalculation != null);
 
-			Calculations = calculations.ToList().AsReadOnly();
+			Context = context.ToList().AsReadOnly();
 			RepeatedCalculation = repeatedCalculation;
 		}
 
-		public CalculationCycleException(IEnumerable<Calculation> calculations, Calculation repeatedCalculation, string message, Exception inner)
+		public CalculationCycleException(IEnumerable<Calculation> context, Calculation repeatedCalculation, string message, Exception inner)
 			: base(message, inner)
 		{
-			Contract.Requires(calculations != null);
+			Contract.Requires(context != null);
 			Contract.Requires(repeatedCalculation != null);
 
-			Calculations = calculations.ToList().AsReadOnly();
+			Context = context.ToList().AsReadOnly();
 			RepeatedCalculation = repeatedCalculation;
 		}
 
-		public ReadOnlyCollection<Calculation> Calculations { get; private set; }
+		public ReadOnlyCollection<Calculation> Context { get; private set; }
 
 		public Calculation RepeatedCalculation { get; private set; }
 	}

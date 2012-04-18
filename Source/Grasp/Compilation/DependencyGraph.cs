@@ -63,6 +63,8 @@ namespace Grasp.Compilation
 					foreach(var dependencyNode in _graph.GetDependencyNodes(node))
 					{
 						VisitNode(dependencyNode);
+
+						_visitHistory.OnVisitedDependencyNode();
 					}
 
 					_sortedNodes.Add(node);
@@ -74,12 +76,17 @@ namespace Grasp.Compilation
 		{
 			private readonly HashSet<DependencyNode> _visitedNodes = new HashSet<DependencyNode>();
 			private HashSet<DependencyNode> _visitedNodesFromRoot;
-			private List<DependencyNode> _visitedNodesFromRootInOrder;
+			private Stack<DependencyNode> _context;
 
 			internal void OnVisitingRootNode()
 			{
 				_visitedNodesFromRoot = new HashSet<DependencyNode>();
-				_visitedNodesFromRootInOrder = new List<DependencyNode>();
+				_context = new Stack<DependencyNode>();
+			}
+
+			internal void OnVisitedDependencyNode()
+			{
+				_context.Pop();
 			}
 
 			internal bool OnVisitingNode(DependencyNode node)
@@ -96,7 +103,8 @@ namespace Grasp.Compilation
 					_visitedNodes.Add(node);
 
 					_visitedNodesFromRoot.Add(node);
-					_visitedNodesFromRootInOrder.Add(node);
+
+					_context.Push(node);
 				}
 
 				return firstVisit;
@@ -104,21 +112,21 @@ namespace Grasp.Compilation
 
 			private void ThrowCalculationCycleException(Calculation repeatedCalculation)
 			{
-				var calculations = _visitedNodesFromRootInOrder.Select(visitedNode => visitedNode.Calculation.Source).ToList();
+				var context = _context.Reverse().Select(visitedNode => visitedNode.Calculation.Source).ToList();
 
 				throw new CalculationCycleException(
-					calculations,
+					context,
 					repeatedCalculation,
-					Resources.CalculationHasCycle.FormatInvariant(GetCycleText(calculations, repeatedCalculation)));
+					Resources.CalculationHasCycle.FormatInvariant(GetCycleText(context, repeatedCalculation)));
 			}
 
-			private static string GetCycleText(IEnumerable<Calculation> calculations, Calculation repeatedCalculation)
+			private static string GetCycleText(IEnumerable<Calculation> context, Calculation repeatedCalculation)
 			{
 				var text = new StringBuilder(Environment.NewLine);
 
 				var wroteFirst = false;
 
-				foreach(var calculation in calculations)
+				foreach(var calculation in context)
 				{
 					if(wroteFirst)
 					{
