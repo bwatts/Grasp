@@ -90,6 +90,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\SolutionAssemblyInfo.cs">
+      <Link>Properties\SolutionAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="Calculation.cs" />
     <Compile Include="Compilation\CompilationException.cs" />
     <Compile Include="Compilation\CalculationCompiler.cs" />
