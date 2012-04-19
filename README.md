@@ -2,7 +2,7 @@
 
 A runtime in which developers can define, compile, and execute calculations against arbitrary data schemas
 
-# When Would You Use It?
+## When Would You Use It?
 
 You have a project whose problem domain centers around analysis: generating data by examining existing data. A survey system is a common example, as it collects values from users and performs different kinds of calculations on the answers:
 
@@ -18,15 +18,6 @@ Thanks to its declarative and compositional nature, Grasp works very well at the
 
 Surveys are just one example of a form structure; Grasp targets any system which asks questions about data. See the Articles section below for more examples.
 
-## NuGet
-
-### Get it in the [package manager console](http://docs.nuget.org/docs/start-here/using-the-package-manager-console):
-
-    PM> Install-Package Grasp
-
-### Or from the online gallery:
-https://nuget.org/packages/Grasp
-
 ## Articles
 
 * [Part 1: Overview](http://www.executableintent.com/grasp-a-net-analysis-engine-part-1-overview/)
@@ -39,7 +30,16 @@ https://nuget.org/packages/Grasp
 * [Part 8: Calculation Dependencies](http://www.executableintent.com/grasp-a-net-analysis-engine-part-8-calculation-dependencies/)
 * [Part 9: Dependency Sorting](http://www.executableintent.com/grasp-a-net-analysis-engine-part-9-dependency-sorting/)
 
-# Working with the Code
+## NuGet
+
+### Get it in the [package manager console](http://docs.nuget.org/docs/start-here/using-the-package-manager-console):
+
+    PM> Install-Package Grasp
+
+### Or from the online gallery:
+https://nuget.org/packages/Grasp
+
+## Working with the Code
 
 ### Code Contracts
 
@@ -54,6 +54,6 @@ All tests are written using [NUnit 2.5.10.11092](http://nuget.org/packages/NUnit
 ## License
 [MIT License](https://github.com/bwatts/Grasp/blob/master/Grasp-License.txt)
 
-# Copyright
+## Copyright
 
 Copyright &copy; 2012 Bryan Watts
