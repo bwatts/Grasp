@@ -46,6 +46,7 @@ namespace Grasp
 		/// <summary>
 		/// Gets the fully-qualified name of the variable represented by this expression tree node
 		/// </summary>
+		/// <returns>The fully-qualified name of the variable represented by this expression tree node</returns>
 		public override string ToString()
 		{
 			return Variable.ToString();

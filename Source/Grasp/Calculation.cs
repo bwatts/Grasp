@@ -38,8 +38,9 @@ namespace Grasp
 		public Expression Expression { get; private set; }
 
 		/// <summary>
-		/// Gets a text representation of this calculation
+		/// Gets a textual representation of this calculation
 		/// </summary>
+		/// <returns>A textual representation of this calculation</returns>
 		public override string ToString()
 		{
 			return Resources.Calculation.FormatInvariant(OutputVariable, Expression);

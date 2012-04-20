@@ -89,6 +89,7 @@ namespace Grasp
 		/// <summary>
 		/// Gets the fully-qualified name of this variable
 		/// </summary>
+		/// <returns>The fully-qualified name of this variable</returns>
 		public override string ToString()
 		{
 			return Resources.Variable.FormatInvariant(Namespace, Name);
