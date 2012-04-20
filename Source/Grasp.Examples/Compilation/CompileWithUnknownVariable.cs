@@ -10,13 +10,16 @@ namespace Grasp.Compilation
 {
 	public class CompileWithUnknownVariable : Behavior
 	{
+		Variable _unknownVariable;
 		Calculation _calculation;
 		GraspSchema _schema;
 		CompilationException _exception;
 
 		protected override void Given()
 		{
-			_calculation = new Calculation(new Variable("Grasp", "Output", typeof(int)), Variable.Expression(new Variable("Grasp", "Unknown", typeof(int))));
+			_unknownVariable = new Variable("Grasp", "Unknown", typeof(int));
+
+			_calculation = new Calculation(new Variable("Grasp", "Output", typeof(int)), Variable.Expression(_unknownVariable));
 
 			_schema = new GraspSchema(Enumerable.Empty<Variable>(), new[] { _calculation });
 		}
@@ -52,9 +55,27 @@ namespace Grasp.Compilation
 		}
 
 		[Then]
+		public void InnerInvalidCalculationVariableExceptionHasUnknownVariable()
+		{
+			var invalidCalculationVariableException = (InvalidCalculationVariableException) _exception.InnerException;
+
+			Assert.That(invalidCalculationVariableException.Variable, Is.EqualTo(_unknownVariable));
+		}
+
+		[Then]
 		public void InnerInvalidCalculationVariableExceptionHasOriginalCalculation()
 		{
-			Assert.That(((InvalidCalculationVariableException) _exception.InnerException).Calculation, Is.EqualTo(_calculation));
+			var invalidCalculationVariableException = (InvalidCalculationVariableException) _exception.InnerException;
+
+			Assert.That(invalidCalculationVariableException.Calculation, Is.EqualTo(_calculation));
+		}
+
+		[Then]
+		public void InnerInvalidCalculationVariableExceptionHasOriginalSchema()
+		{
+			var invalidCalculationVariableException = (InvalidCalculationVariableException) _exception.InnerException;
+
+			Assert.That(invalidCalculationVariableException.Schema, Is.EqualTo(_schema));
 		}
 	}
 }

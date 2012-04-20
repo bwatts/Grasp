@@ -23,7 +23,7 @@ namespace Grasp.Compilation
 		}
 
 		/// <summary>
-		/// Initializes an exception with the specified calculation
+		/// Initializes an exception with the specified calculation and message
 		/// </summary>
 		/// <param name="variable">The invalid calculation</param>
 		/// <param name="message">The message that describes the error</param>
@@ -35,7 +35,7 @@ namespace Grasp.Compilation
 		}
 
 		/// <summary>
-		/// Initializes an exception with the specified calculation
+		/// Initializes an exception with the specified calculation, message, and inner exception
 		/// </summary>
 		/// <param name="variable">The invalid calculation</param>
 		/// <param name="message">The message that describes the error</param>
