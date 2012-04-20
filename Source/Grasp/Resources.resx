@@ -126,6 +126,12 @@
   <data name="Variable" xml:space="preserve">
     <value>{0}.{1}</value>
   </data>
+  <data name="VariableBindingNonNullValue" xml:space="preserve">
+    <value>{0} = {1}</value>
+  </data>
+  <data name="VariableBindingNullValue" xml:space="preserve">
+    <value>{0} = (null)</value>
+  </data>
   <data name="VariableNotBound" xml:space="preserve">
     <value>Variable "{0}" is not bound</value>
   </data>

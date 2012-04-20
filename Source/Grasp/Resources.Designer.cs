@@ -88,6 +88,24 @@ namespace Grasp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} = {1}.
+        /// </summary>
+        internal static string VariableBindingNonNullValue {
+            get {
+                return ResourceManager.GetString("VariableBindingNonNullValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} = (null).
+        /// </summary>
+        internal static string VariableBindingNullValue {
+            get {
+                return ResourceManager.GetString("VariableBindingNullValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Variable &quot;{0}&quot; is not bound.
         /// </summary>
         internal static string VariableNotBound {

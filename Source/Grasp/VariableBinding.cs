@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
+using Cloak;
 
 namespace Grasp
 {
@@ -35,5 +36,16 @@ namespace Grasp
 		/// Gets the value to which <see cref="Variable"/> is bound
 		/// </summary>
 		public object Value { get; set; }
+
+		/// <summary>
+		/// Gets a textual representation of this binding
+		/// </summary>
+		/// <returns>A textual representation of this binding</returns>
+		public override string ToString()
+		{
+			return Value == null
+				? Resources.VariableBindingNullValue.FormatInvariant(Variable)
+				: Resources.VariableBindingNonNullValue.FormatInvariant(Variable, Value);
+		}
 	}
 }
