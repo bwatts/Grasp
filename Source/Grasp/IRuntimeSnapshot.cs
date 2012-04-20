@@ -6,9 +6,17 @@ using System.Text;
 
 namespace Grasp
 {
+	/// <summary>
+	/// Describes the state of a <see cref="GraspRuntime"/> at a particular point in time
+	/// </summary>
 	[ContractClass(typeof(IRuntimeSnapshotContract))]
 	public interface IRuntimeSnapshot
 	{
+		/// <summary>
+		/// Gets the value of the specified variable
+		/// </summary>
+		/// <param name="variable">The variable for which to retrieve the value</param>
+		/// <returns>The value associated with the variable</returns>
 		object GetValue(Variable variable);
 	}
 
