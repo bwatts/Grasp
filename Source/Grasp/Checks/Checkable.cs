@@ -1640,5 +1640,24 @@ namespace Grasp.Checks
 			return check.Matches(Resources.ZipCodePattern);
 		}
 		#endregion
+
+		/// <summary>
+		/// Checks if the target data is assignable to the specified type
+		/// </summary>
+		/// <param name="check">The base check</param>
+		/// <param name="type">The type to check for assignability</param>
+		/// <returns>A check which applies the base check and this check</returns>
+		public static Check<T> IsAssignableTo<T>(this ICheckable<T> check, Type type)
+		{
+			Contract.Requires(check != null);
+			Contract.Requires(type != null);
+
+			return check.Passes(t => type == typeof(T) || IsAssignableTo(t, type));
+		}
+
+		private static bool IsAssignableTo<T>(T target, Type type)
+		{
+			return (typeof(T).IsValueType || target != null) && type.IsAssignableFrom(target.GetType());
+		}
 	}
 }
