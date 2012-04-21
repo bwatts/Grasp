@@ -668,5 +668,111 @@ namespace Grasp.Checks
 			return check.Passes(source => source != null && source.All(itemCheck));
 		}
 		#endregion
+
+		#region IsIn
+		/// <summary>
+		/// Checks if the target data is one of the specified values
+		/// </summary>
+		/// <param name="check">The base check</param>
+		/// <param name="values">The sequence in which to locate the target data</param>
+		/// <returns>A check which applies the base check and this check</returns>
+		public static Check<T> IsIn<T>(this ICheckable<T> check, IEnumerable<T> values)
+		{
+			Contract.Requires(check != null);
+			Contract.Requires(values != null);
+
+			return check.Passes(t => values.Contains(t));
+		}
+
+		/// <summary>
+		/// Checks if the target data is one of the specified values
+		/// </summary>
+		/// <param name="check">The base check</param>
+		/// <param name="values">The sequence in which to locate the target data</param>
+		/// <returns>A check which applies the base check and this check</returns>
+		public static Check<T> IsIn<T>(this ICheckable<T> check, params T[] values)
+		{
+			Contract.Requires(check != null);
+			Contract.Requires(values != null);
+
+			return check.IsIn(values as IEnumerable<T>);
+		}
+
+		/// <summary>
+		/// Checks if the target data is one of the specified values using the specified comparer
+		/// </summary>
+		/// <param name="check">The base check</param>
+		/// <param name="comparer">The equality comparer which compares values</param>
+		/// <param name="values">The sequence in which to locate the target data</param>
+		/// <returns>A check which applies the base check and this check</returns>
+		public static Check<T> IsIn<T>(this ICheckable<T> check, IEqualityComparer<T> comparer, IEnumerable<T> values)
+		{
+			Contract.Requires(check != null);
+			Contract.Requires(comparer != null);
+			Contract.Requires(values != null);
+
+			return check.Passes(t => values.Contains(t, comparer));
+		}
+
+		/// <summary>
+		/// Checks if the target data is one of the specified values using the specified comparer
+		/// </summary>
+		/// <param name="check">The base check</param>
+		/// <param name="comparer">The equality comparer which compares values</param>
+		/// <param name="values">The sequence in which to locate the target data</param>
+		/// <returns>A check which applies the base check and this check</returns>
+		public static Check<T> IsIn<T>(this ICheckable<T> check, IEqualityComparer<T> comparer, params T[] values)
+		{
+			Contract.Requires(check != null);
+			Contract.Requires(comparer != null);
+			Contract.Requires(values != null);
+
+			return check.IsIn(comparer, values as IEnumerable<T>);
+		}
+
+		/// <summary>
+		/// Checks if the target data is in the results of the specified query
+		/// </summary>
+		/// <param name="check">The base check</param>
+		/// <param name="query">The query in which to locate the target data</param>
+		/// <returns>A check which applies the base check and this check</returns>
+		public static Check<T> IsIn<T>(this ICheckable<T> check, IQueryable<T> query)
+		{
+			Contract.Requires(check != null);
+			Contract.Requires(query != null);
+
+			return check.Passes(t => query.Contains(t));
+		}
+
+		/// <summary>
+		/// Checks if the target data is in the results of the specified query
+		/// </summary>
+		/// <param name="check">The base check</param>
+		/// <param name="comparer">The equality comparer which compares values</param>
+		/// <param name="query">The query in which to locate the target data</param>
+		/// <returns>A check which applies the base check and this check</returns>
+		public static Check<T> IsIn<T>(this ICheckable<T> check, IEqualityComparer<T> comparer, IQueryable<T> query)
+		{
+			Contract.Requires(check != null);
+			Contract.Requires(comparer != null);
+			Contract.Requires(query != null);
+
+			return check.Passes(t => query.Contains(t, comparer));
+		}
+
+		/// <summary>
+		/// Checks if the target data is in the specified collection
+		/// </summary>
+		/// <param name="check">The base check</param>
+		/// <param name="values">The collection in which to locate the target data</param>
+		/// <returns>A check which applies the base check and this check</returns>
+		public static Check<T> IsIn<T>(this ICheckable<T> check, ICollection<T> values)
+		{
+			Contract.Requires(check != null);
+			Contract.Requires(values != null);
+
+			return check.Passes(t => values.Contains(t));
+		}
+		#endregion
 	}
 }
