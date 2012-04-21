@@ -5,6 +5,8 @@ using System.Globalization;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
+using System.Text.RegularExpressions;
+using Cloak.Linq;
 
 namespace Grasp.Checks
 {
@@ -1500,6 +1502,142 @@ namespace Grasp.Checks
 			Contract.Requires(value != null);
 
 			return check.Passes(s => s != null && s.Contains(value));
+		}
+		#endregion
+
+		#region String Patterns
+		/// <summary>
+		/// Checks if the target data matches the specified regular expression
+		/// </summary>
+		/// <param name="check">The base check</param>
+		/// <param name="regex">The regular expression to apply</param>
+		/// <returns>A check which applies the base check and this check</returns>
+		public static Check<string> Matches(this ICheckable<string> check, Regex regex)
+		{
+			Contract.Requires(check != null);
+			Contract.Requires(regex != null);
+
+			return check.Passes(s => s != null && regex.IsMatch(s));
+		}
+
+		/// <summary>
+		/// Checks if the target data matches the specified regular expression pattern
+		/// </summary>
+		/// <param name="check">The base check</param>
+		/// <param name="pattern">The regular expression pattern to apply</param>
+		/// <returns>A check which applies the base check and this check</returns>
+		public static Check<string> Matches(this ICheckable<string> check, string pattern)
+		{
+			Contract.Requires(check != null);
+			Contract.Requires(pattern != null);
+
+			return check.Passes(s => s != null && Regex.IsMatch(s, pattern));
+		}
+
+		/// <summary>
+		/// Checks if the target data matches the specified regular expression pattern using the specified options
+		/// </summary>
+		/// <param name="check">The base check</param>
+		/// <param name="pattern">The regular expression pattern to apply</param>
+		/// <param name="options">The options to use when matching</param>
+		/// <returns>A check which applies the base check and this check</returns>
+		public static Check<string> Matches(this ICheckable<string> check, string pattern, RegexOptions options)
+		{
+			Contract.Requires(check != null);
+			Contract.Requires(pattern != null);
+
+			return check.Passes(s => s != null && Regex.IsMatch(s, pattern, options));
+		}
+
+		/// <summary>
+		/// Checks if the target data is a credit card number
+		/// </summary>
+		/// <param name="check">The base check</param>
+		/// <returns>A check which applies the base check and this check</returns>
+		public static Check<string> IsCreditCardNumber(this ICheckable<string> check)
+		{
+			Contract.Requires(check != null);
+
+			return check.Passes(target =>
+			{
+				// Adapted from http://mikehadlow.blogspot.com/2008/05/credit-card-validation-with-linq.html
+
+				var valid = target != null && target.Length >= 13 && target.Length <= 18;
+
+				if(valid)
+				{
+					var digits =
+						(from character in target.Reverse()
+						 where Char.IsDigit(character)
+						 select Int32.Parse(character.ToString()))
+						 .ToList();
+
+					if(digits.Count != target.Length)
+					{
+						// Invalid character
+						valid = false;
+					}
+					else
+					{
+						var doubleEvenSum = digits
+							.AtEvenPositions()
+							.SelectMany(digit => new[] { (digit * 2) % 10, (digit * 2) / 10 })
+							.Sum();
+
+						valid = (digits.AtOddPositions().Sum() + doubleEvenSum) % 10 == 0;
+					}
+				}
+
+				return valid;
+			});
+		}
+
+		/// <summary>
+		/// Checks if the target data is a credit card CVV
+		/// </summary>
+		/// <param name="check">The base check</param>
+		/// <returns>A check which applies the base check and this check</returns>
+		public static Check<string> IsCreditCardCvv(this ICheckable<string> check)
+		{
+			Contract.Requires(check != null);
+
+			return check.Matches(Resources.CreditCardCvvPattern);
+		}
+
+		/// <summary>
+		/// Checks if the target data is a phone number
+		/// </summary>
+		/// <param name="check">The base check</param>
+		/// <returns>A check which applies the base check and this check</returns>
+		public static Check<string> IsPhoneNumber(this ICheckable<string> check)
+		{
+			Contract.Requires(check != null);
+
+			return check.Matches(Resources.PhoneNumberPattern);
+		}
+
+		/// <summary>
+		/// Checks if the target data is a social security number
+		/// </summary>
+		/// <param name="check">The base check</param>
+		/// <returns>A check which applies the base check and this check</returns>
+		public static Check<string> IsSocialSecurityNumber(this ICheckable<string> check)
+		{
+			Contract.Requires(check != null);
+
+			return check.Matches(Resources.SocialSecurityNumberPattern);
+		}
+
+		/// <summary>
+		/// Checks if the target data is a ZIP code
+		/// </summary>
+		/// <param name="check">The base check</param>
+		/// <returns>A check which applies the base check and this check</returns>
+		public static Check<string> IsZipCode(this ICheckable<string> check)
+		{
+			Contract.Requires(check != null);
+
+			return check.Matches(Resources.ZipCodePattern);
 		}
 		#endregion
 	}
