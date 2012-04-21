@@ -130,8 +130,14 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Checks\Rules\CheckRule.cs" />
+    <Compile Include="Checks\Rules\BinaryRule.cs" />
     <Compile Include="Checks\Rules\ConstantRule.cs" />
     <Compile Include="Checks\Rules\LambdaRule.cs" />
+    <Compile Include="Checks\Rules\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Checks\Rules\Rule.cs" />
     <Compile Include="Checks\Rules\RuleType.cs" />
     <Compile Include="Checks\Specification.cs" />
@@ -156,6 +162,10 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Checks\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Checks\Rules\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
