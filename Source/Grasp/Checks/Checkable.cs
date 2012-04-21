@@ -1161,7 +1161,6 @@ namespace Grasp.Checks
 		/// <param name="minimum">The minimum value in the range</param>
 		/// <param name="maximum">The maximum value in the range</param>
 		/// <param name="boundaryType">The specification of how to handle the minimum and maximum values</param>
-		/// <param name="value">The value to compare</param>
 		/// <returns>A check which applies the base check and this check</returns>
 		public static Check<T> IsBetween<T>(this ICheckable<T> check, T minimum, T maximum, BoundaryType boundaryType) where T : IComparable<T>
 		{
@@ -1216,7 +1215,6 @@ namespace Grasp.Checks
 		/// <param name="check">The base check</param>
 		/// <param name="minimum">The minimum value in the range</param>
 		/// <param name="maximum">The maximum value in the range</param>
-		/// <param name="value">The value to compare</param>
 		/// <returns>A check which applies the base check and this check</returns>
 		public static Check<T> IsBetween<T>(this ICheckable<T> check, T minimum, T maximum) where T : IComparable<T>
 		{

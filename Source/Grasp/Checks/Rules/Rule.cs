@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
 
@@ -14,7 +15,7 @@ namespace Grasp.Checks.Rules
 	{
 		#region Check
 		/// <summary>
-		/// Creates a <see cref="Grasp.Checks.Rules.CheckRule"/> that represents a call to a check method
+		/// Creates a <see cref="Grasp.Checks.Rules.CheckRule"/> that represents the application of a check method to the target data
 		/// </summary>
 		/// <param name="method">The method which applies the check</param>
 		/// <param name="checkArguments">The arguments to the check method (without the base check)</param>
@@ -28,7 +29,7 @@ namespace Grasp.Checks.Rules
 		}
 
 		/// <summary>
-		/// Creates a <see cref="Grasp.Checks.Rules.CheckRule"/> that represents a call to a check method
+		/// Creates a <see cref="Grasp.Checks.Rules.CheckRule"/> that represents the application of a check method to the target data
 		/// </summary>
 		/// <param name="method">The method which applies the check</param>
 		/// <param name="checkArguments">The arguments to the check method (without the base check)</param>
@@ -50,6 +51,20 @@ namespace Grasp.Checks.Rules
 		public static ConstantRule Constant(bool passes)
 		{
 			return new ConstantRule(passes);
+		}
+		#endregion
+
+		#region Lambda
+		/// <summary>
+		/// Creates a <see cref="Grasp.Checks.Rules.LambdaRule"/> that represents a constant value
+		/// </summary>
+		/// <param name="lambda">The lambda expression applied to the target data</param>
+		/// <returns>A <see cref="Grasp.Checks.Rules.LambdaRule"/> with the specified lambda expression</returns>
+		public static LambdaRule Lambda(LambdaExpression lambda)
+		{
+			Contract.Requires(lambda != null);
+
+			return new LambdaRule(lambda);
 		}
 		#endregion
 

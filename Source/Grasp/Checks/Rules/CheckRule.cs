@@ -8,7 +8,7 @@ using System.Text;
 namespace Grasp.Checks.Rules
 {
 	/// <summary>
-	/// Represents a call to a check method
+	/// Represents the application of a check method to the target data
 	/// </summary>
 	public sealed class CheckRule : Rule
 	{

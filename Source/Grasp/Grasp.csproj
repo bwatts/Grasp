@@ -131,6 +131,7 @@
     </Compile>
     <Compile Include="Checks\Rules\CheckRule.cs" />
     <Compile Include="Checks\Rules\ConstantRule.cs" />
+    <Compile Include="Checks\Rules\LambdaRule.cs" />
     <Compile Include="Checks\Rules\Rule.cs" />
     <Compile Include="Checks\Rules\RuleType.cs" />
     <Compile Include="Checks\Specification.cs" />
