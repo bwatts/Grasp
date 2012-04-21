@@ -142,5 +142,31 @@ namespace Grasp.Checks
 			}
 		}
 		#endregion
+
+		#region Boolean
+		/// <summary>
+		/// Checks whether the target data is true
+		/// </summary>
+		/// <param name="check">The base check</param>
+		/// <returns>A check which applies the base check and this check</returns>
+		public static Check<bool> IsTrue(this ICheckable<bool> check)
+		{
+			Contract.Requires(check != null);
+
+			return check.Passes(t => t);
+		}
+
+		/// <summary>
+		/// Checks whether the target data is false
+		/// </summary>
+		/// <param name="check">The base check</param>
+		/// <returns>A check which applies the base check and this check</returns>
+		public static Check<bool> IsFalse(this ICheckable<bool> check)
+		{
+			Contract.Requires(check != null);
+
+			return check.Fails(t => t);
+		}
+		#endregion
 	}
 }
