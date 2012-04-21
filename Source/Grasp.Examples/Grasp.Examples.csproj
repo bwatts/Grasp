@@ -147,6 +147,13 @@
     <Compile Include="Checks\ImplicitlyConvertCheckToBoolean.cs" />
     <Compile Include="Checks\CreateThatCheckWithDefaultResult.cs" />
     <Compile Include="Checks\CreateThatCheck.cs" />
+    <Compile Include="Checks\Rules\MakeBinaryRuleForNonBinaryType.cs" />
+    <Compile Include="Checks\Rules\MakeBinaryRuleForExclusiveOr.cs" />
+    <Compile Include="Checks\Rules\MakeBinaryRuleForOr.cs" />
+    <Compile Include="Checks\Rules\MakeBinaryRuleForAnd.cs" />
+    <Compile Include="Checks\Rules\CreateExclusiveOrRule.cs" />
+    <Compile Include="Checks\Rules\CreateOrRule.cs" />
+    <Compile Include="Checks\Rules\CreateAndRule.cs" />
     <Compile Include="Checks\Rules\CreateLambdaRule.cs" />
     <Compile Include="Checks\Rules\CreateConstantRule.cs" />
     <Compile Include="Checks\Rules\CreateCheckRuleWithArguments.cs" />
