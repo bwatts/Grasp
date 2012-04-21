@@ -572,5 +572,101 @@ namespace Grasp.Checks
 			return check.Passes(n => n >= 0 && n <= 1);
 		}
 		#endregion
+
+		#region Enumerable
+		/// <summary>
+		/// Checks if the target data contains the specified value
+		/// </summary>
+		/// <param name="check">The base check</param>
+		/// <param name="value">The value to locate in the sequence</param>
+		/// <returns>A check which applies the base check and this check</returns>
+		public static Check<IEnumerable<T>> Contains<T>(this ICheckable<IEnumerable<T>> check, T value)
+		{
+			Contract.Requires(check != null);
+
+			return check.Passes(source => source != null && source.Contains(value));
+		}
+
+		/// <summary>
+		/// Checks if the target data contains the specified value using the specified comparer
+		/// </summary>
+		/// <param name="check">The base check</param>
+		/// <param name="value">The value to locate in the sequence</param>
+		/// <param name="comparer">The equality comparer which compares values</param>
+		/// <returns>A check which applies the base check and this check</returns>
+		public static Check<IEnumerable<T>> Contains<T>(this ICheckable<IEnumerable<T>> check, T value, IEqualityComparer<T> comparer)
+		{
+			Contract.Requires(check != null);
+			Contract.Requires(comparer != null);
+
+			return check.Passes(source => source != null && source.Contains(value, comparer));
+		}
+
+		/// <summary>
+		/// Checks if the target data has no items
+		/// </summary>
+		/// <param name="check">The base check</param>
+		/// <returns>A check which applies the base check and this check</returns>
+		public static Check<IEnumerable<T>> HasNone<T>(this ICheckable<IEnumerable<T>> check)
+		{
+			Contract.Requires(check != null);
+
+			return check.Passes(source => source != null && !source.Any());
+		}
+
+		/// <summary>
+		/// Checks if the target data has no items which match the specified item check
+		/// </summary>
+		/// <param name="check">The base check</param>
+		/// <param name="itemCheck">The function which checks each item</param>
+		/// <returns>A check which applies the base check and this check</returns>
+		public static Check<IEnumerable<T>> HasNone<T>(this ICheckable<IEnumerable<T>> check, Func<T, bool> itemCheck)
+		{
+			Contract.Requires(check != null);
+			Contract.Requires(itemCheck != null);
+
+			return check.Passes(source => source != null && !source.Any(itemCheck));
+		}
+
+		/// <summary>
+		/// Checks if the target data has at least one item
+		/// </summary>
+		/// <param name="check">The base check</param>
+		/// <returns>A check which applies the base check and this check</returns>
+		public static Check<IEnumerable<T>> HasAny<T>(this ICheckable<IEnumerable<T>> check)
+		{
+			Contract.Requires(check != null);
+
+			return check.Passes(source => source != null && source.Any());
+		}
+
+		/// <summary>
+		/// Checks if the target data has at least one item which matches the specified item check
+		/// </summary>
+		/// <param name="check">The base check</param>
+		/// <param name="itemCheck">The function which checks each item</param>
+		/// <returns>A check which applies the base check and this check</returns>
+		public static Check<IEnumerable<T>> HasAny<T>(this ICheckable<IEnumerable<T>> check, Func<T, bool> itemCheck)
+		{
+			Contract.Requires(check != null);
+			Contract.Requires(itemCheck != null);
+
+			return check.Passes(source => source != null && source.Any(itemCheck));
+		}
+
+		/// <summary>
+		/// Checks if the target data has all items which matches the specified item check
+		/// </summary>
+		/// <param name="check">The base check</param>
+		/// <param name="itemCheck">The function which checks each item</param>
+		/// <returns>A check which applies the base check and this check</returns>
+		public static Check<IEnumerable<T>> HasAll<T>(this ICheckable<IEnumerable<T>> check, Func<T, bool> itemCheck)
+		{
+			Contract.Requires(check != null);
+			Contract.Requires(itemCheck != null);
+
+			return check.Passes(source => source != null && source.All(itemCheck));
+		}
+		#endregion
 	}
 }
