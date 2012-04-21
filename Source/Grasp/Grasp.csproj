@@ -121,6 +121,12 @@
     <Compile Include="Checks\BoundaryType.cs" />
     <Compile Include="Checks\Check.cs" />
     <Compile Include="Checks\Checkable.cs" />
+    <Compile Include="Checks\Conditions\ConditionKey.cs" />
+    <Compile Include="Checks\Conditions\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Checks\ICheckable.cs" />
     <Compile Include="Checks\ISpecifiable.cs" />
     <Compile Include="Checks\ISpecificationProvider.cs" />
@@ -160,6 +166,10 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Analysis\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Checks\Conditions\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
