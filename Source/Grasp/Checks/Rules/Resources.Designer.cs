@@ -61,6 +61,15 @@ namespace Grasp.Checks.Rules {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Member type {0} is not supported.
+        /// </summary>
+        internal static string MemberTypeNotSupported {
+            get {
+                return ResourceManager.GetString("MemberTypeNotSupported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Rule type {0} is not a binary type.
         /// </summary>
         internal static string NotBinaryType {

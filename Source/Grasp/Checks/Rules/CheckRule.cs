@@ -29,7 +29,7 @@ namespace Grasp.Checks.Rules
 		/// <summary>
 		/// Gets the check method
 		/// </summary>
-		public MethodInfo Method { get; private set; }
+		public new MethodInfo Method { get; private set; }
 
 		/// <summary>
 		/// Gets the arguments to the check method (without the base check)

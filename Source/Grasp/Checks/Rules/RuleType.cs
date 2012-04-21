@@ -46,14 +46,14 @@ namespace Grasp.Checks.Rules
 		Not,
 
 		/// <summary>
-		/// A rule which applies a rule to a field of the target data
-		/// </summary>
-		Field,
-
-		/// <summary>
 		/// A rule which applies a rule to a property of the target data
 		/// </summary>
 		Property,
+
+		/// <summary>
+		/// A rule which applies a rule to a field of the target data
+		/// </summary>
+		Field,
 
 		/// <summary>
 		/// A rule which applies a rule to the return value of a method of the target data

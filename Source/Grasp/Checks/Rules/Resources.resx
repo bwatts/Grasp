@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="MemberTypeNotSupported" xml:space="preserve">
+    <value>Member type {0} is not supported</value>
+  </data>
   <data name="NotBinaryType" xml:space="preserve">
     <value>Rule type {0} is not a binary type</value>
   </data>

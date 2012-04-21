@@ -150,6 +150,85 @@ namespace Grasp.Checks.Rules
 		}
 		#endregion
 
+		#region Members
+		/// <summary>
+		/// Creates a <see cref="Grasp.Checks.Rules.MemberRule"/> that represents the application of a rule to the specified property of the target data
+		/// </summary>
+		/// <param name="property">The property to which the rule is applied</param>
+		/// <param name="rule">The rule to apply to the value of the field</param>
+		/// <returns>A <see cref="Grasp.Checks.Rules.MemberRule"/> with a type of <see cref="RuleType.Property"/> and the specified property and rule</returns>
+		public static MemberRule Property(PropertyInfo property, Rule rule)
+		{
+			Contract.Requires(property != null);
+			Contract.Requires(rule != null);
+
+			return new MemberRule(RuleType.Property, property, property.PropertyType, rule);
+		}
+
+		/// <summary>
+		/// Creates a <see cref="Grasp.Checks.Rules.MemberRule"/> that represents the application of a rule to the specified field of the target data
+		/// </summary>
+		/// <param name="field">The field to which the rule is applied</param>
+		/// <param name="rule">The rule to apply to the value of the field</param>
+		/// <returns>A <see cref="Grasp.Checks.Rules.MemberRule"/> with a type of <see cref="RuleType.Field"/> and the specified field and rule</returns>
+		public static MemberRule Field(FieldInfo field, Rule rule)
+		{
+			Contract.Requires(field != null);
+			Contract.Requires(rule != null);
+
+			return new MemberRule(RuleType.Field, field, field.FieldType, rule);
+		}
+
+		/// <summary>
+		/// Creates a <see cref="Grasp.Checks.Rules.MemberRule"/> that represents the application of a rule to the return value of the specified method of the target data
+		/// </summary>
+		/// <param name="method">The method to which the rule is applied</param>
+		/// <param name="rule">The rule to apply to the return value of the method</param>
+		/// <returns>A <see cref="Grasp.Checks.Rules.MemberRule"/> with a type of <see cref="RuleType.Method"/> and the specified method and rule</returns>
+		public static MemberRule Method(MethodInfo method, Rule rule)
+		{
+			Contract.Requires(method != null);
+			Contract.Requires(rule != null);
+
+			return new MemberRule(RuleType.Method, method, method.ReturnType, rule);
+		}
+
+		/// <summary>
+		/// Creates a <see cref="Grasp.Checks.Rules.MemberRule"/>, given the specified member, by calling the appropriate factory method
+		/// </summary>
+		/// <param name="member">The member to which the rule is applied</param>
+		/// <param name="rule">The rule to apply to the member</param>
+		/// <returns>A <see cref="Grasp.Checks.Rules.MemberRule"/> with the specified member and rule</returns>
+		public static MemberRule MakeMember(MemberInfo member, Rule rule)
+		{
+			Contract.Requires(member != null);
+			Contract.Requires(rule != null);
+
+			var property = member as PropertyInfo;
+
+			if(property != null)
+			{
+				return Property(property, rule);
+			}
+
+			var field = member as FieldInfo;
+
+			if(field != null)
+			{
+				return Field(field, rule);
+			}
+
+			var method = member as MethodInfo;
+
+			if(method != null)
+			{
+				return Method(method, rule);
+			}
+
+			throw new ArgumentException(Resources.MemberTypeNotSupported.FormatInvariant(member.MemberType), "member");
+		}
+		#endregion
+
 		/// <summary>
 		/// When implemented by a derived class, gets the type of this node in the tree
 		/// </summary>
