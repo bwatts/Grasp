@@ -136,6 +136,18 @@ namespace Grasp.Checks.Rules
 					throw new ArgumentOutOfRangeException("binaryType", Resources.NotBinaryType.FormatInvariant(binaryType));
 			}
 		}
+
+		/// <summary>
+		/// Creates a <see cref="Grasp.Checks.Rules.NotRule"/> that represents a logical NOT of the result of the specified operand
+		/// </summary>
+		/// <param name="rule">The operand of the NOT</param>
+		/// <returns>A <see cref="Grasp.Checks.Rules.NotRule"/> with the specified operand</returns>
+		public static NotRule Not(Rule rule)
+		{
+			Contract.Requires(rule != null);
+
+			return new NotRule(rule);
+		}
 		#endregion
 
 		/// <summary>

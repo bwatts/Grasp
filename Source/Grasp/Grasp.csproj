@@ -133,6 +133,7 @@
     <Compile Include="Checks\Rules\BinaryRule.cs" />
     <Compile Include="Checks\Rules\ConstantRule.cs" />
     <Compile Include="Checks\Rules\LambdaRule.cs" />
+    <Compile Include="Checks\Rules\NotRule.cs" />
     <Compile Include="Checks\Rules\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
