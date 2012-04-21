@@ -34,6 +34,9 @@
     <Reference Include="Castle.Core">
       <HintPath>..\packages\Castle.Core.2.5.2\lib\NET35\Castle.Core.dll</HintPath>
     </Reference>
+    <Reference Include="Cloak, Version=0.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Cloak.0.4.1.0\lib\net40\Cloak.dll</HintPath>
+    </Reference>
     <Reference Include="Cloak.NUnit">
       <HintPath>..\packages\Cloak.NUnit.0.4.0.0\lib\net40\Cloak.NUnit.dll</HintPath>
     </Reference>
@@ -144,6 +147,8 @@
     <Compile Include="Checks\ImplicitlyConvertCheckToBoolean.cs" />
     <Compile Include="Checks\CreateThatCheckWithDefaultResult.cs" />
     <Compile Include="Checks\CreateThatCheck.cs" />
+    <Compile Include="Checks\Rules\CreateCheckRuleWithArguments.cs" />
+    <Compile Include="Checks\Rules\CreateCheckRule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

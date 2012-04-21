@@ -917,34 +917,516 @@
       <pure />
       <requires>expression != null</requires>
     </member>
-    <member name="P:Cloak.Linq.Query`1.System#Linq#IQueryable#ElementType">
-      <getter>
-        <ensures inheritedFrom="M:System.Linq.IQueryable.get_ElementType" inheritedFromTypeName="IQueryable">Contract.Result&lt;Type&gt;() != null</ensures>
-      </getter>
+    <member name="T:Cloak.Reflection.Reflect">
+      <summary>
+            Strongly-typed reflection using <see cref="T:System.Action" /> and <see cref="T:System.Func`1" /> delegates and the <see cref="N:System.Linq.Expressions" /> namespace
+            </summary>
     </member>
-    <member name="M:Cloak.Linq.Query`1.System#Linq#IQueryable#get_Expression">
-      <ensures inheritedFrom="M:System.Linq.IQueryable.get_Expression" inheritedFromTypeName="IQueryable">Contract.Result&lt;Expression&gt;() != null</ensures>
+    <member name="M:Cloak.Reflection.Reflect.Action(System.Action)">
+      <summary>
+            Gets the method encapsulated by the specified delegate
+            </summary>
+      <param name="action">The delegate which encapsulates the method</param>
+      <returns>The method encapsulated by the specified delegate</returns>
+      <requires>action != null</requires>
     </member>
-    <member name="M:Cloak.Linq.Query`1.System#Linq#IQueryable#get_ElementType">
-      <ensures inheritedFrom="M:System.Linq.IQueryable.get_ElementType" inheritedFromTypeName="IQueryable">Contract.Result&lt;Type&gt;() != null</ensures>
+    <member name="M:Cloak.Reflection.Reflect.Action``1(System.Action{``0})">
+      <summary>
+            Gets the method encapsulated by the specified delegate
+            </summary>
+      <param name="action">The delegate which encapsulates the method</param>
+      <returns>The method encapsulated by the specified delegate</returns>
+      <requires>action != null</requires>
     </member>
-    <member name="P:Cloak.Linq.Query`1.System#Linq#IQueryable#Provider">
-      <getter>
-        <ensures inheritedFrom="M:System.Linq.IQueryable.get_Provider" inheritedFromTypeName="IQueryable">Contract.Result&lt;IQueryProvider&gt;() != null</ensures>
-      </getter>
+    <member name="M:Cloak.Reflection.Reflect.Action``2(System.Action{``0,``1})">
+      <summary>
+            Gets the method encapsulated by the specified delegate
+            </summary>
+      <param name="action">The delegate which encapsulates the method</param>
+      <returns>The method encapsulated by the specified delegate</returns>
+      <requires>action != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Action``3(System.Action{``0,``1,``2})">
+      <summary>
+            Gets the method encapsulated by the specified delegate
+            </summary>
+      <param name="action">The delegate which encapsulates the method</param>
+      <returns>The method encapsulated by the specified delegate</returns>
+      <requires>action != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Action``4(System.Action{``0,``1,``2,``3})">
+      <summary>
+            Gets the method encapsulated by the specified delegate
+            </summary>
+      <param name="action">The delegate which encapsulates the method</param>
+      <returns>The method encapsulated by the specified delegate</returns>
+      <requires>action != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Action``5(System.Action{``0,``1,``2,``3,``4})">
+      <summary>
+            Gets the method encapsulated by the specified delegate
+            </summary>
+      <param name="action">The delegate which encapsulates the method</param>
+      <returns>The method encapsulated by the specified delegate</returns>
+      <requires>action != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Action``6(System.Action{``0,``1,``2,``3,``4,``5})">
+      <summary>
+            Gets the method encapsulated by the specified delegate
+            </summary>
+      <param name="action">The delegate which encapsulates the method</param>
+      <returns>The method encapsulated by the specified delegate</returns>
+      <requires>action != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Action``7(System.Action{``0,``1,``2,``3,``4,``5,``6})">
+      <summary>
+            Gets the method encapsulated by the specified delegate
+            </summary>
+      <param name="action">The delegate which encapsulates the method</param>
+      <returns>The method encapsulated by the specified delegate</returns>
+      <requires>action != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Action``8(System.Action{``0,``1,``2,``3,``4,``5,``6,``7})">
+      <summary>
+            Gets the method encapsulated by the specified delegate
+            </summary>
+      <param name="action">The delegate which encapsulates the method</param>
+      <returns>The method encapsulated by the specified delegate</returns>
+      <requires>action != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Action``9(System.Action{``0,``1,``2,``3,``4,``5,``6,``7,``8})">
+      <summary>
+            Gets the method encapsulated by the specified delegate
+            </summary>
+      <param name="action">The delegate which encapsulates the method</param>
+      <returns>The method encapsulated by the specified delegate</returns>
+      <requires>action != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Action``10(System.Action{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9})">
+      <summary>
+            Gets the method encapsulated by the specified delegate
+            </summary>
+      <param name="action">The delegate which encapsulates the method</param>
+      <returns>The method encapsulated by the specified delegate</returns>
+      <requires>action != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Action``11(System.Action{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10})">
+      <summary>
+            Gets the method encapsulated by the specified delegate
+            </summary>
+      <param name="action">The delegate which encapsulates the method</param>
+      <returns>The method encapsulated by the specified delegate</returns>
+      <requires>action != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Action``12(System.Action{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11})">
+      <summary>
+            Gets the method encapsulated by the specified delegate
+            </summary>
+      <param name="action">The delegate which encapsulates the method</param>
+      <returns>The method encapsulated by the specified delegate</returns>
+      <requires>action != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Action``13(System.Action{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12})">
+      <summary>
+            Gets the method encapsulated by the specified delegate
+            </summary>
+      <param name="action">The delegate which encapsulates the method</param>
+      <returns>The method encapsulated by the specified delegate</returns>
+      <requires>action != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Action``14(System.Action{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13})">
+      <summary>
+            Gets the method encapsulated by the specified delegate
+            </summary>
+      <param name="action">The delegate which encapsulates the method</param>
+      <returns>The method encapsulated by the specified delegate</returns>
+      <requires>action != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Action``15(System.Action{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13,``14})">
+      <summary>
+            Gets the method encapsulated by the specified delegate
+            </summary>
+      <param name="action">The delegate which encapsulates the method</param>
+      <returns>The method encapsulated by the specified delegate</returns>
+      <requires>action != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Action``16(System.Action{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13,``14,``15})">
+      <summary>
+            Gets the method encapsulated by the specified delegate
+            </summary>
+      <param name="action">The delegate which encapsulates the method</param>
+      <returns>The method encapsulated by the specified delegate</returns>
+      <requires>action != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Func``1(System.Func{``0})">
+      <summary>
+            Gets the method encapsulated by the specified delegate
+            </summary>
+      <param name="func">The delegate which encapsulates the method</param>
+      <returns>The method encapsulated by the specified delegate</returns>
+      <requires>func != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Func``2(System.Func{``0,``1})">
+      <summary>
+            Gets the method encapsulated by the specified delegate
+            </summary>
+      <param name="func">The delegate which encapsulates the method</param>
+      <returns>The method encapsulated by the specified delegate</returns>
+      <requires>func != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Func``3(System.Func{``0,``1,``2})">
+      <summary>
+            Gets the method encapsulated by the specified delegate
+            </summary>
+      <param name="func">The delegate which encapsulates the method</param>
+      <returns>The method encapsulated by the specified delegate</returns>
+      <requires>func != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Func``4(System.Func{``0,``1,``2,``3})">
+      <summary>
+            Gets the method encapsulated by the specified delegate
+            </summary>
+      <param name="func">The delegate which encapsulates the method</param>
+      <returns>The method encapsulated by the specified delegate</returns>
+      <requires>func != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Func``5(System.Func{``0,``1,``2,``3,``4})">
+      <summary>
+            Gets the method encapsulated by the specified delegate
+            </summary>
+      <param name="func">The delegate which encapsulates the method</param>
+      <returns>The method encapsulated by the specified delegate</returns>
+      <requires>func != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Func``6(System.Func{``0,``1,``2,``3,``4,``5})">
+      <summary>
+            Gets the method encapsulated by the specified delegate
+            </summary>
+      <param name="func">The delegate which encapsulates the method</param>
+      <returns>The method encapsulated by the specified delegate</returns>
+      <requires>func != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Func``7(System.Func{``0,``1,``2,``3,``4,``5,``6})">
+      <summary>
+            Gets the method encapsulated by the specified delegate
+            </summary>
+      <param name="func">The delegate which encapsulates the method</param>
+      <returns>The method encapsulated by the specified delegate</returns>
+      <requires>func != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Func``8(System.Func{``0,``1,``2,``3,``4,``5,``6,``7})">
+      <summary>
+            Gets the method encapsulated by the specified delegate
+            </summary>
+      <param name="func">The delegate which encapsulates the method</param>
+      <returns>The method encapsulated by the specified delegate</returns>
+      <requires>func != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Func``9(System.Func{``0,``1,``2,``3,``4,``5,``6,``7,``8})">
+      <summary>
+            Gets the method encapsulated by the specified delegate
+            </summary>
+      <param name="func">The delegate which encapsulates the method</param>
+      <returns>The method encapsulated by the specified delegate</returns>
+      <requires>func != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Func``10(System.Func{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9})">
+      <summary>
+            Gets the method encapsulated by the specified delegate
+            </summary>
+      <param name="func">The delegate which encapsulates the method</param>
+      <returns>The method encapsulated by the specified delegate</returns>
+      <requires>func != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Func``11(System.Func{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10})">
+      <summary>
+            Gets the method encapsulated by the specified delegate
+            </summary>
+      <param name="func">The delegate which encapsulates the method</param>
+      <returns>The method encapsulated by the specified delegate</returns>
+      <requires>func != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Func``12(System.Func{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11})">
+      <summary>
+            Gets the method encapsulated by the specified delegate
+            </summary>
+      <param name="func">The delegate which encapsulates the method</param>
+      <returns>The method encapsulated by the specified delegate</returns>
+      <requires>func != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Func``13(System.Func{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12})">
+      <summary>
+            Gets the method encapsulated by the specified delegate
+            </summary>
+      <param name="func">The delegate which encapsulates the method</param>
+      <returns>The method encapsulated by the specified delegate</returns>
+      <requires>func != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Func``14(System.Func{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13})">
+      <summary>
+            Gets the method encapsulated by the specified delegate
+            </summary>
+      <param name="func">The delegate which encapsulates the method</param>
+      <returns>The method encapsulated by the specified delegate</returns>
+      <requires>func != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Func``15(System.Func{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13,``14})">
+      <summary>
+            Gets the method encapsulated by the specified delegate
+            </summary>
+      <param name="func">The delegate which encapsulates the method</param>
+      <returns>The method encapsulated by the specified delegate</returns>
+      <requires>func != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Func``16(System.Func{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13,``14,``15})">
+      <summary>
+            Gets the method encapsulated by the specified delegate
+            </summary>
+      <param name="func">The delegate which encapsulates the method</param>
+      <returns>The method encapsulated by the specified delegate</returns>
+      <requires>func != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Func``17(System.Func{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13,``14,``15,``16})">
+      <summary>
+            Gets the method encapsulated by the specified delegate
+            </summary>
+      <param name="func">The delegate which encapsulates the method</param>
+      <returns>The method encapsulated by the specified delegate</returns>
+      <requires>func != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Member``1(System.Linq.Expressions.Expression{System.Func{``0}})">
+      <summary>
+            Gets the property or field accessed by the specified lambda expression
+            </summary>
+      <param name="expression">The expression which accesses the property or field</param>
+      <returns>The property or field accessed by the specified expression</returns>
+      <requires>expression != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Member``2(System.Linq.Expressions.Expression{System.Func{``0,``1}})">
+      <summary>
+            Gets the property or field accessed by the specified lambda expression
+            </summary>
+      <param name="expression">The expression which accesses the property or field</param>
+      <returns>The property or field accessed by the specified expression</returns>
+      <requires>expression != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Property``1(System.Linq.Expressions.Expression{System.Func{``0}})">
+      <summary>
+            Gets the property accessed by the specified lambda expression
+            </summary>
+      <param name="expression">The expression which accesses the property</param>
+      <returns>The property accessed by the specified expression</returns>
+      <requires>expression != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Property``2(System.Linq.Expressions.Expression{System.Func{``0,``1}})">
+      <summary>
+            Gets the property accessed by the specified lambda expression
+            </summary>
+      <param name="expression">The expression which accesses the property</param>
+      <returns>The property accessed by the specified expression</returns>
+      <requires>expression != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Field``1(System.Linq.Expressions.Expression{System.Func{``0}})">
+      <summary>
+            Gets the field accessed by the specified lambda expression
+            </summary>
+      <param name="expression">The expression which accesses the field</param>
+      <returns>The field accessed by the specified expression</returns>
+      <requires>expression != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Field``2(System.Linq.Expressions.Expression{System.Func{``0,``1}})">
+      <summary>
+            Gets the field accessed by the specified lambda expression
+            </summary>
+      <param name="expression">The expression which accesses the field</param>
+      <returns>The field accessed by the specified expression</returns>
+      <requires>expression != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Constructor``1(System.Linq.Expressions.Expression{System.Func{``0}})">
+      <summary>
+            Gets the constructor invoked by the specified lambda expression
+            </summary>
+      <param name="expression">The expression which invokes the constructor</param>
+      <returns>The constructor invoked by the specified expression</returns>
+      <requires>expression != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Constructor``2(System.Linq.Expressions.Expression{System.Func{``0,``1}})">
+      <summary>
+            Gets the constructor invoked by the specified lambda expression
+            </summary>
+      <param name="expression">The expression which invokes the constructor</param>
+      <returns>The constructor invoked by the specified expression</returns>
+      <requires>expression != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Constructor``3(System.Linq.Expressions.Expression{System.Func{``0,``1,``2}})">
+      <summary>
+            Gets the constructor invoked by the specified lambda expression
+            </summary>
+      <param name="expression">The expression which invokes the constructor</param>
+      <returns>The constructor invoked by the specified expression</returns>
+      <requires>expression != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Constructor``4(System.Linq.Expressions.Expression{System.Func{``0,``1,``2,``3}})">
+      <summary>
+            Gets the constructor invoked by the specified lambda expression
+            </summary>
+      <param name="expression">The expression which invokes the constructor</param>
+      <returns>The constructor invoked by the specified expression</returns>
+      <requires>expression != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Constructor``5(System.Linq.Expressions.Expression{System.Func{``0,``1,``2,``3,``4}})">
+      <summary>
+            Gets the constructor invoked by the specified lambda expression
+            </summary>
+      <param name="expression">The expression which invokes the constructor</param>
+      <returns>The constructor invoked by the specified expression</returns>
+      <requires>expression != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Constructor``6(System.Linq.Expressions.Expression{System.Func{``0,``1,``2,``3,``4,``5}})">
+      <summary>
+            Gets the constructor invoked by the specified lambda expression
+            </summary>
+      <param name="expression">The expression which invokes the constructor</param>
+      <returns>The constructor invoked by the specified expression</returns>
+      <requires>expression != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Constructor``7(System.Linq.Expressions.Expression{System.Func{``0,``1,``2,``3,``4,``5,``6}})">
+      <summary>
+            Gets the constructor invoked by the specified lambda expression
+            </summary>
+      <param name="expression">The expression which invokes the constructor</param>
+      <returns>The constructor invoked by the specified expression</returns>
+      <requires>expression != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Constructor``8(System.Linq.Expressions.Expression{System.Func{``0,``1,``2,``3,``4,``5,``6,``7}})">
+      <summary>
+            Gets the constructor invoked by the specified lambda expression
+            </summary>
+      <param name="expression">The expression which invokes the constructor</param>
+      <returns>The constructor invoked by the specified expression</returns>
+      <requires>expression != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Constructor``9(System.Linq.Expressions.Expression{System.Func{``0,``1,``2,``3,``4,``5,``6,``7,``8}})">
+      <summary>
+            Gets the constructor invoked by the specified lambda expression
+            </summary>
+      <param name="expression">The expression which invokes the constructor</param>
+      <returns>The constructor invoked by the specified expression</returns>
+      <requires>expression != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Constructor``10(System.Linq.Expressions.Expression{System.Func{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9}})">
+      <summary>
+            Gets the constructor invoked by the specified lambda expression
+            </summary>
+      <param name="expression">The expression which invokes the constructor</param>
+      <returns>The constructor invoked by the specified expression</returns>
+      <requires>expression != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Constructor``11(System.Linq.Expressions.Expression{System.Func{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10}})">
+      <summary>
+            Gets the constructor invoked by the specified lambda expression
+            </summary>
+      <param name="expression">The expression which invokes the constructor</param>
+      <returns>The constructor invoked by the specified expression</returns>
+      <requires>expression != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Constructor``12(System.Linq.Expressions.Expression{System.Func{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11}})">
+      <summary>
+            Gets the constructor invoked by the specified lambda expression
+            </summary>
+      <param name="expression">The expression which invokes the constructor</param>
+      <returns>The constructor invoked by the specified expression</returns>
+      <requires>expression != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Constructor``13(System.Linq.Expressions.Expression{System.Func{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12}})">
+      <summary>
+            Gets the constructor invoked by the specified lambda expression
+            </summary>
+      <param name="expression">The expression which invokes the constructor</param>
+      <returns>The constructor invoked by the specified expression</returns>
+      <requires>expression != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Constructor``14(System.Linq.Expressions.Expression{System.Func{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13}})">
+      <summary>
+            Gets the constructor invoked by the specified lambda expression
+            </summary>
+      <param name="expression">The expression which invokes the constructor</param>
+      <returns>The constructor invoked by the specified expression</returns>
+      <requires>expression != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Constructor``15(System.Linq.Expressions.Expression{System.Func{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13,``14}})">
+      <summary>
+            Gets the constructor invoked by the specified lambda expression
+            </summary>
+      <param name="expression">The expression which invokes the constructor</param>
+      <returns>The constructor invoked by the specified expression</returns>
+      <requires>expression != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Constructor``16(System.Linq.Expressions.Expression{System.Func{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13,``14,``15}})">
+      <summary>
+            Gets the constructor invoked by the specified lambda expression
+            </summary>
+      <param name="expression">The expression which invokes the constructor</param>
+      <returns>The constructor invoked by the specified expression</returns>
+      <requires>expression != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Constructor``17(System.Linq.Expressions.Expression{System.Func{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13,``14,``15,``16}})">
+      <summary>
+            Gets the constructor invoked by the specified lambda expression
+            </summary>
+      <param name="expression">The expression which invokes the constructor</param>
+      <returns>The constructor invoked by the specified expression</returns>
+      <requires>expression != null</requires>
+    </member>
+    <member name="T:Cloak.Reflection.Resources">
+      <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+    </member>
+    <member name="P:Cloak.Reflection.Resources.ResourceManager">
+      <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+    </member>
+    <member name="P:Cloak.Reflection.Resources.Culture">
+      <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+    </member>
+    <member name="P:Cloak.Reflection.Resources.InvalidLambdaExpressionBody">
+      <summary>
+              Looks up a localized string similar to Expression body must be a {0}: {1}.
+            </summary>
     </member>
     <member name="M:Cloak.Linq.Query`1.System#Collections#IEnumerable#GetEnumerator">
       <ensures inheritedFrom="M:System.Collections.IEnumerable.GetEnumerator" inheritedFromTypeName="IEnumerable">Contract.Result&lt;IEnumerator&gt;() != null</ensures>
       <ensures inheritedFrom="M:System.Collections.IEnumerable.GetEnumerator" inheritedFromTypeName="IEnumerable">Contract.Result&lt;IEnumerator&gt;().Model == this.Model</ensures>
       <ensures inheritedFrom="M:System.Collections.IEnumerable.GetEnumerator" inheritedFromTypeName="IEnumerable">Contract.Result&lt;IEnumerator&gt;().CurrentIndex == -1</ensures>
     </member>
+    <member name="M:Cloak.Linq.Query`1.System#Linq#IQueryable#get_ElementType">
+      <ensures inheritedFrom="M:System.Linq.IQueryable.get_ElementType" inheritedFromTypeName="IQueryable">Contract.Result&lt;Type&gt;() != null</ensures>
+    </member>
+    <member name="M:Cloak.Linq.Query`1.System#Linq#IQueryable#get_Expression">
+      <ensures inheritedFrom="M:System.Linq.IQueryable.get_Expression" inheritedFromTypeName="IQueryable">Contract.Result&lt;Expression&gt;() != null</ensures>
+    </member>
+    <member name="M:Cloak.Linq.Query`1.System#Linq#IQueryable#get_Provider">
+      <ensures inheritedFrom="M:System.Linq.IQueryable.get_Provider" inheritedFromTypeName="IQueryable">Contract.Result&lt;IQueryProvider&gt;() != null</ensures>
+    </member>
+    <member name="P:Cloak.Linq.Query`1.System#Linq#IQueryable#ElementType">
+      <getter>
+        <ensures inheritedFrom="M:System.Linq.IQueryable.get_ElementType" inheritedFromTypeName="IQueryable">Contract.Result&lt;Type&gt;() != null</ensures>
+      </getter>
+    </member>
     <member name="P:Cloak.Linq.Query`1.System#Linq#IQueryable#Expression">
       <getter>
         <ensures inheritedFrom="M:System.Linq.IQueryable.get_Expression" inheritedFromTypeName="IQueryable">Contract.Result&lt;Expression&gt;() != null</ensures>
       </getter>
     </member>
-    <member name="M:Cloak.Linq.Query`1.System#Linq#IQueryable#get_Provider">
-      <ensures inheritedFrom="M:System.Linq.IQueryable.get_Provider" inheritedFromTypeName="IQueryable">Contract.Result&lt;IQueryProvider&gt;() != null</ensures>
+    <member name="P:Cloak.Linq.Query`1.System#Linq#IQueryable#Provider">
+      <getter>
+        <ensures inheritedFrom="M:System.Linq.IQueryable.get_Provider" inheritedFromTypeName="IQueryable">Contract.Result&lt;IQueryProvider&gt;() != null</ensures>
+      </getter>
     </member>
   </members>
 </doc>
