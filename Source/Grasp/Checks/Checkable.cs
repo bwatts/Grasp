@@ -774,5 +774,91 @@ namespace Grasp.Checks
 			return check.Passes(t => values.Contains(t));
 		}
 		#endregion
+
+		#region Int32
+		/// <summary>
+		/// Checks if the target data is even
+		/// </summary>
+		/// <param name="check">The base check</param>
+		/// <returns>A check which applies the base check and this check</returns>
+		public static Check<int> IsEven(this ICheckable<int> check)
+		{
+			Contract.Requires(check != null);
+
+			return check.Passes(n => n % 2 == 0);
+		}
+
+		/// <summary>
+		/// Checks if the target data is odd
+		/// </summary>
+		/// <param name="check">The base check</param>
+		/// <returns>A check which applies the base check and this check</returns>
+		public static Check<int> IsOdd(this ICheckable<int> check)
+		{
+			Contract.Requires(check != null);
+
+			return check.Passes(n => n % 2 == 1);
+		}
+
+		/// <summary>
+		/// Checks if the target data is positive (greater than 0)
+		/// </summary>
+		/// <param name="check">The base check</param>
+		/// <returns>A check which applies the base check and this check</returns>
+		public static Check<int> IsPositive(this ICheckable<int> check)
+		{
+			Contract.Requires(check != null);
+
+			return check.Passes(n => n > 0);
+		}
+
+		/// <summary>
+		/// Checks if the target data is negative (less than 0)
+		/// </summary>
+		/// <param name="check">The base check</param>
+		/// <returns>A check which applies the base check and this check</returns>
+		public static Check<int> IsNegative(this ICheckable<int> check)
+		{
+			Contract.Requires(check != null);
+
+			return check.Passes(n => n < 0);
+		}
+
+		/// <summary>
+		/// Checks if the target data is not positive (0 or less than 0)
+		/// </summary>
+		/// <param name="check">The base check</param>
+		/// <returns>A check which applies the base check and this check</returns>
+		public static Check<int> IsNotPositive(this ICheckable<int> check)
+		{
+			Contract.Requires(check != null);
+
+			return check.Passes(n => n <= 0);
+		}
+
+		/// <summary>
+		/// Checks if the target data is not negative (0 or greater than 0)
+		/// </summary>
+		/// <param name="check">The base check</param>
+		/// <returns>A check which applies the base check and this check</returns>
+		public static Check<int> IsNotNegative(this ICheckable<int> check)
+		{
+			Contract.Requires(check != null);
+
+			return check.Passes(n => n >= 0);
+		}
+
+		/// <summary>
+		/// Checks if the target data is a percentage in the range 0-100 (inclusive)
+		/// </summary>
+		/// <param name="check">The base check</param>
+		/// <returns>A check which applies the base check and this check</returns>
+		public static Check<int> IsPercentage(this ICheckable<int> check)
+		{
+			Contract.Requires(check != null);
+
+			return check.Passes(n => n >= 0 && n <= 100);
+		}
+		#endregion
 	}
 }
