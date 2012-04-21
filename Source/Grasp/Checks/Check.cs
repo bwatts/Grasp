@@ -50,7 +50,7 @@ namespace Grasp.Checks
 	}
 
 	/// <summary>
-	/// A boolean-valued function applied to a piece of data. Implicitly converts to boolean.
+	/// A boolean-valued function applied to a piece of data of the specified type. Implicitly converts to boolean.
 	/// </summary>
 	/// <typeparam name="T">The type of data to which the boolean-valued function is applied</typeparam>
 	public abstract class Check<T> : ICheckable<T>
@@ -68,14 +68,14 @@ namespace Grasp.Checks
 		/// <summary>
 		/// Initializes a check with the specified target data
 		/// </summary>
-		/// <param name="target">The targeted data</param>
+		/// <param name="target">The data to check</param>
 		protected Check(T target)
 		{
 			Target = target;
 		}
 
 		/// <summary>
-		/// Gets the type of targeted data
+		/// Gets the type of target data
 		/// </summary>
 		public Type TargetType
 		{
@@ -83,7 +83,7 @@ namespace Grasp.Checks
 		}
 
 		/// <summary>
-		/// Gets the targeted data
+		/// Gets the target data
 		/// </summary>
 		public T Target { get; private set; }
 

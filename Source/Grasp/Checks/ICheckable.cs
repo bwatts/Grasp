@@ -12,12 +12,12 @@ namespace Grasp.Checks
 	public interface ICheckable
 	{
 		/// <summary>
-		/// Gets the type of targeted data
+		/// Gets the type of target data
 		/// </summary>
 		Type TargetType { get; }
 
 		/// <summary>
-		/// Gets the targeted data
+		/// Gets the target data
 		/// </summary>
 		object Target { get; }
 
@@ -29,13 +29,13 @@ namespace Grasp.Checks
 	}
 
 	/// <summary>
-	/// Describes a boolean-valued function applied to a piece of data
+	/// Describes a boolean-valued function applied to a piece of data of the specified type
 	/// </summary>
 	/// <typeparam name="T">The type of data to which the boolean-valued function is applied</typeparam>
 	public interface ICheckable<out T> : ICheckable
 	{
 		/// <summary>
-		/// Gets the targeted data
+		/// Gets the target data
 		/// </summary>
 		new T Target { get; }
 	}
