@@ -1069,5 +1069,159 @@ namespace Grasp.Checks
 			return check.Passes(source => source != null && source.All(itemCheck));
 		}
 		#endregion
+
+		#region Relativity
+		/// <summary>
+		/// Checks if the target data is less than the specified value
+		/// </summary>
+		/// <param name="check">The base check</param>
+		/// <param name="value">The value to compare</param>
+		/// <returns>A check which applies the base check and this check</returns>
+		public static Check<T> IsLessThan<T>(this ICheckable<T> check, T value) where T : IComparable<T>
+		{
+			Contract.Requires(check != null);
+
+			return check.Passes(t => t != null && t.CompareTo(value) < 0);
+		}
+
+		/// <summary>
+		/// Checks if the target data is less than or equal to the specified value
+		/// </summary>
+		/// <param name="check">The base check</param>
+		/// <param name="value">The value to compare</param>
+		/// <returns>A check which applies the base check and this check</returns>
+		public static Check<T> IsLessThanOrEqualTo<T>(this ICheckable<T> check, T value) where T : IComparable<T>
+		{
+			Contract.Requires(check != null);
+
+			return check.Passes(t => t != null && t.CompareTo(value) <= 0);
+		}
+
+		/// <summary>
+		/// Checks if the target data is equal to the specified value using the specified comparer
+		/// </summary>
+		/// <param name="check">The base check</param>
+		/// <param name="comparer">The equality comparer to use for the comparison</param>
+		/// <param name="value">The value to compare</param>
+		/// <returns>A check which applies the base check and this check</returns>
+		public static Check<T> IsEqualTo<T>(this ICheckable<T> check, T value, IEqualityComparer<T> comparer)
+		{
+			Contract.Requires(check != null);
+			Contract.Requires(comparer != null);
+
+			return check.Passes(t => comparer.Equals(t, value));
+		}
+
+		/// <summary>
+		/// Checks if the target data is equal to the specified value using the default comparer for <typeparamref name="T"/>
+		/// </summary>
+		/// <param name="check">The base check</param>
+		/// <param name="value">The value to compare</param>
+		/// <returns>A check which applies the base check and this check</returns>
+		public static Check<T> IsEqualTo<T>(this ICheckable<T> check, T value)
+		{
+			Contract.Requires(check != null);
+
+			return check.IsEqualTo(value, EqualityComparer<T>.Default);
+		}
+
+		/// <summary>
+		/// Checks if the target data is greater than or equal to the specified value
+		/// </summary>
+		/// <param name="check">The base check</param>
+		/// <param name="value">The value to compare</param>
+		/// <returns>A check which applies the base check and this check</returns>
+		public static Check<T> IsGreaterThanOrEqualTo<T>(this ICheckable<T> check, T value) where T : IComparable<T>
+		{
+			Contract.Requires(check != null);
+
+			return check.Passes(t => t != null && t.CompareTo(value) >= 0);
+		}
+
+		/// <summary>
+		/// Checks if the target data is greater than the specified value
+		/// </summary>
+		/// <param name="check">The base check</param>
+		/// <param name="value">The value to compare</param>
+		/// <returns>A check which applies the base check and this check</returns>
+		public static Check<T> IsGreaterThan<T>(this ICheckable<T> check, T value) where T : IComparable<T>
+		{
+			Contract.Requires(check != null);
+
+			return check.Passes(t => t != null && t.CompareTo(value) > 0);
+		}
+
+		/// <summary>
+		/// Checks if the target data is between the specified minimum and maximum using the specified boundary type
+		/// </summary>
+		/// <param name="check">The base check</param>
+		/// <param name="minimum">The minimum value in the range</param>
+		/// <param name="maximum">The maximum value in the range</param>
+		/// <param name="boundaryType">The specification of how to handle the minimum and maximum values</param>
+		/// <param name="value">The value to compare</param>
+		/// <returns>A check which applies the base check and this check</returns>
+		public static Check<T> IsBetween<T>(this ICheckable<T> check, T minimum, T maximum, BoundaryType boundaryType) where T : IComparable<T>
+		{
+			Contract.Requires(check != null);
+			Contract.Requires(minimum == null || minimum.CompareTo(maximum) <= 0);
+
+			if(check.Target != null)
+			{
+				switch(boundaryType)
+				{
+					case BoundaryType.Inclusive:
+						return check.Passes(t => t.CompareTo(minimum) >= 0 && t.CompareTo(maximum) <= 0);
+					case BoundaryType.ExcludeMinimum:
+						return check.Passes(t => t.CompareTo(minimum) > 0 && t.CompareTo(maximum) <= 0);
+					case BoundaryType.ExcludeMaximum:
+						return check.Passes(t => t.CompareTo(minimum) >= 0 && t.CompareTo(maximum) < 0);
+					case BoundaryType.Exclusive:
+						return check.Passes(t => t.CompareTo(minimum) > 0 && t.CompareTo(maximum) < 0);
+					default:
+						throw new ArgumentOutOfRangeException("boundaryType");
+				}
+			}
+			else
+			{
+				bool isInNullRange;
+
+				switch(boundaryType)
+				{
+					case BoundaryType.Inclusive:
+						isInNullRange = minimum == null && maximum == null;
+						break;
+					case BoundaryType.ExcludeMinimum:
+						isInNullRange = maximum == null;
+						break;
+					case BoundaryType.ExcludeMaximum:
+						isInNullRange = minimum == null;
+						break;
+					case BoundaryType.Exclusive:
+						isInNullRange = false;
+						break;
+					default:
+						throw new ArgumentOutOfRangeException("boundaryType");
+				}
+
+				return check.Passes(isInNullRange);
+			}
+		}
+
+		/// <summary>
+		/// Checks if the target data is between the specified minimum and maximum using an inclusive boundary
+		/// </summary>
+		/// <param name="check">The base check</param>
+		/// <param name="minimum">The minimum value in the range</param>
+		/// <param name="maximum">The maximum value in the range</param>
+		/// <param name="value">The value to compare</param>
+		/// <returns>A check which applies the base check and this check</returns>
+		public static Check<T> IsBetween<T>(this ICheckable<T> check, T minimum, T maximum) where T : IComparable<T>
+		{
+			Contract.Requires(check != null);
+			Contract.Requires(minimum == null || minimum.CompareTo(maximum) <= 0);
+
+			return check.IsBetween(minimum, maximum, default(BoundaryType));
+		}
+		#endregion
 	}
 }

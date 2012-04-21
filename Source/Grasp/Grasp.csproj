@@ -118,6 +118,7 @@
     <Compile Include="Analysis\GraspSchema.cs" />
     <Compile Include="Analysis\ICalculator.cs" />
     <Compile Include="Analysis\IRuntimeSnapshot.cs" />
+    <Compile Include="Checks\BoundaryType.cs" />
     <Compile Include="Checks\Check.cs" />
     <Compile Include="Checks\Checkable.cs" />
     <Compile Include="Checks\ICheckable.cs" />
