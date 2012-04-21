@@ -118,6 +118,8 @@
     <Compile Include="Analysis\GraspSchema.cs" />
     <Compile Include="Analysis\ICalculator.cs" />
     <Compile Include="Analysis\IRuntimeSnapshot.cs" />
+    <Compile Include="Checks\Check.cs" />
+    <Compile Include="Checks\ICheckable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Analysis\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
