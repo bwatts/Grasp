@@ -474,5 +474,103 @@ namespace Grasp.Checks
 			return check.Passes(n => n >= 0 && n <= 1);
 		}
 		#endregion
+
+		#region Double
+		/// <summary>
+		/// Checks if the target data is even
+		/// </summary>
+		/// <param name="check">The base check</param>
+		/// <returns>A check which applies the base check and this check</returns>
+		public static Check<double> IsEven(this ICheckable<double> check)
+		{
+			Contract.Requires(check != null);
+
+			return check.Passes(n => n % 2 == 0);
+		}
+
+		/// <summary>
+		/// Checks if the target data is odd
+		/// </summary>
+		/// <param name="check">The base check</param>
+		/// <returns>A check which applies the base check and this check</returns>
+		public static Check<double> IsOdd(this ICheckable<double> check)
+		{
+			Contract.Requires(check != null);
+
+			return check.Passes(n => n % 2 == 1);
+		}
+
+		/// <summary>
+		/// Checks if the target data is positive (greater than 0)
+		/// </summary>
+		/// <param name="check">The base check</param>
+		/// <returns>A check which applies the base check and this check</returns>
+		public static Check<double> IsPositive(this ICheckable<double> check)
+		{
+			Contract.Requires(check != null);
+
+			return check.Passes(n => n > 0);
+		}
+
+		/// <summary>
+		/// Checks if the target data is negative (less than 0)
+		/// </summary>
+		/// <param name="check">The base check</param>
+		/// <returns>A check which applies the base check and this check</returns>
+		public static Check<double> IsNegative(this ICheckable<double> check)
+		{
+			Contract.Requires(check != null);
+
+			return check.Passes(n => n < 0);
+		}
+
+		/// <summary>
+		/// Checks if the target data is not positive (0 or less than 0)
+		/// </summary>
+		/// <param name="check">The base check</param>
+		/// <returns>A check which applies the base check and this check</returns>
+		public static Check<double> IsNotPositive(this ICheckable<double> check)
+		{
+			Contract.Requires(check != null);
+
+			return check.Passes(n => n <= 0);
+		}
+
+		/// <summary>
+		/// Checks if the target data is not negative (0 or greater than 0)
+		/// </summary>
+		/// <param name="check">The base check</param>
+		/// <returns>A check which applies the base check and this check</returns>
+		public static Check<double> IsNotNegative(this ICheckable<double> check)
+		{
+			Contract.Requires(check != null);
+
+			return check.Passes(n => n >= 0);
+		}
+
+		/// <summary>
+		/// Checks if the target data is a percentage in the range 0-100 (inclusive)
+		/// </summary>
+		/// <param name="check">The base check</param>
+		/// <returns>A check which applies the base check and this check</returns>
+		public static Check<double> IsAdjustedPercentage(this ICheckable<double> check)
+		{
+			Contract.Requires(check != null);
+
+			return check.Passes(n => n >= 0 && n <= 100);
+		}
+
+		/// <summary>
+		/// Checks if the target data is a percentage in the range 0-1 (inclusive)
+		/// </summary>
+		/// <param name="check">The base check</param>
+		/// <returns>A check which applies the base check and this check</returns>
+		public static Check<double> IsLiteralPercentage(this ICheckable<double> check)
+		{
+			Contract.Requires(check != null);
+
+			return check.Passes(n => n >= 0 && n <= 1);
+		}
+		#endregion
 	}
 }
