@@ -6,9 +6,16 @@ using System.Text;
 
 namespace Grasp
 {
+	/// <summary>
+	/// Describes a calculation which applies to <see cref="GraspRuntime"/>s
+	/// </summary>
 	[ContractClass(typeof(ICalculatorContract))]
 	public interface ICalculator
 	{
+		/// <summary>
+		/// Applies the encapsulated calculation to the specified runtime
+		/// </summary>
+		/// <param name="runtime">A runtime to which the encapsulated calculation is applied</param>
 		void ApplyCalculation(GraspRuntime runtime);
 	}
 

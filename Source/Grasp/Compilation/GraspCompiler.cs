@@ -48,6 +48,7 @@ namespace Grasp.Compilation
 					throw new InvalidCalculationVariableException(
 						variable,
 						calculation.Source,
+						_schema,
 						Resources.InvalidCalculationVariable.FormatInvariant(variable, calculation));
 				}
 			}
