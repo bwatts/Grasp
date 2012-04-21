@@ -143,6 +143,11 @@
     <Compile Include="Analysis\Variables\CreateVariable.cs" />
     <Compile Include="Checks\ApplyThatCheck.cs" />
     <Compile Include="Checks\ApplyThatCheckWithDefaultResult.cs" />
+    <Compile Include="Checks\Conditions\CreateTypedConditionWithName.cs" />
+    <Compile Include="Checks\Conditions\CreateTypedCondition.cs" />
+    <Compile Include="Checks\Conditions\CreateConditionWithTargetTypeAndName.cs" />
+    <Compile Include="Checks\Conditions\CreateConditionWithTargetType.cs" />
+    <Compile Include="Checks\Conditions\CreateCondition.cs" />
     <Compile Include="Checks\Conditions\Keys\GetNameEqualityComparer.cs" />
     <Compile Include="Checks\Conditions\Keys\GetInvalidName.cs" />
     <Compile Include="Checks\Conditions\Keys\GetDefaultName.cs" />

@@ -71,7 +71,7 @@ namespace Grasp.Checks.Conditions
 		/// Initializes a condition key with the specified target type and name
 		/// </summary>
 		/// <param name="targetType">The type to which the condition applies</param>
-		/// <param name="name">The name which uniquely identifies the condition among all those for the type</param>
+		/// <param name="name">The name which uniquely identifies the condition among all those for the target type</param>
 		public ConditionKey(Type targetType, string name)
 		{
 			Contract.Requires(targetType != null);
@@ -136,7 +136,7 @@ namespace Grasp.Checks.Conditions
 		public Type TargetType { get; private set; }
 
 		/// <summary>
-		/// Gets the name which uniquely identifies the condition among all those for the type
+		/// Gets the name which uniquely identifies the condition among all those for the target type
 		/// </summary>
 		public string Name { get; private set; }
 
