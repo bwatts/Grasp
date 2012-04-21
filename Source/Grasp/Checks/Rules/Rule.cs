@@ -42,6 +42,17 @@ namespace Grasp.Checks.Rules
 		}
 		#endregion
 
+		#region Constant
+		/// <summary>
+		/// Creates a <see cref="Grasp.Checks.Rules.ConstantRule"/> that represents a constant value
+		/// </summary>
+		/// <returns>A <see cref="Grasp.Checks.Rules.ConstantRule"/> with the specified value</returns>
+		public static ConstantRule Constant(bool passes)
+		{
+			return new ConstantRule(passes);
+		}
+		#endregion
+
 		/// <summary>
 		/// When implemented by a derived class, gets the type of this node in the tree
 		/// </summary>

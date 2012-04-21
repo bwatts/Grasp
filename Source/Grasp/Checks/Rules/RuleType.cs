@@ -16,9 +16,9 @@ namespace Grasp.Checks.Rules
 		Check,
 
 		/// <summary>
-		/// A rule which returns a specific value
+		/// A rule which has a constant result
 		/// </summary>
-		Fixed,
+		Constant,
 
 		/// <summary>
 		/// A rule which applies a lambda expression to the target data
