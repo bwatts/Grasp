@@ -946,5 +946,31 @@ namespace Grasp.Checks
 			return check.Passes(n => n >= 0 && n <= 100);
 		}
 		#endregion
+
+		#region Nullity
+		/// <summary>
+		/// Checks if the target data is null
+		/// </summary>
+		/// <param name="check">The base check</param>
+		/// <returns>A check which applies the base check and this check</returns>
+		public static Check<T> IsNull<T>(this ICheckable<T> check)
+		{
+			Contract.Requires(check != null);
+
+			return check.Passes(t => t == null);
+		}
+
+		/// <summary>
+		/// Checks if the target data is not null
+		/// </summary>
+		/// <param name="check">The base check</param>
+		/// <returns>A check which applies the base check and this check</returns>
+		public static Check<T> IsNotNull<T>(this ICheckable<T> check)
+		{
+			Contract.Requires(check != null);
+
+			return check.Passes(t => t != null);
+		}
+		#endregion
 	}
 }
