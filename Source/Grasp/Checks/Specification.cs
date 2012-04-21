@@ -8,7 +8,7 @@ using Grasp.Checks.Rules;
 namespace Grasp.Checks
 {
 	/// <summary>
-	/// Describes a boolean-valued rule applied to a piece of data of the specified type
+	/// A boolean-valued rule applied to a piece of data of the specified type. Implicitly converts to boolean.
 	/// </summary>
 	/// <typeparam name="T">The type of data to which the boolean-valued rule is applied</typeparam>
 	public class Specification<T> : Check<T>, ISpecifiable<T>
