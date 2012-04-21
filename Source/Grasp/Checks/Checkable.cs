@@ -13,7 +13,7 @@ namespace Grasp.Checks
 	{
 		#region Passes
 		/// <summary>
-		/// Checks whether the target data passes the specified check
+		/// Checks if the target data passes the specified check
 		/// </summary>
 		/// <typeparam name="T">The type of target data</typeparam>
 		/// <param name="check">The base check</param>
@@ -28,7 +28,7 @@ namespace Grasp.Checks
 		}
 
 		/// <summary>
-		/// Checks whether the target data passed an already-applied check
+		/// Checks if the target data passed an already-applied check
 		/// </summary>
 		/// <typeparam name="T">The type of target data</typeparam>
 		/// <param name="check">The base check</param>
@@ -80,7 +80,7 @@ namespace Grasp.Checks
 
 		#region Fails
 		/// <summary>
-		/// Checks whether the target data fails the specified check
+		/// Checks if the target data fails the specified check
 		/// </summary>
 		/// <typeparam name="T">The type of target data</typeparam>
 		/// <param name="check">The base check</param>
@@ -95,7 +95,7 @@ namespace Grasp.Checks
 		}
 
 		/// <summary>
-		/// Checks whether the target data failed an already-applied check
+		/// Checks if the target data failed an already-applied check
 		/// </summary>
 		/// <typeparam name="T">The type of target data</typeparam>
 		/// <param name="check">The base check</param>
@@ -145,7 +145,7 @@ namespace Grasp.Checks
 
 		#region Boolean
 		/// <summary>
-		/// Checks whether the target data is true
+		/// Checks if the target data is true
 		/// </summary>
 		/// <param name="check">The base check</param>
 		/// <returns>A check which applies the base check and this check</returns>
@@ -157,7 +157,7 @@ namespace Grasp.Checks
 		}
 
 		/// <summary>
-		/// Checks whether the target data is false
+		/// Checks if the target data is false
 		/// </summary>
 		/// <param name="check">The base check</param>
 		/// <returns>A check which applies the base check and this check</returns>
@@ -171,7 +171,7 @@ namespace Grasp.Checks
 
 		#region Char
 		/// <summary>
-		/// Checks whether the target data is a letter or digit
+		/// Checks if the target data is a letter or digit
 		/// </summary>
 		/// <param name="check">The base check</param>
 		/// <returns>A check which applies the base check and this check</returns>
@@ -183,7 +183,7 @@ namespace Grasp.Checks
 		}
 
 		/// <summary>
-		/// Checks whether the target data is a control character
+		/// Checks if the target data is a control character
 		/// </summary>
 		/// <param name="check">The base check</param>
 		/// <returns>A check which applies the base check and this check</returns>
@@ -195,7 +195,7 @@ namespace Grasp.Checks
 		}
 
 		/// <summary>
-		/// Checks whether the target data is a digit
+		/// Checks if the target data is a digit
 		/// </summary>
 		/// <param name="check">The base check</param>
 		/// <returns>A check which applies the base check and this check</returns>
@@ -207,7 +207,7 @@ namespace Grasp.Checks
 		}
 
 		/// <summary>
-		/// Checks whether the target data is a high surrogate
+		/// Checks if the target data is a high surrogate
 		/// </summary>
 		/// <param name="check">The base check</param>
 		/// <returns>A check which applies the base check and this check</returns>
@@ -219,7 +219,7 @@ namespace Grasp.Checks
 		}
 
 		/// <summary>
-		/// Checks whether the target data is a letter
+		/// Checks if the target data is a letter
 		/// </summary>
 		/// <param name="check">The base check</param>
 		/// <returns>A check which applies the base check and this check</returns>
@@ -231,7 +231,7 @@ namespace Grasp.Checks
 		}
 
 		/// <summary>
-		/// Checks whether the target data is a lower-case character
+		/// Checks if the target data is a lower-case character
 		/// </summary>
 		/// <param name="check">The base check</param>
 		/// <returns>A check which applies the base check and this check</returns>
@@ -243,7 +243,7 @@ namespace Grasp.Checks
 		}
 
 		/// <summary>
-		/// Checks whether the target data is a low surrogate
+		/// Checks if the target data is a low surrogate
 		/// </summary>
 		/// <param name="check">The base check</param>
 		/// <returns>A check which applies the base check and this check</returns>
@@ -255,7 +255,7 @@ namespace Grasp.Checks
 		}
 
 		/// <summary>
-		/// Checks whether the target data is a number
+		/// Checks if the target data is a number
 		/// </summary>
 		/// <param name="check">The base check</param>
 		/// <returns>A check which applies the base check and this check</returns>
@@ -267,7 +267,7 @@ namespace Grasp.Checks
 		}
 
 		/// <summary>
-		/// Checks whether the target data is punctuation
+		/// Checks if the target data is punctuation
 		/// </summary>
 		/// <param name="check">The base check</param>
 		/// <returns>A check which applies the base check and this check</returns>
@@ -279,7 +279,7 @@ namespace Grasp.Checks
 		}
 
 		/// <summary>
-		/// Checks whether the target data is a separator
+		/// Checks if the target data is a separator
 		/// </summary>
 		/// <param name="check">The base check</param>
 		/// <returns>A check which applies the base check and this check</returns>
@@ -291,7 +291,7 @@ namespace Grasp.Checks
 		}
 
 		/// <summary>
-		/// Checks whether the target data is a surrogate
+		/// Checks if the target data is a surrogate
 		/// </summary>
 		/// <param name="check">The base check</param>
 		/// <returns>A check which applies the base check and this check</returns>
@@ -303,7 +303,7 @@ namespace Grasp.Checks
 		}
 
 		/// <summary>
-		/// Checks whether the target data is a symbol
+		/// Checks if the target data is a symbol
 		/// </summary>
 		/// <param name="check">The base check</param>
 		/// <returns>A check which applies the base check and this check</returns>
@@ -315,7 +315,7 @@ namespace Grasp.Checks
 		}
 
 		/// <summary>
-		/// Checks whether the target data is an upper-case character
+		/// Checks if the target data is an upper-case character
 		/// </summary>
 		/// <param name="check">The base check</param>
 		/// <returns>A check which applies the base check and this check</returns>
@@ -327,7 +327,7 @@ namespace Grasp.Checks
 		}
 
 		/// <summary>
-		/// Checks whether the target data is whitespace
+		/// Checks if the target data is whitespace
 		/// </summary>
 		/// <param name="check">The base check</param>
 		/// <returns>A check which applies the base check and this check</returns>
@@ -336,6 +336,44 @@ namespace Grasp.Checks
 			Contract.Requires(check != null);
 
 			return check.Passes(c => Char.IsWhiteSpace(c));
+		}
+		#endregion
+
+		#region DateTime
+		/// <summary>
+		/// Checks if the target data falls on a weekend
+		/// </summary>
+		/// <param name="check">The base check</param>
+		/// <returns>A check which applies the base check and this check</returns>
+		public static Check<DateTime> IsWeekend(this ICheckable<DateTime> check)
+		{
+			Contract.Requires(check != null);
+
+			return check.Passes(d => d.DayOfWeek == DayOfWeek.Saturday || d.DayOfWeek == DayOfWeek.Sunday);
+		}
+
+		/// <summary>
+		/// Checks if the target data falls on a weekday
+		/// </summary>
+		/// <param name="check">The base check</param>
+		/// <returns>A check which applies the base check and this check</returns>
+		public static Check<DateTime> IsWeekday(this ICheckable<DateTime> check)
+		{
+			Contract.Requires(check != null);
+
+			return check.Passes(d => d.DayOfWeek != DayOfWeek.Saturday && d.DayOfWeek != DayOfWeek.Sunday);
+		}
+
+		/// <summary>
+		/// Checks if the target data falls on a leap year
+		/// </summary>
+		/// <param name="check">The base check</param>
+		/// <returns>A check which applies the base check and this check</returns>
+		public static Check<DateTime> IsLeapYear(this ICheckable<DateTime> check)
+		{
+			Contract.Requires(check != null);
+
+			return check.Passes(d => DateTime.IsLeapYear(d.Year));
 		}
 		#endregion
 	}
