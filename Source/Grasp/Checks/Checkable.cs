@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
+using System.Globalization;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -1319,6 +1320,186 @@ namespace Grasp.Checks
 			Contract.Requires(check != null);
 
 			return check.Passes(n => n >= 0 && n <= 1);
+		}
+		#endregion
+
+		#region String Content
+		/// <summary>
+		/// Checks if the target data is empty
+		/// </summary>
+		/// <param name="check">The base check</param>
+		/// <returns>A check which applies the base check and this check</returns>
+		public static Check<string> IsEmpty(this ICheckable<string> check)
+		{
+			Contract.Requires(check != null);
+
+			return check.Passes(s => s == "");
+		}
+
+		/// <summary>
+		/// Checks if the target data is not empty
+		/// </summary>
+		/// <param name="check">The base check</param>
+		/// <returns>A check which applies the base check and this check</returns>
+		public static Check<string> IsNotEmpty(this ICheckable<string> check)
+		{
+			Contract.Requires(check != null);
+
+			return check.Passes(s => s != "");
+		}
+
+		/// <summary>
+		/// Checks if the target data is null or empty
+		/// </summary>
+		/// <param name="check">The base check</param>
+		/// <returns>A check which applies the base check and this check</returns>
+		public static Check<string> IsNullOrEmpty(this ICheckable<string> check)
+		{
+			Contract.Requires(check != null);
+
+			return check.Passes(s => String.IsNullOrEmpty(s));
+		}
+
+		/// <summary>
+		/// Checks if the target data is not null or empty
+		/// </summary>
+		/// <param name="check">The base check</param>
+		/// <returns>A check which applies the base check and this check</returns>
+		public static Check<string> IsNotNullOrEmpty(this ICheckable<string> check)
+		{
+			Contract.Requires(check != null);
+
+			return check.Passes(s => !String.IsNullOrEmpty(s));
+		}
+
+		/// <summary>
+		/// Checks if the target data is null or whitespace
+		/// </summary>
+		/// <param name="check">The base check</param>
+		/// <returns>A check which applies the base check and this check</returns>
+		public static Check<string> IsNullOrWhiteSpace(this ICheckable<string> check)
+		{
+			Contract.Requires(check != null);
+
+			return check.Passes(s => String.IsNullOrWhiteSpace(s));
+		}
+
+		/// <summary>
+		/// Checks if the target data is not null or whitespace
+		/// </summary>
+		/// <param name="check">The base check</param>
+		/// <returns>A check which applies the base check and this check</returns>
+		public static Check<string> IsNotNullOrWhiteSpace(this ICheckable<string> check)
+		{
+			Contract.Requires(check != null);
+
+			return check.Passes(s => !String.IsNullOrWhiteSpace(s));
+		}
+
+		/// <summary>
+		/// Checks if the target data starts with the specified value
+		/// </summary>
+		/// <param name="check">The base check</param>
+		/// <param name="value">The string to compare</param>
+		/// <returns>A check which applies the base check and this check</returns>
+		public static Check<string> StartsWith(this ICheckable<string> check, string value)
+		{
+			Contract.Requires(check != null);
+			Contract.Requires(value != null);
+
+			return check.Passes(s => s != null && s.StartsWith(value));
+		}
+
+		/// <summary>
+		/// Checks if the target data starts with the specified value using the specified comparison type
+		/// </summary>
+		/// <param name="check">The base check</param>
+		/// <param name="value">The string to compare</param>
+		/// <param name="comparisonType">The type of comparison to perform</param>
+		/// <returns>A check which applies the base check and this check</returns>
+		public static Check<string> StartsWith(this ICheckable<string> check, string value, StringComparison comparisonType)
+		{
+			Contract.Requires(check != null);
+			Contract.Requires(value != null);
+
+			return check.Passes(s => s != null && s.StartsWith(value, comparisonType));
+		}
+
+		/// <summary>
+		/// Checks if the target data starts with the specified value using the specified case rule and culture
+		/// </summary>
+		/// <param name="check">The base check</param>
+		/// <param name="value">The string to compare</param>
+		/// <param name="ignoreCase">Whether to ignore case during the comparison</param>
+		/// <param name="culture">The rules which govern the comparison</param>
+		/// <returns>A check which applies the base check and this check</returns>
+		public static Check<string> StartsWith(this ICheckable<string> check, string value, bool ignoreCase, CultureInfo culture)
+		{
+			Contract.Requires(check != null);
+			Contract.Requires(value != null);
+			Contract.Requires(culture != null);
+
+			return check.Passes(s => s != null && s.StartsWith(value, ignoreCase, culture));
+		}
+
+		/// <summary>
+		/// Checks if the target data ends with the specified value
+		/// </summary>
+		/// <param name="check">The base check</param>
+		/// <param name="value">The string to compare</param>
+		/// <returns>A check which applies the base check and this check</returns>
+		public static Check<string> EndsWith(this ICheckable<string> check, string value)
+		{
+			Contract.Requires(check != null);
+			Contract.Requires(value != null);
+
+			return check.Passes(s => s != null && s.EndsWith(value));
+		}
+
+		/// <summary>
+		/// Checks if the target data ends with the specified value using the specified comparison type
+		/// </summary>
+		/// <param name="check">The base check</param>
+		/// <param name="value">The string to compare</param>
+		/// <param name="comparisonType">The type of comparison to perform</param>
+		/// <returns>A check which applies the base check and this check</returns>
+		public static Check<string> EndsWith(this ICheckable<string> check, string value, StringComparison comparisonType)
+		{
+			Contract.Requires(check != null);
+			Contract.Requires(value != null);
+
+			return check.Passes(s => s != null && s.EndsWith(value, comparisonType));
+		}
+
+		/// <summary>
+		/// Checks if the target data ends with the specified value using the specified case rule and culture
+		/// </summary>
+		/// <param name="check">The base check</param>
+		/// <param name="value">The string to compare</param>
+		/// <param name="ignoreCase">Whether to ignore case during the comparison</param>
+		/// <param name="culture">The rules which govern the comparison</param>
+		/// <returns>A check which applies the base check and this check</returns>
+		public static Check<string> EndsWith(this ICheckable<string> check, string value, bool ignoreCase, CultureInfo culture)
+		{
+			Contract.Requires(check != null);
+			Contract.Requires(value != null);
+			Contract.Requires(culture != null);
+
+			return check.Passes(s => s != null && s.EndsWith(value, ignoreCase, culture));
+		}
+
+		/// <summary>
+		/// Checks if the target data contains the specified value
+		/// </summary>
+		/// <param name="check">The base check</param>
+		/// <param name="value">The string to seek</param>
+		/// <returns>A check which applies the base check and this check</returns>
+		public static Check<string> Contains(this ICheckable<string> check, string value)
+		{
+			Contract.Requires(check != null);
+			Contract.Requires(value != null);
+
+			return check.Passes(s => s != null && s.Contains(value));
 		}
 		#endregion
 	}
