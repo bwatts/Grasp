@@ -138,6 +138,12 @@
     <Compile Include="Analysis\Variables\Names\UnderscoreFirstIsName.cs" />
     <Compile Include="Analysis\Variables\Names\IsName.cs" />
     <Compile Include="Analysis\Variables\CreateVariable.cs" />
+    <Compile Include="Checks\ApplyThatCheck.cs" />
+    <Compile Include="Checks\ApplyThatCheckWithDefaultResult.cs" />
+    <Compile Include="Checks\CreateCheck.cs" />
+    <Compile Include="Checks\ImplicitlyConvertCheckToBoolean.cs" />
+    <Compile Include="Checks\CreateThatCheckWithDefaultResult.cs" />
+    <Compile Include="Checks\CreateThatCheck.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -149,6 +155,7 @@
       <Name>Grasp</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
