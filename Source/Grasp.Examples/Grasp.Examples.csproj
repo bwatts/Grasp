@@ -147,6 +147,13 @@
     <Compile Include="Checks\ImplicitlyConvertCheckToBoolean.cs" />
     <Compile Include="Checks\CreateThatCheckWithDefaultResult.cs" />
     <Compile Include="Checks\CreateThatCheck.cs" />
+    <Compile Include="Checks\Rules\MakeMemberRuleForNonMemberType.cs" />
+    <Compile Include="Checks\Rules\MakeMemberRuleForMethod.cs" />
+    <Compile Include="Checks\Rules\MakeMemberRuleForField.cs" />
+    <Compile Include="Checks\Rules\MakeMemberRuleForProperty.cs" />
+    <Compile Include="Checks\Rules\CreateMethodRule.cs" />
+    <Compile Include="Checks\Rules\CreateFieldRule.cs" />
+    <Compile Include="Checks\Rules\CreatePropertyRule.cs" />
     <Compile Include="Checks\Rules\CreateNotRule.cs" />
     <Compile Include="Checks\Rules\MakeBinaryRuleForNonBinaryType.cs" />
     <Compile Include="Checks\Rules\MakeBinaryRuleForExclusiveOr.cs" />
