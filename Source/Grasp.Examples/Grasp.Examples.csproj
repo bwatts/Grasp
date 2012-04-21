@@ -147,6 +147,7 @@
     <Compile Include="Checks\ImplicitlyConvertCheckToBoolean.cs" />
     <Compile Include="Checks\CreateThatCheckWithDefaultResult.cs" />
     <Compile Include="Checks\CreateThatCheck.cs" />
+    <Compile Include="Checks\Rules\CreateLambdaRule.cs" />
     <Compile Include="Checks\Rules\CreateConstantRule.cs" />
     <Compile Include="Checks\Rules\CreateCheckRuleWithArguments.cs" />
     <Compile Include="Checks\Rules\CreateCheckRule.cs" />
