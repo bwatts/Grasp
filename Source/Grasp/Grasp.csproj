@@ -123,10 +123,12 @@
     <Compile Include="Checks\Checkable.cs" />
     <Compile Include="Checks\Conditions\Condition.cs" />
     <Compile Include="Checks\Conditions\ConditionKey.cs" />
+    <Compile Include="Checks\Conditions\ConditionRepository.cs" />
     <Compile Include="Checks\Conditions\ConditionSchema.cs" />
     <Compile Include="Checks\Conditions\ConditionSchemaSpecificationProvider.cs" />
     <Compile Include="Checks\Conditions\IConditionRepository.cs" />
     <Compile Include="Checks\Conditions\IConditionSchema.cs" />
+    <Compile Include="Checks\Conditions\IConditionSource.cs" />
     <Compile Include="Checks\Conditions\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -152,6 +154,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Checks\Rules\Rule.cs" />
+    <Compile Include="Checks\Rules\RuleSequenceMerge.cs" />
     <Compile Include="Checks\Rules\RuleType.cs" />
     <Compile Include="Checks\Specification.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

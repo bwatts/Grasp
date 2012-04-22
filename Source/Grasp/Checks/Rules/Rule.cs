@@ -48,6 +48,7 @@ namespace Grasp.Checks.Rules
 		/// <summary>
 		/// Creates a <see cref="Grasp.Checks.Rules.ConstantRule"/> that represents a constant value
 		/// </summary>
+		/// <param name="passes">Whether the check passes or fails</param>
 		/// <returns>A <see cref="Grasp.Checks.Rules.ConstantRule"/> with the specified value</returns>
 		public static ConstantRule Constant(bool passes)
 		{
@@ -278,6 +279,20 @@ namespace Grasp.Checks.Rules
 		public Func<TTarget, bool> ToFunction<TTarget>()
 		{
 			return ToLambdaExpression<TTarget>().Compile();
+		}
+
+		/// <summary>
+		/// Creates a rule with the semantics of both this and the specified rule, eliminating redundancy where possible
+		/// </summary>
+		/// <param name="otherRule">The rule to merge with this rule</param>
+		/// <returns>A rule which has the semantics of both this and the specified rule</returns>
+		public Rule MergeWith(Rule otherRule)
+		{
+			Contract.Requires(otherRule != null);
+
+			// TODO: Naive - revisit
+
+			return Rule.And(this, otherRule);
 		}
 	}
 }
