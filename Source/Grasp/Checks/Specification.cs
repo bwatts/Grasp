@@ -21,11 +21,11 @@ namespace Grasp.Checks
 		/// <param name="rule">The rule applied to the target data</param>
 		public Specification(T target, ISpecificationProvider provider, Rule rule) : base(target)
 		{
-			Contract.Requires(rule != null);
 			Contract.Requires(provider != null);
+			Contract.Requires(rule != null);
 
-			Rule = rule;
 			Provider = provider;
+			Rule = rule;
 		}
 
 		#region ISpecifiable

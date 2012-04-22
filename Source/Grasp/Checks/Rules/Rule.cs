@@ -233,5 +233,51 @@ namespace Grasp.Checks.Rules
 		/// When implemented by a derived class, gets the type of this node in the tree
 		/// </summary>
 		public abstract RuleType Type { get; }
+
+		/// <summary>
+		/// Creates a lambda expression that represents the application of this rule to target data of the specified type
+		/// </summary>
+		/// <param name="targetType">The type to which to apply the rule</param>
+		/// <returns>A lambda expression with a parameter of the specified target type and a body which applies this rule to the parameter</returns>
+		public LambdaExpression ToLambdaExpression(Type targetType)
+		{
+			Contract.Requires(targetType != null);
+
+			throw new NotImplementedException();
+		}
+
+		/// <summary>
+		/// Creates a lambda expression that represents the application of this rule to target data of the specified type
+		/// </summary>
+		/// <typeparam name="TTarget">The type to which to apply the rule</typeparam>
+		/// <returns>A lambda expression with a parameter of the specified target type and a body which applies this rule to the parameter</returns>
+		public Expression<Func<TTarget, bool>> ToLambdaExpression<TTarget>()
+		{
+			var lambda = ToLambdaExpression(typeof(TTarget));
+
+			return Expression.Lambda<Func<TTarget, bool>>(lambda.Body, lambda.Parameters);
+		}
+
+		/// <summary>
+		/// Compiles a function that applies this rule to target data of the specified type
+		/// </summary>
+		/// <param name="targetType">The type to which to apply the rule</param>
+		/// <returns>A function which accepts a parameter of the specified type and which applies this rule to the parameter</returns>
+		public Func<object, bool> ToFunction(Type targetType)
+		{
+			Contract.Requires(targetType != null);
+
+			throw new NotImplementedException();
+		}
+
+		/// <summary>
+		/// Compiles a function that applies this rule to target data of the specified type
+		/// </summary>
+		/// <typeparam name="TTarget">The type to which to apply the rule</typeparam>
+		/// <returns>A function which accepts a parameter of the specified type and which applies this rule to the parameter</returns>
+		public Func<TTarget, bool> ToFunction<TTarget>()
+		{
+			return ToLambdaExpression<TTarget>().Compile();
+		}
 	}
 }

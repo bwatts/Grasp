@@ -123,6 +123,10 @@
     <Compile Include="Checks\Checkable.cs" />
     <Compile Include="Checks\Conditions\Condition.cs" />
     <Compile Include="Checks\Conditions\ConditionKey.cs" />
+    <Compile Include="Checks\Conditions\ConditionSchema.cs" />
+    <Compile Include="Checks\Conditions\ConditionSchemaSpecificationProvider.cs" />
+    <Compile Include="Checks\Conditions\IConditionRepository.cs" />
+    <Compile Include="Checks\Conditions\IConditionSchema.cs" />
     <Compile Include="Checks\Conditions\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
