@@ -121,6 +121,7 @@
     <Compile Include="Checks\BoundaryType.cs" />
     <Compile Include="Checks\Check.cs" />
     <Compile Include="Checks\Checkable.cs" />
+    <Compile Include="Checks\Conditions\CompositeConditionSource.cs" />
     <Compile Include="Checks\Conditions\Condition.cs" />
     <Compile Include="Checks\Conditions\ConditionKey.cs" />
     <Compile Include="Checks\Conditions\ConditionRepository.cs" />
