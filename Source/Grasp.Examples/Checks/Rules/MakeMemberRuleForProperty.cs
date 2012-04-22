@@ -17,7 +17,7 @@ namespace Grasp.Checks.Rules
 
 		protected override void Given()
 		{
-			_property = Reflect.Property<TestClass, int>(x => x.TestProperty);
+			_property = Reflect.Property<TestClass>(x => x.TestProperty);
 
 			_rule = Rule.Constant(true);
 		}

@@ -78,8 +78,9 @@
     <DocumentationFile>bin\Release\Grasp.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Cloak, Version=0.4.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Cloak.0.4.1.0\lib\net40\Cloak.dll</HintPath>
+    <Reference Include="Cloak, Version=0.4.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Cloak.0.4.2.0\lib\net40\Cloak.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -204,7 +205,6 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

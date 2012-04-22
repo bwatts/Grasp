@@ -53,7 +53,7 @@ namespace Grasp.Checks.Annotation
 		{
 			var memberRule = (MemberRule) _condition.Rule;
 
-			Assert.That(memberRule.Member, Is.EqualTo(Reflect.Property<TestTarget, int>(x => x.Target)));
+			Assert.That(memberRule.Member, Is.EqualTo(Reflect.Property<TestTarget>(x => x.Target)));
 		}
 
 		[Then]

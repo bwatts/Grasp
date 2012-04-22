@@ -17,7 +17,7 @@ namespace Grasp.Checks.Rules
 
 		protected override void Given()
 		{
-			_field = Reflect.Field<TestClass, int>(x => x.TestField);
+			_field = Reflect.Field<TestClass>(x => x.TestField);
 
 			_rule = Rule.Constant(true);
 		}
