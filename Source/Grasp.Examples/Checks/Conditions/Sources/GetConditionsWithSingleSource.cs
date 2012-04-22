@@ -7,14 +7,12 @@ using FakeItEasy;
 using Grasp.Checks.Rules;
 using NUnit.Framework;
 
-namespace Grasp.Checks.Conditions.Schemas
+namespace Grasp.Checks.Conditions.Sources
 {
-	public class GetConditionsWithMultipleSources : Behavior
+	public class GetConditionsWithSingleSource : Behavior
 	{
 		Condition _condition1;
 		Condition _condition2;
-		Condition _condition3;
-		Condition _condition4;
 		CompositeConditionSource _compositeSource;
 		IEnumerable<Condition> _conditions;
 
@@ -22,16 +20,12 @@ namespace Grasp.Checks.Conditions.Schemas
 		{
 			_condition1 = new Condition<int>(Rule.Constant(true));
 			_condition2 = new Condition<int>(Rule.Constant(true));
-			_condition3 = new Condition<int>(Rule.Constant(true));
-			_condition4 = new Condition<int>(Rule.Constant(true));
 
-			var source1 = A.Fake<IConditionSource>();
-			var source2 = A.Fake<IConditionSource>();
+			var source = A.Fake<IConditionSource>();
 
-			A.CallTo(() => source1.GetConditions()).Returns(new[] { _condition1, _condition2 });
-			A.CallTo(() => source2.GetConditions()).Returns(new[] { _condition3, _condition4 });
+			A.CallTo(() => source.GetConditions()).Returns(new[] { _condition1, _condition2 });
 
-			_compositeSource = new CompositeConditionSource(source1, source2);
+			_compositeSource = new CompositeConditionSource(source);
 		}
 
 		protected override void When()
@@ -42,7 +36,7 @@ namespace Grasp.Checks.Conditions.Schemas
 		[Then]
 		public void ContainsAllConditions()
 		{
-			var expectedConditions = new[] { _condition1, _condition2, _condition3, _condition4 };
+			var expectedConditions = new[] { _condition1, _condition2 };
 
 			Assert.That(!expectedConditions.Except(_conditions).Any());
 		}

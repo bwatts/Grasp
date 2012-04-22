@@ -141,6 +141,7 @@
     <Compile Include="Analysis\Variables\Names\UnderscoreFirstIsName.cs" />
     <Compile Include="Analysis\Variables\Names\IsName.cs" />
     <Compile Include="Analysis\Variables\CreateVariable.cs" />
+    <Compile Include="Checks\Conditions\Sources\ChangeDefaultDeclarationNames.cs" />
     <Compile Include="Checks\ApplyThatCheck.cs" />
     <Compile Include="Checks\ApplyThatCheckWithDefaultResult.cs" />
     <Compile Include="Checks\Conditions\CreateTypedConditionWithName.cs" />
@@ -174,24 +175,24 @@
     <Compile Include="Checks\Conditions\Keys\CreateKeyWithDefaultName.cs" />
     <Compile Include="Checks\Conditions\Keys\CreateKeyWithName.cs" />
     <Compile Include="Checks\Conditions\Keys\CreateKey.cs" />
-    <Compile Include="Checks\Conditions\Schemas\GetConditionsForPropertyMethods.cs" />
-    <Compile Include="Checks\Conditions\Schemas\GetConditionsForPropertyFieldMethod.cs" />
-    <Compile Include="Checks\Conditions\Schemas\GetConditionsForMethodWithParameters.cs" />
-    <Compile Include="Checks\Conditions\Schemas\GetConditionsForVoidMethod.cs" />
-    <Compile Include="Checks\Conditions\Schemas\GetConditionsForMemberWithMultiple.cs" />
-    <Compile Include="Checks\Conditions\Schemas\GetConditionsForMethod.cs" />
-    <Compile Include="Checks\Conditions\Schemas\GetConditionsForProperty.cs" />
-    <Compile Include="Checks\Conditions\Schemas\GetConditionsForField.cs" />
-    <Compile Include="Checks\Conditions\Schemas\GetConditionsWithNoSources.cs" />
-    <Compile Include="Checks\Conditions\Schemas\GetConditionsWithSingleSource.cs" />
-    <Compile Include="Checks\Conditions\Schemas\GetConditionsWithMultipleSources.cs" />
-    <Compile Include="Checks\Conditions\Schemas\GetConditionFromRepositoryTwice.cs" />
-    <Compile Include="Checks\Conditions\Schemas\GetConditionWithUnknownKey.cs" />
-    <Compile Include="Checks\Conditions\Schemas\GetConditionWithOtherKeys.cs" />
-    <Compile Include="Checks\Conditions\Schemas\GetConditionWithTwo.cs" />
-    <Compile Include="Checks\Conditions\Schemas\GetConditionWithOne.cs" />
-    <Compile Include="Checks\Conditions\Schemas\GetConditionWithNone.cs" />
-    <Compile Include="Checks\Conditions\Schemas\GetSpecificationForUnknownCondition.cs" />
+    <Compile Include="Checks\Conditions\Sources\GetConditionsForPropertyMethods.cs" />
+    <Compile Include="Checks\Conditions\Sources\GetConditionsForPropertyFieldMethod.cs" />
+    <Compile Include="Checks\Conditions\Sources\GetConditionsForMethodWithParameters.cs" />
+    <Compile Include="Checks\Conditions\Sources\GetConditionsForVoidMethod.cs" />
+    <Compile Include="Checks\Conditions\Sources\GetConditionsForMemberWithMultiple.cs" />
+    <Compile Include="Checks\Conditions\Sources\GetConditionsForMethod.cs" />
+    <Compile Include="Checks\Conditions\Sources\GetConditionsForProperty.cs" />
+    <Compile Include="Checks\Conditions\Sources\GetConditionsForField.cs" />
+    <Compile Include="Checks\Conditions\Sources\GetConditionsWithNoSources.cs" />
+    <Compile Include="Checks\Conditions\Sources\GetConditionsWithSingleSource.cs" />
+    <Compile Include="Checks\Conditions\Sources\GetConditionsWithMultipleSources.cs" />
+    <Compile Include="Checks\Conditions\Repositories\GetConditionTwice.cs" />
+    <Compile Include="Checks\Conditions\Repositories\GetConditionWithUnknownKey.cs" />
+    <Compile Include="Checks\Conditions\Repositories\GetConditionWithOtherKeys.cs" />
+    <Compile Include="Checks\Conditions\Repositories\GetConditionWithTwo.cs" />
+    <Compile Include="Checks\Conditions\Repositories\GetConditionWithOne.cs" />
+    <Compile Include="Checks\Conditions\Repositories\GetConditionWithNone.cs" />
+    <Compile Include="Checks\Conditions\GetSpecificationForUnknownCondition.cs" />
     <Compile Include="Checks\CreateCheck.cs" />
     <Compile Include="Checks\ImplicitlyConvertCheckToBoolean.cs" />
     <Compile Include="Checks\CreateThatCheckWithDefaultResult.cs" />
@@ -215,7 +216,7 @@
     <Compile Include="Checks\Rules\CreateConstantRule.cs" />
     <Compile Include="Checks\Rules\CreateCheckRuleWithArguments.cs" />
     <Compile Include="Checks\Rules\CreateCheckRule.cs" />
-    <Compile Include="Checks\Conditions\Schemas\GetSpecification.cs" />
+    <Compile Include="Checks\Conditions\GetSpecification.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -227,7 +228,9 @@
       <Name>Grasp</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Checks\Annotation\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

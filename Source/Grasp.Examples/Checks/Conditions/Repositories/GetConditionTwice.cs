@@ -7,9 +7,9 @@ using FakeItEasy;
 using Grasp.Checks.Rules;
 using NUnit.Framework;
 
-namespace Grasp.Checks.Conditions.Schemas
+namespace Grasp.Checks.Conditions.Repositories
 {
-	public class GetConditionFromRepositoryTwice : Behavior
+	public class GetConditionTwice : Behavior
 	{
 		Condition _condition;
 		IConditionSource _source;

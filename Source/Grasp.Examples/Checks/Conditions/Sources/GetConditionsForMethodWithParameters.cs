@@ -8,9 +8,9 @@ using FakeItEasy;
 using Grasp.Checks.Rules;
 using NUnit.Framework;
 
-namespace Grasp.Checks.Conditions.Schemas
+namespace Grasp.Checks.Conditions.Sources
 {
-	public class GetConditionsForMemberWithMultiple : Behavior
+	public class GetConditionsForMethodWithParameters : Behavior
 	{
 		TestConditionSource _source;
 		IEnumerable<Condition> _conditions;
@@ -26,14 +26,15 @@ namespace Grasp.Checks.Conditions.Schemas
 		}
 
 		[Then]
-		public void ConditionsAreDistinct()
+		public void NoConditionsDeclared()
 		{
-			Assert.That(_conditions.Count(), Is.EqualTo(2));
+			Assert.That(!_conditions.Any());
 		}
 
 		private sealed class TargetType
 		{
-			public int Target = 0;
+			public void GetTarget(int parameter)
+			{}
 		}
 
 		private sealed class TestConditionSource : MemberConditionSource
@@ -45,15 +46,13 @@ namespace Grasp.Checks.Conditions.Schemas
 
 			protected override IEnumerable<IConditionDeclaration> GetDeclarations(MemberInfo member)
 			{
+				// Methods with parameters should be ignored. This declaration should never be used, resulting in an empty set of conditions.
+
 				if(member.DeclaringType != typeof(object))
 				{
 					var declaration = A.Fake<IConditionDeclaration>();
 
-					A.CallTo(() => declaration.GetConditions(typeof(int))).Returns(new[]
-					{
-						new Condition<int>(Rule.Constant(true)),
-						new Condition<int>(Rule.Constant(false))
-					});
+					A.CallTo(() => declaration.GetConditions(typeof(int))).Returns(new[] { new Condition<int>(Rule.Constant(true)) });
 
 					yield return declaration;
 				}

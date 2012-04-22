@@ -9,7 +9,7 @@ using Grasp.Checks.Rules;
 namespace Grasp.Checks.Conditions
 {
 	/// <summary>
-	/// A source which provides conditions for members of a type
+	/// Base implementation of a source which provides conditions for members of a type
 	/// </summary>
 	[ContractClass(typeof(MemberConditionSourceContract))]
 	public abstract class MemberConditionSource : IConditionSource

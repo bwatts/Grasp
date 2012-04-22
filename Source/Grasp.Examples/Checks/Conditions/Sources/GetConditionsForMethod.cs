@@ -8,9 +8,9 @@ using FakeItEasy;
 using Grasp.Checks.Rules;
 using NUnit.Framework;
 
-namespace Grasp.Checks.Conditions.Schemas
+namespace Grasp.Checks.Conditions.Sources
 {
-	public class GetConditionsForField : Behavior
+	public class GetConditionsForMethod : Behavior
 	{
 		TestConditionSource _source;
 		Condition _condition;
@@ -38,31 +38,34 @@ namespace Grasp.Checks.Conditions.Schemas
 		}
 
 		[Then]
-		public void RuleHasFieldType()
+		public void RuleHasMethodType()
 		{
-			Assert.That(_condition.Rule.Type, Is.EqualTo(RuleType.Field));
+			Assert.That(_condition.Rule.Type, Is.EqualTo(RuleType.Method));
 		}
 
 		[Then]
-		public void RuleAppliesToField()
+		public void RuleAppliesToMethod()
 		{
-			var fieldRule = (MemberRule) _condition.Rule;
+			var methodRule = (MemberRule) _condition.Rule;
 
-			Assert.That(fieldRule.Member, Is.EqualTo(typeof(TargetType).GetField("Target")));
+			Assert.That(methodRule.Member, Is.EqualTo(typeof(TargetType).GetMethod("GetTarget")));
 		}
 
 		[Then]
-		public void FieldRuleAppliesRule()
+		public void MethodRuleAppliesRule()
 		{
-			var fieldRule = (MemberRule) _condition.Rule;
-			var passesRule = (ConstantRule) fieldRule.Rule;
+			var methodRule = (MemberRule) _condition.Rule;
+			var passesRule = (ConstantRule) methodRule.Rule;
 
 			Assert.That(passesRule.Passes);
 		}
 
 		private sealed class TargetType
 		{
-			public int Target = 0;
+			public int GetTarget()
+			{
+				return 0;
+			}
 		}
 
 		private sealed class TestConditionSource : MemberConditionSource
@@ -74,7 +77,7 @@ namespace Grasp.Checks.Conditions.Schemas
 
 			protected override IEnumerable<IConditionDeclaration> GetDeclarations(MemberInfo member)
 			{
-				if(member == typeof(TargetType).GetField("Target"))
+				if(member == typeof(TargetType).GetMethod("GetTarget"))
 				{
 					var declaration = A.Fake<IConditionDeclaration>();
 

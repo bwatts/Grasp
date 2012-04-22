@@ -9,7 +9,7 @@ namespace Grasp.Analysis.Compilation
 	/// <summary>
 	/// Indiciates a calculation's result type is not assignable to its variable's output type
 	/// </summary>
-	public class InvalidCalculationResultTypeException : Exception
+	public class InvalidCalculationResultTypeException : GraspException
 	{
 		/// <summary>
 		/// Initializes an exception with the specified calculation

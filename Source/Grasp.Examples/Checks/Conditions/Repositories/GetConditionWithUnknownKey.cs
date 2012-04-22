@@ -4,27 +4,30 @@ using System.Linq;
 using System.Text;
 using Cloak.NUnit;
 using FakeItEasy;
+using Grasp.Checks.Rules;
 using NUnit.Framework;
 
-namespace Grasp.Checks.Conditions.Schemas
+namespace Grasp.Checks.Conditions.Repositories
 {
-	public class GetConditionWithNone : Behavior
+	public class GetConditionWithUnknownKey : Behavior
 	{
 		ConditionRepository _repository;
 		Condition _condition;
 
 		protected override void Given()
 		{
+			var condition = new Condition<int>(Rule.Constant(true));
+
 			var source = A.Fake<IConditionSource>();
 
-			A.CallTo(() => source.GetConditions()).Returns(Enumerable.Empty<Condition>());
+			A.CallTo(() => source.GetConditions()).Returns(new[] { condition });
 
 			_repository = new ConditionRepository(source);
 		}
 
 		protected override void When()
 		{
-			_condition = _repository.GetCondition(new ConditionKey(typeof(int)));
+			_condition = _repository.GetCondition(new ConditionKey(typeof(int), "Unknown"));
 		}
 
 		[Then]

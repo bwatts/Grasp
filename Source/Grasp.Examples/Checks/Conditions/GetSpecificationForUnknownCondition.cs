@@ -7,7 +7,7 @@ using FakeItEasy;
 using Grasp.Checks.Rules;
 using NUnit.Framework;
 
-namespace Grasp.Checks.Conditions.Schemas
+namespace Grasp.Checks.Conditions
 {
 	public class GetSpecificationForUnknownCondition : Behavior
 	{

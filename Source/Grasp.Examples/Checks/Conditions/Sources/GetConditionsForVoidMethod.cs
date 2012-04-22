@@ -8,9 +8,9 @@ using FakeItEasy;
 using Grasp.Checks.Rules;
 using NUnit.Framework;
 
-namespace Grasp.Checks.Conditions.Schemas
+namespace Grasp.Checks.Conditions.Sources
 {
-	public class GetConditionsForMethodWithParameters : Behavior
+	public class GetConditionsForVoidMethod : Behavior
 	{
 		TestConditionSource _source;
 		IEnumerable<Condition> _conditions;
@@ -33,7 +33,7 @@ namespace Grasp.Checks.Conditions.Schemas
 
 		private sealed class TargetType
 		{
-			public void GetTarget(int parameter)
+			public void GetTarget()
 			{}
 		}
 
@@ -46,7 +46,7 @@ namespace Grasp.Checks.Conditions.Schemas
 
 			protected override IEnumerable<IConditionDeclaration> GetDeclarations(MemberInfo member)
 			{
-				// Methods with parameters should be ignored. This declaration should never be used, resulting in an empty set of conditions.
+				// Void methods should be ignored. This declaration should never be used, resulting in an empty set of conditions.
 
 				if(member.DeclaringType != typeof(object))
 				{

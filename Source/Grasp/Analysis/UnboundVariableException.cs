@@ -9,7 +9,7 @@ namespace Grasp.Analysis
 	/// <summary>
 	/// Indicates an attempt to retrieve the value of an unbound variable
 	/// </summary>
-	public class UnboundVariableException : Exception
+	public class UnboundVariableException : GraspException
 	{
 		/// <summary>
 		/// Initializes an exception with the specified variable

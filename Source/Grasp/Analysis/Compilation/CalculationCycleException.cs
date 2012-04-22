@@ -10,7 +10,7 @@ namespace Grasp.Analysis.Compilation
 	/// <summary>
 	/// Indicates a set of calculations contains a cycle
 	/// </summary>
-	public class CalculationCycleException : Exception
+	public class CalculationCycleException : GraspException
 	{
 		/// <summary>
 		/// Initializes an exception with the specified calculation context and repeated calculation

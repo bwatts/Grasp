@@ -9,7 +9,7 @@ namespace Grasp.Analysis.Compilation
 	/// <summary>
 	/// Indicates a calculation references a variable that is not defined in a schema's variables or as the output variable of any of a schema's calculations
 	/// </summary>
-	public class InvalidCalculationVariableException : Exception
+	public class InvalidCalculationVariableException : GraspException
 	{
 		/// <summary>
 		/// Initializes an exception with the specified variable, calculation, and schema

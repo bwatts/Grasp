@@ -8,9 +8,9 @@ using FakeItEasy;
 using Grasp.Checks.Rules;
 using NUnit.Framework;
 
-namespace Grasp.Checks.Conditions.Schemas
+namespace Grasp.Checks.Conditions.Sources
 {
-	public class GetConditionsForPropertyFieldMethod : Behavior
+	public class GetConditionsForMemberWithMultiple : Behavior
 	{
 		TestConditionSource _source;
 		IEnumerable<Condition> _conditions;
@@ -22,37 +22,18 @@ namespace Grasp.Checks.Conditions.Schemas
 
 		protected override void When()
 		{
-			_conditions = _source.GetConditions().ToList();
+			_conditions = _source.GetConditions();
 		}
 
 		[Then]
-		public void IncludesPropertyCondition()
+		public void ConditionsAreDistinct()
 		{
-			_conditions.Single(condition => condition.Rule.Type == RuleType.Property);
-		}
-
-		[Then]
-		public void IncludesFieldCondition()
-		{
-			_conditions.Single(condition => condition.Rule.Type == RuleType.Field);
-		}
-
-		[Then]
-		public void IncludesMethodCondition()
-		{
-			_conditions.Single(condition => condition.Rule.Type == RuleType.Method);
+			Assert.That(_conditions.Count(), Is.EqualTo(2));
 		}
 
 		private sealed class TargetType
 		{
-			public int TargetField = 1;
-
-			public int TargetProperty { get; set; }
-
-			public int GetTarget()
-			{
-				return 0;
-			}
+			public int Target = 0;
 		}
 
 		private sealed class TestConditionSource : MemberConditionSource
@@ -68,7 +49,11 @@ namespace Grasp.Checks.Conditions.Schemas
 				{
 					var declaration = A.Fake<IConditionDeclaration>();
 
-					A.CallTo(() => declaration.GetConditions(typeof(int))).Returns(new[] { new Condition<int>(Rule.Constant(true)) });
+					A.CallTo(() => declaration.GetConditions(typeof(int))).Returns(new[]
+					{
+						new Condition<int>(Rule.Constant(true)),
+						new Condition<int>(Rule.Constant(false))
+					});
 
 					yield return declaration;
 				}

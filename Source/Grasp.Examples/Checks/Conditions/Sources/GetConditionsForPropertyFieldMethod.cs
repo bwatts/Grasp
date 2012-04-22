@@ -8,9 +8,9 @@ using FakeItEasy;
 using Grasp.Checks.Rules;
 using NUnit.Framework;
 
-namespace Grasp.Checks.Conditions.Schemas
+namespace Grasp.Checks.Conditions.Sources
 {
-	public class GetConditionsForVoidMethod : Behavior
+	public class GetConditionsForPropertyFieldMethod : Behavior
 	{
 		TestConditionSource _source;
 		IEnumerable<Condition> _conditions;
@@ -22,19 +22,37 @@ namespace Grasp.Checks.Conditions.Schemas
 
 		protected override void When()
 		{
-			_conditions = _source.GetConditions();
+			_conditions = _source.GetConditions().ToList();
 		}
 
 		[Then]
-		public void NoConditionsDeclared()
+		public void IncludesPropertyCondition()
 		{
-			Assert.That(!_conditions.Any());
+			_conditions.Single(condition => condition.Rule.Type == RuleType.Property);
+		}
+
+		[Then]
+		public void IncludesFieldCondition()
+		{
+			_conditions.Single(condition => condition.Rule.Type == RuleType.Field);
+		}
+
+		[Then]
+		public void IncludesMethodCondition()
+		{
+			_conditions.Single(condition => condition.Rule.Type == RuleType.Method);
 		}
 
 		private sealed class TargetType
 		{
-			public void GetTarget()
-			{}
+			public int TargetField = 1;
+
+			public int TargetProperty { get; set; }
+
+			public int GetTarget()
+			{
+				return 0;
+			}
 		}
 
 		private sealed class TestConditionSource : MemberConditionSource
@@ -46,8 +64,6 @@ namespace Grasp.Checks.Conditions.Schemas
 
 			protected override IEnumerable<IConditionDeclaration> GetDeclarations(MemberInfo member)
 			{
-				// Void methods should be ignored. This declaration should never be used, resulting in an empty set of conditions.
-
 				if(member.DeclaringType != typeof(object))
 				{
 					var declaration = A.Fake<IConditionDeclaration>();
