@@ -15,7 +15,6 @@ namespace Grasp.Checks.Annotation
 	public class AnnotatedConditionSource : MemberConditionSource
 	{
 		private readonly Type _targetType;
-		private readonly string _defaultConditionName;
 
 		/// <summary>
 		/// Initializes a source with the specified target type
@@ -29,7 +28,7 @@ namespace Grasp.Checks.Annotation
 
 			var defaultConditionNameAttribute = targetType.GetAttribute<DefaultConditionNameAttribute>();
 
-			_defaultConditionName = defaultConditionNameAttribute == null ? null : defaultConditionNameAttribute.Name;
+			DefaultConditionName = defaultConditionNameAttribute != null ? defaultConditionNameAttribute.Name : ConditionKey.DefaultName;
 		}
 
 		/// <summary>
@@ -41,6 +40,11 @@ namespace Grasp.Checks.Annotation
 		}
 
 		/// <summary>
+		/// Gets the default name of conditions produced by this source
+		/// </summary>
+		public string DefaultConditionName { get; private set; }
+
+		/// <summary>
 		/// Gets the conditions declared by attribtes on the specified member
 		/// </summary>
 		/// <param name="member">The member to check for annotated conditions</param>
@@ -49,9 +53,9 @@ namespace Grasp.Checks.Annotation
 		{
 			var declarations = member.GetAttributes<CheckAttribute>().Cast<IConditionDeclaration>();
 
-			if(_defaultConditionName != null)
+			if(DefaultConditionName != ConditionKey.DefaultName)
 			{
-				declarations = declarations.WithDefaultName(_defaultConditionName);
+				declarations = declarations.WithDefaultName(DefaultConditionName);
 			}
 
 			return declarations;

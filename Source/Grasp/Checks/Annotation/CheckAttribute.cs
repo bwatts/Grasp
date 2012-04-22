@@ -10,7 +10,7 @@ using Grasp.Checks.Rules;
 namespace Grasp.Checks.Annotation
 {
 	/// <summary>
-	/// Declares an annotated check on a member of a target type
+	/// Base implementation of a check declared via annotation on a member of a target type
 	/// </summary>
 	[AttributeUsage(AttributeTargets.Field | AttributeTargets.Property | AttributeTargets.Method, AllowMultiple = true)]
 	[ContractClass(typeof(CheckAttributeContract))]

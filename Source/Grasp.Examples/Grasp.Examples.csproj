@@ -141,6 +141,16 @@
     <Compile Include="Analysis\Variables\Names\UnderscoreFirstIsName.cs" />
     <Compile Include="Analysis\Variables\Names\IsName.cs" />
     <Compile Include="Analysis\Variables\CreateVariable.cs" />
+    <Compile Include="Checks\Annotation\GetAnnotatedConditionWithDefaultNameOverride.cs" />
+    <Compile Include="Checks\Annotation\GetAnnotatedCondition.cs" />
+    <Compile Include="Checks\Annotation\CreateAnnotatedConditionSourceWithDefaultNameOverride.cs" />
+    <Compile Include="Checks\Annotation\CreateAnnotatedConditionSource.cs" />
+    <Compile Include="Checks\Annotation\GetCheckConditionWithRepeatedName.cs" />
+    <Compile Include="Checks\Annotation\GetCheckConditionWithNameWithSpaces.cs" />
+    <Compile Include="Checks\Annotation\GetCheckConditionWithTwoNames.cs" />
+    <Compile Include="Checks\Annotation\GetCheckConditionWithName.cs" />
+    <Compile Include="Checks\Annotation\GetCheckConditionNegated.cs" />
+    <Compile Include="Checks\Annotation\GetCheckCondition.cs" />
     <Compile Include="Checks\Conditions\Sources\ChangeDefaultDeclarationNames.cs" />
     <Compile Include="Checks\ApplyThatCheck.cs" />
     <Compile Include="Checks\ApplyThatCheckWithDefaultResult.cs" />
@@ -228,9 +238,7 @@
       <Name>Grasp</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Checks\Annotation\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
