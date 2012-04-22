@@ -127,6 +127,8 @@
     <Compile Include="Checks\Conditions\ConditionRepository.cs" />
     <Compile Include="Checks\Conditions\ConditionSchema.cs" />
     <Compile Include="Checks\Conditions\ConditionSchemaSpecificationProvider.cs" />
+    <Compile Include="Checks\Conditions\IConditionDeclaration.cs" />
+    <Compile Include="Checks\Conditions\MemberConditionSource.cs" />
     <Compile Include="Checks\Conditions\IConditionRepository.cs" />
     <Compile Include="Checks\Conditions\IConditionSchema.cs" />
     <Compile Include="Checks\Conditions\IConditionSource.cs" />
