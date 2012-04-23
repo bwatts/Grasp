@@ -152,6 +152,8 @@
     <Compile Include="Checks\Annotation\GetCheckConditionWithName.cs" />
     <Compile Include="Checks\Annotation\GetCheckConditionNegated.cs" />
     <Compile Include="Checks\Annotation\GetCheckCondition.cs" />
+    <Compile Include="Checks\Annotation\Inherent\GetIsFalseMethod.cs" />
+    <Compile Include="Checks\Annotation\Inherent\GetIsTrueMethod.cs" />
     <Compile Include="Checks\Annotation\Inherent\GetIsEqualToMethod.cs" />
     <Compile Include="Checks\Annotation\Inherent\GetIsNotNullMethod.cs" />
     <Compile Include="Checks\Annotation\Inherent\GetIsNullMethod.cs" />
@@ -218,9 +220,13 @@
     <Compile Include="Checks\Methods\GetRuleForUnsupportedTargetType.cs" />
     <Compile Include="Checks\Methods\GetCheckArguments.cs" />
     <Compile Include="Checks\Methods\GetCheckType.cs" />
-    <Compile Include="Checks\Methods\Inherent\SingleTypeMethodSupportsUnsupportedType.cs" />
-    <Compile Include="Checks\Methods\Inherent\SingleTypeMethodSupportsDerivedType.cs" />
-    <Compile Include="Checks\Methods\Inherent\SingleTypeMethodSupportsTargetType.cs" />
+    <Compile Include="Checks\Methods\Inherent\GetIsFalseRuleNonBoolean.cs" />
+    <Compile Include="Checks\Methods\Inherent\GetIsTrueRuleNonBoolean.cs" />
+    <Compile Include="Checks\Methods\Inherent\GetIsTrueRule.cs" />
+    <Compile Include="Checks\Methods\Inherent\GetIsFalseRule.cs" />
+    <Compile Include="Checks\Methods\SingleTypeMethodSupportsUnsupportedType.cs" />
+    <Compile Include="Checks\Methods\SingleTypeMethodSupportsDerivedType.cs" />
+    <Compile Include="Checks\Methods\SingleTypeMethodSupportsTargetType.cs" />
     <Compile Include="Checks\Methods\Inherent\GetIsEqualToRule.cs" />
     <Compile Include="Checks\Methods\Inherent\GetIsNotNullRule.cs" />
     <Compile Include="Checks\Methods\Inherent\GetIsNullRule.cs" />

@@ -8,9 +8,9 @@ using Cloak.Reflection;
 using Grasp.Checks.Rules;
 using NUnit.Framework;
 
-namespace Grasp.Checks.Methods.Inherent
+namespace Grasp.Checks.Methods
 {
-	public class SingleTypeMethodSupportsTargetType : Behavior
+	public class SingleTypeMethodSupportsDerivedType : Behavior
 	{
 		TestSingleTypeCheckMethod _method;
 		bool _isSupported;
@@ -22,7 +22,7 @@ namespace Grasp.Checks.Methods.Inherent
 
 		protected override void When()
 		{
-			_isSupported = _method.SupportsTargetType();
+			_isSupported = _method.SupportsDerivedTargetType();
 		}
 
 		[Then]
@@ -31,16 +31,22 @@ namespace Grasp.Checks.Methods.Inherent
 			Assert.That(_isSupported);
 		}
 
+		private class BaseTargetType
+		{}
+
+		private class DerivedTargetType : BaseTargetType
+		{}
+
 		private sealed class TestSingleTypeCheckMethod : SingleTypeCheckMethod
 		{
-			internal bool SupportsTargetType()
+			internal bool SupportsDerivedTargetType()
 			{
-				return SupportsTargetType(typeof(int));
+				return SupportsTargetType(typeof(DerivedTargetType));
 			}
 
 			protected override Type TargetType
 			{
-				get { return typeof(int); }
+				get { return typeof(BaseTargetType); }
 			}
 
 			protected override MethodInfo GetMethod(Type checkType)

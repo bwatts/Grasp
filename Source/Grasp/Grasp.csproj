@@ -123,8 +123,10 @@
     <Compile Include="Checks\Annotation\AnnotationException.cs" />
     <Compile Include="Checks\Annotation\CheckAttribute.cs" />
     <Compile Include="Checks\Annotation\CheckIsEqualToAttribute.cs" />
+    <Compile Include="Checks\Annotation\CheckIsFalseAttribute.cs" />
     <Compile Include="Checks\Annotation\CheckIsNullAttribute.cs" />
     <Compile Include="Checks\Annotation\CheckIsNotNullAttribute.cs" />
+    <Compile Include="Checks\Annotation\CheckIsTrueAttribute.cs" />
     <Compile Include="Checks\Annotation\DefaultConditionNameAttribute.cs" />
     <Compile Include="Checks\BoundaryType.cs" />
     <Compile Include="Checks\Check.cs" />
@@ -152,8 +154,10 @@
     <Compile Include="Checks\Methods\CheckMethod.cs" />
     <Compile Include="Checks\Methods\ICheckMethod.cs" />
     <Compile Include="Checks\Methods\IsEqualToMethod.cs" />
+    <Compile Include="Checks\Methods\IsFalseMethod.cs" />
     <Compile Include="Checks\Methods\IsNotNullMethod.cs" />
     <Compile Include="Checks\Methods\IsNullMethod.cs" />
+    <Compile Include="Checks\Methods\IsTrueMethod.cs" />
     <Compile Include="Checks\Methods\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
