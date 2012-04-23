@@ -7,7 +7,7 @@ using Grasp.Checks.Methods;
 namespace Grasp.Checks.Annotation
 {
 	/// <summary>
-	/// Checks that the target value is false
+	/// Checks that the target <see cref="System.Boolean"/> is false
 	/// </summary>
 	public sealed class CheckIsTrueAttribute : CheckAttribute
 	{
