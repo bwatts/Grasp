@@ -60,7 +60,7 @@ namespace Grasp.Checks.Annotation
 
 			internal Type TargetType { get; set; }
 
-			protected override ICheckMethod GetCheckMethod()
+			public override ICheckMethod GetCheckMethod()
 			{
 				var checkMethod = A.Fake<ICheckMethod>();
 

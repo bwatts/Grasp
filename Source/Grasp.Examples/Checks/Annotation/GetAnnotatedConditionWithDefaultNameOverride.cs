@@ -77,7 +77,7 @@ namespace Grasp.Checks.Annotation
 		{
 			internal static readonly CheckRule Rule = Rules.Rule.Check(Reflect.Func<ICheckable<int>, Check<int>>(Checkable.IsPositive));
 
-			protected override ICheckMethod GetCheckMethod()
+			public override ICheckMethod GetCheckMethod()
 			{
 				var method = A.Fake<ICheckMethod>();
 

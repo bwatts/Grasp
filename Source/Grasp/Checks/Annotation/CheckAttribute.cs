@@ -49,7 +49,7 @@ namespace Grasp.Checks.Annotation
 		/// When implemented by a derived class, gets the check method represented by this attribute
 		/// </summary>
 		/// <returns>The check method represented by this attribute</returns>
-		protected abstract ICheckMethod GetCheckMethod();
+		public abstract ICheckMethod GetCheckMethod();
 
 		private IEnumerable<Condition> GetConditions(Rule rule, Type targetType)
 		{
@@ -70,7 +70,7 @@ namespace Grasp.Checks.Annotation
 	[ContractClassFor(typeof(CheckAttribute))]
 	internal abstract class CheckAttributeContract : CheckAttribute
 	{
-		protected override ICheckMethod GetCheckMethod()
+		public override ICheckMethod GetCheckMethod()
 		{
 			Contract.Ensures(Contract.Result<ICheckMethod>() != null);
 
