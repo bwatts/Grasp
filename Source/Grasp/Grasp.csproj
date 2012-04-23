@@ -130,6 +130,7 @@
     <Compile Include="Checks\Annotation\CheckIsLeapYearAttribute.cs" />
     <Compile Include="Checks\Annotation\CheckIsWeekdayAttribute.cs" />
     <Compile Include="Checks\Annotation\CheckIsWeekendAttribute.cs" />
+    <Compile Include="Checks\Annotation\CheckMatchesAttribute.cs" />
     <Compile Include="Checks\Annotation\DefaultConditionNameAttribute.cs" />
     <Compile Include="Checks\BoundaryType.cs" />
     <Compile Include="Checks\Check.cs" />
@@ -164,6 +165,7 @@
     <Compile Include="Checks\Methods\IsNullMethod.cs" />
     <Compile Include="Checks\Methods\IsTrueMethod.cs" />
     <Compile Include="Checks\Methods\IsWeekdayMethod.cs" />
+    <Compile Include="Checks\Methods\MatchesMethod.cs" />
     <Compile Include="Checks\Methods\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

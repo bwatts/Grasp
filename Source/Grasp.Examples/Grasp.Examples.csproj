@@ -152,6 +152,7 @@
     <Compile Include="Checks\Annotation\GetCheckConditionWithName.cs" />
     <Compile Include="Checks\Annotation\GetCheckConditionNegated.cs" />
     <Compile Include="Checks\Annotation\GetCheckCondition.cs" />
+    <Compile Include="Checks\Annotation\Inherent\GetMatchesMethod.cs" />
     <Compile Include="Checks\Annotation\Inherent\GetIsWeekendMethod.cs" />
     <Compile Include="Checks\Annotation\Inherent\GetIsWeekdayMethod.cs" />
     <Compile Include="Checks\Annotation\Inherent\GetIsLeapYearMethod.cs" />
@@ -223,6 +224,10 @@
     <Compile Include="Checks\Methods\GetRuleForUnsupportedTargetType.cs" />
     <Compile Include="Checks\Methods\GetCheckArguments.cs" />
     <Compile Include="Checks\Methods\GetCheckType.cs" />
+    <Compile Include="Checks\Methods\Inherent\GetMatchesRuleWithPatternAndOptions.cs" />
+    <Compile Include="Checks\Methods\Inherent\GetMatchesRuleWithPattern.cs" />
+    <Compile Include="Checks\Methods\Inherent\GetMatchesRuleNonString.cs" />
+    <Compile Include="Checks\Methods\Inherent\GetMatchesRuleWithRegex.cs" />
     <Compile Include="Checks\Methods\Inherent\GetIsLeapYearRuleNonDateTime.cs" />
     <Compile Include="Checks\Methods\Inherent\GetIsLeapYearRule.cs" />
     <Compile Include="Checks\Methods\Inherent\GetIsWeekdayRuleNonDateTime.cs" />

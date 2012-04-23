@@ -11,19 +11,16 @@ namespace Grasp.Checks.Methods
 	/// </summary>
 	public sealed class IsEqualToMethod : CheckMethod
 	{
+		private readonly object _value;
+
 		/// <summary>
 		/// Initializes a method with the specified value
 		/// </summary>
 		/// <param name="value">The value to check for equality against the target value</param>
 		public IsEqualToMethod(object value)
 		{
-			Value = value;
+			_value = value;
 		}
-
-		/// <summary>
-		/// Gets the value to check for equality against the target value
-		/// </summary>
-		public object Value { get; private set; }
 
 		/// <summary>
 		/// Indicates that all target types are supported
@@ -58,7 +55,7 @@ namespace Grasp.Checks.Methods
 		/// <returns>Gets the value to check for equality against the target value</returns>
 		protected override IEnumerable<object> GetCheckArguments(Type targetType)
 		{
-			yield return Value;
+			yield return _value;
 		}
 	}
 }

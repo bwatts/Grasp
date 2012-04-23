@@ -9,14 +9,14 @@ using NUnit.Framework;
 
 namespace Grasp.Checks.Annotation.Inherent
 {
-	public class GetIsEqualToMethod : Behavior
+	public class GetMatchesMethod : Behavior
 	{
-		CheckIsEqualToAttribute _attribute;
+		CheckMatchesAttribute _attribute;
 		ICheckMethod _method;
 
 		protected override void Given()
 		{
-			_attribute = new CheckIsEqualToAttribute(1);
+			_attribute = new CheckMatchesAttribute("");
 		}
 
 		protected override void When()
@@ -25,9 +25,9 @@ namespace Grasp.Checks.Annotation.Inherent
 		}
 
 		[Then]
-		public void IsIsEqualToMethod()
+		public void IsMatchesMethod()
 		{
-			Assert.That(_method, Is.InstanceOf<IsEqualToMethod>());
+			Assert.That(_method, Is.InstanceOf<MatchesMethod>());
 		}
 	}
 }
