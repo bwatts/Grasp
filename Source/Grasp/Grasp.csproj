@@ -122,6 +122,7 @@
     <Compile Include="Checks\Annotation\AnnotatedConditionSource.cs" />
     <Compile Include="Checks\Annotation\AnnotationException.cs" />
     <Compile Include="Checks\Annotation\CheckAttribute.cs" />
+    <Compile Include="Checks\Annotation\CheckIsEqualToAttribute.cs" />
     <Compile Include="Checks\Annotation\CheckIsNullAttribute.cs" />
     <Compile Include="Checks\Annotation\CheckIsNotNullAttribute.cs" />
     <Compile Include="Checks\Annotation\DefaultConditionNameAttribute.cs" />
@@ -150,6 +151,7 @@
     <Compile Include="Checks\ISpecificationProvider.cs" />
     <Compile Include="Checks\Methods\CheckMethod.cs" />
     <Compile Include="Checks\Methods\ICheckMethod.cs" />
+    <Compile Include="Checks\Methods\IsEqualToMethod.cs" />
     <Compile Include="Checks\Methods\IsNotNullMethod.cs" />
     <Compile Include="Checks\Methods\IsNullMethod.cs" />
     <Compile Include="Checks\Methods\Resources.Designer.cs">

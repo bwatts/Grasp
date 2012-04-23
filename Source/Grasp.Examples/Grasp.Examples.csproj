@@ -152,6 +152,7 @@
     <Compile Include="Checks\Annotation\GetCheckConditionWithName.cs" />
     <Compile Include="Checks\Annotation\GetCheckConditionNegated.cs" />
     <Compile Include="Checks\Annotation\GetCheckCondition.cs" />
+    <Compile Include="Checks\Annotation\Inherent\GetIsEqualToMethod.cs" />
     <Compile Include="Checks\Annotation\Inherent\GetIsNotNullMethod.cs" />
     <Compile Include="Checks\Annotation\Inherent\GetIsNullMethod.cs" />
     <Compile Include="Checks\Conditions\Sources\ChangeDefaultDeclarationNames.cs" />
@@ -217,6 +218,7 @@
     <Compile Include="Checks\Methods\GetRuleForUnsupportedTargetType.cs" />
     <Compile Include="Checks\Methods\GetCheckArguments.cs" />
     <Compile Include="Checks\Methods\GetCheckType.cs" />
+    <Compile Include="Checks\Methods\Inherent\GetIsEqualToRule.cs" />
     <Compile Include="Checks\Methods\Inherent\GetIsNotNullRule.cs" />
     <Compile Include="Checks\Methods\Inherent\GetIsNullRule.cs" />
     <Compile Include="Checks\Rules\MakeMemberRuleForNonMemberType.cs" />
