@@ -215,6 +215,8 @@
     <Compile Include="Checks\Methods\GetRuleForUnsupportedTargetType.cs" />
     <Compile Include="Checks\Methods\GetCheckArguments.cs" />
     <Compile Include="Checks\Methods\GetCheckType.cs" />
+    <Compile Include="Checks\Methods\Inherent\GetIsHighSurrogateRuleNonChar.cs" />
+    <Compile Include="Checks\Methods\Inherent\GetIsHighSurrogateRule.cs" />
     <Compile Include="Checks\Methods\Inherent\GetIsDigitRuleNonChar.cs" />
     <Compile Include="Checks\Methods\Inherent\GetIsDigitRule.cs" />
     <Compile Include="Checks\Methods\Inherent\GetIsControlRuleNonChar.cs" />

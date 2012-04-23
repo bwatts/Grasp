@@ -133,6 +133,7 @@
     <Compile Include="Checks\Annotation\CheckMatchesAttribute.cs" />
     <Compile Include="Checks\Annotation\CheckIsControlAttribute.cs" />
     <Compile Include="Checks\Annotation\CheckIsDigitAttribute.cs" />
+    <Compile Include="Checks\Annotation\CheckIsHighSurrogateAttribute.cs" />
     <Compile Include="Checks\Annotation\DefaultConditionNameAttribute.cs" />
     <Compile Include="Checks\BoundaryType.cs" />
     <Compile Include="Checks\Check.cs" />
@@ -160,6 +161,7 @@
     <Compile Include="Checks\Methods\CheckMethod.cs" />
     <Compile Include="Checks\Methods\IsControlMethod.cs" />
     <Compile Include="Checks\Methods\IsDigitMethod.cs" />
+    <Compile Include="Checks\Methods\IsHighSurrogateMethod.cs" />
     <Compile Include="Checks\Methods\IsLeapYearMethod.cs" />
     <Compile Include="Checks\Methods\IsWeekendMethod.cs" />
     <Compile Include="Checks\Methods\ICheckMethod.cs" />
