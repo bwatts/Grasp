@@ -6,7 +6,7 @@ using System.Text;
 using Cloak.NUnit;
 using NUnit.Framework;
 
-namespace Grasp.Checks.Methods.Inherent
+namespace Grasp.Checks.Methods.Inherent.Characters
 {
 	public class GetIsControlRuleNonChar : Behavior
 	{

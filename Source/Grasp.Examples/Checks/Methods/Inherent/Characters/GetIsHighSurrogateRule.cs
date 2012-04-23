@@ -8,19 +8,19 @@ using Cloak.Reflection;
 using Grasp.Checks.Rules;
 using NUnit.Framework;
 
-namespace Grasp.Checks.Methods.Inherent
+namespace Grasp.Checks.Methods.Inherent.Characters
 {
-	public class GetIsControlRule : Behavior
+	public class GetIsHighSurrogateRule : Behavior
 	{
-		IsControlMethod _method;
+		IsHighSurrogateMethod _method;
 		MethodInfo _expectedMethod;
 		CheckRule _rule;
 
 		protected override void Given()
 		{
-			_method = new IsControlMethod();
+			_method = new IsHighSurrogateMethod();
 
-			_expectedMethod = Reflect.Func<ICheckable<char>, Check<char>>(Checkable.IsControl);
+			_expectedMethod = Reflect.Func<ICheckable<char>, Check<char>>(Checkable.IsHighSurrogate);
 		}
 
 		protected override void When()
