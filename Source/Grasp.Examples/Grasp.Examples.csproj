@@ -152,15 +152,6 @@
     <Compile Include="Checks\Annotation\GetCheckConditionWithName.cs" />
     <Compile Include="Checks\Annotation\GetCheckConditionNegated.cs" />
     <Compile Include="Checks\Annotation\GetCheckCondition.cs" />
-    <Compile Include="Checks\Annotation\Inherent\GetMatchesMethod.cs" />
-    <Compile Include="Checks\Annotation\Inherent\GetIsWeekendMethod.cs" />
-    <Compile Include="Checks\Annotation\Inherent\GetIsWeekdayMethod.cs" />
-    <Compile Include="Checks\Annotation\Inherent\GetIsLeapYearMethod.cs" />
-    <Compile Include="Checks\Annotation\Inherent\GetIsFalseMethod.cs" />
-    <Compile Include="Checks\Annotation\Inherent\GetIsTrueMethod.cs" />
-    <Compile Include="Checks\Annotation\Inherent\GetIsEqualToMethod.cs" />
-    <Compile Include="Checks\Annotation\Inherent\GetIsNotNullMethod.cs" />
-    <Compile Include="Checks\Annotation\Inherent\GetIsNullMethod.cs" />
     <Compile Include="Checks\Conditions\Sources\ChangeDefaultDeclarationNames.cs" />
     <Compile Include="Checks\ApplyThatCheck.cs" />
     <Compile Include="Checks\ApplyThatCheckWithDefaultResult.cs" />
