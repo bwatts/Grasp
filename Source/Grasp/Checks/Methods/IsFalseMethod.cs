@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using Cloak.Reflection;
 
 namespace Grasp.Checks.Methods
 {
@@ -26,7 +27,7 @@ namespace Grasp.Checks.Methods
 		/// <returns>The <see cref="Checkable.IsFalse"/> method</returns>
 		protected override MethodInfo GetMethod(Type checkType)
 		{
-			return typeof(Checkable).GetMethod("IsFalse");
+			return Reflect.Func<ICheckable<bool>, Check<bool>>(Checkable.IsFalse);
 		}
 	}
 }
