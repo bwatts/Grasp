@@ -215,6 +215,8 @@
     <Compile Include="Checks\Methods\GetRuleForUnsupportedTargetType.cs" />
     <Compile Include="Checks\Methods\GetCheckArguments.cs" />
     <Compile Include="Checks\Methods\GetCheckType.cs" />
+    <Compile Include="Checks\Methods\Inherent\GetIsDigitRuleNonChar.cs" />
+    <Compile Include="Checks\Methods\Inherent\GetIsDigitRule.cs" />
     <Compile Include="Checks\Methods\Inherent\GetIsControlRuleNonChar.cs" />
     <Compile Include="Checks\Methods\Inherent\GetIsControlRule.cs" />
     <Compile Include="Checks\Methods\Inherent\GetMatchesRuleWithPatternAndOptions.cs" />
@@ -231,7 +233,6 @@
     <Compile Include="Checks\Methods\Inherent\GetIsTrueRuleNonBoolean.cs" />
     <Compile Include="Checks\Methods\Inherent\GetIsTrueRule.cs" />
     <Compile Include="Checks\Methods\Inherent\GetIsFalseRule.cs" />
-    <Compile Include="Checks\Methods\Inherent\IsControlMethod.cs" />
     <Compile Include="Checks\Methods\SingleTypeMethodSupportsUnsupportedType.cs" />
     <Compile Include="Checks\Methods\SingleTypeMethodSupportsDerivedType.cs" />
     <Compile Include="Checks\Methods\SingleTypeMethodSupportsTargetType.cs" />
