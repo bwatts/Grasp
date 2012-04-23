@@ -218,6 +218,9 @@
     <Compile Include="Checks\Methods\GetRuleForUnsupportedTargetType.cs" />
     <Compile Include="Checks\Methods\GetCheckArguments.cs" />
     <Compile Include="Checks\Methods\GetCheckType.cs" />
+    <Compile Include="Checks\Methods\Inherent\SingleTypeMethodSupportsUnsupportedType.cs" />
+    <Compile Include="Checks\Methods\Inherent\SingleTypeMethodSupportsDerivedType.cs" />
+    <Compile Include="Checks\Methods\Inherent\SingleTypeMethodSupportsTargetType.cs" />
     <Compile Include="Checks\Methods\Inherent\GetIsEqualToRule.cs" />
     <Compile Include="Checks\Methods\Inherent\GetIsNotNullRule.cs" />
     <Compile Include="Checks\Methods\Inherent\GetIsNullRule.cs" />
