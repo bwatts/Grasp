@@ -209,7 +209,7 @@
     <Compile Include="Checks\CreateThatCheckWithDefaultResult.cs" />
     <Compile Include="Checks\CreateThatCheck.cs" />
     <Compile Include="Checks\Methods\GetRuleWithTwoArguments.cs" />
-    <Compile Include="Checks\Methods\GetRuleWithArgument.cs" />
+    <Compile Include="Checks\Methods\GetRuleWithOneArgument.cs" />
     <Compile Include="Checks\Methods\GetRule.cs" />
     <Compile Include="Checks\Methods\GetEffectiveTargetType.cs" />
     <Compile Include="Checks\Methods\GetRuleForUnsupportedTargetType.cs" />
