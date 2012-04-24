@@ -215,6 +215,8 @@
     <Compile Include="Checks\Methods\GetRuleForUnsupportedTargetType.cs" />
     <Compile Include="Checks\Methods\GetCheckArguments.cs" />
     <Compile Include="Checks\Methods\GetCheckType.cs" />
+    <Compile Include="Checks\Methods\Inherent\Characters\GetIsWhiteSpaceRuleNonChar.cs" />
+    <Compile Include="Checks\Methods\Inherent\Characters\GetIsWhiteSpaceRule.cs" />
     <Compile Include="Checks\Methods\Inherent\Characters\GetIsUpperCaseRuleNonChar.cs" />
     <Compile Include="Checks\Methods\Inherent\Characters\GetIsUpperCaseRule.cs" />
     <Compile Include="Checks\Methods\Inherent\Characters\GetIsSymbolRuleNonChar.cs" />
