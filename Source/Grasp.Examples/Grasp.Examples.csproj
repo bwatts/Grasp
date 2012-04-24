@@ -215,6 +215,10 @@
     <Compile Include="Checks\Methods\GetRuleForUnsupportedTargetType.cs" />
     <Compile Include="Checks\Methods\GetCheckArguments.cs" />
     <Compile Include="Checks\Methods\GetCheckType.cs" />
+    <Compile Include="Checks\Methods\Inherent\Characters\GetIsSurrogateRuleNonChar.cs" />
+    <Compile Include="Checks\Methods\Inherent\Characters\GetIsSurrogateRule.cs" />
+    <Compile Include="Checks\Methods\Inherent\Characters\GetIsSeparatorRuleNonChar.cs" />
+    <Compile Include="Checks\Methods\Inherent\Characters\GetIsSeparatorRule.cs" />
     <Compile Include="Checks\Methods\Inherent\Characters\GetIsPunctuationRuleNonChar.cs" />
     <Compile Include="Checks\Methods\Inherent\Characters\GetIsPunctuationRule.cs" />
     <Compile Include="Checks\Methods\Inherent\Characters\GetIsLowSurrogateRuleNonChar.cs" />
