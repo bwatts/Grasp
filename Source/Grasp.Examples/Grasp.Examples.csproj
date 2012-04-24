@@ -215,6 +215,10 @@
     <Compile Include="Checks\Methods\GetRuleForUnsupportedTargetType.cs" />
     <Compile Include="Checks\Methods\GetCheckArguments.cs" />
     <Compile Include="Checks\Methods\GetCheckType.cs" />
+    <Compile Include="Checks\Methods\Inherent\Characters\GetIsUpperCaseRuleNonChar.cs" />
+    <Compile Include="Checks\Methods\Inherent\Characters\GetIsUpperCaseRule.cs" />
+    <Compile Include="Checks\Methods\Inherent\Characters\GetIsSymbolRuleNonChar.cs" />
+    <Compile Include="Checks\Methods\Inherent\Characters\GetIsSymbolRule.cs" />
     <Compile Include="Checks\Methods\Inherent\Characters\GetIsSurrogateRuleNonChar.cs" />
     <Compile Include="Checks\Methods\Inherent\Characters\GetIsSurrogateRule.cs" />
     <Compile Include="Checks\Methods\Inherent\Characters\GetIsSeparatorRuleNonChar.cs" />
