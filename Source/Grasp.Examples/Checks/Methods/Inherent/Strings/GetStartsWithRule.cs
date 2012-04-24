@@ -9,22 +9,22 @@ using Cloak.Reflection;
 using Grasp.Checks.Rules;
 using NUnit.Framework;
 
-namespace Grasp.Checks.Methods.Inherent
+namespace Grasp.Checks.Methods.Inherent.Strings
 {
-	public class GetMatchesRuleWithRegex : Behavior
+	public class GetStartsWithRule : Behavior
 	{
-		Regex _regex;
-		MatchesMethod _method;
+		string _value;
+		StartsWithMethod _method;
 		MethodInfo _expectedMethod;
 		CheckRule _rule;
 
 		protected override void Given()
 		{
-			_regex = new Regex("");
+			_value = "Test";
 
-			_method = new MatchesMethod(_regex);
+			_method = new StartsWithMethod(_value);
 
-			_expectedMethod = Reflect.Func<ICheckable<string>, Regex, Check<string>>(Checkable.Matches);
+			_expectedMethod = Reflect.Func<ICheckable<string>, string, Check<string>>(Checkable.StartsWith);
 		}
 
 		protected override void When()
@@ -33,7 +33,7 @@ namespace Grasp.Checks.Methods.Inherent
 		}
 
 		[Then]
-		public void HasMatchesMethod()
+		public void HasExpectedMethod()
 		{
 			Assert.That(_rule.Method, Is.EqualTo(_expectedMethod));
 		}
@@ -45,9 +45,9 @@ namespace Grasp.Checks.Methods.Inherent
 		}
 
 		[Then]
-		public void ArgumentIsRegex()
+		public void ArgumentIsValue()
 		{
-			Assert.That(_rule.CheckArguments.Single(), Is.EqualTo(_regex));
+			Assert.That(_rule.CheckArguments.Single(), Is.EqualTo(_value));
 		}
 	}
 }

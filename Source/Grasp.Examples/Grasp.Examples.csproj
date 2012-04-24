@@ -241,10 +241,10 @@
     <Compile Include="Checks\Methods\Inherent\Characters\GetIsDigitRule.cs" />
     <Compile Include="Checks\Methods\Inherent\Characters\GetIsControlRuleNonChar.cs" />
     <Compile Include="Checks\Methods\Inherent\Characters\GetIsControlRule.cs" />
-    <Compile Include="Checks\Methods\Inherent\GetMatchesRuleWithPatternAndOptions.cs" />
-    <Compile Include="Checks\Methods\Inherent\GetMatchesRuleWithPattern.cs" />
-    <Compile Include="Checks\Methods\Inherent\GetMatchesRuleNonString.cs" />
-    <Compile Include="Checks\Methods\Inherent\GetMatchesRuleWithRegex.cs" />
+    <Compile Include="Checks\Methods\Inherent\Strings\GetMatchesRuleWithPatternAndOptions.cs" />
+    <Compile Include="Checks\Methods\Inherent\Strings\GetMatchesRuleWithPattern.cs" />
+    <Compile Include="Checks\Methods\Inherent\Strings\GetMatchesRuleNonString.cs" />
+    <Compile Include="Checks\Methods\Inherent\Strings\GetMatchesRuleWithRegex.cs" />
     <Compile Include="Checks\Methods\Inherent\GetIsLeapYearRuleNonDateTime.cs" />
     <Compile Include="Checks\Methods\Inherent\GetIsLeapYearRule.cs" />
     <Compile Include="Checks\Methods\Inherent\GetIsWeekdayRuleNonDateTime.cs" />
@@ -255,6 +255,9 @@
     <Compile Include="Checks\Methods\Inherent\GetIsTrueRuleNonBoolean.cs" />
     <Compile Include="Checks\Methods\Inherent\GetIsTrueRule.cs" />
     <Compile Include="Checks\Methods\Inherent\GetIsFalseRule.cs" />
+    <Compile Include="Checks\Methods\Inherent\Strings\GetStartsWithRuleNonString.cs" />
+    <Compile Include="Checks\Methods\Inherent\Strings\GetStartsWithRuleWithCulture.cs" />
+    <Compile Include="Checks\Methods\Inherent\Strings\GetStartsWithRuleWithComparisonType.cs" />
     <Compile Include="Checks\Methods\Inherent\Strings\GetIsNotNullOrWhiteSpaceRuleNonString.cs" />
     <Compile Include="Checks\Methods\Inherent\Strings\GetIsNotNullOrWhiteSpaceRule.cs" />
     <Compile Include="Checks\Methods\Inherent\Strings\GetIsNullOrWhiteSpaceRuleNonString.cs" />
@@ -267,6 +270,7 @@
     <Compile Include="Checks\Methods\Inherent\Strings\GetIsNotEmptyRule.cs" />
     <Compile Include="Checks\Methods\Inherent\Strings\GetIsEmptyRule.cs" />
     <Compile Include="Checks\Methods\Inherent\Strings\GetIsEmptyRuleNonString.cs" />
+    <Compile Include="Checks\Methods\Inherent\Strings\GetStartsWithRule.cs" />
     <Compile Include="Checks\Methods\SingleTypeMethodSupportsUnsupportedType.cs" />
     <Compile Include="Checks\Methods\SingleTypeMethodSupportsDerivedType.cs" />
     <Compile Include="Checks\Methods\SingleTypeMethodSupportsTargetType.cs" />

@@ -9,7 +9,7 @@ using Cloak.Reflection;
 using Grasp.Checks.Rules;
 using NUnit.Framework;
 
-namespace Grasp.Checks.Methods.Inherent
+namespace Grasp.Checks.Methods.Inherent.Strings
 {
 	public class GetMatchesRuleWithPattern : Behavior
 	{
@@ -33,7 +33,7 @@ namespace Grasp.Checks.Methods.Inherent
 		}
 
 		[Then]
-		public void HasMatchesMethod()
+		public void HasExpectedMethod()
 		{
 			Assert.That(_rule.Method, Is.EqualTo(_expectedMethod));
 		}
