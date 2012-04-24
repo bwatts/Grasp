@@ -29,7 +29,7 @@ namespace Grasp.Checks.Methods.Inherent.Characters
 		}
 
 		[Then]
-		public void HasIsNullMethod()
+		public void HasExpectedMethod()
 		{
 			Assert.That(_rule.Method, Is.EqualTo(_expectedMethod));
 		}
