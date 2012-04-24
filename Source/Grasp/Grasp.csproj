@@ -148,6 +148,7 @@
     <Compile Include="Checks\Annotation\CheckIsNotEmptyAttribute.cs" />
     <Compile Include="Checks\Annotation\CheckIsNullOrEmptyAttribute.cs" />
     <Compile Include="Checks\Annotation\CheckIsNotNullOrEmptyAttribute.cs" />
+    <Compile Include="Checks\Annotation\CheckIsNullOrWhiteSpaceAttribute.cs" />
     <Compile Include="Checks\Annotation\DefaultConditionNameAttribute.cs" />
     <Compile Include="Checks\BoundaryType.cs" />
     <Compile Include="Checks\Check.cs" />
@@ -173,6 +174,7 @@
     <Compile Include="Checks\ISpecifiable.cs" />
     <Compile Include="Checks\ISpecificationProvider.cs" />
     <Compile Include="Checks\Methods\CheckMethod.cs" />
+    <Compile Include="Checks\Methods\IsNullOrWhiteSpaceMethod.cs" />
     <Compile Include="Checks\Methods\IsNotNullOrEmptyMethod.cs" />
     <Compile Include="Checks\Methods\IsNullOrEmptyMethod.cs" />
     <Compile Include="Checks\Methods\IsNotEmptyMethod.cs" />
