@@ -12,9 +12,9 @@ namespace Grasp.Checks.Annotation
 	public sealed class CheckIsHighSurrogateAttribute : CheckAttribute
 	{
 		/// <summary>
-		/// Gets an instance of <see cref="IsHighSurrogate"/>
+		/// Gets an instance of <see cref="IsHighSurrogateMethod"/>
 		/// </summary>
-		/// <returns>An instance of <see cref="IsHighSurrogate"/></returns>
+		/// <returns>An instance of <see cref="IsHighSurrogateMethod"/></returns>
 		public override ICheckMethod GetCheckMethod()
 		{
 			return new IsHighSurrogateMethod();

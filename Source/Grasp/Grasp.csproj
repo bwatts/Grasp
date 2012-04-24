@@ -163,6 +163,7 @@
     <Compile Include="Checks\Methods\IsDigitMethod.cs" />
     <Compile Include="Checks\Methods\IsHighSurrogateMethod.cs" />
     <Compile Include="Checks\Methods\IsLeapYearMethod.cs" />
+    <Compile Include="Checks\Methods\IsLetterMethod.cs" />
     <Compile Include="Checks\Methods\IsWeekendMethod.cs" />
     <Compile Include="Checks\Methods\ICheckMethod.cs" />
     <Compile Include="Checks\Methods\IsEqualToMethod.cs" />
