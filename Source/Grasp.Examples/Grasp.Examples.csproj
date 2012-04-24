@@ -215,6 +215,8 @@
     <Compile Include="Checks\Methods\GetRuleForUnsupportedTargetType.cs" />
     <Compile Include="Checks\Methods\GetCheckArguments.cs" />
     <Compile Include="Checks\Methods\GetCheckType.cs" />
+    <Compile Include="Checks\Methods\Inherent\Characters\GetIsPunctuationRuleNonChar.cs" />
+    <Compile Include="Checks\Methods\Inherent\Characters\GetIsPunctuationRule.cs" />
     <Compile Include="Checks\Methods\Inherent\Characters\GetIsLowSurrogateRuleNonChar.cs" />
     <Compile Include="Checks\Methods\Inherent\Characters\GetIsLowSurrogateRule.cs" />
     <Compile Include="Checks\Methods\Inherent\Characters\GetIsLowerCaseRuleNonChar.cs" />
