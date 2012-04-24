@@ -241,6 +241,10 @@
     <Compile Include="Checks\Methods\Inherent\Characters\GetIsDigitRule.cs" />
     <Compile Include="Checks\Methods\Inherent\Characters\GetIsControlRuleNonChar.cs" />
     <Compile Include="Checks\Methods\Inherent\Characters\GetIsControlRule.cs" />
+    <Compile Include="Checks\Methods\Inherent\Strings\GetEndsWithRule.cs" />
+    <Compile Include="Checks\Methods\Inherent\Strings\GetEndsWithRuleNonString.cs" />
+    <Compile Include="Checks\Methods\Inherent\Strings\GetEndsWithRuleWithComparisonType.cs" />
+    <Compile Include="Checks\Methods\Inherent\Strings\GetEndsWithRuleWithCulture.cs" />
     <Compile Include="Checks\Methods\Inherent\Strings\GetMatchesRuleWithPatternAndOptions.cs" />
     <Compile Include="Checks\Methods\Inherent\Strings\GetMatchesRuleWithPattern.cs" />
     <Compile Include="Checks\Methods\Inherent\Strings\GetMatchesRuleNonString.cs" />

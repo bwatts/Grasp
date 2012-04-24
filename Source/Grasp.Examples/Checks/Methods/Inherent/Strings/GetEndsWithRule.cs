@@ -11,10 +11,10 @@ using NUnit.Framework;
 
 namespace Grasp.Checks.Methods.Inherent.Strings
 {
-	public class GetStartsWithRule : Behavior
+	public class GetEndsWithRule : Behavior
 	{
 		string _value;
-		StartsWithMethod _method;
+		EndsWithMethod _method;
 		MethodInfo _expectedMethod;
 		CheckRule _rule;
 
@@ -22,9 +22,9 @@ namespace Grasp.Checks.Methods.Inherent.Strings
 		{
 			_value = "";
 
-			_method = new StartsWithMethod(_value);
+			_method = new EndsWithMethod(_value);
 
-			_expectedMethod = Reflect.Func<ICheckable<string>, string, Check<string>>(Checkable.StartsWith);
+			_expectedMethod = Reflect.Func<ICheckable<string>, string, Check<string>>(Checkable.EndsWith);
 		}
 
 		protected override void When()

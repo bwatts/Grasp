@@ -12,12 +12,12 @@ using NUnit.Framework;
 
 namespace Grasp.Checks.Methods.Inherent.Strings
 {
-	public class GetStartsWithRuleWithCulture : Behavior
+	public class GetEndsWithRuleWithCulture : Behavior
 	{
 		string _value;
 		bool _ignoreCase;
 		CultureInfo _culture;
-		StartsWithMethod _method;
+		EndsWithMethod _method;
 		MethodInfo _expectedMethod;
 		CheckRule _rule;
 
@@ -27,9 +27,9 @@ namespace Grasp.Checks.Methods.Inherent.Strings
 			_ignoreCase = true;
 			_culture = CultureInfo.InvariantCulture;
 
-			_method = new StartsWithMethod(_value, _ignoreCase, _culture);
+			_method = new EndsWithMethod(_value, _ignoreCase, _culture);
 
-			_expectedMethod = Reflect.Func<ICheckable<string>, string, bool, CultureInfo, Check<string>>(Checkable.StartsWith);
+			_expectedMethod = Reflect.Func<ICheckable<string>, string, bool, CultureInfo, Check<string>>(Checkable.EndsWith);
 		}
 
 		protected override void When()

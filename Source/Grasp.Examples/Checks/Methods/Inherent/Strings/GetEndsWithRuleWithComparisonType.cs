@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -12,24 +11,22 @@ using NUnit.Framework;
 
 namespace Grasp.Checks.Methods.Inherent.Strings
 {
-	public class GetStartsWithRuleWithCulture : Behavior
+	public class GetEndsWithRuleWithComparisonType : Behavior
 	{
 		string _value;
-		bool _ignoreCase;
-		CultureInfo _culture;
-		StartsWithMethod _method;
+		StringComparison _comparisonType;
+		EndsWithMethod _method;
 		MethodInfo _expectedMethod;
 		CheckRule _rule;
 
 		protected override void Given()
 		{
 			_value = "";
-			_ignoreCase = true;
-			_culture = CultureInfo.InvariantCulture;
+			_comparisonType = StringComparison.InvariantCulture;
 
-			_method = new StartsWithMethod(_value, _ignoreCase, _culture);
+			_method = new EndsWithMethod(_value, _comparisonType);
 
-			_expectedMethod = Reflect.Func<ICheckable<string>, string, bool, CultureInfo, Check<string>>(Checkable.StartsWith);
+			_expectedMethod = Reflect.Func<ICheckable<string>, string, StringComparison, Check<string>>(Checkable.EndsWith);
 		}
 
 		protected override void When()
@@ -44,9 +41,9 @@ namespace Grasp.Checks.Methods.Inherent.Strings
 		}
 
 		[Then]
-		public void HasThreeArgument()
+		public void HasTwoArgument()
 		{
-			Assert.That(_rule.CheckArguments.Count(), Is.EqualTo(3));
+			Assert.That(_rule.CheckArguments.Count(), Is.EqualTo(2));
 		}
 
 		[Then]
@@ -56,15 +53,9 @@ namespace Grasp.Checks.Methods.Inherent.Strings
 		}
 
 		[Then]
-		public void SecondArgumentIsIgnoreCase()
+		public void SecondArgumentIsComparisonType()
 		{
-			Assert.That(_rule.CheckArguments[1], Is.EqualTo(_ignoreCase));
-		}
-
-		[Then]
-		public void ThirdArgumentIsCulture()
-		{
-			Assert.That(_rule.CheckArguments[2], Is.EqualTo(_culture));
+			Assert.That(_rule.CheckArguments[1], Is.EqualTo(_comparisonType));
 		}
 	}
 }

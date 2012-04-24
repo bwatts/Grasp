@@ -21,7 +21,7 @@ namespace Grasp.Checks.Methods.Inherent.Strings
 
 		protected override void Given()
 		{
-			_value = "Test";
+			_value = "";
 			_comparisonType = StringComparison.InvariantCulture;
 
 			_method = new StartsWithMethod(_value, _comparisonType);
