@@ -145,6 +145,7 @@
     <Compile Include="Checks\Annotation\CheckIsUpperCaseAttribute.cs" />
     <Compile Include="Checks\Annotation\CheckIsWhiteSpaceAttribute.cs" />
     <Compile Include="Checks\Annotation\CheckIsEmptyAttribute.cs" />
+    <Compile Include="Checks\Annotation\CheckIsNotEmptyAttribute.cs" />
     <Compile Include="Checks\Annotation\DefaultConditionNameAttribute.cs" />
     <Compile Include="Checks\BoundaryType.cs" />
     <Compile Include="Checks\Check.cs" />
@@ -170,6 +171,7 @@
     <Compile Include="Checks\ISpecifiable.cs" />
     <Compile Include="Checks\ISpecificationProvider.cs" />
     <Compile Include="Checks\Methods\CheckMethod.cs" />
+    <Compile Include="Checks\Methods\IsNullOrEmptyMethod.cs" />
     <Compile Include="Checks\Methods\IsNotEmptyMethod.cs" />
     <Compile Include="Checks\Methods\IsEmptyMethod.cs" />
     <Compile Include="Checks\Methods\IsWhiteSpaceMethod.cs" />
