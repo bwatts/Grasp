@@ -170,6 +170,7 @@
     <Compile Include="Checks\ISpecifiable.cs" />
     <Compile Include="Checks\ISpecificationProvider.cs" />
     <Compile Include="Checks\Methods\CheckMethod.cs" />
+    <Compile Include="Checks\Methods\IsNotEmptyMethod.cs" />
     <Compile Include="Checks\Methods\IsEmptyMethod.cs" />
     <Compile Include="Checks\Methods\IsWhiteSpaceMethod.cs" />
     <Compile Include="Checks\Methods\IsUpperCaseMethod.cs" />
