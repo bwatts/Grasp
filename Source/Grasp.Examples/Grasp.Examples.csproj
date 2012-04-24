@@ -255,6 +255,8 @@
     <Compile Include="Checks\Methods\Inherent\GetIsTrueRuleNonBoolean.cs" />
     <Compile Include="Checks\Methods\Inherent\GetIsTrueRule.cs" />
     <Compile Include="Checks\Methods\Inherent\GetIsFalseRule.cs" />
+    <Compile Include="Checks\Methods\Inherent\Strings\GetIsNotNullOrWhiteSpaceRuleNonString.cs" />
+    <Compile Include="Checks\Methods\Inherent\Strings\GetIsNotNullOrWhiteSpaceRule.cs" />
     <Compile Include="Checks\Methods\Inherent\Strings\GetIsNullOrWhiteSpaceRuleNonString.cs" />
     <Compile Include="Checks\Methods\Inherent\Strings\GetIsNullOrWhiteSpaceRule.cs" />
     <Compile Include="Checks\Methods\Inherent\Strings\GetIsNotNullOrEmptyRuleNonString.cs" />
