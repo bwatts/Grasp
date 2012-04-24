@@ -255,6 +255,8 @@
     <Compile Include="Checks\Methods\Inherent\GetIsTrueRuleNonBoolean.cs" />
     <Compile Include="Checks\Methods\Inherent\GetIsTrueRule.cs" />
     <Compile Include="Checks\Methods\Inherent\GetIsFalseRule.cs" />
+    <Compile Include="Checks\Methods\Inherent\Strings\GetIsEmptyRule.cs" />
+    <Compile Include="Checks\Methods\Inherent\Strings\GetIsEmptyRuleNonString.cs" />
     <Compile Include="Checks\Methods\SingleTypeMethodSupportsUnsupportedType.cs" />
     <Compile Include="Checks\Methods\SingleTypeMethodSupportsDerivedType.cs" />
     <Compile Include="Checks\Methods\SingleTypeMethodSupportsTargetType.cs" />
