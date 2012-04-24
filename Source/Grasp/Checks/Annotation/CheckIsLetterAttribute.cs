@@ -7,7 +7,7 @@ using Grasp.Checks.Methods;
 namespace Grasp.Checks.Annotation
 {
 	/// <summary>
-	/// Checks that the target <see cref="System.Char"/> is a digit
+	/// Checks that the target <see cref="System.Char"/> is a letter
 	/// </summary>
 	public sealed class CheckIsLetterAttribute : CheckAttribute
 	{

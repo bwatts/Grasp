@@ -215,6 +215,8 @@
     <Compile Include="Checks\Methods\GetRuleForUnsupportedTargetType.cs" />
     <Compile Include="Checks\Methods\GetCheckArguments.cs" />
     <Compile Include="Checks\Methods\GetCheckType.cs" />
+    <Compile Include="Checks\Methods\Inherent\Characters\GetIsLetterOrDigitRuleNonChar.cs" />
+    <Compile Include="Checks\Methods\Inherent\Characters\GetIsLetterOrDigitRule.cs" />
     <Compile Include="Checks\Methods\Inherent\Characters\GetIsLetterRuleNonChar.cs" />
     <Compile Include="Checks\Methods\Inherent\Characters\GetIsLetterRule.cs" />
     <Compile Include="Checks\Methods\Inherent\Characters\GetIsHighSurrogateRuleNonChar.cs" />
