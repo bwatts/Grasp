@@ -155,6 +155,7 @@
     <Compile Include="Checks\Annotation\CheckIsLessThanAttribute.cs" />
     <Compile Include="Checks\Annotation\CheckIsLessThanOrEqualToAttribute.cs" />
     <Compile Include="Checks\Annotation\CheckIsGreaterThanOrEqualToAttribute.cs" />
+    <Compile Include="Checks\Annotation\CheckIsGreaterThanAttribute.cs" />
     <Compile Include="Checks\Annotation\DefaultConditionNameAttribute.cs" />
     <Compile Include="Checks\BoundaryType.cs" />
     <Compile Include="Checks\Check.cs" />
@@ -181,6 +182,7 @@
     <Compile Include="Checks\ISpecificationProvider.cs" />
     <Compile Include="Checks\Methods\CheckMethod.cs" />
     <Compile Include="Checks\Methods\ComparisonMethod.cs" />
+    <Compile Include="Checks\Methods\IsGreaterThanMethod.cs" />
     <Compile Include="Checks\Methods\IsGreaterThanOrEqualToMethod.cs" />
     <Compile Include="Checks\Methods\IsLessThanOrEqualToMethod.cs" />
     <Compile Include="Checks\Methods\IsLessThanMethod.cs" />
