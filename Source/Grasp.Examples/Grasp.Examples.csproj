@@ -242,6 +242,9 @@
     <Compile Include="Checks\Methods\Inherent\Characters\GetIsControlRuleNonChar.cs" />
     <Compile Include="Checks\Methods\Inherent\Characters\GetIsControlRule.cs" />
     <Compile Include="Checks\Methods\Inherent\Comparisons\ComparisonMethodSupportsNonComparable.cs" />
+    <Compile Include="Checks\Methods\Inherent\Comparisons\GetIsBetweenNonComparable.cs" />
+    <Compile Include="Checks\Methods\Inherent\Comparisons\GetIsBetweenRuleWithBoundaryType.cs" />
+    <Compile Include="Checks\Methods\Inherent\Comparisons\GetIsBetweenRule.cs" />
     <Compile Include="Checks\Methods\Inherent\Comparisons\GetIsGreaterThanRuleNonComparable.cs" />
     <Compile Include="Checks\Methods\Inherent\Comparisons\GetIsGreaterThanRule.cs" />
     <Compile Include="Checks\Methods\Inherent\Comparisons\GetIsGreaterThanOrEqualToRuleNonComparable.cs" />
