@@ -254,6 +254,8 @@
     <Compile Include="Checks\Methods\Inherent\Comparisons\GetIsLessThanRuleNonComparable.cs" />
     <Compile Include="Checks\Methods\Inherent\Comparisons\GetIsLessThanRule.cs" />
     <Compile Include="Checks\Methods\Inherent\Comparisons\ComparisonMethodSupportsComparable.cs" />
+    <Compile Include="Checks\Methods\Inherent\Strings\GetIsZipCodeRuleNonString.cs" />
+    <Compile Include="Checks\Methods\Inherent\Strings\GetIsZipCodeRule.cs" />
     <Compile Include="Checks\Methods\Inherent\Strings\GetIsSocialSecurityNumberRuleNonString.cs" />
     <Compile Include="Checks\Methods\Inherent\Strings\GetIsSocialSecurityNumberRule.cs" />
     <Compile Include="Checks\Methods\Inherent\Strings\GetIsPhoneNumberRuleNonString.cs" />
