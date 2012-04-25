@@ -242,6 +242,8 @@
     <Compile Include="Checks\Methods\Inherent\Characters\GetIsControlRuleNonChar.cs" />
     <Compile Include="Checks\Methods\Inherent\Characters\GetIsControlRule.cs" />
     <Compile Include="Checks\Methods\Inherent\Comparisons\ComparisonMethodSupportsNonComparable.cs" />
+    <Compile Include="Checks\Methods\Inherent\Comparisons\GetIsLessThanOrEqualToRuleNonComparable.cs" />
+    <Compile Include="Checks\Methods\Inherent\Comparisons\GetIsLessThanOrEqualToRule.cs" />
     <Compile Include="Checks\Methods\Inherent\Comparisons\GetIsLessThanRuleNonComparable.cs" />
     <Compile Include="Checks\Methods\Inherent\Comparisons\GetIsLessThanRule.cs" />
     <Compile Include="Checks\Methods\Inherent\Comparisons\ComparisonMethodSupportsComparable.cs" />
