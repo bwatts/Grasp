@@ -254,6 +254,8 @@
     <Compile Include="Checks\Methods\Inherent\Comparisons\GetIsLessThanRuleNonComparable.cs" />
     <Compile Include="Checks\Methods\Inherent\Comparisons\GetIsLessThanRule.cs" />
     <Compile Include="Checks\Methods\Inherent\Comparisons\ComparisonMethodSupportsComparable.cs" />
+    <Compile Include="Checks\Methods\Inherent\Strings\GetIsPhoneNumberRuleNonString.cs" />
+    <Compile Include="Checks\Methods\Inherent\Strings\GetIsPhoneNumberRule.cs" />
     <Compile Include="Checks\Methods\Inherent\Strings\GetIsCreditCardNumberRuleNonString.cs" />
     <Compile Include="Checks\Methods\Inherent\Strings\GetIsCreditCardNumberRule.cs" />
     <Compile Include="Checks\Methods\Inherent\Strings\GetIsCreditCardCvvRuleNonString.cs" />
