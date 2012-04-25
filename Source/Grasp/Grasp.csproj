@@ -199,6 +199,7 @@
     <Compile Include="Checks\Methods\IsLessThanOrEqualToMethod.cs" />
     <Compile Include="Checks\Methods\IsLessThanMethod.cs" />
     <Compile Include="Checks\Methods\EndsWithMethod.cs" />
+    <Compile Include="Checks\Methods\MultiTypeCheckMethod.cs" />
     <Compile Include="Checks\Methods\StartsWithMethod.cs" />
     <Compile Include="Checks\Methods\IsNotNullOrWhiteSpaceMethod.cs" />
     <Compile Include="Checks\Methods\IsNullOrWhiteSpaceMethod.cs" />

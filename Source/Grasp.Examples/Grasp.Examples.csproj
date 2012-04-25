@@ -208,6 +208,10 @@
     <Compile Include="Checks\ImplicitlyConvertCheckToBoolean.cs" />
     <Compile Include="Checks\CreateThatCheckWithDefaultResult.cs" />
     <Compile Include="Checks\CreateThatCheck.cs" />
+    <Compile Include="Checks\Methods\MultiTypeMethodSupportsUnsupportedType.cs" />
+    <Compile Include="Checks\Methods\MultiTypeMethodSupportsSecondSupportedType.cs" />
+    <Compile Include="Checks\Methods\MultiTypeMethodSupportsFirstSupportedType.cs" />
+    <Compile Include="Checks\Methods\MultiTypeMethodSupportsDerivedType.cs" />
     <Compile Include="Checks\Methods\GetRuleWithTwoArguments.cs" />
     <Compile Include="Checks\Methods\GetRuleWithOneArgument.cs" />
     <Compile Include="Checks\Methods\GetRule.cs" />
@@ -335,7 +339,9 @@
       <Name>Grasp</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Checks\Methods\Inherent\Numbers\Decimal\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
