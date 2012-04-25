@@ -8,9 +8,9 @@ using Cloak.Reflection;
 namespace Grasp.Checks.Methods
 {
 	/// <summary>
-	/// Produces check rules for the <see cref="Checkable.IsCreditCardCvv"/> method
+	/// Produces check rules for the <see cref="Checkable.IsCreditCardNumber"/> method
 	/// </summary>
-	public sealed class IsCreditCardCvvMethod : SingleTypeCheckMethod
+	public sealed class IsCreditCardNumberMethod : SingleTypeCheckMethod
 	{
 		/// <summary>
 		/// Gets <see cref="System.String"/>
@@ -21,13 +21,13 @@ namespace Grasp.Checks.Methods
 		}
 
 		/// <summary>
-		/// Gets the <see cref="Checkable.IsCreditCardCvv"/> method
+		/// Gets the <see cref="Checkable.IsCreditCardNumber"/> method
 		/// </summary>
 		/// <param name="checkType">The type of check</param>
-		/// <returns>The <see cref="Checkable.IsCreditCardCvv"/> method</returns>
+		/// <returns>The <see cref="Checkable.IsCreditCardNumber"/> method</returns>
 		protected override MethodInfo GetMethod(Type checkType)
 		{
-			return Reflect.Func<ICheckable<string>, Check<string>>(Checkable.IsCreditCardCvv);
+			return Reflect.Func<ICheckable<string>, Check<string>>(Checkable.IsCreditCardNumber);
 		}
 	}
 }
