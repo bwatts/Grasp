@@ -152,6 +152,7 @@
     <Compile Include="Checks\Annotation\CheckIsNotNullOrWhiteSpaceAttribute.cs" />
     <Compile Include="Checks\Annotation\CheckStartsWithAttribute.cs" />
     <Compile Include="Checks\Annotation\CheckEndsWithAttribute.cs" />
+    <Compile Include="Checks\Annotation\CheckIsLessThanAttribute.cs" />
     <Compile Include="Checks\Annotation\DefaultConditionNameAttribute.cs" />
     <Compile Include="Checks\BoundaryType.cs" />
     <Compile Include="Checks\Check.cs" />
@@ -177,6 +178,8 @@
     <Compile Include="Checks\ISpecifiable.cs" />
     <Compile Include="Checks\ISpecificationProvider.cs" />
     <Compile Include="Checks\Methods\CheckMethod.cs" />
+    <Compile Include="Checks\Methods\ComparisonMethod.cs" />
+    <Compile Include="Checks\Methods\IsLessThanMethod.cs" />
     <Compile Include="Checks\Methods\EndsWithMethod.cs" />
     <Compile Include="Checks\Methods\StartsWithMethod.cs" />
     <Compile Include="Checks\Methods\IsNotNullOrWhiteSpaceMethod.cs" />
