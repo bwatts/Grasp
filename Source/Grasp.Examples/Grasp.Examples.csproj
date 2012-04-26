@@ -208,6 +208,8 @@
     <Compile Include="Checks\ImplicitlyConvertCheckToBoolean.cs" />
     <Compile Include="Checks\CreateThatCheckWithDefaultResult.cs" />
     <Compile Include="Checks\CreateThatCheck.cs" />
+    <Compile Include="Checks\Methods\Inherent\Characters\GetIsNumberRuleNonChar.cs" />
+    <Compile Include="Checks\Methods\Inherent\Characters\GetIsNumberRule.cs" />
     <Compile Include="Checks\Methods\Inherent\Numbers\Decimal\GetIsLiteralPercentageRuleForDecimal.cs" />
     <Compile Include="Checks\Methods\Inherent\Numbers\Decimal\GetIsAdjustedPercentageRuleForDecimal.cs" />
     <Compile Include="Checks\Methods\Inherent\Numbers\Decimal\GetIsPositiveRuleForDecimal.cs" />
