@@ -165,6 +165,7 @@
     <Compile Include="Checks\Annotation\CheckIsEvenAttribute.cs" />
     <Compile Include="Checks\Annotation\CheckIsNegativeAttribute.cs" />
     <Compile Include="Checks\Annotation\CheckIsNotNegativeAttribute.cs" />
+    <Compile Include="Checks\Annotation\CheckIsNotPositiveAttribute.cs" />
     <Compile Include="Checks\Annotation\DefaultConditionNameAttribute.cs" />
     <Compile Include="Checks\BoundaryType.cs" />
     <Compile Include="Checks\Check.cs" />
@@ -191,6 +192,7 @@
     <Compile Include="Checks\ISpecificationProvider.cs" />
     <Compile Include="Checks\Methods\CheckMethod.cs" />
     <Compile Include="Checks\Methods\ComparisonMethod.cs" />
+    <Compile Include="Checks\Methods\IsNotPositiveMethod.cs" />
     <Compile Include="Checks\Methods\IsNotNegativeMethod.cs" />
     <Compile Include="Checks\Methods\IsNegativeMethod.cs" />
     <Compile Include="Checks\Methods\IsEvenMethod.cs" />

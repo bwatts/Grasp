@@ -208,15 +208,19 @@
     <Compile Include="Checks\ImplicitlyConvertCheckToBoolean.cs" />
     <Compile Include="Checks\CreateThatCheckWithDefaultResult.cs" />
     <Compile Include="Checks\CreateThatCheck.cs" />
+    <Compile Include="Checks\Methods\Inherent\Numbers\Decimal\GetIsNotPositiveRuleForDecimal.cs" />
     <Compile Include="Checks\Methods\Inherent\Numbers\Decimal\GetIsNotNegativeRuleForDecimal.cs" />
     <Compile Include="Checks\Methods\Inherent\Numbers\Decimal\GetIsNegativeRuleForDecimal.cs" />
     <Compile Include="Checks\Methods\Inherent\Numbers\Decimal\GetIsEvenRuleForDecimal.cs" />
+    <Compile Include="Checks\Methods\Inherent\Numbers\Double\GetIsNotPositiveRuleForDouble.cs" />
     <Compile Include="Checks\Methods\Inherent\Numbers\Double\GetIsNotNegativeRuleForDouble.cs" />
     <Compile Include="Checks\Methods\Inherent\Numbers\Double\GetIsNegativeRuleForDouble.cs" />
     <Compile Include="Checks\Methods\Inherent\Numbers\Double\GetIsEvenRuleForDouble.cs" />
+    <Compile Include="Checks\Methods\Inherent\Numbers\Int32\GetIsNotPositiveRuleForInt32.cs" />
     <Compile Include="Checks\Methods\Inherent\Numbers\Int32\GetIsNotNegativeRuleForInt32.cs" />
     <Compile Include="Checks\Methods\Inherent\Numbers\Int32\GetIsNegativeRuleForInt32.cs" />
     <Compile Include="Checks\Methods\Inherent\Numbers\Int32\GetIsEvenRuleForInt32.cs" />
+    <Compile Include="Checks\Methods\Inherent\Numbers\Int64\GetIsNotPositiveRuleForInt64.cs" />
     <Compile Include="Checks\Methods\Inherent\Numbers\Int64\GetIsNotNegativeRuleForInt64.cs" />
     <Compile Include="Checks\Methods\Inherent\Numbers\Int64\GetIsNegativeRuleForInt64.cs" />
     <Compile Include="Checks\Methods\Inherent\Numbers\Int64\GetIsEvenRuleForInt64.cs" />
@@ -225,6 +229,7 @@
     <Compile Include="Checks\Methods\Inherent\Numbers\NumberMethodSupportsInt32.cs" />
     <Compile Include="Checks\Methods\Inherent\Numbers\NumberMethodSupportsInt64.cs" />
     <Compile Include="Checks\Methods\Inherent\Numbers\NumberMethodSupportsDecimal.cs" />
+    <Compile Include="Checks\Methods\Inherent\Numbers\Single\GetIsNotPositiveRuleForSingle.cs" />
     <Compile Include="Checks\Methods\Inherent\Numbers\Single\GetIsNotNegativeRuleForSingle.cs" />
     <Compile Include="Checks\Methods\Inherent\Numbers\Single\GetIsNegativeRuleForSingle.cs" />
     <Compile Include="Checks\Methods\Inherent\Numbers\Single\GetIsEvenRuleForSingle.cs" />
