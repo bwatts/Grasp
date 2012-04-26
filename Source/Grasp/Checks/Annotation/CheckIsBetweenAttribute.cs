@@ -7,7 +7,7 @@ using Grasp.Checks.Methods;
 namespace Grasp.Checks.Annotation
 {
 	/// <summary>
-	/// Checks that the target value is btween two specified values
+	/// Checks that the target value is between two specified values
 	/// </summary>
 	public sealed class CheckIsBetweenAttribute : CheckAttribute
 	{

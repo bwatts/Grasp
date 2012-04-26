@@ -7,7 +7,7 @@ using Grasp.Checks.Methods;
 namespace Grasp.Checks.Annotation
 {
 	/// <summary>
-	/// Checks that the target <see cref="System.Int32"/> or <see cref="System.Int64"/> is a percentage
+	/// Checks that the target <see cref="System.Int32"/> or <see cref="System.Int64"/> is a percentage in the range 0-100 (inclusive)
 	/// </summary>
 	public sealed class CheckIsPercentageAttribute : CheckAttribute
 	{

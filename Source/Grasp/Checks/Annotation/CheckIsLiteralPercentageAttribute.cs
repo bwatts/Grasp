@@ -7,7 +7,7 @@ using Grasp.Checks.Methods;
 namespace Grasp.Checks.Annotation
 {
 	/// <summary>
-	/// Checks that the target <see cref="System.Decimal"/>, <see cref="System.Double"/>, or <see cref="System.Single"/> is a literal percentage
+	/// Checks that the target <see cref="System.Decimal"/>, <see cref="System.Double"/>, or <see cref="System.Single"/> is a percentage in the range 0-1 (inclusive)
 	/// </summary>
 	public sealed class CheckIsLiteralPercentageAttribute : CheckAttribute
 	{

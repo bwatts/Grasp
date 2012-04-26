@@ -431,7 +431,7 @@ namespace Grasp.Checks
 		}
 
 		/// <summary>
-		/// Checks if the target data is not positive (0 or less than 0)
+		/// Checks if the target data is not positive (not greater than 0)
 		/// </summary>
 		/// <param name="check">The base check</param>
 		/// <returns>A check which applies the base check and this check</returns>
@@ -443,7 +443,7 @@ namespace Grasp.Checks
 		}
 
 		/// <summary>
-		/// Checks if the target data is not negative (0 or greater than 0)
+		/// Checks if the target data is not negative (not less than 0)
 		/// </summary>
 		/// <param name="check">The base check</param>
 		/// <returns>A check which applies the base check and this check</returns>
@@ -529,7 +529,7 @@ namespace Grasp.Checks
 		}
 
 		/// <summary>
-		/// Checks if the target data is not positive (0 or less than 0)
+		/// Checks if the target data is not positive (not greater than 0)
 		/// </summary>
 		/// <param name="check">The base check</param>
 		/// <returns>A check which applies the base check and this check</returns>
@@ -541,7 +541,7 @@ namespace Grasp.Checks
 		}
 
 		/// <summary>
-		/// Checks if the target data is not negative (0 or greater than 0)
+		/// Checks if the target data is not negative (not less than 0)
 		/// </summary>
 		/// <param name="check">The base check</param>
 		/// <returns>A check which applies the base check and this check</returns>
@@ -829,7 +829,7 @@ namespace Grasp.Checks
 		}
 
 		/// <summary>
-		/// Checks if the target data is not positive (0 or less than 0)
+		/// Checks if the target data is not positive (not greater than 0)
 		/// </summary>
 		/// <param name="check">The base check</param>
 		/// <returns>A check which applies the base check and this check</returns>
@@ -841,7 +841,7 @@ namespace Grasp.Checks
 		}
 
 		/// <summary>
-		/// Checks if the target data is not negative (0 or greater than 0)
+		/// Checks if the target data is not negative (not less than 0)
 		/// </summary>
 		/// <param name="check">The base check</param>
 		/// <returns>A check which applies the base check and this check</returns>
@@ -915,7 +915,7 @@ namespace Grasp.Checks
 		}
 
 		/// <summary>
-		/// Checks if the target data is not positive (0 or less than 0)
+		/// Checks if the target data is not positive (not greater than 0)
 		/// </summary>
 		/// <param name="check">The base check</param>
 		/// <returns>A check which applies the base check and this check</returns>
@@ -927,7 +927,7 @@ namespace Grasp.Checks
 		}
 
 		/// <summary>
-		/// Checks if the target data is not negative (0 or greater than 0)
+		/// Checks if the target data is not negative (not less than 0)
 		/// </summary>
 		/// <param name="check">The base check</param>
 		/// <returns>A check which applies the base check and this check</returns>
@@ -1275,7 +1275,7 @@ namespace Grasp.Checks
 		}
 
 		/// <summary>
-		/// Checks if the target data is not positive (0 or less than 0)
+		/// Checks if the target data is not positive (not greater than 0)
 		/// </summary>
 		/// <param name="check">The base check</param>
 		/// <returns>A check which applies the base check and this check</returns>
@@ -1287,7 +1287,7 @@ namespace Grasp.Checks
 		}
 
 		/// <summary>
-		/// Checks if the target data is not negative (0 or greater than 0)
+		/// Checks if the target data is not negative (not less than 0)
 		/// </summary>
 		/// <param name="check">The base check</param>
 		/// <returns>A check which applies the base check and this check</returns>
