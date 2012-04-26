@@ -208,12 +208,14 @@
     <Compile Include="Checks\ImplicitlyConvertCheckToBoolean.cs" />
     <Compile Include="Checks\CreateThatCheckWithDefaultResult.cs" />
     <Compile Include="Checks\CreateThatCheck.cs" />
+    <Compile Include="Checks\Methods\Inherent\Numbers\Decimal\GetIsAdjustedPercentageRuleForDecimal.cs" />
     <Compile Include="Checks\Methods\Inherent\Numbers\Decimal\GetIsPositiveRuleForDecimal.cs" />
     <Compile Include="Checks\Methods\Inherent\Numbers\Decimal\GetIsOddRuleForDecimal.cs" />
     <Compile Include="Checks\Methods\Inherent\Numbers\Decimal\GetIsNotPositiveRuleForDecimal.cs" />
     <Compile Include="Checks\Methods\Inherent\Numbers\Decimal\GetIsNotNegativeRuleForDecimal.cs" />
     <Compile Include="Checks\Methods\Inherent\Numbers\Decimal\GetIsNegativeRuleForDecimal.cs" />
     <Compile Include="Checks\Methods\Inherent\Numbers\Decimal\GetIsEvenRuleForDecimal.cs" />
+    <Compile Include="Checks\Methods\Inherent\Numbers\Double\GetIsAdjustedPercentageRuleForDouble.cs" />
     <Compile Include="Checks\Methods\Inherent\Numbers\Double\GetIsPositiveRuleForDouble.cs" />
     <Compile Include="Checks\Methods\Inherent\Numbers\Double\GetIsOddRuleForDouble.cs" />
     <Compile Include="Checks\Methods\Inherent\Numbers\Double\GetIsNotPositiveRuleForDouble.cs" />
@@ -237,6 +239,7 @@
     <Compile Include="Checks\Methods\Inherent\Numbers\NumberMethodSupportsInt32.cs" />
     <Compile Include="Checks\Methods\Inherent\Numbers\NumberMethodSupportsInt64.cs" />
     <Compile Include="Checks\Methods\Inherent\Numbers\NumberMethodSupportsDecimal.cs" />
+    <Compile Include="Checks\Methods\Inherent\Numbers\Single\GetIsAdjustedPercentageRuleForSingle.cs" />
     <Compile Include="Checks\Methods\Inherent\Numbers\Single\GetIsPositiveRuleForSingle.cs" />
     <Compile Include="Checks\Methods\Inherent\Numbers\Single\GetIsOddRuleForSingle.cs" />
     <Compile Include="Checks\Methods\Inherent\Numbers\Single\GetIsNotPositiveRuleForSingle.cs" />
