@@ -8,19 +8,19 @@ using Cloak.Reflection;
 using Grasp.Checks.Rules;
 using NUnit.Framework;
 
-namespace Grasp.Checks.Methods.Inherent
+namespace Grasp.Checks.Methods.Inherent.DateTimes
 {
-	public class GetIsWeekdayRule : Behavior
+	public class GetIsWeekendRule : Behavior
 	{
-		IsWeekdayMethod _method;
+		IsWeekendMethod _method;
 		MethodInfo _expectedMethod;
 		CheckRule _rule;
 
 		protected override void Given()
 		{
-			_method = new IsWeekdayMethod();
+			_method = new IsWeekendMethod();
 
-			_expectedMethod = Reflect.Func<ICheckable<DateTime>, Check<DateTime>>(Checkable.IsWeekday);
+			_expectedMethod = Reflect.Func<ICheckable<DateTime>, Check<DateTime>>(Checkable.IsWeekend);
 		}
 
 		protected override void When()

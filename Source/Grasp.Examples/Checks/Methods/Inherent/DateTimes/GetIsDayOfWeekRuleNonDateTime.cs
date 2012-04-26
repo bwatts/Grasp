@@ -6,16 +6,16 @@ using System.Text;
 using Cloak.NUnit;
 using NUnit.Framework;
 
-namespace Grasp.Checks.Methods.Inherent
+namespace Grasp.Checks.Methods.Inherent.DateTimes
 {
-	public class GetIsWeekdayRuleNonDateTime : Behavior
+	public class GetIsDayOfWeekRuleNonDateTime : Behavior
 	{
-		IsWeekdayMethod _method;
+		IsDayOfWeekMethod _method;
 		GraspException _exception;
 
 		protected override void Given()
 		{
-			_method = new IsWeekdayMethod();
+			_method = new IsDayOfWeekMethod(DayOfWeek.Friday);
 		}
 
 		protected override void When()

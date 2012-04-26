@@ -8,8 +8,7 @@ using Cloak.Reflection;
 namespace Grasp.Checks.Methods
 {
 	/// <summary>
-	/// Produces check rules for the <see cref="Checkable.IsPercentage(ICheckable{decimal})"/>, <see cref="Checkable.IsPercentage(ICheckable{double})"/>,
-	/// and <see cref="Checkable.IsPercentage(ICheckable{float})"/> methods
+	/// Produces check rules for the <see cref="Checkable.IsPercentage(ICheckable{int})"/> and <see cref="Checkable.IsPercentage(ICheckable{long})"/> methods
 	/// </summary>
 	public sealed class IsPercentageMethod : GraspNumberCheckMethod
 	{

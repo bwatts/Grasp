@@ -369,6 +369,19 @@ namespace Grasp.Checks
 		}
 
 		/// <summary>
+		/// Checks if the target data falls on a particular day of the week
+		/// </summary>
+		/// <param name="check">The base check</param>
+		/// <param name="dayOfWeek">The day of the week for which to check the target date</param>
+		/// <returns>A check which applies the base check and this check</returns>
+		public static Check<DateTime> IsDayOfWeek(this ICheckable<DateTime> check, DayOfWeek dayOfWeek)
+		{
+			Contract.Requires(check != null);
+
+			return check.Passes(d => d.DayOfWeek == dayOfWeek);
+		}
+
+		/// <summary>
 		/// Checks if the target data falls on a leap year
 		/// </summary>
 		/// <param name="check">The base check</param>
