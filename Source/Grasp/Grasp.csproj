@@ -167,6 +167,7 @@
     <Compile Include="Checks\Annotation\CheckIsNotNegativeAttribute.cs" />
     <Compile Include="Checks\Annotation\CheckIsNotPositiveAttribute.cs" />
     <Compile Include="Checks\Annotation\CheckIsOddAttribute.cs" />
+    <Compile Include="Checks\Annotation\CheckIsPositiveAttribute.cs" />
     <Compile Include="Checks\Annotation\DefaultConditionNameAttribute.cs" />
     <Compile Include="Checks\BoundaryType.cs" />
     <Compile Include="Checks\Check.cs" />
@@ -193,6 +194,7 @@
     <Compile Include="Checks\ISpecificationProvider.cs" />
     <Compile Include="Checks\Methods\CheckMethod.cs" />
     <Compile Include="Checks\Methods\ComparisonMethod.cs" />
+    <Compile Include="Checks\Methods\IsPositiveMethod.cs" />
     <Compile Include="Checks\Methods\IsOddMethod.cs" />
     <Compile Include="Checks\Methods\IsNotPositiveMethod.cs" />
     <Compile Include="Checks\Methods\IsNotNegativeMethod.cs" />
