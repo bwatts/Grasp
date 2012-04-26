@@ -224,12 +224,14 @@
     <Compile Include="Checks\Methods\Inherent\Numbers\Double\GetIsNotNegativeRuleForDouble.cs" />
     <Compile Include="Checks\Methods\Inherent\Numbers\Double\GetIsNegativeRuleForDouble.cs" />
     <Compile Include="Checks\Methods\Inherent\Numbers\Double\GetIsEvenRuleForDouble.cs" />
+    <Compile Include="Checks\Methods\Inherent\Numbers\Int32\GetIsPercentageRuleForInt32.cs" />
     <Compile Include="Checks\Methods\Inherent\Numbers\Int32\GetIsPositiveRuleForInt32.cs" />
     <Compile Include="Checks\Methods\Inherent\Numbers\Int32\GetIsOddRuleForInt32.cs" />
     <Compile Include="Checks\Methods\Inherent\Numbers\Int32\GetIsNotPositiveRuleForInt32.cs" />
     <Compile Include="Checks\Methods\Inherent\Numbers\Int32\GetIsNotNegativeRuleForInt32.cs" />
     <Compile Include="Checks\Methods\Inherent\Numbers\Int32\GetIsNegativeRuleForInt32.cs" />
     <Compile Include="Checks\Methods\Inherent\Numbers\Int32\GetIsEvenRuleForInt32.cs" />
+    <Compile Include="Checks\Methods\Inherent\Numbers\Int64\GetIsPercentageRuleForInt64.cs" />
     <Compile Include="Checks\Methods\Inherent\Numbers\Int64\GetIsPositiveRuleForInt64.cs" />
     <Compile Include="Checks\Methods\Inherent\Numbers\Int64\GetIsOddRuleForInt64.cs" />
     <Compile Include="Checks\Methods\Inherent\Numbers\Int64\GetIsNotPositiveRuleForInt64.cs" />
