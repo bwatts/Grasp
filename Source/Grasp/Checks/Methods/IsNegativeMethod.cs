@@ -8,8 +8,8 @@ using Cloak.Reflection;
 namespace Grasp.Checks.Methods
 {
 	/// <summary>
-	/// Produces check rules for the <see cref="Checkable.IsEven(ICheckable{decimal})"/>, <see cref="Checkable.IsEven(ICheckable{double})"/>,
-	/// <see cref="Checkable.IsEven(ICheckable{float})"/>, <see cref="Checkable.IsEven(ICheckable{int})"/>, and <see cref="Checkable.IsEven(ICheckable{long})"/> methods
+	/// Produces check rules for the <see cref="Checkable.IsNegative(ICheckable{decimal})"/>, <see cref="Checkable.IsNegative(ICheckable{double})"/>,
+	/// <see cref="Checkable.IsNegative(ICheckable{float})"/>, <see cref="Checkable.IsNegative(ICheckable{int})"/>, and <see cref="Checkable.IsNegative(ICheckable{long})"/> methods
 	/// </summary>
 	public sealed class IsNegativeMethod : GraspNumberCheckMethod
 	{
