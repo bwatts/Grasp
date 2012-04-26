@@ -210,6 +210,13 @@
     <Compile Include="Checks\CreateThatCheck.cs" />
     <Compile Include="Checks\Methods\Inherent\Characters\GetIsNumberRuleNonChar.cs" />
     <Compile Include="Checks\Methods\Inherent\Characters\GetIsNumberRule.cs" />
+    <Compile Include="Checks\Methods\Inherent\Numbers\GetIsPositiveRuleNonNumber.cs" />
+    <Compile Include="Checks\Methods\Inherent\Numbers\GetIsOddRuleNonNumber.cs" />
+    <Compile Include="Checks\Methods\Inherent\Numbers\GetIsNotPositiveRuleNonNumber.cs" />
+    <Compile Include="Checks\Methods\Inherent\Numbers\GetIsNotNegativeRuleNonNumber.cs" />
+    <Compile Include="Checks\Methods\Inherent\Numbers\GetIsNegativeRuleNonNumber.cs" />
+    <Compile Include="Checks\Methods\Inherent\Numbers\GetIsEvenRuleNonNumber.cs" />
+    <Compile Include="Checks\Methods\Inherent\Numbers\GetIsLiteralPercentageRuleNonNumber.cs" />
     <Compile Include="Checks\Methods\Inherent\Numbers\Decimal\GetIsLiteralPercentageRuleForDecimal.cs" />
     <Compile Include="Checks\Methods\Inherent\Numbers\Decimal\GetIsAdjustedPercentageRuleForDecimal.cs" />
     <Compile Include="Checks\Methods\Inherent\Numbers\Decimal\GetIsPositiveRuleForDecimal.cs" />
@@ -226,6 +233,7 @@
     <Compile Include="Checks\Methods\Inherent\Numbers\Double\GetIsNotNegativeRuleForDouble.cs" />
     <Compile Include="Checks\Methods\Inherent\Numbers\Double\GetIsNegativeRuleForDouble.cs" />
     <Compile Include="Checks\Methods\Inherent\Numbers\Double\GetIsEvenRuleForDouble.cs" />
+    <Compile Include="Checks\Methods\Inherent\Numbers\GetIsAdjustedPercentageRuleNonNumber.cs" />
     <Compile Include="Checks\Methods\Inherent\Numbers\Int32\GetIsPercentageRuleForInt32.cs" />
     <Compile Include="Checks\Methods\Inherent\Numbers\Int32\GetIsPositiveRuleForInt32.cs" />
     <Compile Include="Checks\Methods\Inherent\Numbers\Int32\GetIsOddRuleForInt32.cs" />
