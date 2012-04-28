@@ -267,6 +267,7 @@
     <Compile Include="Checks\Rules\CheckRule.cs" />
     <Compile Include="Checks\Rules\BinaryRule.cs" />
     <Compile Include="Checks\Rules\ConstantRule.cs" />
+    <Compile Include="Checks\Rules\ConvertRuleToString.cs" />
     <Compile Include="Checks\Rules\LambdaRule.cs" />
     <Compile Include="Checks\Rules\MemberRule.cs" />
     <Compile Include="Checks\Rules\NotRule.cs" />

@@ -236,6 +236,15 @@ namespace Grasp.Checks.Rules
 		public abstract RuleType Type { get; }
 
 		/// <summary>
+		/// Gets a textual representation of this rule
+		/// </summary>
+		/// <returns>A textual representation of this rule</returns>
+		public override string ToString()
+		{
+			return new ConvertRuleToString().ConvertToString(this);
+		}
+
+		/// <summary>
 		/// Creates a lambda expression that represents the application of this rule to target data of the specified type
 		/// </summary>
 		/// <param name="targetType">The type to which to apply the rule</param>
