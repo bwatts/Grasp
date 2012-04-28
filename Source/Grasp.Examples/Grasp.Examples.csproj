@@ -383,6 +383,29 @@
     <Compile Include="Checks\Rules\CreateCheckRuleWithArguments.cs" />
     <Compile Include="Checks\Rules\CreateCheckRule.cs" />
     <Compile Include="Checks\Conditions\GetSpecification.cs" />
+    <Compile Include="Checks\Rules\Visitor\VisitNullMemberRule.cs" />
+    <Compile Include="Checks\Rules\Visitor\VisitNullNotRule.cs" />
+    <Compile Include="Checks\Rules\Visitor\VisitNullBinaryRule.cs" />
+    <Compile Include="Checks\Rules\Visitor\VisitNullLambdaRule.cs" />
+    <Compile Include="Checks\Rules\Visitor\VisitNullConstantRule.cs" />
+    <Compile Include="Checks\Rules\Visitor\VisitNullCheckRule.cs" />
+    <Compile Include="Checks\Rules\Visitor\RewriteMemberRule.cs" />
+    <Compile Include="Checks\Rules\Visitor\RewriteNotRule.cs" />
+    <Compile Include="Checks\Rules\Visitor\RewriteBinaryRule.cs" />
+    <Compile Include="Checks\Rules\Visitor\RewriteBinaryRuleRight.cs" />
+    <Compile Include="Checks\Rules\Visitor\RewriteBinaryRuleLeft.cs" />
+    <Compile Include="Checks\Rules\Visitor\VisitUnknownRuleType.cs" />
+    <Compile Include="Checks\Rules\Visitor\VisitMethodRule.cs" />
+    <Compile Include="Checks\Rules\Visitor\VisitFieldRule.cs" />
+    <Compile Include="Checks\Rules\Visitor\VisitPropertyRule.cs" />
+    <Compile Include="Checks\Rules\Visitor\VisitNotRule.cs" />
+    <Compile Include="Checks\Rules\Visitor\VisitExclusiveOrRule.cs" />
+    <Compile Include="Checks\Rules\Visitor\VisitOrRule.cs" />
+    <Compile Include="Checks\Rules\Visitor\VisitAndRule.cs" />
+    <Compile Include="Checks\Rules\Visitor\VisitConstantRule.cs" />
+    <Compile Include="Checks\Rules\Visitor\VisitLambdaRule.cs" />
+    <Compile Include="Checks\Rules\Visitor\VisitCheckRule.cs" />
+    <Compile Include="Checks\Rules\Visitor\VisitNullRule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

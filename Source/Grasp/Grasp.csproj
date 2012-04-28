@@ -278,6 +278,7 @@
     <Compile Include="Checks\Rules\Rule.cs" />
     <Compile Include="Checks\Rules\RuleSequenceMerge.cs" />
     <Compile Include="Checks\Rules\RuleType.cs" />
+    <Compile Include="Checks\Rules\RuleVisitor.cs" />
     <Compile Include="Checks\Specification.cs" />
     <Compile Include="Checks\CheckException.cs" />
     <Compile Include="GraspException.cs" />

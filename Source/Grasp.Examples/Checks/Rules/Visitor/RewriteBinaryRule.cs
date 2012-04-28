@@ -1,0 +1,81 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using System.Text;
+using Cloak.NUnit;
+using Cloak.Reflection;
+using NUnit.Framework;
+
+namespace Grasp.Checks.Rules.Visitor
+{
+	public class RewriteBinaryRule : Behavior
+	{
+		Rule _left;
+		Rule _right;
+		Rule _newLeft;
+		Rule _newRight;
+		BinaryRule _binaryRule;
+		TestRuleVisitor _visitor;
+		Rule _resultRule;
+
+		protected override void Given()
+		{
+			_left = Rule.Constant(true);
+			_right = Rule.Constant(true);
+
+			_binaryRule = Rule.And(_left, _right);
+
+			_newLeft = Rule.Constant(false);
+			_newRight = Rule.Constant(false);
+
+			_visitor = new TestRuleVisitor { Left = _left, NewLeft = _newLeft, NewRight = _newRight };
+		}
+
+		protected override void When()
+		{
+			_resultRule = _visitor.VisitRule(_binaryRule);
+		}
+
+		[Then]
+		public void ResultHasOriginalType()
+		{
+			Assert.That(_resultRule.Type, Is.EqualTo(_binaryRule.Type));
+		}
+
+		[Then]
+		public void LeftIsNew()
+		{
+			var resultBinaryRule = (BinaryRule) _resultRule;
+
+			Assert.That(resultBinaryRule.Left, Is.EqualTo(_newLeft));
+		}
+
+		[Then]
+		public void RightIsNew()
+		{
+			var resultBinaryRule = (BinaryRule) _resultRule;
+
+			Assert.That(resultBinaryRule.Right, Is.EqualTo(_newRight));
+		}
+
+		private class TestRuleVisitor : RuleVisitor
+		{
+			internal Rule Left { get; set; }
+
+			internal Rule NewLeft { get; set; }
+
+			internal Rule NewRight { get; set; }
+
+			internal Rule VisitRule(Rule rule)
+			{
+				return Visit(rule);
+			}
+
+			protected override Rule VisitConstant(ConstantRule node)
+			{
+				return node == Left ? NewLeft : NewRight;
+			}
+		}
+	}
+}
