@@ -61,6 +61,15 @@ namespace Grasp.Checks.Rules {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unable to cast target data of type {0} to {1}.
+        /// </summary>
+        internal static string InvalidTargetCast {
+            get {
+                return ResourceManager.GetString("InvalidTargetCast", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Member type {0} is not supported.
         /// </summary>
         internal static string MemberTypeNotSupported {
@@ -75,6 +84,15 @@ namespace Grasp.Checks.Rules {
         internal static string NotBinaryType {
             get {
                 return ResourceManager.GetString("NotBinaryType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Target type {0} cannot be assigned a null value.
+        /// </summary>
+        internal static string TargetTypeCannotBeAssignedNull {
+            get {
+                return ResourceManager.GetString("TargetTypeCannotBeAssignedNull", resourceCulture);
             }
         }
     }

@@ -6,6 +6,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
 using Cloak;
+using Cloak.Reflection;
 
 namespace Grasp.Checks.Rules
 {
@@ -253,7 +254,7 @@ namespace Grasp.Checks.Rules
 		{
 			Contract.Requires(targetType != null);
 
-			throw new NotImplementedException();
+			return new ConvertRuleToLambdaExpression().ConvertToLambdaExpression(this, targetType);
 		}
 
 		/// <summary>
@@ -277,7 +278,7 @@ namespace Grasp.Checks.Rules
 		{
 			Contract.Requires(targetType != null);
 
-			throw new NotImplementedException();
+			return ToObjectLambda(targetType).Compile();
 		}
 
 		/// <summary>
@@ -302,6 +303,44 @@ namespace Grasp.Checks.Rules
 			// TODO: Naive - revisit
 
 			return Rule.And(this, otherRule);
+		}
+
+		private Expression<Func<object, bool>> ToObjectLambda(Type targetType)
+		{
+			var lambda = ToLambdaExpression(targetType);
+
+			// Building: untypedTarget => lambda(CastTarget<TTarget>(untypedTarget))
+
+			var untypedTargetParameter = Expression.Parameter(typeof(object), "untypedTarget");
+
+			var castTargetCall = Expression.Call(
+				typeof(Rule),
+				"CastTarget",
+				new[] { targetType },
+				untypedTargetParameter);
+
+			var invokeLambda = Expression.Invoke(lambda, castTargetCall);
+
+			return Expression.Lambda<Func<object, bool>>(invokeLambda, untypedTargetParameter);
+		}
+
+		private static T CastTarget<T>(object target)
+		{
+			if(!typeof(T).IsAssignableNull() && target == null)
+			{
+				throw new InvalidCastException(Resources.TargetTypeCannotBeAssignedNull.FormatInvariant(typeof(T)));
+			}
+
+			try
+			{
+				return (T) target;
+			}
+			catch(InvalidCastException ex)
+			{
+				// The target will never be null here. Null casts to all reference types, and we guarded against null with value types above.
+
+				throw new InvalidCastException(Resources.InvalidTargetCast.FormatInvariant(target.GetType(), typeof(T)), ex);
+			}
 		}
 	}
 }
