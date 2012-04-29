@@ -363,6 +363,7 @@
     <Compile Include="Checks\Methods\Inherent\GetIsEqualToRule.cs" />
     <Compile Include="Checks\Methods\Inherent\GetIsNotNullRule.cs" />
     <Compile Include="Checks\Methods\Inherent\GetIsNullRule.cs" />
+    <Compile Include="Checks\Rules\LambdaExpressions\ConstantToLambda.cs" />
     <Compile Include="Checks\Rules\MakeMemberRuleForNonMemberType.cs" />
     <Compile Include="Checks\Rules\MakeMemberRuleForMethod.cs" />
     <Compile Include="Checks\Rules\MakeMemberRuleForField.cs" />
