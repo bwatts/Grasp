@@ -9,7 +9,7 @@ using NUnit.Framework;
 
 namespace Grasp.Checks.Rules.LambdaExpressions
 {
-	public class ConstantToLambda : Behavior
+	public class ConstantRuleToLambda : Behavior
 	{
 		bool _value;
 		ConstantRule _constantRule;
@@ -59,7 +59,7 @@ namespace Grasp.Checks.Rules.LambdaExpressions
 		}
 
 		[Then]
-		public void BodyHasConstantValue()
+		public void ConstantValueIsOriginal()
 		{
 			var constant = (ConstantExpression) _lambda.Body;
 

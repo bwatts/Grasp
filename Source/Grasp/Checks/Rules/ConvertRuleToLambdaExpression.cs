@@ -44,6 +44,10 @@ namespace Grasp.Checks.Rules
 
 		protected override Rule VisitNot(NotRule node)
 		{
+			Visit(node.Rule);
+
+			_body = Expression.Not(_body);
+
 			return node;
 		}
 
