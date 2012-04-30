@@ -41,6 +41,25 @@ namespace Grasp.Checks.Rules
 
 		protected override Rule VisitBinary(BinaryRule node)
 		{
+			Visit(node.Left);
+
+			var left = _body;
+
+			Visit(node.Right);
+
+			if(node.Type == RuleType.And)
+			{
+				_body = Expression.AndAlso(left, _body);
+			}
+			else if(node.Type == RuleType.Or)
+			{
+				_body = Expression.OrElse(left, _body);
+			}
+			else
+			{
+				_body = Expression.ExclusiveOr(left, _body);
+			}
+
 			return node;
 		}
 
