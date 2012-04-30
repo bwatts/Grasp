@@ -364,6 +364,7 @@
     <Compile Include="Checks\Methods\Inherent\GetIsNotNullRule.cs" />
     <Compile Include="Checks\Methods\Inherent\GetIsNullRule.cs" />
     <Compile Include="Checks\Rules\LambdaExpressions\ConstantRuleToLambda.cs" />
+    <Compile Include="Checks\Rules\LambdaExpressions\LambdaRuleToLambda.cs" />
     <Compile Include="Checks\Rules\LambdaExpressions\NotRuleToLambda.cs" />
     <Compile Include="Checks\Rules\MakeMemberRuleForNonMemberType.cs" />
     <Compile Include="Checks\Rules\MakeMemberRuleForMethod.cs" />

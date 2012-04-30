@@ -34,6 +34,8 @@ namespace Grasp.Checks.Rules
 
 		protected override Rule VisitLambda(LambdaRule node)
 		{
+			_body = Expression.Invoke(node.Lambda, _targetParameter);
+
 			return node;
 		}
 
