@@ -3,25 +3,32 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
+using Cloak.Linq;
 
 namespace Grasp.Checks.Rules
 {
 	internal sealed class ConvertRuleToLambdaExpression : RuleVisitor
 	{
-		ParameterExpression _targetParameter;
+		ParameterExpression _target;
 		Expression _body;
 
 		internal LambdaExpression ConvertToLambdaExpression(Rule rule, Type targetType)
 		{
-			_targetParameter = Expression.Parameter(targetType, "target");
+			_target = Expression.Parameter(targetType, "target");
 
 			Visit(rule);
 
-			return Expression.Lambda(_body, _targetParameter);
+			return Expression.Lambda(_body, _target);
 		}
 
 		protected override Rule VisitCheck(CheckRule node)
 		{
+			var thatCall = Expression.Call(typeof(Check), "That", new[] { _target.Type }, _target);
+
+			var arguments = new[] { thatCall }.Concat(node.CheckArguments.ToConstants());
+
+			_body = Expression.Call(node.Method, arguments);
+
 			return node;
 		}
 
@@ -34,7 +41,7 @@ namespace Grasp.Checks.Rules
 
 		protected override Rule VisitLambda(LambdaRule node)
 		{
-			_body = Expression.Invoke(node.Lambda, _targetParameter);
+			_body = Expression.Invoke(node.Lambda, _target);
 
 			return node;
 		}

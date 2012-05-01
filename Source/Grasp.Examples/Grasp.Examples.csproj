@@ -365,6 +365,8 @@
     <Compile Include="Checks\Methods\Inherent\GetIsNullRule.cs" />
     <Compile Include="Checks\Rules\LambdaExpressions\ConstantRuleToLambda.cs" />
     <Compile Include="Checks\Rules\LambdaExpressions\AndRuleToLambda.cs" />
+    <Compile Include="Checks\Rules\LambdaExpressions\CheckRuleToLambda.cs" />
+    <Compile Include="Checks\Rules\LambdaExpressions\CheckRuleWithArgumentToLambda.cs" />
     <Compile Include="Checks\Rules\LambdaExpressions\ExclusiveOrRuleToLambda.cs" />
     <Compile Include="Checks\Rules\LambdaExpressions\OrRuleToLambda.cs" />
     <Compile Include="Checks\Rules\LambdaExpressions\LambdaRuleToLambda.cs" />
