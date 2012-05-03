@@ -10,10 +10,10 @@ using NUnit.Framework;
 
 namespace Grasp.Checks.Rules.LambdaExpressions
 {
-	public class CheckRuleToLambda : Behavior
+	public class NottedCheckRulesToLambda : Behavior
 	{
 		MethodInfo _method;
-		CheckRule _checkRule;
+		NotRule _notRule;
 		Type _targetType;
 		MethodInfo _thatMethod;
 		LambdaExpression _lambda;
@@ -22,7 +22,7 @@ namespace Grasp.Checks.Rules.LambdaExpressions
 		{
 			_method = Reflect.Func<ICheckable<int>, Check<int>>(Checkable.IsPositive);
 
-			_checkRule = Rule.Check(_method);
+			_notRule = Rule.Not(Rule.Check(_method));
 
 			_targetType = typeof(int);
 
@@ -35,10 +35,10 @@ namespace Grasp.Checks.Rules.LambdaExpressions
 
 		protected override void When()
 		{
-			_lambda = _checkRule.ToLambdaExpression(_targetType);
+			_lambda = _notRule.ToLambdaExpression(_targetType);
 		}
 
-		// Expecting: target => (bool) Check.That(target).IsPositive()
+		// Expecting: target => !((bool) Check.That(target).IsPositive())
 
 		[Then]
 		public void HasOneParameter()
@@ -63,15 +63,24 @@ namespace Grasp.Checks.Rules.LambdaExpressions
 		}
 
 		[Then]
-		public void BodyNodeTypeIsConvert()
+		public void BodyNodeTypeIsNot()
 		{
-			Assert.That(_lambda.Body.NodeType, Is.EqualTo(ExpressionType.Convert));
+			Assert.That(_lambda.Body.NodeType, Is.EqualTo(ExpressionType.Not));
 		}
 
 		[Then]
-		public void BodyConvertsToBoolean()
+		public void NotOperandIsConvert()
 		{
-			var convert = (UnaryExpression) _lambda.Body;
+			var not = (UnaryExpression) _lambda.Body;
+
+			Assert.That(not.Operand.NodeType, Is.EqualTo(ExpressionType.Convert));
+		}
+
+		[Then]
+		public void NotOperandConvertsToBoolean()
+		{
+			var not = (UnaryExpression) _lambda.Body;
+			var convert = (UnaryExpression) not.Operand;
 
 			Assert.That(convert.Type, Is.EqualTo(typeof(bool)));
 		}
@@ -79,7 +88,8 @@ namespace Grasp.Checks.Rules.LambdaExpressions
 		[Then]
 		public void ConvertOperandIsMethodCall()
 		{
-			var convert = (UnaryExpression) _lambda.Body;
+			var not = (UnaryExpression) _lambda.Body;
+			var convert = (UnaryExpression) not.Operand;
 
 			Assert.That(convert.Operand, Is.InstanceOf<MethodCallExpression>());
 		}
@@ -87,7 +97,8 @@ namespace Grasp.Checks.Rules.LambdaExpressions
 		[Then]
 		public void ConvertOperandMethodCallIsCheckCall()
 		{
-			var convert = (UnaryExpression) _lambda.Body;
+			var not = (UnaryExpression) _lambda.Body;
+			var convert = (UnaryExpression) not.Operand;
 			var checkCall = (MethodCallExpression) convert.Operand;
 
 			Assert.That(checkCall.Method, Is.EqualTo(_method));
@@ -96,7 +107,8 @@ namespace Grasp.Checks.Rules.LambdaExpressions
 		[Then]
 		public void CheckCallHasOneArgument()
 		{
-			var convert = (UnaryExpression) _lambda.Body;
+			var not = (UnaryExpression) _lambda.Body;
+			var convert = (UnaryExpression) not.Operand;
 			var checkCall = (MethodCallExpression) convert.Operand;
 
 			Assert.That(checkCall.Arguments.Count, Is.EqualTo(1));
@@ -105,7 +117,8 @@ namespace Grasp.Checks.Rules.LambdaExpressions
 		[Then]
 		public void CheckCallArgumentIsMethodCall()
 		{
-			var convert = (UnaryExpression) _lambda.Body;
+			var not = (UnaryExpression) _lambda.Body;
+			var convert = (UnaryExpression) not.Operand;
 			var checkCall = (MethodCallExpression) convert.Operand;
 
 			Assert.That(checkCall.Arguments.Single(), Is.InstanceOf<MethodCallExpression>());
@@ -114,7 +127,8 @@ namespace Grasp.Checks.Rules.LambdaExpressions
 		[Then]
 		public void CheckCallArgumentIsThatCall()
 		{
-			var convert = (UnaryExpression) _lambda.Body;
+			var not = (UnaryExpression) _lambda.Body;
+			var convert = (UnaryExpression) not.Operand;
 			var checkCall = (MethodCallExpression) convert.Operand;
 			var thatCall = (MethodCallExpression) checkCall.Arguments.Single();
 
@@ -124,7 +138,8 @@ namespace Grasp.Checks.Rules.LambdaExpressions
 		[Then]
 		public void ThatCallHasOneArgument()
 		{
-			var convert = (UnaryExpression) _lambda.Body;
+			var not = (UnaryExpression) _lambda.Body;
+			var convert = (UnaryExpression) not.Operand;
 			var checkCall = (MethodCallExpression) convert.Operand;
 			var thatCall = (MethodCallExpression) checkCall.Arguments.Single();
 
@@ -134,7 +149,8 @@ namespace Grasp.Checks.Rules.LambdaExpressions
 		[Then]
 		public void ThatCallArgumentIsTargetParameter()
 		{
-			var convert = (UnaryExpression) _lambda.Body;
+			var not = (UnaryExpression) _lambda.Body;
+			var convert = (UnaryExpression) not.Operand;
 			var checkCall = (MethodCallExpression) convert.Operand;
 			var thatCall = (MethodCallExpression) checkCall.Arguments.Single();
 

@@ -30,6 +30,8 @@ namespace Grasp.Checks.Rules.LambdaExpressions
 			_resultLambda = _lambdaRule.ToLambdaExpression(_targetType);
 		}
 
+		// Expecting: target => <inner lambda>(target)
+
 		[Then]
 		public void HasOneParameter()
 		{

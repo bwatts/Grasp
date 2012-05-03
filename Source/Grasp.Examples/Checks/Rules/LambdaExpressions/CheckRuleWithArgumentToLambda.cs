@@ -41,6 +41,8 @@ namespace Grasp.Checks.Rules.LambdaExpressions
 			_lambda = _checkRule.ToLambdaExpression(_targetType);
 		}
 
+		// Expecting: target => (bool) Check.That(target).StartsWith("value")
+
 		[Then]
 		public void HasOneParameter()
 		{
@@ -64,39 +66,59 @@ namespace Grasp.Checks.Rules.LambdaExpressions
 		}
 
 		[Then]
-		public void BodyIsMethodCall()
+		public void BodyNodeTypeIsConvert()
 		{
-			Assert.That(_lambda.Body, Is.InstanceOf<MethodCallExpression>());
+			Assert.That(_lambda.Body.NodeType, Is.EqualTo(ExpressionType.Convert));
 		}
 
 		[Then]
-		public void BodyMethodCallIsCheck()
+		public void BodyConvertsToBoolean()
 		{
-			var checkCall = (MethodCallExpression) _lambda.Body;
+			var convert = (UnaryExpression) _lambda.Body;
+
+			Assert.That(convert.Type, Is.EqualTo(typeof(bool)));
+		}
+
+		[Then]
+		public void ConvertOperandIsMethodCall()
+		{
+			var convert = (UnaryExpression) _lambda.Body;
+
+			Assert.That(convert.Operand, Is.InstanceOf<MethodCallExpression>());
+		}
+
+		[Then]
+		public void ConvertOperandMethodCallIsCheckCall()
+		{
+			var convert = (UnaryExpression) _lambda.Body;
+			var checkCall = (MethodCallExpression) convert.Operand;
 
 			Assert.That(checkCall.Method, Is.EqualTo(_method));
 		}
 
 		[Then]
-		public void CheckHasTwoArguments()
+		public void CheckCallHasTwoArguments()
 		{
-			var checkCall = (MethodCallExpression) _lambda.Body;
+			var convert = (UnaryExpression) _lambda.Body;
+			var checkCall = (MethodCallExpression) convert.Operand;
 
 			Assert.That(checkCall.Arguments.Count, Is.EqualTo(2));
 		}
 
 		[Then]
-		public void CheckFirstArgumentIsMethodCall()
+		public void CheckCallFirstArgumentIsMethodCall()
 		{
-			var checkCall = (MethodCallExpression) _lambda.Body;
+			var convert = (UnaryExpression) _lambda.Body;
+			var checkCall = (MethodCallExpression) convert.Operand;
 
 			Assert.That(checkCall.Arguments[0], Is.InstanceOf<MethodCallExpression>());
 		}
 
 		[Then]
-		public void CheckFirstArgumentIsThatCall()
+		public void CheckCallFirstArgumentIsThatCall()
 		{
-			var checkCall = (MethodCallExpression) _lambda.Body;
+			var convert = (UnaryExpression) _lambda.Body;
+			var checkCall = (MethodCallExpression) convert.Operand;
 			var thatCall = (MethodCallExpression) checkCall.Arguments[0];
 
 			Assert.That(thatCall.Method, Is.EqualTo(_thatMethod));
@@ -105,7 +127,8 @@ namespace Grasp.Checks.Rules.LambdaExpressions
 		[Then]
 		public void ThatCallHasOneArgument()
 		{
-			var checkCall = (MethodCallExpression) _lambda.Body;
+			var convert = (UnaryExpression) _lambda.Body;
+			var checkCall = (MethodCallExpression) convert.Operand;
 			var thatCall = (MethodCallExpression) checkCall.Arguments[0];
 
 			Assert.That(thatCall.Arguments.Count, Is.EqualTo(1));
@@ -114,7 +137,8 @@ namespace Grasp.Checks.Rules.LambdaExpressions
 		[Then]
 		public void ThatCallArgumentIsTargetParameter()
 		{
-			var checkCall = (MethodCallExpression) _lambda.Body;
+			var convert = (UnaryExpression) _lambda.Body;
+			var checkCall = (MethodCallExpression) convert.Operand;
 			var thatCall = (MethodCallExpression) checkCall.Arguments[0];
 
 			var target = _lambda.Parameters.Single();
@@ -123,17 +147,19 @@ namespace Grasp.Checks.Rules.LambdaExpressions
 		}
 
 		[Then]
-		public void CheckSecondArgumentIsConstant()
+		public void CheckCallSecondArgumentIsConstant()
 		{
-			var checkCall = (MethodCallExpression) _lambda.Body;
+			var convert = (UnaryExpression) _lambda.Body;
+			var checkCall = (MethodCallExpression) convert.Operand;
 
 			Assert.That(checkCall.Arguments[1], Is.InstanceOf<ConstantExpression>());
 		}
 
 		[Then]
-		public void CheckSecondArgumentConstantIsValue()
+		public void CheckCallSecondArgumentConstantIsValue()
 		{
-			var checkCall = (MethodCallExpression) _lambda.Body;
+			var convert = (UnaryExpression) _lambda.Body;
+			var checkCall = (MethodCallExpression) convert.Operand;
 			var secondArgument = (ConstantExpression) checkCall.Arguments[1];
 
 			Assert.That(secondArgument.Value, Is.EqualTo(_value));

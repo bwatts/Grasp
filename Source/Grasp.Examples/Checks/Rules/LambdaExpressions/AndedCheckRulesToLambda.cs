@@ -10,12 +10,11 @@ using NUnit.Framework;
 
 namespace Grasp.Checks.Rules.LambdaExpressions
 {
+	[Ignore]
 	public class AndedCheckRulesToLambda : Behavior
 	{
 		MethodInfo _method1;
 		MethodInfo _method2;
-		CheckRule _checkRule1;
-		CheckRule _checkRule2;
 		BinaryRule _andRule;
 		Type _targetType;
 		MethodInfo _thatMethod;
@@ -26,10 +25,7 @@ namespace Grasp.Checks.Rules.LambdaExpressions
 			_method1 = Reflect.Func<ICheckable<int>, Check<int>>(Checkable.IsPositive);
 			_method2 = Reflect.Func<ICheckable<int>, Check<int>>(Checkable.IsEven);
 
-			_checkRule1 = Rule.Check(_method1);
-			_checkRule2 = Rule.Check(_method2);
-
-			_andRule = Rule.And(_checkRule1, _checkRule2);
+			_andRule = Rule.And(Rule.Check(_method1), Rule.Check(_method2));
 
 			_targetType = typeof(int);
 
@@ -44,6 +40,8 @@ namespace Grasp.Checks.Rules.LambdaExpressions
 		{
 			_lambda = _andRule.ToLambdaExpression(_targetType);
 		}
+
+		// Expecting: target => (bool) Check.That(target).IsPositive().IsEven()
 
 		[Then]
 		public void HasOneParameter()
@@ -68,66 +66,89 @@ namespace Grasp.Checks.Rules.LambdaExpressions
 		}
 
 		[Then]
-		public void BodyIsMethodCall()
+		public void BodyNodeTypeIsConvert()
 		{
-			Assert.That(_lambda.Body, Is.InstanceOf<MethodCallExpression>());
+			Assert.That(_lambda.Body.NodeType, Is.EqualTo(ExpressionType.Convert));
 		}
 
 		[Then]
-		public void BodyMethodCallIsSecondCheck()
+		public void BodyConvertsToBoolean()
 		{
-			var secondCheckCall = (MethodCallExpression) _lambda.Body;
+			var convert = (UnaryExpression) _lambda.Body;
+
+			Assert.That(convert.Type, Is.EqualTo(typeof(bool)));
+		}
+
+		[Then]
+		public void ConvertOperandIsMethodCall()
+		{
+			var convert = (UnaryExpression) _lambda.Body;
+
+			Assert.That(convert.Operand, Is.InstanceOf<MethodCallExpression>());
+		}
+
+		[Then]
+		public void ConvertOperandMethodCallIsSecondCheckCall()
+		{
+			var convert = (UnaryExpression) _lambda.Body;
+			var secondCheckCall = (MethodCallExpression) convert.Operand;
 
 			Assert.That(secondCheckCall.Method, Is.EqualTo(_method2));
 		}
 
 		[Then]
-		public void SecondCheckHasOneArgument()
+		public void SecondCheckCallHasOneArgument()
 		{
-			var secondCheckCall = (MethodCallExpression) _lambda.Body;
+			var convert = (UnaryExpression) _lambda.Body;
+			var secondCheckCall = (MethodCallExpression) convert.Operand;
 
 			Assert.That(secondCheckCall.Arguments.Count, Is.EqualTo(1));
 		}
 
 		[Then]
-		public void SecondCheckArgumentIsMethodCall()
+		public void SecondCheckCallArgumentIsMethodCall()
 		{
-			var secondCheckCall = (MethodCallExpression) _lambda.Body;
+			var convert = (UnaryExpression) _lambda.Body;
+			var secondCheckCall = (MethodCallExpression) convert.Operand;
 
 			Assert.That(secondCheckCall.Arguments.Single(), Is.InstanceOf<MethodCallExpression>());
 		}
 
 		[Then]
-		public void SecondCheckArgumentIsFirstCheck()
+		public void SecondCheckCallArgumentIsFirstCheck()
 		{
-			var secondCheckCall = (MethodCallExpression) _lambda.Body;
+			var convert = (UnaryExpression) _lambda.Body;
+			var secondCheckCall = (MethodCallExpression) convert.Operand;
 			var firstCheckCall = (MethodCallExpression) secondCheckCall.Arguments.Single();
 
 			Assert.That(firstCheckCall.Method, Is.EqualTo(_method1));
 		}
 
 		[Then]
-		public void FirstCheckHasOneArgument()
+		public void FirstCheckCallHasOneArgument()
 		{
-			var secondCheckCall = (MethodCallExpression) _lambda.Body;
+			var convert = (UnaryExpression) _lambda.Body;
+			var secondCheckCall = (MethodCallExpression) convert.Operand;
 			var firstCheckCall = (MethodCallExpression) secondCheckCall.Arguments.Single();
 
 			Assert.That(firstCheckCall.Arguments.Count, Is.EqualTo(1));
 		}
 
 		[Then]
-		public void FirstCheckArgumentIsMethodCall()
+		public void FirstCheckCallArgumentIsMethodCall()
 		{
-			var secondCheckCall = (MethodCallExpression) _lambda.Body;
+			var convert = (UnaryExpression) _lambda.Body;
+			var secondCheckCall = (MethodCallExpression) convert.Operand;
 			var firstCheckCall = (MethodCallExpression) secondCheckCall.Arguments.Single();
 
 			Assert.That(firstCheckCall.Arguments.Single(), Is.InstanceOf<MethodCallExpression>());
 		}
 
 		[Then]
-		public void FirstCheckArgumentIsThatCall()
+		public void FirstCheckCallArgumentIsThatCall()
 		{
-			var secondCheckCall = (MethodCallExpression) _lambda.Body;
+			var convert = (UnaryExpression) _lambda.Body;
+			var secondCheckCall = (MethodCallExpression) convert.Operand;
 			var firstCheckCall = (MethodCallExpression) secondCheckCall.Arguments.Single();
 			var thatCall = (MethodCallExpression) firstCheckCall.Arguments.Single();
 
@@ -137,7 +158,8 @@ namespace Grasp.Checks.Rules.LambdaExpressions
 		[Then]
 		public void ThatCallHasOneArgument()
 		{
-			var secondCheckCall = (MethodCallExpression) _lambda.Body;
+			var convert = (UnaryExpression) _lambda.Body;
+			var secondCheckCall = (MethodCallExpression) convert.Operand;
 			var firstCheckCall = (MethodCallExpression) secondCheckCall.Arguments.Single();
 			var thatCall = (MethodCallExpression) firstCheckCall.Arguments.Single();
 
@@ -147,7 +169,8 @@ namespace Grasp.Checks.Rules.LambdaExpressions
 		[Then]
 		public void ThatCallArgumentIsTargetParameter()
 		{
-			var secondCheckCall = (MethodCallExpression) _lambda.Body;
+			var convert = (UnaryExpression) _lambda.Body;
+			var secondCheckCall = (MethodCallExpression) convert.Operand;
 			var firstCheckCall = (MethodCallExpression) secondCheckCall.Arguments.Single();
 			var thatCall = (MethodCallExpression) firstCheckCall.Arguments.Single();
 

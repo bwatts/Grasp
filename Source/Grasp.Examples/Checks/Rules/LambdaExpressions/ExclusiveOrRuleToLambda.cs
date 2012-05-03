@@ -32,6 +32,8 @@ namespace Grasp.Checks.Rules.LambdaExpressions
 			_lambda = _exclusiveOrRule.ToLambdaExpression(_targetType);
 		}
 
+		// Expecting: target => false ^ true
+
 		[Then]
 		public void HasOneParameter()
 		{
