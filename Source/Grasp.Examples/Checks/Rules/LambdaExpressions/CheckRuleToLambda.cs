@@ -67,56 +67,54 @@ namespace Grasp.Checks.Rules.LambdaExpressions
 		}
 
 		[Then]
-		public void MethodCallIsCheck()
+		public void BodyMethodCallIsCheck()
 		{
-			var methodCall = (MethodCallExpression) _lambda.Body;
+			var checkCall = (MethodCallExpression) _lambda.Body;
 
-			Assert.That(methodCall.Method, Is.EqualTo(_method));
+			Assert.That(checkCall.Method, Is.EqualTo(_method));
 		}
 
 		[Then]
-		public void MethodCallHasOneArgument()
+		public void CheckHasOneArgument()
 		{
-			var methodCall = (MethodCallExpression) _lambda.Body;
+			var checkCall = (MethodCallExpression) _lambda.Body;
 
-			Assert.That(methodCall.Arguments.Count, Is.EqualTo(1));
+			Assert.That(checkCall.Arguments.Count, Is.EqualTo(1));
 		}
 
 		[Then]
-		public void MethodCallArgumentIsMethodCall()
+		public void CheckArgumentIsMethodCall()
 		{
-			var methodCall = (MethodCallExpression) _lambda.Body;
+			var checkCall = (MethodCallExpression) _lambda.Body;
 
-			Assert.That(methodCall.Arguments.Single(), Is.InstanceOf<MethodCallExpression>());
+			Assert.That(checkCall.Arguments.Single(), Is.InstanceOf<MethodCallExpression>());
 		}
 
 		[Then]
-		public void InnerMethodCallIsThatWithTargetType()
+		public void CheckArgumentIsThatCall()
 		{
-			var methodCall = (MethodCallExpression) _lambda.Body;
-			var innerMethodCall = (MethodCallExpression) methodCall.Arguments.Single();
+			var checkCall = (MethodCallExpression) _lambda.Body;
+			var thatCall = (MethodCallExpression) checkCall.Arguments.Single();
 
-			Assert.That(innerMethodCall.Method, Is.EqualTo(_thatMethod));
+			Assert.That(thatCall.Method, Is.EqualTo(_thatMethod));
 		}
 
 		[Then]
 		public void ThatCallHasOneArgument()
 		{
-			var methodCall = (MethodCallExpression) _lambda.Body;
-			var thatCall = (MethodCallExpression) methodCall.Arguments.Single();
+			var checkCall = (MethodCallExpression) _lambda.Body;
+			var thatCall = (MethodCallExpression) checkCall.Arguments.Single();
 
 			Assert.That(thatCall.Arguments.Count, Is.EqualTo(1));
 		}
 
 		[Then]
-		public void ThatCallArgumentIsTarget()
+		public void ThatCallArgumentIsTargetParameter()
 		{
-			var methodCall = (MethodCallExpression) _lambda.Body;
-			var thatCall = (MethodCallExpression) methodCall.Arguments.Single();
+			var checkCall = (MethodCallExpression) _lambda.Body;
+			var thatCall = (MethodCallExpression) checkCall.Arguments.Single();
 
-			var target = _lambda.Parameters.Single();
-
-			Assert.That(thatCall.Arguments.Single(), Is.EqualTo(target));
+			Assert.That(thatCall.Arguments.Single(), Is.EqualTo(_lambda.Parameters.Single()));
 		}
 	}
 }

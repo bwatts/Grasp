@@ -70,73 +70,73 @@ namespace Grasp.Checks.Rules.LambdaExpressions
 		}
 
 		[Then]
-		public void MethodCallIsCheck()
+		public void BodyMethodCallIsCheck()
 		{
-			var methodCall = (MethodCallExpression) _lambda.Body;
+			var checkCall = (MethodCallExpression) _lambda.Body;
 
-			Assert.That(methodCall.Method, Is.EqualTo(_method));
+			Assert.That(checkCall.Method, Is.EqualTo(_method));
 		}
 
 		[Then]
-		public void MethodCallHasTwoArguments()
+		public void CheckHasTwoArguments()
 		{
-			var methodCall = (MethodCallExpression) _lambda.Body;
+			var checkCall = (MethodCallExpression) _lambda.Body;
 
-			Assert.That(methodCall.Arguments.Count, Is.EqualTo(2));
+			Assert.That(checkCall.Arguments.Count, Is.EqualTo(2));
 		}
 
 		[Then]
-		public void MethodCallFirstArgumentIsMethodCall()
+		public void CheckFirstArgumentIsMethodCall()
 		{
-			var methodCall = (MethodCallExpression) _lambda.Body;
+			var checkCall = (MethodCallExpression) _lambda.Body;
 
-			Assert.That(methodCall.Arguments[0], Is.InstanceOf<MethodCallExpression>());
+			Assert.That(checkCall.Arguments[0], Is.InstanceOf<MethodCallExpression>());
 		}
 
 		[Then]
-		public void MethodCallSecondArgumentIsConstant()
+		public void CheckFirstArgumentIsThatCall()
 		{
-			var methodCall = (MethodCallExpression) _lambda.Body;
+			var checkCall = (MethodCallExpression) _lambda.Body;
+			var thatCall = (MethodCallExpression) checkCall.Arguments[0];
 
-			Assert.That(methodCall.Arguments[1], Is.InstanceOf<ConstantExpression>());
-		}
-
-		[Then]
-		public void MethodCallSecondArgumentConstantIsValue()
-		{
-			var methodCall = (MethodCallExpression) _lambda.Body;
-			var secondArgument = (ConstantExpression) methodCall.Arguments[1];
-
-			Assert.That(secondArgument.Value, Is.EqualTo(_value));
-		}
-
-		[Then]
-		public void InnerMethodCallIsThatWithTargetType()
-		{
-			var methodCall = (MethodCallExpression) _lambda.Body;
-			var innerMethodCall = (MethodCallExpression) methodCall.Arguments[0];
-
-			Assert.That(innerMethodCall.Method, Is.EqualTo(_thatMethod));
+			Assert.That(thatCall.Method, Is.EqualTo(_thatMethod));
 		}
 
 		[Then]
 		public void ThatCallHasOneArgument()
 		{
-			var methodCall = (MethodCallExpression) _lambda.Body;
-			var thatCall = (MethodCallExpression) methodCall.Arguments[0];
+			var checkCall = (MethodCallExpression) _lambda.Body;
+			var thatCall = (MethodCallExpression) checkCall.Arguments[0];
 
 			Assert.That(thatCall.Arguments.Count, Is.EqualTo(1));
 		}
 
 		[Then]
-		public void ThatCallArgumentIsTarget()
+		public void ThatCallArgumentIsTargetParameter()
 		{
-			var methodCall = (MethodCallExpression) _lambda.Body;
-			var thatCall = (MethodCallExpression) methodCall.Arguments[0];
+			var checkCall = (MethodCallExpression) _lambda.Body;
+			var thatCall = (MethodCallExpression) checkCall.Arguments[0];
 
 			var target = _lambda.Parameters.Single();
 
 			Assert.That(thatCall.Arguments.Single(), Is.EqualTo(target));
+		}
+
+		[Then]
+		public void CheckSecondArgumentIsConstant()
+		{
+			var checkCall = (MethodCallExpression) _lambda.Body;
+
+			Assert.That(checkCall.Arguments[1], Is.InstanceOf<ConstantExpression>());
+		}
+
+		[Then]
+		public void CheckSecondArgumentConstantIsValue()
+		{
+			var checkCall = (MethodCallExpression) _lambda.Body;
+			var secondArgument = (ConstantExpression) checkCall.Arguments[1];
+
+			Assert.That(secondArgument.Value, Is.EqualTo(_value));
 		}
 	}
 }
