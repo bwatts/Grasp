@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 using System.Text;
 using Cloak.Linq;
 
@@ -56,17 +57,21 @@ namespace Grasp.Checks.Rules
 
 			Visit(node.Right);
 
+			left = EnsureBooleanResult(left);
+
+			var right = EnsureBooleanResult(_body);
+
 			if(node.Type == RuleType.And)
 			{
-				_body = Expression.AndAlso(EnsureBooleanResult(left), EnsureBooleanResult(_body));
+				_body = Expression.AndAlso(left, right);
 			}
 			else if(node.Type == RuleType.Or)
 			{
-				_body = Expression.OrElse(EnsureBooleanResult(left), EnsureBooleanResult(_body));
+				_body = Expression.OrElse(left, right);
 			}
 			else
 			{
-				_body = Expression.ExclusiveOr(EnsureBooleanResult(left), EnsureBooleanResult(_body));
+				_body = Expression.ExclusiveOr(left, right);
 			}
 
 			return node;
@@ -83,6 +88,16 @@ namespace Grasp.Checks.Rules
 
 		protected override Rule VisitMember(MemberRule node)
 		{
+			var priorTarget = _target;
+
+			_target = node.Type == RuleType.Method
+				? Expression.Call(priorTarget, (MethodInfo) node.Member)
+				: Expression.MakeMemberAccess(priorTarget, node.Member) as Expression;
+
+			Visit(node.Rule);
+
+			_target = priorTarget;
+
 			return node;
 		}
 

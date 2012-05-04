@@ -368,6 +368,9 @@
     <Compile Include="Checks\Rules\LambdaExpressions\CheckRuleToLambda.cs" />
     <Compile Include="Checks\Rules\LambdaExpressions\CheckRuleWithArgumentToLambda.cs" />
     <Compile Include="Checks\Rules\LambdaExpressions\AndedCheckRulesToLambda.cs" />
+    <Compile Include="Checks\Rules\LambdaExpressions\MethodRuleToLambda.cs" />
+    <Compile Include="Checks\Rules\LambdaExpressions\FieldRuleToLambda.cs" />
+    <Compile Include="Checks\Rules\LambdaExpressions\PropertyRuleToLambda.cs" />
     <Compile Include="Checks\Rules\LambdaExpressions\NottedCheckRulesToLambda.cs" />
     <Compile Include="Checks\Rules\LambdaExpressions\OredCheckRulesToLambda.cs" />
     <Compile Include="Checks\Rules\LambdaExpressions\ExclusiveOrRuleToLambda.cs" />
