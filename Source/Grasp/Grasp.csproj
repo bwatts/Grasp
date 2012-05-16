@@ -288,6 +288,7 @@
     <Compile Include="Knowledge\INotionContext.cs" />
     <Compile Include="Knowledge\IsolatedNotionContext.cs" />
     <Compile Include="Knowledge\Notion.cs" />
+    <Compile Include="Knowledge\Persistence\PersistentId.cs" />
     <Compile Include="Knowledge\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
