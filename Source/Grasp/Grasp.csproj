@@ -284,6 +284,15 @@
     <Compile Include="Checks\Specification.cs" />
     <Compile Include="Checks\CheckException.cs" />
     <Compile Include="GraspException.cs" />
+    <Compile Include="Knowledge\Field.cs" />
+    <Compile Include="Knowledge\INotionContext.cs" />
+    <Compile Include="Knowledge\IsolatedNotionContext.cs" />
+    <Compile Include="Knowledge\Notion.cs" />
+    <Compile Include="Knowledge\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Analysis\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -317,6 +326,10 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Checks\Rules\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Knowledge\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
