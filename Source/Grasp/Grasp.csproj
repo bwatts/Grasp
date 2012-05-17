@@ -295,6 +295,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Knowledge\Work\IEntitySet.cs" />
+    <Compile Include="Knowledge\Work\IWorkContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Analysis\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
