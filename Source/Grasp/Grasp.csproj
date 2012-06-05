@@ -91,8 +91,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\SolutionAssemblyInfo.cs">
-      <Link>Properties\SolutionAssemblyInfo.cs</Link>
+    <Compile Include="..\GraspAssemblyInfo.cs">
+      <Link>Properties\GraspAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Analysis\Calculation.cs" />
     <Compile Include="Analysis\Compilation\CompilationException.cs" />
