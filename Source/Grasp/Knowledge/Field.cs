@@ -36,11 +36,12 @@ namespace Grasp.Knowledge
 			{
 				Contract.Requires(getProperty != null);
 
-				var property = getProperty.GetMemberInfo() as PropertyInfo;
+				var member = getProperty.GetMemberInfo();
+				var property = member as PropertyInfo;
 
 				if(property == null)
 				{
-					throw new ArgumentException(Resources.MemberIsNotProperty.FormatInvariant(property.Name), "getProperty");
+					throw new ArgumentException(Resources.MemberIsNotProperty.FormatInvariant(member.Name), "getProperty");
 				}
 
 				if(property.DeclaringType != typeof(TOwner))

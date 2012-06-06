@@ -5,7 +5,6 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using Cloak;
-using Cloak.Globalization;
 
 namespace Grasp.Semantics.Relationships
 {

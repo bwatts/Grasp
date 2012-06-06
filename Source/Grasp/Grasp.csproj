@@ -301,7 +301,9 @@
     <Compile Include="Knowledge\IsolatedNotionContext.cs" />
     <Compile Include="Knowledge\Many.cs" />
     <Compile Include="Knowledge\Notion.cs" />
+    <Compile Include="Knowledge\Persistence\PersistenceMedium.cs" />
     <Compile Include="Knowledge\Persistence\PersistentId.cs" />
+    <Compile Include="Knowledge\Persistence\PersistentWorkContext.cs" />
     <Compile Include="Knowledge\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -327,13 +329,36 @@
     <Compile Include="Analysis\Variable.cs" />
     <Compile Include="Analysis\VariableBinding.cs" />
     <Compile Include="Analysis\VariableExpression.cs" />
+    <Compile Include="Semantics\Discovery\DomainModelBinding.cs" />
+    <Compile Include="Semantics\Discovery\IDomainModelSource.cs" />
+    <Compile Include="Semantics\Discovery\Reflection\AssemblyBinder.cs" />
+    <Compile Include="Semantics\Discovery\Reflection\AssemblySource.cs" />
+    <Compile Include="Semantics\Discovery\Reflection\EnumBinding.cs" />
+    <Compile Include="Semantics\Discovery\Reflection\FieldInfoBinding.cs" />
+    <Compile Include="Semantics\Discovery\Reflection\MemberBinding.cs" />
+    <Compile Include="Semantics\Discovery\Reflection\NamespaceBinding.cs" />
+    <Compile Include="Semantics\Discovery\Reflection\NamespacePartBinding.cs" />
+    <Compile Include="Semantics\Discovery\Reflection\ObjectBinding.cs" />
+    <Compile Include="Semantics\Discovery\Reflection\PropertyInfoBinding.cs" />
+    <Compile Include="Semantics\Discovery\Reflection\ReflectionBinding.cs" />
+    <Compile Include="Semantics\Discovery\Reflection\TypeBinding.cs" />
+    <Compile Include="Semantics\DomainModel.cs" />
+    <Compile Include="Semantics\EnumModel.cs" />
+    <Compile Include="Semantics\EnumValueModel.cs" />
+    <Compile Include="Semantics\NamespaceModel.cs" />
+    <Compile Include="Semantics\ObjectModel.cs" />
     <Compile Include="Semantics\Relationships\Cardinality.cs" />
     <Compile Include="Semantics\Relationships\CardinalityLimit.cs" />
+    <Compile Include="Semantics\Relationships\OneWayRelationshipModel.cs" />
+    <Compile Include="Semantics\Relationships\ReferenceModel.cs" />
     <Compile Include="Semantics\Relationships\Resources1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Semantics\Relationships\TwoWayRelationshipModel.cs" />
+    <Compile Include="Semantics\TypeModel.cs" />
+    <Compile Include="Semantics\ValueModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Analysis\Compilation\Resources.resx">

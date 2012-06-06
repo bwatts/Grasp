@@ -8,7 +8,7 @@ namespace Grasp.Knowledge.Work
 {
 	public sealed class EntitySetChange : Change
 	{
-		public static readonly Field<IEntitySet> EntitySetField = Field.On<EntitySetChange>.For(x => x.EntitySet);
+		public static readonly Field<IEntitySet> EntitySetField = Field.On<EntitySetChange>.Backing(x => x.EntitySet);
 
 		public new IEntitySet EntitySet { get { return GetValue(EntitySetField); } }
 

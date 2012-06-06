@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
-using Cloak.Globalization;
 using Cloak.Linq;
 
 namespace Grasp.Knowledge.Work
@@ -57,6 +56,11 @@ namespace Grasp.Knowledge.Work
 		#endregion
 
 		#region IEntitySet
+
+		public Type EntityType
+		{
+			get { return typeof(TEntity); }
+		}
 
 		void IEntitySet.AddOnCommit(Notion entity)
 		{
