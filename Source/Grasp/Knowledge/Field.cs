@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 using System.Text;
 using Cloak;
 using Cloak.Linq;
@@ -23,26 +24,31 @@ namespace Grasp.Knowledge
 		public static class On<TOwner> where TOwner : Notion
 		{
 			/// <summary>
-			/// Specify the instance member backed by the field
+			/// Specify the instance property backed by the field
 			/// </summary>
 			/// <typeparam name="TValue">The type of the member's value</typeparam>
-			/// <param name="getMember">A lambda expression which accesses the instance member backed by the field</param>
+			/// <param name="getProperty">A lambda expression which accesses the instance property backed by the field</param>
 			/// <returns>A field which backs the specified instance member</returns>
 			/// <exception cref="ArgumentException">
-			/// Thrown if the expression does not access a member, -or- if the member is not declared on <typeparamref name="TOwner"/>
+			/// Thrown if the expression does not access a property, -or- if the property is not declared on <typeparamref name="TOwner"/>
 			/// </exception>
-			public static Field<TValue> For<TValue>(Expression<Func<TOwner, TValue>> getMember)
+			public static Field<TValue> Backing<TValue>(Expression<Func<TOwner, TValue>> getProperty)
 			{
-				Contract.Requires(getMember != null);
+				Contract.Requires(getProperty != null);
 
-				var member = getMember.GetMemberInfo();
+				var property = getProperty.GetMemberInfo() as PropertyInfo;
 
-				if(member.DeclaringType != typeof(TOwner))
+				if(property == null)
 				{
-					throw new ArgumentException(Resources.MemberNotDeclaredOnOwningType.FormatInvariant(member.Name, typeof(TOwner)), "getMember");
+					throw new ArgumentException(Resources.MemberIsNotProperty.FormatInvariant(property.Name), "getProperty");
 				}
 
-				return new Field<TValue>(typeof(TOwner), member.Name, false);
+				if(property.DeclaringType != typeof(TOwner))
+				{
+					throw new ArgumentException(Resources.MemberNotDeclaredOnOwningType.FormatInvariant(property.Name, typeof(TOwner)), "getProperty");
+				}
+
+				return new Field<TValue>(typeof(TOwner), property.Name, false);
 			}
 		}
 
