@@ -38,7 +38,8 @@ namespace Grasp.Knowledge.Work
 	/// <typeparam name="TEntity">The type of entity in the set</typeparam>
 	[ContractClass(typeof(IEntitySetContract<>))]
 	public interface IEntitySet<TEntity> : IEntitySet, IQueryable<TEntity> where TEntity : Notion
-	{/// <summary>
+	{
+		/// <summary>
 		/// Marks the specified entity to be added to the set when the corresponding work context commits its changes
 		/// </summary>
 		/// <param name="entity">The entity to be added when the corresponding work context commits its changes</param>
