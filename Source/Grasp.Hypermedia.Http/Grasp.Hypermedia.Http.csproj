@@ -40,11 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="HttpLink.cs" />
-    <Compile Include="IHttpMesh.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ResourceMesh.cs" />
-    <Compile Include="ResourceUriPart.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Grasp\Grasp.csproj">
