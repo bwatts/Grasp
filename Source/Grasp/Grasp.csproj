@@ -284,9 +284,22 @@
     <Compile Include="Checks\Specification.cs" />
     <Compile Include="Checks\CheckException.cs" />
     <Compile Include="GraspException.cs" />
+    <Compile Include="Hypermedia\HypermediaApi.cs" />
+    <Compile Include="Hypermedia\IMediaTypeRepository.cs" />
+    <Compile Include="Hypermedia\IRelationshipRepository.cs" />
+    <Compile Include="Hypermedia\Link.cs" />
+    <Compile Include="Hypermedia\MediaType.cs" />
+    <Compile Include="Hypermedia\Mesh.cs" />
+    <Compile Include="Hypermedia\Relationship.cs" />
+    <Compile Include="Hypermedia\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Knowledge\Field.cs" />
     <Compile Include="Knowledge\INotionContext.cs" />
     <Compile Include="Knowledge\IsolatedNotionContext.cs" />
+    <Compile Include="Knowledge\Many.cs" />
     <Compile Include="Knowledge\Notion.cs" />
     <Compile Include="Knowledge\Persistence\PersistentId.cs" />
     <Compile Include="Knowledge\Resources.Designer.cs">
@@ -306,6 +319,13 @@
     <Compile Include="Analysis\Variable.cs" />
     <Compile Include="Analysis\VariableBinding.cs" />
     <Compile Include="Analysis\VariableExpression.cs" />
+    <Compile Include="Semantics\Relationships\Cardinality.cs" />
+    <Compile Include="Semantics\Relationships\CardinalityLimit.cs" />
+    <Compile Include="Semantics\Relationships\Resources1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Analysis\Compilation\Resources.resx">
@@ -332,9 +352,17 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Hypermedia\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Knowledge\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Semantics\Relationships\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources1.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
