@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using Grasp.Knowledge;
-using Grasp.Semantics.Relationships;
-using System.Collections.ObjectModel;
 
 namespace Grasp.Hypermedia
 {

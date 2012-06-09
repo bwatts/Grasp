@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Grasp.Hypermedia {
+namespace Grasp.Hypermedia.Http {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Grasp.Hypermedia {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Grasp.Hypermedia.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Grasp.Hypermedia.Http.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,47 +61,38 @@ namespace Grasp.Hypermedia {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to media-types.
         /// </summary>
-        internal static string DefaultRelationship {
+        internal static string MediaTypePluralRelationship {
             get {
-                return ResourceManager.GetString("DefaultRelationship", resourceCulture);
+                return ResourceManager.GetString("MediaTypePluralRelationship", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to meta.
+        ///   Looks up a localized string similar to media-type.
         /// </summary>
-        internal static string MetaRelationship {
+        internal static string MediaTypeRelationship {
             get {
-                return ResourceManager.GetString("MetaRelationship", resourceCulture);
+                return ResourceManager.GetString("MediaTypeRelationship", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to relationships.
+        ///   Looks up a localized string similar to Expression does not access a property: {0}.
         /// </summary>
-        internal static string PluralRelationship {
+        internal static string MemberIsNotProperty {
             get {
-                return ResourceManager.GetString("PluralRelationship", resourceCulture);
+                return ResourceManager.GetString("MemberIsNotProperty", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to self.
+        ///   Looks up a localized string similar to Member &quot;{0}&quot; is not declared on owning type {1}.
         /// </summary>
-        internal static string SelfRelationship {
+        internal static string MemberNotDeclaredOnOwningType {
             get {
-                return ResourceManager.GetString("SelfRelationship", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to relationship.
-        /// </summary>
-        internal static string SingularRelationship {
-            get {
-                return ResourceManager.GetString("SingularRelationship", resourceCulture);
+                return ResourceManager.GetString("MemberNotDeclaredOnOwningType", resourceCulture);
             }
         }
     }

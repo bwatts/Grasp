@@ -4,7 +4,7 @@ using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 
-namespace Grasp.Hypermedia
+namespace Grasp.Hypermedia.Http.Media
 {
 	[ContractClass(typeof(IMediaTypeRepositoryContract))]
 	public interface IMediaTypeRepository

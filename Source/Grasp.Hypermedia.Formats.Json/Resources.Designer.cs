@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Grasp.Hypermedia {
+namespace Grasp.Hypermedia.Formats.Json {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Grasp.Hypermedia {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Grasp.Hypermedia.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Grasp.Hypermedia.Formats.Json.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,47 +61,11 @@ namespace Grasp.Hypermedia {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to The contents of the stream do not represent a JSON object.
         /// </summary>
-        internal static string DefaultRelationship {
+        internal static string StreamNotJsonObject {
             get {
-                return ResourceManager.GetString("DefaultRelationship", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to meta.
-        /// </summary>
-        internal static string MetaRelationship {
-            get {
-                return ResourceManager.GetString("MetaRelationship", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to relationships.
-        /// </summary>
-        internal static string PluralRelationship {
-            get {
-                return ResourceManager.GetString("PluralRelationship", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to self.
-        /// </summary>
-        internal static string SelfRelationship {
-            get {
-                return ResourceManager.GetString("SelfRelationship", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to relationship.
-        /// </summary>
-        internal static string SingularRelationship {
-            get {
-                return ResourceManager.GetString("SingularRelationship", resourceCulture);
+                return ResourceManager.GetString("StreamNotJsonObject", resourceCulture);
             }
         }
     }

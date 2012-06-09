@@ -284,26 +284,26 @@
     <Compile Include="Checks\Specification.cs" />
     <Compile Include="Checks\CheckException.cs" />
     <Compile Include="GraspException.cs" />
-    <Compile Include="Hypermedia\HypermediaApi.cs" />
-    <Compile Include="Hypermedia\IMediaTypeRepository.cs" />
     <Compile Include="Hypermedia\IRelationshipRepository.cs" />
-    <Compile Include="Hypermedia\Link.cs" />
-    <Compile Include="Hypermedia\MediaType.cs" />
-    <Compile Include="Hypermedia\Mesh.cs" />
-    <Compile Include="Hypermedia\Relationship.cs" />
     <Compile Include="Hypermedia\Resources.Designer.cs">
+      <DependentUpon>Resources.resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Knowledge\ComparableNotion.cs" />
+    <Compile Include="Knowledge\EquatableNotion.cs" />
     <Compile Include="Knowledge\Field.cs" />
+    <Compile Include="Knowledge\IFieldContext.cs" />
     <Compile Include="Knowledge\INotionContext.cs" />
-    <Compile Include="Knowledge\IsolatedNotionContext.cs" />
+    <Compile Include="Knowledge\InitialNotionContext.cs" />
+    <Compile Include="Hypermedia\Link.cs" />
     <Compile Include="Knowledge\Many.cs" />
+    <Compile Include="Hypermedia\Mesh.cs" />
     <Compile Include="Knowledge\Notion.cs" />
     <Compile Include="Knowledge\Persistence\PersistenceMedium.cs" />
     <Compile Include="Knowledge\Persistence\PersistentId.cs" />
     <Compile Include="Knowledge\Persistence\PersistentWorkContext.cs" />
+    <Compile Include="Hypermedia\Relationship.cs" />
     <Compile Include="Knowledge\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

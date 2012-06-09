@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Grasp.Knowledge
 {
-	internal sealed class IsolatedNotionContext : INotionContext
+	internal sealed class InitialNotionContext : INotionContext
 	{
 		private readonly IDictionary<Field, object> _values = new Dictionary<Field, object>();
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 using Grasp.Semantics.Relationships;
@@ -8,14 +9,17 @@ namespace Grasp.Knowledge
 {
 	public class Many<T> : Notion, ISet<T>
 	{
-		public static readonly Field<CardinalityLimit> UpperLimitField = Field.On<Many<T>>.Backing(x => x.UpperLimit);
-
-		public Many(CardinalityLimit upperLimit)
+		public Many()
 		{
-			UpperLimit = upperLimit;
+			// TODO: Initialize members for ISet implementation
 		}
 
-		public CardinalityLimit UpperLimit { get { return GetValue(UpperLimitField); } private set { SetValue(UpperLimitField, value); } }
+		public Many(IEnumerable<T> values)
+		{
+			Contract.Requires(values != null);
+
+			// TODO: Use values
+		}
 
 		#region ISet<T> Members
 

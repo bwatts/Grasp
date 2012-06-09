@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Grasp.Hypermedia.Http.Media;
 using Grasp.Knowledge;
 
-namespace Grasp.Hypermedia
+namespace Grasp.Hypermedia.Http
 {
 	public class HypermediaApi : Notion
 	{

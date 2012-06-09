@@ -7,41 +7,16 @@ using Grasp.Knowledge;
 
 namespace Grasp.Hypermedia
 {
-	public class Relationship : Notion, IEquatable<Relationship>
+	public sealed class Relationship : ComparableNotion<Relationship>
 	{
-		public static readonly Relationship Default = Resources.DefaultRelationship;
-		public static readonly Relationship Self = Resources.SelfRelationship;
-		public static readonly Relationship Meta = Resources.MetaRelationship;
+		public static readonly Relationship Default = new Relationship(Resources.DefaultRelationship);
+		public static readonly Relationship Self = new Relationship(Resources.SelfRelationship);
+		public static readonly Relationship Meta = new Relationship(Resources.MetaRelationship);
 
-		public static readonly Relationship Singular = Resources.SingularRelationship;
-		public static readonly Relationship Plural = Resources.PluralRelationship;
+		public static readonly Relationship Singular = new Relationship(Resources.SingularRelationship);
+		public static readonly Relationship Plural = new Relationship(Resources.PluralRelationship);
 
 		public static readonly Field<string> NameField = Field.On<Relationship>.Backing(x => x.Name);
-
-		public static implicit operator string(Relationship relationship)
-		{
-			return relationship.ToString();
-		}
-
-		public static implicit operator Relationship(string relationship)
-		{
-			return String.IsNullOrEmpty(relationship) ? Relationship.Default : new Relationship(relationship);
-		}
-
-		public static bool operator ==(Relationship left, Relationship right)
-		{
-			return Object.ReferenceEquals(left, right) || (!Object.ReferenceEquals(left, null) && left.Equals(right));
-		}
-
-		public static bool operator !=(Relationship left, Relationship right)
-		{
-			return !(left == right);
-		}
-
-		public static IEqualityComparer<string> NameComparer
-		{
-			get { return StringComparer.OrdinalIgnoreCase; }
-		}
 
 		public Relationship(string name)
 		{
@@ -52,14 +27,14 @@ namespace Grasp.Hypermedia
 
 		public string Name { get { return GetValue(NameField); } private set { SetValue(NameField, value); } }
 
-		public bool Equals(Relationship other)
+		public override int CompareTo(Relationship other)
 		{
-			return other != null && NameComparer.Equals(Name, other.Name);
+			return other == null ? 1 : Name.CompareTo(other.Name);
 		}
 
-		public override bool Equals(object obj)
+		public override bool Equals(Relationship other)
 		{
-			return Equals(obj as Relationship);
+			return other != null && Name.Equals(other.Name);
 		}
 
 		public override int GetHashCode()
