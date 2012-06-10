@@ -1,0 +1,29 @@
+﻿<ResourceDictionary
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:presentation="clr-namespace:Dash.Windows.Presentation;assembly=Dash.Windows.Presentation">
+
+	<DataTemplate DataType="{x:Type presentation:DashModel}">
+		<ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+			<Grid Background="{StaticResource dashLightBrush}">
+				<Grid Margin="10 10 0 0">
+					<Grid.RowDefinitions>
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="Auto" />
+					</Grid.RowDefinitions>
+					<ItemsControl Grid.Row="0" ItemsSource="{Binding Topics}">
+						<ItemsControl.ItemsPanel>
+							<ItemsPanelTemplate>
+								<WrapPanel Width="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ScrollViewer}}, Path=ViewportWidth}" />
+							</ItemsPanelTemplate>
+						</ItemsControl.ItemsPanel>
+					</ItemsControl>
+					<TextBlock Grid.Row="1" Text="(USERNAME)" Foreground="{StaticResource dashDarkBrush}" />
+					<TextBlock Grid.Row="2" Text="(WHEN MODIFIED)" Foreground="{StaticResource dashDarkBrush}" FontSize="8" />
+				</Grid>
+			</Grid>
+		</ScrollViewer>
+	</DataTemplate>
+
+</ResourceDictionary>

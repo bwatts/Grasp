@@ -1,0 +1,1459 @@
+﻿<?xml version="1.0"?>
+<doc>
+  <assembly>
+    <name>Cloak</name>
+  </assembly>
+  <members>
+    <member name="T:Cloak.ThreadAffinityException">
+      <summary>
+            Indicates a cross-thread access error
+            </summary>
+    </member>
+    <member name="M:Cloak.ThreadAffinityException.#ctor(Cloak.ThreadAffinity)">
+      <summary>
+            Initializes an exception with the specified thread affinity
+            </summary>
+      <param name="threadAffinity">The thread affinity which caused the error</param>
+      <requires>threadAffinity != null</requires>
+    </member>
+    <member name="M:Cloak.ThreadAffinityException.#ctor(Cloak.ThreadAffinity,System.String)">
+      <summary>
+            Initializes an exception with the specified thread affinity
+            </summary>
+      <param name="threadAffinity">The thread affinity which caused the error</param>
+      <param name="message">The exception that describes the error</param>
+      <requires>threadAffinity != null</requires>
+    </member>
+    <member name="M:Cloak.ThreadAffinityException.#ctor(Cloak.ThreadAffinity,System.String,System.Exception)">
+      <summary>
+            Initializes an exception with the specified thread affinity
+            </summary>
+      <param name="threadAffinity">The thread affinity which caused the error</param>
+      <param name="message">The exception that describes the error</param>
+      <param name="inner">The exception that is the cause of the current exception</param>
+      <requires>threadAffinity != null</requires>
+    </member>
+    <member name="P:Cloak.ThreadAffinityException.ThreadAffinity">
+      <summary>
+            Gets the thread affinity which caused the error
+            </summary>
+    </member>
+    <member name="T:Cloak.CollectionConversion">
+      <summary>
+            Extends sequences with the ability to create observable collections from them
+            </summary>
+    </member>
+    <member name="M:Cloak.CollectionConversion.ToObservableCollection``1(System.Collections.Generic.IEnumerable{``0})">
+      <summary>
+            Creates an <see cref="T:System.Collections.ObjectModel.ObservableCollection`1" /> from the specified sequence
+            </summary>
+      <typeparam name="T">The type of elements in the sequence</typeparam>
+      <param name="source">The sequence containing the items to put in the collection</param>
+      <returns>A collection containing the items in the specified sequence</returns>
+      <pure />
+      <requires>source != null</requires>
+    </member>
+    <member name="M:Cloak.CollectionConversion.ToReadOnlyCollection``1(System.Collections.Generic.IEnumerable{``0})">
+      <summary>
+            Creates an <see cref="T:System.Collections.ObjectModel.ReadOnlyCollection`1" /> from the specified sequence
+            </summary>
+      <typeparam name="T">The type of elements in the sequence</typeparam>
+      <param name="source">The sequence containing the items to put in the collection</param>
+      <returns>A read-only collection containing the items in the specified sequence</returns>
+      <pure />
+      <requires>source != null</requires>
+    </member>
+    <member name="M:Cloak.CollectionConversion.ToReadOnlyObservableCollection``1(System.Collections.ObjectModel.ObservableCollection{``0})">
+      <summary>
+            Creates an <see cref="T:System.Collections.ObjectModel.ReadOnlyObservableCollection`1" /> from the specified sequence
+            </summary>
+      <typeparam name="T">The type of elements in the sequence</typeparam>
+      <param name="source">The sequence containing the items to put in the collection</param>
+      <returns>A read-only collection containing the items in the specified sequence</returns>
+      <pure />
+      <requires>source != null</requires>
+    </member>
+    <member name="M:Cloak.CollectionConversion.ToReadOnlyObservableCollection``1(System.Collections.Generic.IEnumerable{``0})">
+      <summary>
+            Creates an <see cref="T:System.Collections.ObjectModel.ReadOnlyObservableCollection`1" /> from the specified sequence
+            </summary>
+      <typeparam name="T">The type of elements in the sequence</typeparam>
+      <param name="source">The sequence containing the items to put in the collection</param>
+      <returns>A read-only collection containing the items in the specified sequence</returns>
+      <pure />
+      <requires>source != null</requires>
+    </member>
+    <member name="M:Cloak.CollectionConversion.ToPubliclyReadOnlyCollection``1(System.Collections.Generic.IList{``0})">
+      <summary>
+            Creates an <see cref="T:Cloak.PubliclyReadOnlyCollection`1" /> from the specified sequence
+            </summary>
+      <typeparam name="T">The type of elements in the sequence</typeparam>
+      <param name="source">The sequence containing the items to put in the collection</param>
+      <returns>A read-only collection containing the items in the specified sequence</returns>
+      <pure />
+      <requires>source != null</requires>
+    </member>
+    <member name="M:Cloak.CollectionConversion.ToPubliclyReadOnlyCollection``1(System.Collections.Generic.IEnumerable{``0})">
+      <summary>
+            Creates an <see cref="T:Cloak.PubliclyReadOnlyCollection`1" /> from the specified sequence
+            </summary>
+      <typeparam name="T">The type of elements in the sequence</typeparam>
+      <param name="source">The sequence containing the items to put in the collection</param>
+      <returns>A publicly read-only collection containing the items in the specified sequence</returns>
+      <pure />
+      <requires>source != null</requires>
+    </member>
+    <member name="M:Cloak.CollectionConversion.AddRange``1(System.Collections.ObjectModel.ObservableCollection{``0},System.Collections.Generic.IEnumerable{``0})">
+      <summary>
+            Adds the elements of the specified sequence to the collection
+            </summary>
+      <typeparam name="T">The type of elements in the sequence</typeparam>
+      <param name="collection">The collection in which to put the items</param>
+      <param name="items">The items to put in the collection</param>
+      <pure />
+      <requires>collection != null</requires>
+      <requires>items != null</requires>
+    </member>
+    <member name="T:Cloak.Linq.Query`1">
+      <summary>
+            An implementation of <see cref="T:System.Linq.IQueryable`1" /></summary>
+      <typeparam name="T">The type of elements in the sequence</typeparam>
+    </member>
+    <member name="M:Cloak.Linq.Query`1.#ctor(Cloak.Linq.QueryProvider)">
+      <summary>
+            Initializes a query with the specified provider
+            </summary>
+      <param name="provider">The provider which backs this query</param>
+      <requires>provider != null</requires>
+    </member>
+    <member name="M:Cloak.Linq.Query`1.#ctor(Cloak.Linq.QueryProvider,System.Linq.Expressions.Expression)">
+      <summary>
+            Initializes a query with the specified provider
+            </summary>
+      <param name="provider">The provider which backs this query</param>
+      <param name="expression">The expression representing the semantics of this query</param>
+      <requires>provider != null</requires>
+      <requires>expression != null</requires>
+      <requires>typeof(IQueryable&lt;T&gt;).IsAssignableFrom(expression.Type)</requires>
+    </member>
+    <member name="M:Cloak.Linq.Query`1.GetEnumerator">
+      <summary>
+            Gets an enumerator for the results of this query
+            </summary>
+      <ensures inheritedFrom="M:System.Collections.Generic.IEnumerable`1.GetEnumerator" inheritedFromTypeName="IEnumerable">Contract.Result&lt;IEnumerator&lt;T&gt;&gt;() != null</ensures>
+      <ensures inheritedFrom="M:System.Collections.Generic.IEnumerable`1.GetEnumerator" inheritedFromTypeName="IEnumerable">Contract.Result&lt;IEnumerator&lt;T&gt;&gt;().Model == ((IEnumerable)this).Model</ensures>
+    </member>
+    <member name="M:Cloak.Linq.Query`1.ToString">
+      <summary>
+            Gets the text generated by this query's provider
+            </summary>
+      <ensures inheritedFrom="M:System.Object.ToString" inheritedFromTypeName="Object">Contract.Result&lt;string&gt;() != null</ensures>
+    </member>
+    <member name="T:Cloak.Linq.CastSequenceExpression">
+      <summary>
+            Gets <see cref="T:System.Linq.Expressions.MethodCallExpression" /> objects representing invocations of the <see cref="M:System.Linq.Enumerable.Cast``1(System.Collections.IEnumerable)" /> method
+            </summary>
+    </member>
+    <member name="M:Cloak.Linq.CastSequenceExpression.To(System.Type,System.Linq.Expressions.Expression)">
+      <summary>
+            Gets an invocation of the <see cref="M:System.Linq.Enumerable.Cast``1(System.Collections.IEnumerable)" /> method with the specified sequence as the parameter
+            </summary>
+      <param name="targetType">The type to which each item in the source is cast</param>
+      <param name="source">An expression representing the sequence whose items are cast to <paramref name="targetType" /></param>
+      <returns>
+            An expression representing a call to the <see cref="M:System.Linq.Enumerable.Cast``1(System.Collections.IEnumerable)" /> method with the specified sequence
+            expression as the parameter
+            </returns>
+      <pure />
+      <requires>targetType != null</requires>
+      <requires>source != null</requires>
+    </member>
+    <member name="M:Cloak.Linq.CastSequenceExpression.To(System.Type,System.Collections.IEnumerable)">
+      <summary>
+            Gets an invocation of the <see cref="M:System.Linq.Enumerable.Cast``1(System.Collections.IEnumerable)" /> method with the specified sequence as the parameter
+            </summary>
+      <param name="targetType">The type to which each item in the source is cast</param>
+      <param name="source">The sequence whose items are cast to <paramref name="targetType" /></param>
+      <returns>
+            An expression representing a call to the <see cref="M:System.Linq.Enumerable.Cast``1(System.Collections.IEnumerable)" /> method with the specified sequence
+            as the parameter
+            </returns>
+      <pure />
+      <requires>targetType != null</requires>
+      <requires>source != null</requires>
+    </member>
+    <member name="T:Cloak.AsyncWork">
+      <summary>
+            Manages the workflow of doing aynschronous work which may complete or result in an error
+            </summary>
+    </member>
+    <member name="M:Cloak.AsyncWork.Start(System.Action,System.Action,System.Action{System.Exception})">
+      <summary>
+            Carries out the specified work, optionally reporting on completion or failure
+            </summary>
+      <param name="work">The action representing the work to carry out</param>
+      <param name="onCompleted">Handles when the work completes. If null, completions are a one-way operation.</param>
+      <param name="onError">Handles when the work has an error. If null, errors are raised automatically.</param>
+      <requires>work != null</requires>
+    </member>
+    <member name="M:Cloak.AsyncWork.Start``1(System.Func{``0},System.Action{``0},System.Action{System.Exception})">
+      <summary>
+            Calculates the result represented by the specified work, optionally reporting on completion or failure
+            </summary>
+      <typeparam name="TResult">The type of result calculated by the work</typeparam>
+      <param name="work">The work which calculates the result</param>
+      <param name="onCompleted">Handles when the work completes. If null, completions are a one-way operation.</param>
+      <param name="onError">Handles when the work has an error. If null, errors are raised automatically.</param>
+      <requires>work != null</requires>
+    </member>
+    <member name="T:Cloak.Linq.LambdaBodies">
+      <summary>
+            Extends lambda expressions with the ability to get the members and methods referenced within them
+            </summary>
+    </member>
+    <member name="M:Cloak.Linq.LambdaBodies.GetMemberInfo``2(System.Linq.Expressions.Expression{System.Func{``0,``1}})">
+      <summary>
+            Gets the <see cref="T:System.Reflection.MemberInfo" /> accessed by the specified lambda expression
+            </summary>
+      <typeparam name="TOwner">The type of object which owns the member</typeparam>
+      <typeparam name="TValue">The type of the member's value</typeparam>
+      <param name="getMember">The lambda expression which accesses the member</param>
+      <returns>The member accessed by the lambda expression</returns>
+      <exception cref="T:System.ArgumentException">Thrown if the lambda expression does not access a member</exception>
+      <pure />
+      <requires>getMember != null</requires>
+    </member>
+    <member name="M:Cloak.Linq.LambdaBodies.GetMemberName``2(System.Linq.Expressions.Expression{System.Func{``0,``1}})">
+      <summary>
+            Gets the name of the member accessed by the specified lambda expression
+            </summary>
+      <typeparam name="TOwner">The type of object which owns the member</typeparam>
+      <typeparam name="TValue">The type of the member's value</typeparam>
+      <param name="getMember">The lambda expression which accesses the member</param>
+      <returns>The name of the member accessed by the lambda expression</returns>
+      <exception cref="T:System.ArgumentException">Thrown if the lambda expression does not access a member</exception>
+      <pure />
+      <requires>getMember != null</requires>
+    </member>
+    <member name="M:Cloak.Linq.LambdaBodies.GetMethodInfo``2(System.Linq.Expressions.Expression{System.Func{``0,``1}})">
+      <summary>
+            Gets the <see cref="T:System.Reflection.MethodInfo" /> called by the specified lambda expression
+            </summary>
+      <typeparam name="TOwner">The type of object which owns the method</typeparam>
+      <typeparam name="TValue">The method's return type</typeparam>
+      <param name="callMethod">The lambda expression which calls the method</param>
+      <returns>The method called by the lambda expression</returns>
+      <exception cref="T:System.ArgumentException">Thrown if the lambda expression does not call a method</exception>
+      <pure />
+      <requires>callMethod != null</requires>
+    </member>
+    <member name="M:Cloak.Linq.LambdaBodies.GetMethodName``2(System.Linq.Expressions.Expression{System.Func{``0,``1}})">
+      <summary>
+            Gets the name of the method called by the specified lambda expression
+            </summary>
+      <typeparam name="TOwner">The type of object which owns the method</typeparam>
+      <typeparam name="TValue">The method's return type</typeparam>
+      <param name="callMethod">The lambda expression which calls the method</param>
+      <returns>The name of the method called by the lambda expression</returns>
+      <exception cref="T:System.ArgumentException">Thrown if the lambda expression does not call a method</exception>
+      <pure />
+      <requires>callMethod != null</requires>
+    </member>
+    <member name="T:Cloak.Linq.AlternatingSelection">
+      <summary>
+            Extends sequences with the ability to select elements at even or odd positions
+            </summary>
+    </member>
+    <member name="M:Cloak.Linq.AlternatingSelection.AtEvenPositions``1(System.Collections.Generic.IEnumerable{``0})">
+      <summary>
+            Filters a sequence to values at even positions
+            </summary>
+      <param name="source">The sequence whose even items are selected</param>
+      <returns>A sequence consisting of the items at even positions in <paramref name="source" /></returns>
+      <pure />
+      <requires>source != null</requires>
+    </member>
+    <member name="M:Cloak.Linq.AlternatingSelection.AtOddPositions``1(System.Collections.Generic.IEnumerable{``0})">
+      <summary>
+            Filters a sequence to values at odd positions
+            </summary>
+      <param name="source">The sequence whose odd items are selected</param>
+      <returns>A sequence consisting of the items at odd positions in <paramref name="source" /></returns>
+      <pure />
+      <requires>source != null</requires>
+    </member>
+    <member name="T:Cloak.Linq.QueryProvider">
+      <summary>
+            Base class for implementations of <see cref="T:System.Linq.IQueryProvider" /></summary>
+    </member>
+    <member name="M:Cloak.Linq.QueryProvider.#ctor">
+      <summary>
+            Initializes a query provider
+            </summary>
+    </member>
+    <member name="M:Cloak.Linq.QueryProvider.Execute``1(System.Linq.Expressions.Expression)">
+      <summary>
+            When implemented in a derived class, execute the specified expression
+            </summary>
+      <typeparam name="T">The type to which to convert the expression's result</typeparam>
+      <param name="expression">The expression to execute</param>
+      <returns>The result of evaluating the expression</returns>
+    </member>
+    <member name="M:Cloak.Linq.QueryProvider.Execute(System.Linq.Expressions.Expression)">
+      <summary>
+            When implemented in a derived class, execute the specified expression
+            </summary>
+      <param name="expression">The expression to execute</param>
+      <returns>The result of evaluating the expression</returns>
+    </member>
+    <member name="M:Cloak.Linq.QueryProvider.GetQueryText(System.Linq.Expressions.Expression)">
+      <summary>
+            When implemented in a derived class, gets text representing the specified expression
+            </summary>
+      <param name="expression">The expression for which to get text</param>
+      <returns>Text representing the expression</returns>
+    </member>
+    <member name="T:Cloak.Time.PlatformTimeContext">
+      <summary>
+            A context in which events happen on the timeline of the current operating system
+            </summary>
+    </member>
+    <member name="T:Cloak.Time.ITimeContext">
+      <summary>
+            Describes a context in which events happen on the same timeline
+            </summary>
+    </member>
+    <member name="P:Cloak.Time.ITimeContext.Now">
+      <summary>
+            Gets the current date and time in this context
+            </summary>
+    </member>
+    <member name="P:Cloak.Time.PlatformTimeContext.Now">
+      <summary>
+            Gets the current date and time of the operating system
+            </summary>
+    </member>
+    <member name="T:Cloak.Reflection.TypeNullability">
+      <summary>
+            Determines if types can be assigned null values
+            </summary>
+    </member>
+    <member name="M:Cloak.Reflection.TypeNullability.IsAssignableNull(System.Type)">
+      <summary>
+            Determines if the specified type can be assigned a null value
+            </summary>
+      <param name="type">The type to which null may be assigned</param>
+      <returns>Whether the type can be assigned a null value</returns>
+      <pure />
+      <requires>type != null</requires>
+    </member>
+    <member name="T:Cloak.Reflection.Resources">
+      <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+    </member>
+    <member name="P:Cloak.Reflection.Resources.ResourceManager">
+      <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+    </member>
+    <member name="P:Cloak.Reflection.Resources.Culture">
+      <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+    </member>
+    <member name="P:Cloak.Reflection.Resources.InvalidLambdaExpressionBody">
+      <summary>
+              Looks up a localized string similar to Expression body must be a {0}: {1}.
+            </summary>
+    </member>
+    <member name="T:Cloak.Reflection.TypeDefaultValue">
+      <summary>
+            Gets the default value of <see cref="T:System.Type" /> objects
+            </summary>
+    </member>
+    <member name="M:Cloak.Reflection.TypeDefaultValue.GetDefaultValue(System.Type)">
+      <summary>
+            Gets the default value of the specified type
+            </summary>
+      <param name="type">The type whose default value is returned</param>
+      <returns>The default value of the specified type</returns>
+      <pure />
+      <requires>type != null</requires>
+    </member>
+    <member name="T:Cloak.PubliclyReadOnlyCollection`1">
+      <summary>
+            A <see cref="T:System.Collections.ObjectModel.ReadOnlyCollection`1" /> which provides access to its inner items
+            </summary>
+      <typeparam name="T">The type of elements in the collection</typeparam>
+    </member>
+    <member name="M:Cloak.PubliclyReadOnlyCollection`1.#ctor(System.Collections.Generic.IList{`0})">
+      <summary>
+            Initializes a collection with the specified inner items
+            </summary>
+      <param name="innerItems">The items to put in this collection</param>
+      <requires>innerItems != null</requires>
+    </member>
+    <member name="M:Cloak.PubliclyReadOnlyCollection`1.#ctor">
+      <summary>
+            Initializes a collection with no inner items
+            </summary>
+    </member>
+    <member name="P:Cloak.PubliclyReadOnlyCollection`1.InnerItems">
+      <summary>
+            Gets this collection's inner items
+            </summary>
+    </member>
+    <member name="T:Cloak.Linq.TypedLambdaExpressions">
+      <summary>
+            Extends <see cref="T:System.Linq.Expressions.LambdaExpression" /> objects with the ability to create strongly-typed lambda expressions
+            </summary>
+    </member>
+    <member name="M:Cloak.Linq.TypedLambdaExpressions.AsFunc``1(System.Linq.Expressions.LambdaExpression)">
+      <summary>
+            Gets a strongly-typed version of the specified lambda expression
+            </summary>
+      <typeparam name="TResult">The return type of the lambda expression</typeparam>
+      <param name="lambda">The lambda expression for which the strongly-typed lambda expression is created</param>
+      <returns>A strongly-typed version of the specified lambda expression</returns>
+      <pure />
+      <requires>lambda != null</requires>
+    </member>
+    <member name="M:Cloak.Linq.TypedLambdaExpressions.AsFunc``2(System.Linq.Expressions.LambdaExpression)">
+      <summary>
+            Gets a strongly-typed version of the specified lambda expression
+            </summary>
+      <typeparam name="T">The type of the parameter to the lambda expression</typeparam>
+      <typeparam name="TResult">The return type of the lambda expression</typeparam>
+      <param name="lambda">The lambda expression for which the strongly-typed lambda expression is created</param>
+      <returns>A strongly-typed version of the specified lambda expression</returns>
+      <pure />
+      <requires>lambda != null</requires>
+    </member>
+    <member name="M:Cloak.Linq.TypedLambdaExpressions.AsFunc``3(System.Linq.Expressions.LambdaExpression)">
+      <summary>
+            Gets a strongly-typed version of the specified lambda expression
+            </summary>
+      <typeparam name="T1">The type of the first parameter to the lambda expression</typeparam>
+      <typeparam name="T2">The type of the second parameter to the lambda expression</typeparam>
+      <typeparam name="TResult">The return type of the lambda expression</typeparam>
+      <param name="lambda">The lambda expression for which the strongly-typed lambda expression is created</param>
+      <returns>A strongly-typed version of the specified lambda expression</returns>
+      <pure />
+      <requires>lambda != null</requires>
+    </member>
+    <member name="M:Cloak.Linq.TypedLambdaExpressions.AsFunc``4(System.Linq.Expressions.LambdaExpression)">
+      <summary>
+            Gets a strongly-typed version of the specified lambda expression
+            </summary>
+      <typeparam name="T1">The type of the first parameter to the lambda expression</typeparam>
+      <typeparam name="T2">The type of the second parameter to the lambda expression</typeparam>
+      <typeparam name="T3">The type of the third parameter to the lambda expression</typeparam>
+      <typeparam name="TResult">The return type of the lambda expression</typeparam>
+      <param name="lambda">The lambda expression for which the strongly-typed lambda expression is created</param>
+      <returns>A strongly-typed version of the specified lambda expression</returns>
+      <pure />
+      <requires>lambda != null</requires>
+    </member>
+    <member name="M:Cloak.Linq.TypedLambdaExpressions.AsFunc``5(System.Linq.Expressions.LambdaExpression)">
+      <summary>
+            Gets a strongly-typed version of the specified lambda expression
+            </summary>
+      <typeparam name="T1">The type of the first parameter to the lambda expression</typeparam>
+      <typeparam name="T2">The type of the second parameter to the lambda expression</typeparam>
+      <typeparam name="T3">The type of the third parameter to the lambda expression</typeparam>
+      <typeparam name="T4">The type of the fourth parameter to the lambda expression</typeparam>
+      <typeparam name="TResult">The return type of the lambda expression</typeparam>
+      <param name="lambda">The lambda expression for which the strongly-typed lambda expression is created</param>
+      <returns>A strongly-typed version of the specified lambda expression</returns>
+      <pure />
+      <requires>lambda != null</requires>
+    </member>
+    <member name="T:Cloak.Linq.SequenceElementType">
+      <summary>
+            Gets the types of elements in sequences
+            </summary>
+    </member>
+    <member name="M:Cloak.Linq.SequenceElementType.From(System.Type)">
+      <summary>
+            Gets the type of the elements in the specified sequence type
+            </summary>
+      <param name="sequenceType">The type of sequence</param>
+      <returns>The type of elements in the sequence</returns>
+      <pure />
+      <requires>sequenceType != null</requires>
+    </member>
+    <member name="T:Cloak.Linq.TypedLambdaCompilation">
+      <summary>
+            Extends <see cref="T:System.Linq.Expressions.LambdaExpression" /> objects with the ability to compile strongly-typed lambda expressions
+            </summary>
+    </member>
+    <member name="M:Cloak.Linq.TypedLambdaCompilation.Compile``1(System.Linq.Expressions.LambdaExpression)">
+      <summary>
+            Compiles the specified lambda expression to a function with the specified signature
+            </summary>
+      <typeparam name="TResult">The return type of the compiled lambda expression</typeparam>
+      <param name="lambda">The lambda expression to be compiled</param>
+      <returns>A function representing the executable form of the specified lambda expression</returns>
+      <pure />
+      <requires>lambda != null</requires>
+    </member>
+    <member name="M:Cloak.Linq.TypedLambdaCompilation.Compile``2(System.Linq.Expressions.LambdaExpression)">
+      <summary>
+            Compiles the specified lambda expression to a function with the specified signature
+            </summary>
+      <typeparam name="T">The type of the parameter to the compiled lambda expression</typeparam>
+      <typeparam name="TResult">The return type of the compiled lambda expression</typeparam>
+      <param name="lambda">The lambda expression to be compiled</param>
+      <returns>A function representing the executable form of the specified lambda expression</returns>
+      <pure />
+      <requires>lambda != null</requires>
+    </member>
+    <member name="M:Cloak.Linq.TypedLambdaCompilation.Compile``3(System.Linq.Expressions.LambdaExpression)">
+      <summary>
+            Compiles the specified lambda expression to a function with the specified signature
+            </summary>
+      <typeparam name="T1">The type of the first to the compiled lambda expression</typeparam>
+      <typeparam name="T2">The type of the second to the compiled lambda expression</typeparam>
+      <typeparam name="TResult">The return type of the compiled lambda expression</typeparam>
+      <param name="lambda">The lambda expression to be compiled</param>
+      <returns>A function representing the executable form of the specified lambda expression</returns>
+      <pure />
+      <requires>lambda != null</requires>
+    </member>
+    <member name="M:Cloak.Linq.TypedLambdaCompilation.Compile``4(System.Linq.Expressions.LambdaExpression)">
+      <summary>
+            Compiles the specified lambda expression to a function with the specified signature
+            </summary>
+      <typeparam name="T1">The type of the first to the compiled lambda expression</typeparam>
+      <typeparam name="T2">The type of the second to the compiled lambda expression</typeparam>
+      <typeparam name="T3">The type of the third to the compiled lambda expression</typeparam>
+      <typeparam name="TResult">The return type of the compiled lambda expression</typeparam>
+      <param name="lambda">The lambda expression to be compiled</param>
+      <returns>A function representing the executable form of the specified lambda expression</returns>
+      <pure />
+      <requires>lambda != null</requires>
+    </member>
+    <member name="M:Cloak.Linq.TypedLambdaCompilation.Compile``5(System.Linq.Expressions.LambdaExpression)">
+      <summary>
+            Compiles the specified lambda expression to a function with the specified signature
+            </summary>
+      <typeparam name="T1">The type of the first to the compiled lambda expression</typeparam>
+      <typeparam name="T2">The type of the second to the compiled lambda expression</typeparam>
+      <typeparam name="T3">The type of the third to the compiled lambda expression</typeparam>
+      <typeparam name="T4">The type of the fourth to the compiled lambda expression</typeparam>
+      <typeparam name="TResult">The return type of the compiled lambda expression</typeparam>
+      <param name="lambda">The lambda expression to be compiled</param>
+      <returns>A function representing the executable form of the specified lambda expression</returns>
+      <pure />
+      <requires>lambda != null</requires>
+    </member>
+    <member name="T:Cloak.Time.UtcTimeContext">
+      <summary>
+            A context in which events happen on the UTC timeline
+            </summary>
+    </member>
+    <member name="P:Cloak.Time.UtcTimeContext.Now">
+      <summary>
+            Gets the current UTC date and time
+            </summary>
+    </member>
+    <member name="T:Cloak.ThreadAffinity">
+      <summary>
+            An association to a particular thread
+            </summary>
+    </member>
+    <member name="M:Cloak.ThreadAffinity.#ctor(System.Threading.Thread)">
+      <summary>
+            Initializes an affinity with the specified thread
+            </summary>
+      <param name="associatedThread">The associated thread</param>
+      <requires>associatedThread != null</requires>
+    </member>
+    <member name="M:Cloak.ThreadAffinity.#ctor">
+      <summary>
+            Initializes an affinity with the current thread
+            </summary>
+    </member>
+    <member name="M:Cloak.ThreadAffinity.Check">
+      <summary>
+            Determines if the current thread is the associated thread
+            </summary>
+      <returns>Whether the current thread is the associated thread</returns>
+      <pure />
+    </member>
+    <member name="M:Cloak.ThreadAffinity.Enforce">
+      <summary>
+            Throws an exception if the current thread is not the associated thread
+            </summary>
+      <exception cref="T:Cloak.ThreadAffinityException">Thrown if the current thread is not the associated thread</exception>
+      <pure />
+    </member>
+    <member name="P:Cloak.ThreadAffinity.AssociatedThread">
+      <summary>
+            Gets the associated thread
+            </summary>
+    </member>
+    <member name="T:Cloak.Reflection.Reflect">
+      <summary>
+            Strongly-typed reflection using <see cref="T:System.Action" /> and <see cref="T:System.Func`1" /> delegates and the <see cref="N:System.Linq.Expressions" /> namespace
+            </summary>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Action(System.Action)">
+      <summary>
+            Gets the method encapsulated by the specified delegate
+            </summary>
+      <param name="action">The delegate which encapsulates the method</param>
+      <returns>The method encapsulated by the specified delegate</returns>
+      <requires>action != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Action``1(System.Action{``0})">
+      <summary>
+            Gets the method encapsulated by the specified delegate
+            </summary>
+      <param name="action">The delegate which encapsulates the method</param>
+      <returns>The method encapsulated by the specified delegate</returns>
+      <requires>action != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Action``2(System.Action{``0,``1})">
+      <summary>
+            Gets the method encapsulated by the specified delegate
+            </summary>
+      <param name="action">The delegate which encapsulates the method</param>
+      <returns>The method encapsulated by the specified delegate</returns>
+      <requires>action != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Action``3(System.Action{``0,``1,``2})">
+      <summary>
+            Gets the method encapsulated by the specified delegate
+            </summary>
+      <param name="action">The delegate which encapsulates the method</param>
+      <returns>The method encapsulated by the specified delegate</returns>
+      <requires>action != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Action``4(System.Action{``0,``1,``2,``3})">
+      <summary>
+            Gets the method encapsulated by the specified delegate
+            </summary>
+      <param name="action">The delegate which encapsulates the method</param>
+      <returns>The method encapsulated by the specified delegate</returns>
+      <requires>action != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Action``5(System.Action{``0,``1,``2,``3,``4})">
+      <summary>
+            Gets the method encapsulated by the specified delegate
+            </summary>
+      <param name="action">The delegate which encapsulates the method</param>
+      <returns>The method encapsulated by the specified delegate</returns>
+      <requires>action != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Action``6(System.Action{``0,``1,``2,``3,``4,``5})">
+      <summary>
+            Gets the method encapsulated by the specified delegate
+            </summary>
+      <param name="action">The delegate which encapsulates the method</param>
+      <returns>The method encapsulated by the specified delegate</returns>
+      <requires>action != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Action``7(System.Action{``0,``1,``2,``3,``4,``5,``6})">
+      <summary>
+            Gets the method encapsulated by the specified delegate
+            </summary>
+      <param name="action">The delegate which encapsulates the method</param>
+      <returns>The method encapsulated by the specified delegate</returns>
+      <requires>action != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Action``8(System.Action{``0,``1,``2,``3,``4,``5,``6,``7})">
+      <summary>
+            Gets the method encapsulated by the specified delegate
+            </summary>
+      <param name="action">The delegate which encapsulates the method</param>
+      <returns>The method encapsulated by the specified delegate</returns>
+      <requires>action != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Action``9(System.Action{``0,``1,``2,``3,``4,``5,``6,``7,``8})">
+      <summary>
+            Gets the method encapsulated by the specified delegate
+            </summary>
+      <param name="action">The delegate which encapsulates the method</param>
+      <returns>The method encapsulated by the specified delegate</returns>
+      <requires>action != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Action``10(System.Action{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9})">
+      <summary>
+            Gets the method encapsulated by the specified delegate
+            </summary>
+      <param name="action">The delegate which encapsulates the method</param>
+      <returns>The method encapsulated by the specified delegate</returns>
+      <requires>action != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Action``11(System.Action{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10})">
+      <summary>
+            Gets the method encapsulated by the specified delegate
+            </summary>
+      <param name="action">The delegate which encapsulates the method</param>
+      <returns>The method encapsulated by the specified delegate</returns>
+      <requires>action != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Action``12(System.Action{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11})">
+      <summary>
+            Gets the method encapsulated by the specified delegate
+            </summary>
+      <param name="action">The delegate which encapsulates the method</param>
+      <returns>The method encapsulated by the specified delegate</returns>
+      <requires>action != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Action``13(System.Action{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12})">
+      <summary>
+            Gets the method encapsulated by the specified delegate
+            </summary>
+      <param name="action">The delegate which encapsulates the method</param>
+      <returns>The method encapsulated by the specified delegate</returns>
+      <requires>action != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Action``14(System.Action{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13})">
+      <summary>
+            Gets the method encapsulated by the specified delegate
+            </summary>
+      <param name="action">The delegate which encapsulates the method</param>
+      <returns>The method encapsulated by the specified delegate</returns>
+      <requires>action != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Action``15(System.Action{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13,``14})">
+      <summary>
+            Gets the method encapsulated by the specified delegate
+            </summary>
+      <param name="action">The delegate which encapsulates the method</param>
+      <returns>The method encapsulated by the specified delegate</returns>
+      <requires>action != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Action``16(System.Action{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13,``14,``15})">
+      <summary>
+            Gets the method encapsulated by the specified delegate
+            </summary>
+      <param name="action">The delegate which encapsulates the method</param>
+      <returns>The method encapsulated by the specified delegate</returns>
+      <requires>action != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Func``1(System.Func{``0})">
+      <summary>
+            Gets the method encapsulated by the specified delegate
+            </summary>
+      <param name="func">The delegate which encapsulates the method</param>
+      <returns>The method encapsulated by the specified delegate</returns>
+      <requires>func != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Func``2(System.Func{``0,``1})">
+      <summary>
+            Gets the method encapsulated by the specified delegate
+            </summary>
+      <param name="func">The delegate which encapsulates the method</param>
+      <returns>The method encapsulated by the specified delegate</returns>
+      <requires>func != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Func``3(System.Func{``0,``1,``2})">
+      <summary>
+            Gets the method encapsulated by the specified delegate
+            </summary>
+      <param name="func">The delegate which encapsulates the method</param>
+      <returns>The method encapsulated by the specified delegate</returns>
+      <requires>func != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Func``4(System.Func{``0,``1,``2,``3})">
+      <summary>
+            Gets the method encapsulated by the specified delegate
+            </summary>
+      <param name="func">The delegate which encapsulates the method</param>
+      <returns>The method encapsulated by the specified delegate</returns>
+      <requires>func != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Func``5(System.Func{``0,``1,``2,``3,``4})">
+      <summary>
+            Gets the method encapsulated by the specified delegate
+            </summary>
+      <param name="func">The delegate which encapsulates the method</param>
+      <returns>The method encapsulated by the specified delegate</returns>
+      <requires>func != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Func``6(System.Func{``0,``1,``2,``3,``4,``5})">
+      <summary>
+            Gets the method encapsulated by the specified delegate
+            </summary>
+      <param name="func">The delegate which encapsulates the method</param>
+      <returns>The method encapsulated by the specified delegate</returns>
+      <requires>func != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Func``7(System.Func{``0,``1,``2,``3,``4,``5,``6})">
+      <summary>
+            Gets the method encapsulated by the specified delegate
+            </summary>
+      <param name="func">The delegate which encapsulates the method</param>
+      <returns>The method encapsulated by the specified delegate</returns>
+      <requires>func != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Func``8(System.Func{``0,``1,``2,``3,``4,``5,``6,``7})">
+      <summary>
+            Gets the method encapsulated by the specified delegate
+            </summary>
+      <param name="func">The delegate which encapsulates the method</param>
+      <returns>The method encapsulated by the specified delegate</returns>
+      <requires>func != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Func``9(System.Func{``0,``1,``2,``3,``4,``5,``6,``7,``8})">
+      <summary>
+            Gets the method encapsulated by the specified delegate
+            </summary>
+      <param name="func">The delegate which encapsulates the method</param>
+      <returns>The method encapsulated by the specified delegate</returns>
+      <requires>func != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Func``10(System.Func{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9})">
+      <summary>
+            Gets the method encapsulated by the specified delegate
+            </summary>
+      <param name="func">The delegate which encapsulates the method</param>
+      <returns>The method encapsulated by the specified delegate</returns>
+      <requires>func != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Func``11(System.Func{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10})">
+      <summary>
+            Gets the method encapsulated by the specified delegate
+            </summary>
+      <param name="func">The delegate which encapsulates the method</param>
+      <returns>The method encapsulated by the specified delegate</returns>
+      <requires>func != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Func``12(System.Func{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11})">
+      <summary>
+            Gets the method encapsulated by the specified delegate
+            </summary>
+      <param name="func">The delegate which encapsulates the method</param>
+      <returns>The method encapsulated by the specified delegate</returns>
+      <requires>func != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Func``13(System.Func{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12})">
+      <summary>
+            Gets the method encapsulated by the specified delegate
+            </summary>
+      <param name="func">The delegate which encapsulates the method</param>
+      <returns>The method encapsulated by the specified delegate</returns>
+      <requires>func != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Func``14(System.Func{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13})">
+      <summary>
+            Gets the method encapsulated by the specified delegate
+            </summary>
+      <param name="func">The delegate which encapsulates the method</param>
+      <returns>The method encapsulated by the specified delegate</returns>
+      <requires>func != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Func``15(System.Func{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13,``14})">
+      <summary>
+            Gets the method encapsulated by the specified delegate
+            </summary>
+      <param name="func">The delegate which encapsulates the method</param>
+      <returns>The method encapsulated by the specified delegate</returns>
+      <requires>func != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Func``16(System.Func{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13,``14,``15})">
+      <summary>
+            Gets the method encapsulated by the specified delegate
+            </summary>
+      <param name="func">The delegate which encapsulates the method</param>
+      <returns>The method encapsulated by the specified delegate</returns>
+      <requires>func != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Func``17(System.Func{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13,``14,``15,``16})">
+      <summary>
+            Gets the method encapsulated by the specified delegate
+            </summary>
+      <param name="func">The delegate which encapsulates the method</param>
+      <returns>The method encapsulated by the specified delegate</returns>
+      <requires>func != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Member(System.Linq.Expressions.Expression{System.Func{System.Object}})">
+      <summary>
+            Gets the property or field accessed by the specified lambda expression
+            </summary>
+      <param name="expression">The expression which accesses the property or field</param>
+      <returns>The property or field accessed by the specified expression</returns>
+      <requires>expression != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Member``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})">
+      <summary>
+            Gets the property or field accessed by the specified lambda expression
+            </summary>
+      <typeparam name="T">The type of object on which to access the member</typeparam>
+      <param name="expression">The expression which accesses the property or field</param>
+      <returns>The property or field accessed by the specified expression</returns>
+      <requires>expression != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Property(System.Linq.Expressions.Expression{System.Func{System.Object}})">
+      <summary>
+            Gets the property accessed by the specified lambda expression
+            </summary>
+      <param name="expression">The expression which accesses the property</param>
+      <returns>The property accessed by the specified expression</returns>
+      <requires>expression != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Property``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})">
+      <summary>
+            Gets the property accessed by the specified lambda expression
+            </summary>
+      <typeparam name="T">The type of object on which to access the property</typeparam>
+      <param name="expression">The expression which accesses the property</param>
+      <returns>The property accessed by the specified expression</returns>
+      <requires>expression != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Field(System.Linq.Expressions.Expression{System.Func{System.Object}})">
+      <summary>
+            Gets the field accessed by the specified lambda expression
+            </summary>
+      <param name="expression">The expression which accesses the field</param>
+      <returns>The field accessed by the specified expression</returns>
+      <requires>expression != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Field``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})">
+      <summary>
+            Gets the field accessed by the specified lambda expression
+            </summary>
+      <typeparam name="T">The type of object on which to access the field</typeparam>
+      <param name="expression">The expression which accesses the field</param>
+      <returns>The field accessed by the specified expression</returns>
+      <requires>expression != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Constructor``1(System.Linq.Expressions.Expression{System.Func{``0}})">
+      <summary>
+            Gets the constructor invoked by the specified lambda expression
+            </summary>
+      <param name="expression">The expression which invokes the constructor</param>
+      <returns>The constructor invoked by the specified expression</returns>
+      <requires>expression != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Constructor``2(System.Linq.Expressions.Expression{System.Func{``0,``1}})">
+      <summary>
+            Gets the constructor invoked by the specified lambda expression
+            </summary>
+      <param name="expression">The expression which invokes the constructor</param>
+      <returns>The constructor invoked by the specified expression</returns>
+      <requires>expression != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Constructor``3(System.Linq.Expressions.Expression{System.Func{``0,``1,``2}})">
+      <summary>
+            Gets the constructor invoked by the specified lambda expression
+            </summary>
+      <param name="expression">The expression which invokes the constructor</param>
+      <returns>The constructor invoked by the specified expression</returns>
+      <requires>expression != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Constructor``4(System.Linq.Expressions.Expression{System.Func{``0,``1,``2,``3}})">
+      <summary>
+            Gets the constructor invoked by the specified lambda expression
+            </summary>
+      <param name="expression">The expression which invokes the constructor</param>
+      <returns>The constructor invoked by the specified expression</returns>
+      <requires>expression != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Constructor``5(System.Linq.Expressions.Expression{System.Func{``0,``1,``2,``3,``4}})">
+      <summary>
+            Gets the constructor invoked by the specified lambda expression
+            </summary>
+      <param name="expression">The expression which invokes the constructor</param>
+      <returns>The constructor invoked by the specified expression</returns>
+      <requires>expression != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Constructor``6(System.Linq.Expressions.Expression{System.Func{``0,``1,``2,``3,``4,``5}})">
+      <summary>
+            Gets the constructor invoked by the specified lambda expression
+            </summary>
+      <param name="expression">The expression which invokes the constructor</param>
+      <returns>The constructor invoked by the specified expression</returns>
+      <requires>expression != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Constructor``7(System.Linq.Expressions.Expression{System.Func{``0,``1,``2,``3,``4,``5,``6}})">
+      <summary>
+            Gets the constructor invoked by the specified lambda expression
+            </summary>
+      <param name="expression">The expression which invokes the constructor</param>
+      <returns>The constructor invoked by the specified expression</returns>
+      <requires>expression != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Constructor``8(System.Linq.Expressions.Expression{System.Func{``0,``1,``2,``3,``4,``5,``6,``7}})">
+      <summary>
+            Gets the constructor invoked by the specified lambda expression
+            </summary>
+      <param name="expression">The expression which invokes the constructor</param>
+      <returns>The constructor invoked by the specified expression</returns>
+      <requires>expression != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Constructor``9(System.Linq.Expressions.Expression{System.Func{``0,``1,``2,``3,``4,``5,``6,``7,``8}})">
+      <summary>
+            Gets the constructor invoked by the specified lambda expression
+            </summary>
+      <param name="expression">The expression which invokes the constructor</param>
+      <returns>The constructor invoked by the specified expression</returns>
+      <requires>expression != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Constructor``10(System.Linq.Expressions.Expression{System.Func{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9}})">
+      <summary>
+            Gets the constructor invoked by the specified lambda expression
+            </summary>
+      <param name="expression">The expression which invokes the constructor</param>
+      <returns>The constructor invoked by the specified expression</returns>
+      <requires>expression != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Constructor``11(System.Linq.Expressions.Expression{System.Func{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10}})">
+      <summary>
+            Gets the constructor invoked by the specified lambda expression
+            </summary>
+      <param name="expression">The expression which invokes the constructor</param>
+      <returns>The constructor invoked by the specified expression</returns>
+      <requires>expression != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Constructor``12(System.Linq.Expressions.Expression{System.Func{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11}})">
+      <summary>
+            Gets the constructor invoked by the specified lambda expression
+            </summary>
+      <param name="expression">The expression which invokes the constructor</param>
+      <returns>The constructor invoked by the specified expression</returns>
+      <requires>expression != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Constructor``13(System.Linq.Expressions.Expression{System.Func{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12}})">
+      <summary>
+            Gets the constructor invoked by the specified lambda expression
+            </summary>
+      <param name="expression">The expression which invokes the constructor</param>
+      <returns>The constructor invoked by the specified expression</returns>
+      <requires>expression != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Constructor``14(System.Linq.Expressions.Expression{System.Func{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13}})">
+      <summary>
+            Gets the constructor invoked by the specified lambda expression
+            </summary>
+      <param name="expression">The expression which invokes the constructor</param>
+      <returns>The constructor invoked by the specified expression</returns>
+      <requires>expression != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Constructor``15(System.Linq.Expressions.Expression{System.Func{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13,``14}})">
+      <summary>
+            Gets the constructor invoked by the specified lambda expression
+            </summary>
+      <param name="expression">The expression which invokes the constructor</param>
+      <returns>The constructor invoked by the specified expression</returns>
+      <requires>expression != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Constructor``16(System.Linq.Expressions.Expression{System.Func{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13,``14,``15}})">
+      <summary>
+            Gets the constructor invoked by the specified lambda expression
+            </summary>
+      <param name="expression">The expression which invokes the constructor</param>
+      <returns>The constructor invoked by the specified expression</returns>
+      <requires>expression != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.Reflect.Constructor``17(System.Linq.Expressions.Expression{System.Func{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13,``14,``15,``16}})">
+      <summary>
+            Gets the constructor invoked by the specified lambda expression
+            </summary>
+      <param name="expression">The expression which invokes the constructor</param>
+      <returns>The constructor invoked by the specified expression</returns>
+      <requires>expression != null</requires>
+    </member>
+    <member name="T:Cloak.Reflection.GenericMethodBase">
+      <summary>
+            Creates generic methods from <see cref="T:System.Reflection.MethodBase" /> objects
+            </summary>
+    </member>
+    <member name="M:Cloak.Reflection.GenericMethodBase.MakeGenericMethod(System.Reflection.MethodBase,System.Type[])">
+      <summary>
+            Creates a generic method from the specified method base using the specified type arguments
+            </summary>
+      <param name="methodBase">The method which is made generic</param>
+      <param name="typeArguments">The type arguments which close the generic method</param>
+      <returns>The closed version of the specific generic method</returns>
+      <pure />
+      <requires>methodBase != null</requires>
+      <requires>methodBase is MethodInfo</requires>
+      <requires>typeArguments != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.GenericMethodBase.MakeGenericMethod(System.Reflection.MethodBase,System.Collections.Generic.IEnumerable{System.Type})">
+      <summary>
+            Creates a generic method from the specified method base using the specified type arguments
+            </summary>
+      <param name="methodBase">The method which is made generic</param>
+      <param name="typeArguments">The type arguments which close the generic method</param>
+      <returns>The closed version of the specific generic method</returns>
+      <pure />
+      <requires>methodBase != null</requires>
+      <requires>methodBase is MethodInfo</requires>
+      <requires>typeArguments != null</requires>
+    </member>
+    <member name="T:Cloak.Linq.Resources">
+      <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+    </member>
+    <member name="P:Cloak.Linq.Resources.ResourceManager">
+      <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+    </member>
+    <member name="P:Cloak.Linq.Resources.Culture">
+      <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+    </member>
+    <member name="P:Cloak.Linq.Resources.ExpressionDoesNotCallMethodFormat">
+      <summary>
+              Looks up a localized string similar to Expression does not call a method: {0}.
+            </summary>
+    </member>
+    <member name="P:Cloak.Linq.Resources.ExpressionDoesNotSelectMemberFormat">
+      <summary>
+              Looks up a localized string similar to Expression does not select a member: {0}.
+            </summary>
+    </member>
+    <member name="T:Cloak.CachedFunctions">
+      <summary>
+            Creates functions which cache values based on keys
+            </summary>
+    </member>
+    <member name="M:Cloak.CachedFunctions.Cached``2(System.Func{``0,``1},System.Collections.Generic.IDictionary{``0,``1})">
+      <summary>
+            Creates a function which caches values based on keys, using the cache
+            </summary>
+      <typeparam name="TKey">The type of key associated with each value</typeparam>
+      <typeparam name="TValue">The type of value associated with each key</typeparam>
+      <param name="valueFunction">The function whose results are cached</param>
+      <param name="cache">The dictionary which holds the cached values</param>
+      <returns>A function which caches the results of <paramref name="valueFunction" /></returns>
+      <pure />
+      <requires>valueFunction != null</requires>
+      <requires>cache != null</requires>
+    </member>
+    <member name="M:Cloak.CachedFunctions.Cached``2(System.Func{``0,``1})">
+      <summary>
+            Creates a function which caches values based on keys
+            </summary>
+      <typeparam name="TKey">The type of key associated with each value</typeparam>
+      <typeparam name="TValue">The type of value associated with each key</typeparam>
+      <param name="valueFunction">The function whose results are cached</param>
+      <returns>A function which caches the results of <paramref name="valueFunction" /></returns>
+      <pure />
+      <requires>valueFunction != null</requires>
+    </member>
+    <member name="M:Cloak.CachedFunctions.Cached``2(System.Func{``0,``1},System.Collections.Generic.IEqualityComparer{``0})">
+      <summary>
+            Creates a function which caches values based on keys, using the specified comparer
+            </summary>
+      <typeparam name="TKey">The type of key associated with each value</typeparam>
+      <typeparam name="TValue">The type of value associated with each key</typeparam>
+      <param name="valueFunction">The function whose results are cached</param>
+      <param name="keyComparer">The comparer which specifies equality among keys</param>
+      <returns>A function which caches the results of <paramref name="valueFunction" /></returns>
+      <pure />
+      <requires>valueFunction != null</requires>
+      <requires>keyComparer != null</requires>
+    </member>
+    <member name="M:Cloak.CachedFunctions.CachedConcurrently``2(System.Func{``0,``1},System.Collections.Generic.IDictionary{``0,``1})">
+      <summary>
+            Creates a concurrent (thread-safe) function which caches values based on keys
+            </summary>
+      <typeparam name="TKey">The type of key associated with each value</typeparam>
+      <typeparam name="TValue">The type of value associated with each key</typeparam>
+      <param name="valueFunction">The function whose results are cached</param>
+      <param name="cache">The dictionary which holds the cached values</param>
+      <returns>A function which caches the results of <paramref name="valueFunction" /></returns>
+      <pure />
+      <requires>valueFunction != null</requires>
+      <requires>cache != null</requires>
+    </member>
+    <member name="M:Cloak.CachedFunctions.CachedConcurrently``2(System.Func{``0,``1})">
+      <summary>
+            Creates a concurrent (thread-safe) function which caches values based on keys
+            </summary>
+      <typeparam name="TKey">The type of key associated with each value</typeparam>
+      <typeparam name="TValue">The type of value associated with each key</typeparam>
+      <param name="valueFunction">The function whose results are cached</param>
+      <returns>A function which caches the results of <paramref name="valueFunction" /></returns>
+      <pure />
+      <requires>valueFunction != null</requires>
+    </member>
+    <member name="M:Cloak.CachedFunctions.CachedConcurrently``2(System.Func{``0,``1},System.Collections.Generic.IEqualityComparer{``0})">
+      <summary>
+            Creates a concurrent (thread-safe) function which caches values based on keys, using the specified comparer
+            </summary>
+      <typeparam name="TKey">The type of key associated with each value</typeparam>
+      <typeparam name="TValue">The type of value associated with each key</typeparam>
+      <param name="valueFunction">The function whose results are cached</param>
+      <param name="keyComparer">The comparer which specifies equality among inputs</param>
+      <returns>A function which caches the results of <paramref name="valueFunction" /></returns>
+      <pure />
+      <requires>valueFunction != null</requires>
+      <requires>keyComparer != null</requires>
+    </member>
+    <member name="T:Cloak.Time.OffsetTimeContext">
+      <summary>
+            A context whose timeline is offset from another context
+            </summary>
+    </member>
+    <member name="M:Cloak.Time.OffsetTimeContext.#ctor(Cloak.Time.ITimeContext,System.TimeSpan)">
+      <summary>
+            Initializes a context with the specified inner context and offset
+            </summary>
+      <param name="innerContext">The context which provides the base date and time</param>
+      <param name="offset">The amount to shift the base date and time</param>
+      <requires>innerContext != null</requires>
+    </member>
+    <member name="P:Cloak.Time.OffsetTimeContext.Now">
+      <summary>
+            Gets the shifted date and time
+            </summary>
+    </member>
+    <member name="T:Cloak.GlobalizedFormatting">
+      <summary>
+            Formats text using <see cref="T:System.IFormatProvider" />, <see cref="P:System.Globalization.CultureInfo.CurrentCulture" />, and <see cref="P:System.Globalization.CultureInfo.InvariantCulture" /></summary>
+    </member>
+    <member name="M:Cloak.GlobalizedFormatting.Format(System.String,System.IFormatProvider,System.Object[])">
+      <summary>
+            Formats the text using the specified provider and arguments
+            </summary>
+      <param name="format">The formatting of the arguments</param>
+      <param name="provider">Culture-specific formatting information</param>
+      <param name="arguments">The formatted arguments</param>
+      <returns>The result of formatting the specified text</returns>
+      <pure />
+      <requires>format != null</requires>
+      <requires>provider != null</requires>
+      <requires>arguments != null</requires>
+    </member>
+    <member name="M:Cloak.GlobalizedFormatting.FormatCurrent(System.String,System.Object[])">
+      <summary>
+            Formats the text using <see cref="P:System.Globalization.CultureInfo.CurrentCulture" /> and the specified arguments
+            </summary>
+      <param name="format">The formatting of the arguments</param>
+      <param name="arguments">The formatted arguments</param>
+      <returns>The result of formatting the specified text</returns>
+      <pure />
+    </member>
+    <member name="M:Cloak.GlobalizedFormatting.FormatInvariant(System.String,System.Object[])">
+      <summary>
+            Formats the text using <see cref="P:System.Globalization.CultureInfo.InvariantCulture" /> and the specified arguments
+            </summary>
+      <param name="format">The formatting of the arguments</param>
+      <param name="arguments">The formatted arguments</param>
+      <returns>The result of formatting the specified text</returns>
+      <pure />
+    </member>
+    <member name="T:Cloak.Time.ConstantTimeContext">
+      <summary>
+            A context in which all events happen simultaneously
+            </summary>
+    </member>
+    <member name="M:Cloak.Time.ConstantTimeContext.#ctor(System.DateTime)">
+      <summary>
+            Initializes a context with the specified date and time
+            </summary>
+      <param name="now">The current date and time</param>
+    </member>
+    <member name="P:Cloak.Time.ConstantTimeContext.Now">
+      <summary>
+            Gets the date and time specified when this context was created
+            </summary>
+    </member>
+    <member name="T:Cloak.StringJoin">
+      <summary>
+            Extends sequences of text with the ability to join the elements using a separator
+            </summary>
+    </member>
+    <member name="M:Cloak.StringJoin.Join(System.Collections.Generic.IEnumerable{System.String},System.String)">
+      <summary>
+            Inserts the specified separator between the text elements
+            </summary>
+      <param name="source">The sequence of text whose items are joined</param>
+      <param name="separator">The text which appears between each item</param>
+      <returns>Text consisting of the elements of <paramref name="source" /> interspersed with <paramref name="separator" /></returns>
+      <pure />
+      <requires>source != null</requires>
+      <requires>separator != null</requires>
+    </member>
+    <member name="T:Cloak.Reflection.AttributeSelection">
+      <summary>
+            Selects attributes from <see cref="T:System.Reflection.ICustomAttributeProvider" /> objects
+            </summary>
+    </member>
+    <member name="M:Cloak.Reflection.AttributeSelection.GetAttributes``1(System.Reflection.ICustomAttributeProvider)">
+      <summary>
+            Gets the attributes of the specified type from the specified provider
+            </summary>
+      <typeparam name="T">The type of selected attribute</typeparam>
+      <param name="provider">The object which declares the attributes</param>
+      <returns>The attributes of the specified type declared by the specified provider</returns>
+      <pure />
+      <requires>provider != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.AttributeSelection.GetAttribute``1(System.Reflection.ICustomAttributeProvider)">
+      <summary>
+            Gets the first attribute of the specified type from the specified provider
+            </summary>
+      <typeparam name="T">The type of selected attribute</typeparam>
+      <param name="provider">The object which declares the attribute</param>
+      <returns>The first attribute of the specified type declared by the specified provider</returns>
+      <pure />
+      <requires>provider != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.AttributeSelection.HasAttribute``1(System.Reflection.ICustomAttributeProvider)">
+      <summary>
+            Determines if the specified provider declares an attribute of the specified type
+            </summary>
+      <typeparam name="T">The type of declared attribute</typeparam>
+      <param name="provider">The object which declares the attribute</param>
+      <returns>Whether the specified provider declares an attribute of the specified type</returns>
+      <pure />
+      <requires>provider != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.AttributeSelection.GetAttributesWithoutInheriting``1(System.Reflection.ICustomAttributeProvider)">
+      <summary>
+            Gets the attributes of the specified type from the specified provider. Only attributes declared
+            directly on the provider are considered.
+            </summary>
+      <typeparam name="T">The type of selected attribute</typeparam>
+      <param name="provider">The object which declares the attributes</param>
+      <returns>The attributes of the specified type declared by the specified provider</returns>
+      <pure />
+      <requires>provider != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.AttributeSelection.GetAttributeWithoutInheriting``1(System.Reflection.ICustomAttributeProvider)">
+      <summary>
+            Gets the first attribute of the specified type from the specified provider. Only attributes declared
+            directly on the provider are considered.
+            </summary>
+      <typeparam name="T">The type of selected attribute</typeparam>
+      <param name="provider">The object which declares the attribute</param>
+      <returns>The first attribute of the specified type declared by the specified provider</returns>
+      <pure />
+      <requires>provider != null</requires>
+    </member>
+    <member name="M:Cloak.Reflection.AttributeSelection.HasAttributeWithoutInheriting``1(System.Reflection.ICustomAttributeProvider)">
+      <summary>
+            Determines if the specified provider declares an attribute of the specified type. Only attributes declared
+            directly on the provider are considered.
+            </summary>
+      <typeparam name="T">The type of declared attribute</typeparam>
+      <param name="provider">The object which declares the attribute</param>
+      <returns>Whether the specified provider declares an attribute of the specified type</returns>
+      <pure />
+      <requires>provider != null</requires>
+    </member>
+    <member name="T:Cloak.Linq.ConstantSequence">
+      <summary>
+            Extends sequences with the ability to select sequences of <see cref="T:System.Linq.Expressions.ConstantExpression" /> objects from them
+            </summary>
+    </member>
+    <member name="M:Cloak.Linq.ConstantSequence.ToConstants``1(System.Collections.Generic.IEnumerable{``0})">
+      <summary>
+            Gets a sequence of <see cref="T:System.Linq.Expressions.ConstantExpression" /> objects representing the items in the specified sequence
+            </summary>
+      <param name="source">The sequence from which <see cref="T:System.Linq.Expressions.ConstantExpression" /> objects are created</param>
+      <returns>A sequence of <see cref="T:System.Linq.Expressions.ConstantExpression" /> objects representing the items in the specified sequence</returns>
+      <pure />
+      <requires>source != null</requires>
+    </member>
+    <member name="T:Cloak.HashCode">
+      <summary>
+            Combines the hash codes of multiple objects
+            </summary>
+    </member>
+    <member name="M:Cloak.HashCode.Combine(System.Collections.Generic.IEnumerable{System.Object})">
+      <summary>
+            Combines the hash codes of the objects in the specified sequence
+            </summary>
+      <param name="source">The sequence whose items' hash codes are combined</param>
+      <returns>The hash code created from the items' hash codes</returns>
+      <pure />
+      <requires>source != null</requires>
+    </member>
+    <member name="M:Cloak.HashCode.Combine(System.Object[])">
+      <summary>
+            Combines the hash codes of the objects in the specified sequence
+            </summary>
+      <param name="source">The sequence whose items' hash codes are combined</param>
+      <returns>The hash code created from the items' hash codes</returns>
+      <pure />
+      <requires>source != null</requires>
+    </member>
+    <member name="M:Cloak.HashCode.Combine``1(System.Collections.Generic.IEnumerable{``0})">
+      <summary>
+            Combines the hash codes of the objects in the specified sequence
+            </summary>
+      <param name="source">The sequence whose items' hash codes are combined</param>
+      <returns>The hash code created from the items' hash codes</returns>
+      <pure />
+      <requires>source != null</requires>
+    </member>
+    <member name="M:Cloak.HashCode.Combine``1(``0[])">
+      <summary>
+            Combines the hash codes of the objects in the specified sequence
+            </summary>
+      <param name="source">The sequence whose items' hash codes are combined</param>
+      <returns>The hash code created from the items' hash codes</returns>
+      <pure />
+      <requires>source != null</requires>
+    </member>
+    <member name="T:Cloak.Linq.ExpressionEvaluator">
+      <summary>
+            Evaluates and replaces independent sub-trees in expressions
+            </summary>
+    </member>
+    <member name="M:Cloak.Linq.ExpressionEvaluator.EvaluateSubtrees(System.Linq.Expressions.Expression,System.Func{System.Linq.Expressions.Expression,System.Boolean})">
+      <summary>
+            Evaluates and replaces independent sub-trees in the specified expression
+            </summary>
+      <param name="expression">The root of the expression tree</param>
+      <param name="canBeEvaluated">A function which determines whether a node can be part of a subtree which can be evaluated</param>
+      <returns>A new tree with independent subtrees evaluated and replaced</returns>
+      <pure />
+      <requires>expression != null</requires>
+      <requires>canBeEvaluated != null</requires>
+    </member>
+    <member name="M:Cloak.Linq.ExpressionEvaluator.EvaluateSubtrees(System.Linq.Expressions.Expression)">
+      <summary>
+            Evaluates and replaces independent sub-trees in the specified expression
+            </summary>
+      <param name="expression">The root of the expression tree</param>
+      <returns>A new tree with independent subtrees evaluated and replaced</returns>
+      <pure />
+      <requires>expression != null</requires>
+    </member>
+    <member name="M:Cloak.Linq.Query`1.System#Collections#IEnumerable#GetEnumerator">
+      <ensures inheritedFrom="M:System.Collections.IEnumerable.GetEnumerator" inheritedFromTypeName="IEnumerable">Contract.Result&lt;IEnumerator&gt;() != null</ensures>
+      <ensures inheritedFrom="M:System.Collections.IEnumerable.GetEnumerator" inheritedFromTypeName="IEnumerable">Contract.Result&lt;IEnumerator&gt;().Model == this.Model</ensures>
+      <ensures inheritedFrom="M:System.Collections.IEnumerable.GetEnumerator" inheritedFromTypeName="IEnumerable">Contract.Result&lt;IEnumerator&gt;().CurrentIndex == -1</ensures>
+    </member>
+    <member name="M:Cloak.Linq.Query`1.System#Linq#IQueryable#get_ElementType">
+      <ensures inheritedFrom="M:System.Linq.IQueryable.get_ElementType" inheritedFromTypeName="IQueryable">Contract.Result&lt;Type&gt;() != null</ensures>
+    </member>
+    <member name="M:Cloak.Linq.Query`1.System#Linq#IQueryable#get_Expression">
+      <ensures inheritedFrom="M:System.Linq.IQueryable.get_Expression" inheritedFromTypeName="IQueryable">Contract.Result&lt;Expression&gt;() != null</ensures>
+    </member>
+    <member name="M:Cloak.Linq.Query`1.System#Linq#IQueryable#get_Provider">
+      <ensures inheritedFrom="M:System.Linq.IQueryable.get_Provider" inheritedFromTypeName="IQueryable">Contract.Result&lt;IQueryProvider&gt;() != null</ensures>
+    </member>
+    <member name="P:Cloak.Linq.Query`1.System#Linq#IQueryable#ElementType">
+      <getter>
+        <ensures inheritedFrom="M:System.Linq.IQueryable.get_ElementType" inheritedFromTypeName="IQueryable">Contract.Result&lt;Type&gt;() != null</ensures>
+      </getter>
+    </member>
+    <member name="P:Cloak.Linq.Query`1.System#Linq#IQueryable#Expression">
+      <getter>
+        <ensures inheritedFrom="M:System.Linq.IQueryable.get_Expression" inheritedFromTypeName="IQueryable">Contract.Result&lt;Expression&gt;() != null</ensures>
+      </getter>
+    </member>
+    <member name="P:Cloak.Linq.Query`1.System#Linq#IQueryable#Provider">
+      <getter>
+        <ensures inheritedFrom="M:System.Linq.IQueryable.get_Provider" inheritedFromTypeName="IQueryable">Contract.Result&lt;IQueryProvider&gt;() != null</ensures>
+      </getter>
+    </member>
+  </members>
+</doc>

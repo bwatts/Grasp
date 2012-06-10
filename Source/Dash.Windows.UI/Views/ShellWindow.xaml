@@ -1,0 +1,11 @@
+﻿<Window
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	x:Class="Dash.Windows.UI.Views.ShellWindow"
+	Title="Dash"
+	ResizeMode="CanResizeWithGrip"
+	WindowStartupLocation="CenterScreen"
+	WindowState="Maximized"
+	SizeToContent="Manual"
+	Content="{Binding}"
+/>

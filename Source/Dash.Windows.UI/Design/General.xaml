@@ -1,0 +1,23 @@
+﻿<ResourceDictionary
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:grasp="clr-namespace:Grasp.Hypermedia.Http;assembly=Grasp.Hypermedia.Http">
+	
+	<Style TargetType="{x:Type TextBox}">
+		<Setter Property="BorderThickness" Value="1" />
+		<Setter Property="BorderBrush" Value="{StaticResource dashDarkBrush}" />
+	</Style>
+
+	<Style TargetType="{x:Type Hyperlink}">
+		<Setter Property="Foreground" Value="{StaticResource dashLightBrush}" />
+	</Style>
+
+	<DataTemplate DataType="{x:Type grasp:HttpLink}">
+		<TextBlock Margin="5" Cursor="Hand">
+			<Hyperlink NavigateUri="{Binding Href}" ToolTip="{Binding Relationship}">
+				<ContentControl Content="{Binding Title}" />
+			</Hyperlink>
+		</TextBlock>
+	</DataTemplate>
+
+</ResourceDictionary>

@@ -1,0 +1,19 @@
+﻿<Application
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	x:Class="Dash.Windows.UI.App">
+	<Application.Resources>
+
+	<ResourceDictionary>
+		<ResourceDictionary.MergedDictionaries>
+			<!-- Colors needs to be first so the other design resources can reference them -->
+			<ResourceDictionary Source="Design/Colors.xaml" />
+
+			<ResourceDictionary Source="Design/Dash.xaml" />
+			<ResourceDictionary Source="Design/General.xaml" />
+			<ResourceDictionary Source="Design/Topics.xaml" />
+		</ResourceDictionary.MergedDictionaries>
+	</ResourceDictionary>
+
+	</Application.Resources>
+</Application>
