@@ -7,29 +7,25 @@
 
 	<DataTemplate DataType="{x:Type dash:DomainExplorerView}">
 		<Border CornerRadius="2" BorderThickness="1" BorderBrush="{StaticResource dashDarkBrush}" Background="White" Margin="3" Padding="3">
-			<ItemsControl ItemsSource="{Binding DomainModels}" />
+			<ItemsControl ItemsSource="{Binding Domains}" />
 		</Border>
 	</DataTemplate>
-	
-	<DataTemplate DataType="{x:Type grasp:DomainModel}">
+
+	<DataTemplate DataType="{x:Type dash:DomainView}">
 		<StackPanel>
-			<TextBlock Text="{Binding Name}" FontWeight="Bold" />
 			<ItemsControl ItemsSource="{Binding Namespaces}" />
-			<ItemsControl ItemsSource="{Binding OneWayRelationships}" />
-			<ItemsControl ItemsSource="{Binding TwoWayRelationships}" />
+			<!--<ItemsControl ItemsSource="{Binding OneWayRelationships}" />
+			<ItemsControl ItemsSource="{Binding TwoWayRelationships}" />-->
 		</StackPanel>
 	</DataTemplate>
 
-	<DataTemplate DataType="{x:Type grasp:NamespaceModel}">
+	<DataTemplate DataType="{x:Type dash:NamespaceView}">
 		<TextBlock>
-			<Hyperlink>
-				<Hyperlink.ToolTip>
-					<TextBlock>
-						<Run Text="{Binding Name, Mode=OneTime}" FontWeight="Bold" />
-						(<Run Text="{Binding Types.Count, Mode=OneTime}" /> type(s))
-					</TextBlock>
-				</Hyperlink.ToolTip>
-				<TextBlock Text="{Binding Name, Mode=OneTime}" />
+			<Hyperlink ToolTip="Explore this namespace" Command="{Binding OpenCommand}">
+				<TextBlock>
+					<Run Text="{Binding Name, Mode=OneTime}" />
+					(<Run Text="{Binding TypeCount, Mode=OneTime}" />)
+				</TextBlock>
 			</Hyperlink>
 		</TextBlock>
 	</DataTemplate>

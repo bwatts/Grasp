@@ -13,17 +13,18 @@ namespace Dash.Windows.Presentation
 {
 	public class DomainExplorerView : ViewModel
 	{
-		public DomainExplorerView(IDomainModelSource domainModelSource)
+		public DomainExplorerView(IDomainModelSource domainModelSource, Func<DomainModel, DomainView> domainFactory)
 		{
 			Contract.Requires(domainModelSource != null);
 
-			DomainModels = domainModelSource
+			Domains = domainModelSource
 				.GetDomainModelBindings()
 				.Select(domainModelBinding => domainModelBinding.GetDomainModel())
 				.OrderBy(domainModel => domainModel.Name)
+				.Select(domainFactory)
 				.ToReadOnlyObservableCollection();
 		}
 
-		public ReadOnlyObservableCollection<DomainModel> DomainModels { get; private set; }
+		public ReadOnlyObservableCollection<DomainView> Domains { get; private set; }
 	}
 }

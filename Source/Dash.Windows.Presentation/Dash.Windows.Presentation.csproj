@@ -53,6 +53,9 @@
     <Compile Include="..\DashAssemblyInfo.cs">
       <Link>Properties\DashAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="DomainView.cs" />
+    <Compile Include="DashViewContext.cs" />
+    <Compile Include="NamespaceView.cs" />
     <Compile Include="TopicView.cs" />
     <Compile Include="DomainExplorerView.cs" />
     <Compile Include="DashView.cs" />

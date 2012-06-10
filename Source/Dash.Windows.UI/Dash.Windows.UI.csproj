@@ -163,6 +163,10 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Dash.Infrastructure\Dash.Infrastructure.csproj">
+      <Project>{944ACA52-CECE-4861-92E5-D1B18543EC60}</Project>
+      <Name>Dash.Infrastructure</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Dash.Windows.Composition\Dash.Windows.Composition.csproj">
       <Project>{FE657A80-99F3-49A5-B71F-E3EA341E5720}</Project>
       <Name>Dash.Windows.Composition</Name>

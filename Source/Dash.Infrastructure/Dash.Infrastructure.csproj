@@ -110,6 +110,8 @@
     <Compile Include="..\DashAssemblyInfo.cs">
       <Link>Properties\DashAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="IDashContext.cs" />
+    <Compile Include="ITopicSource.cs" />
     <Compile Include="IUserDashRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

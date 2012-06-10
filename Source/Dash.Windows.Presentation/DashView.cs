@@ -13,15 +13,18 @@ namespace Dash.Windows.Presentation
 	public class DashView : ViewModel
 	{
 		private readonly IUserDashRepository _dashRepository;
+		private readonly Func<Topic, TopicView> _topicFactory;
 		private DateTime? _whenModified;
 
-		public DashView(string username, IUserDashRepository dashRepository)
+		public DashView(string username, IUserDashRepository dashRepository, Func<Topic, TopicView> topicFactory)
 		{
 			Contract.Requires(username != null);
 			Contract.Requires(dashRepository != null);
+			Contract.Requires(topicFactory != null);
 
 			Username = username;
 			_dashRepository = dashRepository;
+			_topicFactory = topicFactory;
 
 			Topics = new ObservableCollection<TopicView>();
 
@@ -42,6 +45,25 @@ namespace Dash.Windows.Presentation
 
 		public OperationModel GetTopicsOperation { get; private set; }
 
+		public void AddTopic(Topic topic)
+		{
+			Contract.Requires(topic != null);
+
+			Topics.Add(_topicFactory(topic));
+		}
+
+		public void RemoveTopic(Topic topic)
+		{
+			Contract.Requires(topic != null);
+
+			var removedTopics = Topics.Where(dashTopic => dashTopic.Topic == topic).ToList();
+
+			foreach(var removedTopic in removedTopics)
+			{
+				Topics.Remove(removedTopic);
+			}
+		}
+
 		private void GetTopicsAsync()
 		{
 			GetTopicsOperation.ExecuteAsync(() => _dashRepository.GetDash(Username), OnGetDashCompleted);
@@ -53,7 +75,7 @@ namespace Dash.Windows.Presentation
 
 			foreach(var topic in dash.Topics)
 			{
-				Topics.Add(new TopicView(topic));
+				AddTopic(topic);
 			}
 
 			var change = NotionLifetime.GetWhenModified(dash);

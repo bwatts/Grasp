@@ -15,10 +15,18 @@ namespace Dash.Windows.Composition
 	{
 		public DashModule()
 		{
+
+
 			// TODO: Real dash repository
 			RegisterType<FakeDashRepository>().As<IUserDashRepository>().SingleInstance();
 
-			Register(c => new DashView("bwatts", c.Resolve<IUserDashRepository>())).InstancePerDependency();
+
+
+			RegisterType<TopicView>().InstancePerDependency();
+
+			Register(c => new DashView("bwatts", c.Resolve<IUserDashRepository>(), c.Resolve<Func<Topic, TopicView>>())).InstancePerLifetimeScope();
+
+			RegisterType<DashViewContext>().As<IDashContext>().InstancePerDependency();
 		}
 
 

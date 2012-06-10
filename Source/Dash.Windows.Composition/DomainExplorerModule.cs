@@ -17,6 +17,10 @@ namespace Dash.Windows.Composition
 			Register(c => new AssemblySource(new[] { typeof(DomainModel).Assembly })).As<IDomainModelSource>().SingleInstance();
 
 			RegisterType<DomainExplorerView>().InstancePerDependency();
+
+			RegisterType<DomainView>().InstancePerDependency();
+
+			RegisterType<NamespaceView>().InstancePerDependency();
 		}
 	}
 }

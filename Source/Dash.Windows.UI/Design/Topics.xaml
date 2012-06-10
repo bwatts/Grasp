@@ -4,14 +4,34 @@
 	xmlns:dash="clr-namespace:Dash;assembly=Dash"
 	xmlns:presentation="clr-namespace:Dash.Windows.Presentation;assembly=Dash.Windows.Presentation">
 
+	<Style x:Key="topicCloseButton" TargetType="{x:Type Button}">
+		<Setter Property="Cursor" Value="Hand" />
+		<Setter Property="VerticalAlignment" Value="Center" />
+		<Setter Property="ToolTip" Value="Close this topic" />
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type Button}">
+					<Grid>
+						<Ellipse Width="13" Height="13" Fill="White" HorizontalAlignment="Center" VerticalAlignment="Center" />
+						<Ellipse Width="10" Height="10" Fill="{StaticResource dashDarkBrush}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+						<Line X1="1" Y1="1" X2="5" Y2="5" Stroke="White" StrokeThickness="2" HorizontalAlignment="Center" VerticalAlignment="Center" />
+						<Line X1="1" Y1="5" X2="5" Y2="1" Stroke="White" StrokeThickness="2" HorizontalAlignment="Center" VerticalAlignment="Center" />
+					</Grid>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+	
 	<DataTemplate x:Key="topicHeaderTemplate">
 		<Grid Margin="0 3 0 0">
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="Auto" />
+				<ColumnDefinition Width="Auto" />
 				<ColumnDefinition Width="*" />
 			</Grid.ColumnDefinitions>
 			<TextBlock Grid.Column="0" Text="{Binding Title}" Foreground="White" FontWeight="Bold" Margin="5 0" />
-			<ContentControl Grid.Column="1" Content="{Binding Status}" HorizontalAlignment="Right" Margin="0 0 5 0" />
+			<Button Grid.Column="1" Command="{Binding CloseCommand}" Style="{StaticResource topicCloseButton}" />
+			<ContentControl Grid.Column="2" Content="{Binding Status}" HorizontalAlignment="Right" Margin="0 0 5 0" />
 		</Grid>
 	</DataTemplate>
 
