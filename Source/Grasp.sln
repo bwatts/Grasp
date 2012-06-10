@@ -33,6 +33,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dash", "Dash", "{2851039E-D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dash", "Dash\Dash.csproj", "{1A782573-0CDB-4972-939F-5A874874E727}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dash.Infrastructure", "Dash.Infrastructure\Dash.Infrastructure.csproj", "{944ACA52-CECE-4861-92E5-D1B18543EC60}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -153,6 +155,16 @@ Global
 		{1A782573-0CDB-4972-939F-5A874874E727}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{1A782573-0CDB-4972-939F-5A874874E727}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{1A782573-0CDB-4972-939F-5A874874E727}.Release|x86.ActiveCfg = Release|Any CPU
+		{944ACA52-CECE-4861-92E5-D1B18543EC60}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{944ACA52-CECE-4861-92E5-D1B18543EC60}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{944ACA52-CECE-4861-92E5-D1B18543EC60}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{944ACA52-CECE-4861-92E5-D1B18543EC60}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{944ACA52-CECE-4861-92E5-D1B18543EC60}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{944ACA52-CECE-4861-92E5-D1B18543EC60}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{944ACA52-CECE-4861-92E5-D1B18543EC60}.Release|Any CPU.Build.0 = Release|Any CPU
+		{944ACA52-CECE-4861-92E5-D1B18543EC60}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{944ACA52-CECE-4861-92E5-D1B18543EC60}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{944ACA52-CECE-4861-92E5-D1B18543EC60}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -163,5 +175,6 @@ Global
 		{4EC9F6E9-8AD0-44F9-B9D8-7EF96F6DBCA3} = {2851039E-DF40-432E-8C9F-B910BB6811AE}
 		{7DE4156E-05D9-4EB8-8F2F-CC5F500E572B} = {2851039E-DF40-432E-8C9F-B910BB6811AE}
 		{1A782573-0CDB-4972-939F-5A874874E727} = {2851039E-DF40-432E-8C9F-B910BB6811AE}
+		{944ACA52-CECE-4861-92E5-D1B18543EC60} = {2851039E-DF40-432E-8C9F-B910BB6811AE}
 	EndGlobalSection
 EndGlobal

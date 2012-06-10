@@ -58,7 +58,7 @@ namespace Grasp.Semantics.Discovery.Reflection
 					select new
 					{
 						Name = typesByNamespace.Key,
-						PartBindings = GetNamespacePartBindings(typesByNamespace).ToList().AsReadOnly()
+						PartBindings = new Many<NamespacePartBinding>(GetNamespacePartBindings(typesByNamespace))
 					};
 
 				foreach(var @namespace in namespaces)
@@ -81,7 +81,7 @@ namespace Grasp.Semantics.Discovery.Reflection
 					select new
 					{
 						Assembly = typesByAssembly.Key,
-						TypeBindings = GetTypeBindings(typesByAssembly).ToList().AsReadOnly()
+						TypeBindings = new Many<TypeBinding>(GetTypeBindings(typesByAssembly))
 					};
 
 				foreach(var part in parts)
@@ -117,7 +117,7 @@ namespace Grasp.Semantics.Discovery.Reflection
 				var x = new ObjectBinding();
 
 				x.SetValue(TypeBinding.TypeField, type);
-				x.SetValue(ObjectBinding.MemberBindingsField, GetMemberBindings(type).ToList().AsReadOnly());
+				x.SetValue(ObjectBinding.MemberBindingsField, new Many<MemberBinding>(GetMemberBindings(type)));
 
 				return x;
 			}

@@ -23,22 +23,22 @@ namespace Grasp.Knowledge.Work
 
 		public static NotionLifetimeChange EntityCreated(Notion notion, DateTime when)
 		{
-			return NotionLiftime(ChangeType.EntityCreated, notion, when);
+			return NotionLifetime(ChangeType.EntityCreated, notion, when);
+		}
+
+		public static NotionLifetimeChange EntityModified(Notion notion, DateTime when)
+		{
+			return NotionLifetime(ChangeType.EntityModified, notion, when);
 		}
 
 		public static NotionLifetimeChange EntityReconstitued(Notion notion, DateTime when)
 		{
-			return NotionLiftime(ChangeType.EntityReconstituted, notion, when);
-		}
-
-		public static NotionLifetimeChange EntityUpdated(Notion notion, DateTime when)
-		{
-			return NotionLiftime(ChangeType.EntityUpdated, notion, when);
+			return NotionLifetime(ChangeType.EntityReconstituted, notion, when);
 		}
 
 		public static NotionLifetimeChange EntityDeleted(Notion notion, DateTime when)
 		{
-			return NotionLiftime(ChangeType.EntityDeleted, notion, when);
+			return NotionLifetime(ChangeType.EntityDeleted, notion, when);
 		}
 
 		public static EntitySetChange EntityAddedToSet(Notion notion, DateTime when, IEntitySet entitySet)
@@ -75,7 +75,7 @@ namespace Grasp.Knowledge.Work
 			return change;
 		}
 
-		internal static NotionLifetimeChange NotionLiftime(ChangeType type, Notion notion, DateTime when)
+		internal static NotionLifetimeChange NotionLifetime(ChangeType type, Notion notion, DateTime when)
 		{
 			Contract.Requires(notion != null);
 

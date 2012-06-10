@@ -8,8 +8,8 @@ namespace Grasp.Knowledge.Work
 	public enum ChangeType
 	{
 		EntityCreated,
+		EntityModified,
 		EntityReconstituted,
-		EntityUpdated,
 		EntityDeleted,
 		EntityAddedToSet,
 		EntityRemovedFromSet,

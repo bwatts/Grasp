@@ -1,9 +1,9 @@
 ﻿<ResourceDictionary
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-	
-	<Color x:Key="dashLight">Gainsboro</Color>
-	<Color x:Key="dashDark">Gray</Color>
+
+	<Color x:Key="dashLight">#CFCFCF</Color>
+	<Color x:Key="dashDark">#505050</Color>
 
 	<SolidColorBrush x:Key="dashLightBrush" Color="{StaticResource dashLight}" />
 	<SolidColorBrush x:Key="dashDarkBrush" Color="{StaticResource dashDark}" />

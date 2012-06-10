@@ -65,8 +65,8 @@ namespace Grasp.Semantics.Discovery.Reflection
 				}
 			}
 
-			domainModel.SetValue(DomainModel.OneWayRelationshipsField, oneWayRelationships.AsReadOnly());
-			domainModel.SetValue(DomainModel.TwoWayRelationshipsField, twoWayRelationships.AsReadOnly());
+			domainModel.SetValue(DomainModel.OneWayRelationshipsField, new Many<OneWayRelationshipModel>(oneWayRelationships));
+			domainModel.SetValue(DomainModel.TwoWayRelationshipsField, new Many<TwoWayRelationshipModel>(twoWayRelationships));
 		}
 
 		private static IEnumerable<ReferenceModel> GetReferences(IEnumerable<NamespaceModel> namespaces)

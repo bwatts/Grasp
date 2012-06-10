@@ -34,8 +34,6 @@ namespace Grasp.Semantics.Discovery.Reflection
 
 			var x = new ValueModel();
 
-			var fields = GetFields().ToList().AsReadOnly();
-
 			x.SetValue(ObjectModel.TypeField, Type);
 
 			return x;

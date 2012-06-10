@@ -5,7 +5,9 @@
 	Title="Dash"
 	ResizeMode="CanResizeWithGrip"
 	WindowStartupLocation="CenterScreen"
-	WindowState="Maximized"
+	WindowState="Normal"
+	Width="600"
+	Height="400"
 	SizeToContent="Manual"
 	Content="{Binding}"
 />

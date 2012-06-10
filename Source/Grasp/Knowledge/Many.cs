@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
@@ -7,134 +8,145 @@ using Grasp.Semantics.Relationships;
 
 namespace Grasp.Knowledge
 {
-	public class Many<T> : Notion, ISet<T>
+	public sealed class Many<T> : Notion, ISet<T>
 	{
+		private readonly ISet<T> _values;
+
 		public Many()
 		{
-			// TODO: Initialize members for ISet implementation
+			_values = new HashSet<T>();
 		}
 
 		public Many(IEnumerable<T> values)
 		{
 			Contract.Requires(values != null);
 
-			// TODO: Use values
+			_values = new HashSet<T>(values);
 		}
 
-		#region ISet<T> Members
+		public Many(params T[] values) : this(values as IEnumerable<T>)
+		{}
 
-		bool ISet<T>.Add(T item)
+		public Many(IEqualityComparer<T> comparer)
 		{
-			throw new NotImplementedException();
+			_values = new HashSet<T>(comparer);
 		}
 
-		void ISet<T>.ExceptWith(IEnumerable<T> other)
+		public Many(IEqualityComparer<T> comparer, IEnumerable<T> values)
 		{
-			throw new NotImplementedException();
+			_values = new HashSet<T>(values, comparer);
 		}
 
-		void ISet<T>.IntersectWith(IEnumerable<T> other)
+		public Many(IEqualityComparer<T> comparer, params T[] values) : this(comparer, values as IEnumerable<T>)
+		{}
+
+		#region IEnumerable
+
+		IEnumerator<T> IEnumerable<T>.GetEnumerator()
 		{
-			throw new NotImplementedException();
+			return _values.GetEnumerator();
 		}
 
-		bool ISet<T>.IsProperSubsetOf(IEnumerable<T> other)
+		IEnumerator IEnumerable.GetEnumerator()
 		{
-			throw new NotImplementedException();
+			return ((IEnumerable<T>) this).GetEnumerator();
 		}
-
-		bool ISet<T>.IsProperSupersetOf(IEnumerable<T> other)
-		{
-			throw new NotImplementedException();
-		}
-
-		bool ISet<T>.IsSubsetOf(IEnumerable<T> other)
-		{
-			throw new NotImplementedException();
-		}
-
-		bool ISet<T>.IsSupersetOf(IEnumerable<T> other)
-		{
-			throw new NotImplementedException();
-		}
-
-		bool ISet<T>.Overlaps(IEnumerable<T> other)
-		{
-			throw new NotImplementedException();
-		}
-
-		bool ISet<T>.SetEquals(IEnumerable<T> other)
-		{
-			throw new NotImplementedException();
-		}
-
-		void ISet<T>.SymmetricExceptWith(IEnumerable<T> other)
-		{
-			throw new NotImplementedException();
-		}
-
-		void ISet<T>.UnionWith(IEnumerable<T> other)
-		{
-			throw new NotImplementedException();
-		}
-
 		#endregion
 
-		#region ICollection<T> Members
+		#region ICollection
 
 		void ICollection<T>.Add(T item)
 		{
-			throw new NotImplementedException();
-		}
-
-		void ICollection<T>.Clear()
-		{
-			throw new NotImplementedException();
-		}
-
-		bool ICollection<T>.Contains(T item)
-		{
-			throw new NotImplementedException();
-		}
-
-		void ICollection<T>.CopyTo(T[] array, int arrayIndex)
-		{
-			throw new NotImplementedException();
-		}
-
-		int ICollection<T>.Count
-		{
-			get { throw new NotImplementedException(); }
-		}
-
-		bool ICollection<T>.IsReadOnly
-		{
-			get { throw new NotImplementedException(); }
+			((ICollection<T>) _values).Add(item);
 		}
 
 		bool ICollection<T>.Remove(T item)
 		{
-			throw new NotImplementedException();
+			return _values.Remove(item);
 		}
 
+		void ICollection<T>.Clear()
+		{
+			_values.Clear();
+		}
+
+		bool ICollection<T>.Contains(T item)
+		{
+			return _values.Contains(item);
+		}
+
+		void ICollection<T>.CopyTo(T[] array, int arrayIndex)
+		{
+			_values.CopyTo(array, arrayIndex);
+		}
+
+		int ICollection<T>.Count
+		{
+			get { return _values.Count; }
+		}
+
+		bool ICollection<T>.IsReadOnly
+		{
+			get { return _values.IsReadOnly; }
+		}
 		#endregion
 
-		#region IEnumerable<T> Members
+		#region ISet
 
-		IEnumerator<T> IEnumerable<T>.GetEnumerator()
+		bool ISet<T>.Add(T item)
 		{
-			throw new NotImplementedException();
+			return _values.Add(item);
 		}
 
-		#endregion
-
-		#region IEnumerable Members
-
-		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+		void ISet<T>.ExceptWith(IEnumerable<T> other)
 		{
-			throw new NotImplementedException();
+			_values.ExceptWith(other);
 		}
 
+		void ISet<T>.IntersectWith(IEnumerable<T> other)
+		{
+			_values.IntersectWith(other);
+		}
+
+		bool ISet<T>.IsProperSubsetOf(IEnumerable<T> other)
+		{
+			return _values.IsProperSubsetOf(other);
+		}
+
+		bool ISet<T>.IsProperSupersetOf(IEnumerable<T> other)
+		{
+			return _values.IsProperSupersetOf(other);
+		}
+
+		bool ISet<T>.IsSubsetOf(IEnumerable<T> other)
+		{
+			return _values.IsSubsetOf(other);
+		}
+
+		bool ISet<T>.IsSupersetOf(IEnumerable<T> other)
+		{
+			return _values.IsSupersetOf(other);
+		}
+
+		bool ISet<T>.Overlaps(IEnumerable<T> other)
+		{
+			return _values.Overlaps(other);
+		}
+
+		bool ISet<T>.SetEquals(IEnumerable<T> other)
+		{
+			return _values.SetEquals(other);
+		}
+
+		void ISet<T>.SymmetricExceptWith(IEnumerable<T> other)
+		{
+			_values.SymmetricExceptWith(other);
+		}
+
+		void ISet<T>.UnionWith(IEnumerable<T> other)
+		{
+			_values.UnionWith(other);
+		}
 		#endregion
 	}
 }

@@ -1,10 +1,11 @@
 ﻿<ResourceDictionary
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-	xmlns:dash="clr-namespace:Dash;assembly=Dash">
+	xmlns:dash="clr-namespace:Dash;assembly=Dash"
+	xmlns:presentation="clr-namespace:Dash.Windows.Presentation;assembly=Dash.Windows.Presentation">
 
 	<DataTemplate x:Key="topicHeaderTemplate">
-		<Grid Margin="2">
+		<Grid Margin="0 3 0 0">
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="Auto" />
 				<ColumnDefinition Width="*" />
@@ -15,46 +16,20 @@
 	</DataTemplate>
 
 	<DataTemplate x:Key="topicCompositeContentTemplate">
-		<ItemsControl ItemsSource="{Binding Parts}">
-			<ItemsControl.ItemsPanel>
-				<ItemsPanelTemplate>
-					<StackPanel />
-				</ItemsPanelTemplate>
-			</ItemsControl.ItemsPanel>
-		</ItemsControl>
+		<ItemsControl ItemsSource="{Binding Parts}" />
 	</DataTemplate>
-
-
-
-
-
-
-
 
 	<DataTemplate x:Key="topicScalarContentTemplate">
-		<Border CornerRadius="2" BorderThickness="1" BorderBrush="{StaticResource dashDarkBrush}" Background="White" Margin="5" Padding="5">
-			<ContentControl Content="{Binding}" />
-		</Border>
-	</DataTemplate>
-
-
-
-
-
-
-
-
-	<!--<DataTemplate x:Key="topicScalarContentTemplate">
 		<ContentControl Content="{Binding}" />
-	</DataTemplate>-->
+	</DataTemplate>
 
 	<DataTemplate x:Key="topicLifetimeTemplate">
-		<Border CornerRadius="2" BorderThickness="1" BorderBrush="{StaticResource dashDarkBrush}" Background="{StaticResource dashLightBrush}" Margin="5 0 5 5">
-			<ContentControl Grid.Column="1" Content="{Binding WhenModified}" HorizontalAlignment="Right" Margin="3 2" TextBlock.Foreground="White" TextBlock.FontSize="8" />
+		<Border CornerRadius="2" BorderThickness="1" BorderBrush="{StaticResource dashDarkBrush}" Background="{StaticResource dashLightBrush}" Margin="3 0 3 3">
+			<ContentControl Grid.Column="1" Content="{Binding}" HorizontalAlignment="Right" Margin="3 2" TextBlock.Foreground="{StaticResource dashDarkBrush}" TextBlock.FontSize="8" />
 		</Border>
 	</DataTemplate>
 
-	<DataTemplate DataType="{x:Type dash:Topic}">
+	<DataTemplate DataType="{x:Type presentation:TopicView}">
 		<StackPanel>
 			<Border CornerRadius="2" BorderThickness="2" BorderBrush="Ivory" Background="{StaticResource dashDarkBrush}" Margin="0 0 10 10">
 				<Border.Effect>
@@ -63,7 +38,7 @@
 				<StackPanel>
 					<ContentControl Content="{Binding}" ContentTemplate="{StaticResource topicHeaderTemplate}" />
 					<ContentControl x:Name="content" Content="{Binding Content}" ContentTemplate="{StaticResource topicCompositeContentTemplate}" />
-					<ContentControl Content="{Binding Lifetime}" ContentTemplate="{StaticResource topicLifetimeTemplate}" HorizontalAlignment="Right" />
+					<ContentControl Content="{Binding WhenModified}" ContentTemplate="{StaticResource topicLifetimeTemplate}" HorizontalAlignment="Right" />
 				</StackPanel>
 			</Border>
 		</StackPanel>

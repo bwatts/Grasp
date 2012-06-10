@@ -53,6 +53,7 @@
     <Compile Include="..\DashAssemblyInfo.cs">
       <Link>Properties\DashAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="TopicView.cs" />
     <Compile Include="DomainExplorerView.cs" />
     <Compile Include="DashView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -61,6 +62,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Dash.Infrastructure\Dash.Infrastructure.csproj">
+      <Project>{944ACA52-CECE-4861-92E5-D1B18543EC60}</Project>
+      <Name>Dash.Infrastructure</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Dash\Dash.csproj">
       <Project>{1A782573-0CDB-4972-939F-5A874874E727}</Project>
       <Name>Dash %28Dash\Dash%29</Name>

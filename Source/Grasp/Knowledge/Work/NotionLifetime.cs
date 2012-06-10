@@ -9,7 +9,7 @@ namespace Grasp.Knowledge.Work
 	public sealed class NotionLifetime
 	{
 		public static readonly Field<NotionLifetimeChange> WhenCreatedField = Field.AttachedTo<Notion>.By<NotionLifetime>.For(x => GetWhenCreated(x));
-		public static readonly Field<NotionLifetimeChange> WhenUpdatedField = Field.AttachedTo<Notion>.By<NotionLifetime>.For(x => GetWhenUpdated(x));
+		public static readonly Field<NotionLifetimeChange> WhenModifiedField = Field.AttachedTo<Notion>.By<NotionLifetime>.For(x => GetWhenModified(x));
 		public static readonly Field<NotionLifetimeChange> WhenReconstitutedField = Field.AttachedTo<Notion>.By<NotionLifetime>.For(x => GetWhenReconstituted(x));
 		public static readonly Field<NotionLifetimeChange> WhenAddedToSetField = Field.AttachedTo<Notion>.By<NotionLifetime>.For(x => GetWhenAddedToSet(x));
 		public static readonly Field<NotionLifetimeChange> WhenRemovedFromSetField = Field.AttachedTo<Notion>.By<NotionLifetime>.For(x => GetWhenRemovedFromSet(x));
@@ -24,14 +24,14 @@ namespace Grasp.Knowledge.Work
 			notion.SetValue(WhenCreatedField, value);
 		}
 
-		public static NotionLifetimeChange GetWhenUpdated(Notion notion)
+		public static NotionLifetimeChange GetWhenModified(Notion notion)
 		{
-			return notion.GetValue(WhenUpdatedField);
+			return notion.GetValue(WhenModifiedField);
 		}
 
-		public static void SetWhenUpdated(Notion notion, NotionLifetimeChange value)
+		public static void SetWhenModified(Notion notion, NotionLifetimeChange value)
 		{
-			notion.SetValue(WhenUpdatedField, value);
+			notion.SetValue(WhenModifiedField, value);
 		}
 
 		public static NotionLifetimeChange GetWhenReconstituted(Notion notion)
