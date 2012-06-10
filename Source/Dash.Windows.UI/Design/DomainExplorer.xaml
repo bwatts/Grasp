@@ -13,7 +13,7 @@
 	
 	<DataTemplate DataType="{x:Type grasp:DomainModel}">
 		<StackPanel>
-			<TextBlock Text="{Binding Name}" />
+			<TextBlock Text="{Binding Name}" FontWeight="Bold" />
 			<ItemsControl ItemsSource="{Binding Namespaces}" />
 			<ItemsControl ItemsSource="{Binding OneWayRelationships}" />
 			<ItemsControl ItemsSource="{Binding TwoWayRelationships}" />
@@ -21,7 +21,17 @@
 	</DataTemplate>
 
 	<DataTemplate DataType="{x:Type grasp:NamespaceModel}">
-		<TextBlock Text="{Binding Name}" />
+		<TextBlock>
+			<Hyperlink>
+				<Hyperlink.ToolTip>
+					<TextBlock>
+						<Run Text="{Binding Name, Mode=OneTime}" FontWeight="Bold" />
+						(<Run Text="{Binding Types.Count, Mode=OneTime}" /> type(s))
+					</TextBlock>
+				</Hyperlink.ToolTip>
+				<TextBlock Text="{Binding Name, Mode=OneTime}" />
+			</Hyperlink>
+		</TextBlock>
 	</DataTemplate>
 
 	<DataTemplate DataType="{x:Type relationships:OneWayRelationshipModel}">

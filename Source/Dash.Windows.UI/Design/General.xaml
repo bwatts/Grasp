@@ -9,7 +9,7 @@
 	</Style>
 
 	<Style TargetType="{x:Type Hyperlink}">
-		<Setter Property="Foreground" Value="{StaticResource dashLightBrush}" />
+		<Setter Property="Foreground" Value="{StaticResource dashDarkBrush}" />
 	</Style>
 
 	<DataTemplate DataType="{x:Type grasp:HttpLink}">
