@@ -10,6 +10,7 @@
 			<ResourceDictionary Source="Design/Colors.xaml" />
 
 			<ResourceDictionary Source="Design/Dash.xaml" />
+			<ResourceDictionary Source="Design/DomainExplorer.xaml" />
 			<ResourceDictionary Source="Design/General.xaml" />
 			<ResourceDictionary Source="Design/Topics.xaml" />
 		</ResourceDictionary.MergedDictionaries>

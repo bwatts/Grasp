@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using Grasp.Knowledge;
 
 namespace Grasp.Semantics.Discovery.Reflection
 {
@@ -13,7 +14,7 @@ namespace Grasp.Semantics.Discovery.Reflection
 			var x = new EnumModel();
 
 			x.SetValue(TypeModel.TypeField, Type);
-			x.SetValue(EnumModel.ValuesField, GetValues(x).ToList().AsReadOnly());
+			x.SetValue(EnumModel.ValuesField, new Many<EnumValueModel>(GetValues(x)));
 
 			return x;
 		}

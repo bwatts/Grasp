@@ -13,6 +13,7 @@ namespace Dash.Windows.UI.Composition
 		public AppModule()
 		{
 			RegisterModule<DashModule>();
+			RegisterModule<DomainExplorerModule>();
 			RegisterModule<ShellModule>();
 		}
 	}

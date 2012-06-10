@@ -53,7 +53,8 @@
     <Compile Include="..\DashAssemblyInfo.cs">
       <Link>Properties\DashAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="DashModel.cs" />
+    <Compile Include="DomainExplorerView.cs" />
+    <Compile Include="DashView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

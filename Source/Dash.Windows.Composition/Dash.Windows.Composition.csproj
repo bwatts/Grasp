@@ -132,6 +132,7 @@
     <Compile Include="..\DashAssemblyInfo.cs">
       <Link>Properties\DashAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="DomainExplorerModule.cs" />
     <Compile Include="DashModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Shell.cs" />

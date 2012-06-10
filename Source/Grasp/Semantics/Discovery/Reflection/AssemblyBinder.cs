@@ -25,7 +25,7 @@ namespace Grasp.Semantics.Discovery.Reflection
 
 			var x = new ReflectionBinding();
 
-			x.SetValue(ReflectionBinding.NamespaceBindingsField, GetNamespaceBindings(assemblies).ToList().AsReadOnly());
+			x.SetValue(ReflectionBinding.NamespaceBindingsField, new Many<NamespaceBinding>(GetNamespaceBindings(assemblies)));
 
 			return x;
 		}
@@ -167,6 +167,7 @@ namespace Grasp.Semantics.Discovery.Reflection
 					from staticField in member.DeclaringType.GetFields(BindingFlags.Public | BindingFlags.Static)
 					where !staticField.FieldType.ContainsGenericParameters
 					where typeof(Field).IsAssignableFrom(staticField.FieldType)
+					where !staticField.FieldType.IsGenericType	// TODO: Remove workaround
 					let field = (Field) staticField.GetValue(null)
 					where field.Name == member.Name
 					select field;

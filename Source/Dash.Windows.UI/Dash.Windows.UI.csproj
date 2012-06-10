@@ -193,6 +193,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Design\DomainExplorer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Design\Topics.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

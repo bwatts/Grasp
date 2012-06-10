@@ -23,7 +23,7 @@ namespace Grasp.Semantics.Discovery.Reflection
 			var namespaces = GetNamespaces().ToList().AsReadOnly();
 
 			x.SetValue(DomainModel.NameField, "<| Reflected |>");
-			x.SetValue(DomainModel.NamespacesField, namespaces);
+			x.SetValue(DomainModel.NamespacesField, new Many<NamespaceModel>(namespaces));
 			
 			SetRelationships(x, namespaces);
 

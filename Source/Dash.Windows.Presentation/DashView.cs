@@ -7,15 +7,11 @@ using Cloak.Wpf.Mvvm;
 
 namespace Dash.Windows.Presentation
 {
-	public class DashModel : ViewModel
+	public class DashView : ViewModel
 	{
-		public DashModel()
+		public DashView()
 		{
-			Topics = new ObservableCollection<Topic>
-			{
-				new Topic("Proof of concept", TopicStatus.Default, "-[content]-"),
-				new Topic("Part 2", new TopicStatus("Test"), "-[content 2]-")
-			};
+			Topics = new ObservableCollection<Topic>();
 		}
 
 		public ObservableCollection<Topic> Topics { get; private set; }

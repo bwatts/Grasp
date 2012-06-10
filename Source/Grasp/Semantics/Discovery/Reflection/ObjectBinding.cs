@@ -22,10 +22,8 @@ namespace Grasp.Semantics.Discovery.Reflection
 		{
 			var x = new ObjectModel();
 
-			var fields = GetFields().ToList().AsReadOnly();
-
 			x.SetValue(ObjectModel.TypeField, Type);
-			x.SetValue(ObjectModel.FieldsField, fields);
+			x.SetValue(ObjectModel.FieldsField, new Many<Field>(GetFields()));
 
 			return x;
 		}

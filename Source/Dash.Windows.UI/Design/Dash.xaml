@@ -3,7 +3,7 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:presentation="clr-namespace:Dash.Windows.Presentation;assembly=Dash.Windows.Presentation">
 
-	<DataTemplate DataType="{x:Type presentation:DashModel}">
+	<DataTemplate DataType="{x:Type presentation:DashView}">
 		<ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
 			<Grid Background="{StaticResource dashLightBrush}">
 				<Grid Margin="10 10 0 0">

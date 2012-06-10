@@ -12,7 +12,7 @@ namespace Dash.Windows.UI.Views
 {
 	public partial class ShellWindow : Window
 	{
-		public ShellWindow(DashModel dash)
+		public ShellWindow(DashView dash)
 		{
 			Contract.Requires(dash != null);
 
