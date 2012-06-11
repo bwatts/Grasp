@@ -141,6 +141,25 @@ namespace Grasp.Knowledge
 		}
 
 		/// <summary>
+		/// Gets whether this field represents many values as opposed to single value
+		/// </summary>
+		public bool IsMany
+		{
+			get { return ValueType.IsGenericType && ValueType.GetGenericTypeDefinition() == typeof(Many<>); }
+		}
+
+		/// <summary>
+		/// Gets the type of element in this field, if <see cref="IsMany"/> is true
+		/// </summary>
+		/// <returns>The type of element in this field</returns>
+		public Type GetManyElementType()
+		{
+			Contract.Requires(IsMany);
+
+			return ValueType.GetGenericArguments().Single();
+		}
+
+		/// <summary>
 		/// Gets a textual representation of this field
 		/// </summary>
 		/// <returns>A textual representation of this field</returns>

@@ -338,7 +338,7 @@
     <Compile Include="Semantics\Discovery\Reflection\MemberBinding.cs" />
     <Compile Include="Semantics\Discovery\Reflection\NamespaceBinding.cs" />
     <Compile Include="Semantics\Discovery\Reflection\NamespacePartBinding.cs" />
-    <Compile Include="Semantics\Discovery\Reflection\ObjectBinding.cs" />
+    <Compile Include="Semantics\Discovery\Reflection\EntityBinding.cs" />
     <Compile Include="Semantics\Discovery\Reflection\PropertyInfoBinding.cs" />
     <Compile Include="Semantics\Discovery\Reflection\ReflectionBinding.cs" />
     <Compile Include="Semantics\Discovery\Reflection\TypeBinding.cs" />
@@ -346,7 +346,7 @@
     <Compile Include="Semantics\EnumModel.cs" />
     <Compile Include="Semantics\EnumValueModel.cs" />
     <Compile Include="Semantics\NamespaceModel.cs" />
-    <Compile Include="Semantics\ObjectModel.cs" />
+    <Compile Include="Semantics\EntityModel.cs" />
     <Compile Include="Semantics\Relationships\Cardinality.cs" />
     <Compile Include="Semantics\Relationships\CardinalityLimit.cs" />
     <Compile Include="Semantics\Relationships\OneWayRelationshipModel.cs" />

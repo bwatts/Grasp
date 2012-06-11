@@ -7,23 +7,23 @@ using Grasp.Knowledge;
 
 namespace Grasp.Semantics.Discovery.Reflection
 {
-	public class ObjectBinding : TypeBinding
+	public class EntityBinding : TypeBinding
 	{
-		public static Field<Many<MemberBinding>> MemberBindingsField = Field.On<ObjectBinding>.Backing(x => x.MemberBindings);
+		public static Field<Many<MemberBinding>> MemberBindingsField = Field.On<EntityBinding>.Backing(x => x.MemberBindings);
 
 		public Many<MemberBinding> MemberBindings { get { return GetValue(MemberBindingsField); } }
 
 		public override TypeModel GetTypeModel()
 		{
-			return typeof(Notion).IsAssignableFrom(Type) ? GetObjectModel() : GetValueModel() as TypeModel;
+			return Type == typeof(Field) || typeof(Notion).IsAssignableFrom(Type) ? GetObjectModel() : GetValueModel() as TypeModel;
 		}
 
-		private ObjectModel GetObjectModel()
+		private EntityModel GetObjectModel()
 		{
-			var x = new ObjectModel();
+			var x = new EntityModel();
 
-			x.SetValue(ObjectModel.TypeField, Type);
-			x.SetValue(ObjectModel.FieldsField, new Many<Field>(GetFields()));
+			x.SetValue(EntityModel.TypeField, Type);
+			x.SetValue(EntityModel.FieldsField, new Many<Field>(GetFields()));
 
 			return x;
 		}
@@ -34,7 +34,7 @@ namespace Grasp.Semantics.Discovery.Reflection
 
 			var x = new ValueModel();
 
-			x.SetValue(ObjectModel.TypeField, Type);
+			x.SetValue(TypeModel.TypeField, Type);
 
 			return x;
 		}

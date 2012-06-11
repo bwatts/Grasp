@@ -53,6 +53,12 @@
     <Compile Include="..\DashAssemblyInfo.cs">
       <Link>Properties\DashAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="FieldView.cs" />
+    <Compile Include="PluralFieldView.cs" />
+    <Compile Include="SingularFieldView.cs" />
+    <Compile Include="TypeExplorerView.cs" />
+    <Compile Include="EntityView.cs" />
+    <Compile Include="NamespaceExplorerView.cs" />
     <Compile Include="DomainView.cs" />
     <Compile Include="DashViewContext.cs" />
     <Compile Include="NamespaceView.cs" />
@@ -60,6 +66,7 @@
     <Compile Include="DomainExplorerView.cs" />
     <Compile Include="DashView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TypeView.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

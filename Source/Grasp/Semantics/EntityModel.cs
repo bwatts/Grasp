@@ -7,9 +7,9 @@ using Grasp.Knowledge;
 
 namespace Grasp.Semantics
 {
-	public class ObjectModel : TypeModel
+	public class EntityModel : TypeModel
 	{
-		public static Field<Many<Field>> FieldsField = Field.On<ObjectModel>.Backing(x => x.Fields);
+		public static Field<Many<Field>> FieldsField = Field.On<EntityModel>.Backing(x => x.Fields);
 
 		public Many<Field> Fields { get { return GetValue(FieldsField); } }
 	}

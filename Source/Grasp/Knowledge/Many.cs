@@ -8,7 +8,7 @@ using Grasp.Semantics.Relationships;
 
 namespace Grasp.Knowledge
 {
-	public sealed class Many<T> : Notion, ISet<T>
+	public sealed class Many<T> : ISet<T>
 	{
 		private readonly ISet<T> _values;
 

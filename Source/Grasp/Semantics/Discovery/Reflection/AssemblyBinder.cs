@@ -32,6 +32,8 @@ namespace Grasp.Semantics.Discovery.Reflection
 
 		private static IEnumerable<NamespaceBinding> GetNamespaceBindings(IEnumerable<Assembly> assemblies)
 		{
+			assemblies = assemblies.Concat(new[] { Assembly.GetExecutingAssembly() }).Distinct();
+
 			return new AssemblyBinderContext().GetNamespaceBindings(assemblies);
 		}
 
@@ -52,7 +54,7 @@ namespace Grasp.Semantics.Discovery.Reflection
 					from assembly in assemblies
 					from type in assembly.GetTypes()
 					where type.FullName != "System.Diagnostics.Contracts.RuntimeContractsFlags"
-					where type.IsEnum || typeof(Notion).IsAssignableFrom(type)
+					where type.IsEnum || typeof(Notion).IsAssignableFrom(type) || type == typeof(Field)
 					group type by type.Namespace into typesByNamespace
 					orderby typesByNamespace.Key
 					select new
@@ -112,12 +114,12 @@ namespace Grasp.Semantics.Discovery.Reflection
 				return x;
 			}
 
-			private static ObjectBinding GetObjectBinding(Type type)
+			private static EntityBinding GetObjectBinding(Type type)
 			{
-				var x = new ObjectBinding();
+				var x = new EntityBinding();
 
 				x.SetValue(TypeBinding.TypeField, type);
-				x.SetValue(ObjectBinding.MemberBindingsField, new Many<MemberBinding>(GetMemberBindings(type)));
+				x.SetValue(EntityBinding.MemberBindingsField, new Many<MemberBinding>(GetMemberBindings(type)));
 
 				return x;
 			}
@@ -161,22 +163,58 @@ namespace Grasp.Semantics.Discovery.Reflection
 
 			private static Field GetField(MemberInfo member)
 			{
-				// TODO: Optimize this to do field lookups once
 
+
+				// TODO: Better fix than this hackety hack
 				var matchingFields =
 					from staticField in member.DeclaringType.GetFields(BindingFlags.Public | BindingFlags.Static)
 					where !staticField.FieldType.ContainsGenericParameters
 					where typeof(Field).IsAssignableFrom(staticField.FieldType)
-					where !staticField.FieldType.IsGenericType	// TODO: Remove workaround
-					let field = (Field) staticField.GetValue(null)
-					where field.Name == member.Name
+					let field = GetField(staticField)
+					where field != null && field.Name == member.Name
 					select field;
+
+
+
+
+				// TODO: Optimize this to do field lookups once
+
+				//var matchingFields =
+				//  from staticField in member.DeclaringType.GetFields(BindingFlags.Public | BindingFlags.Static)
+				//  where !staticField.FieldType.ContainsGenericParameters
+				//  where typeof(Field).IsAssignableFrom(staticField.FieldType)
+				//  let field = (Field) staticField.GetValue(null)
+				//  where field.Name == member.Name
+				//  select field;
 
 				// TODO: Don't allow unmatched fields
 				//return matchingFields.Single();
 
 				return matchingFields.SingleOrDefault();
 			}
+
+
+
+
+
+
+			private static Field GetField(FieldInfo staticField)
+			{
+				try
+				{
+					return (Field) staticField.GetValue(null);
+				}
+				catch
+				{
+					return null;
+				}
+			}
+
+
+
+
+
+
 		}
 	}
 }

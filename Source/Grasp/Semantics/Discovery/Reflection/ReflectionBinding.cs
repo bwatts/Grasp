@@ -106,22 +106,24 @@ namespace Grasp.Semantics.Discovery.Reflection
 			{
 				return
 					from @namespace in _namespaces
-					from @object in @namespace.Types.OfType<ObjectModel>()
+					from @object in @namespace.Types.OfType<EntityModel>()
 					from field in @object.Fields
 					let reference = GetReference(@object, field)
 					where reference != null
 					select reference;
 			}
 
-			private ReferenceModel GetReference(ObjectModel referencingObject, Field field)
+			private ReferenceModel GetReference(EntityModel referencingObject, Field field)
 			{
-				if(typeof(Notion).IsAssignableFrom(field.ValueType))
-				{
-					return GetSingularReference(referencingObject, field);
-				}
-				else if(typeof(IEnumerable<Notion>).IsAssignableFrom(field.ValueType))
+				var valueType = field.ValueType;
+
+				if(valueType.IsGenericType && valueType.GetGenericTypeDefinition() == typeof(Many<>))
 				{
 					return GetPluralReference(referencingObject, field);
+				}
+				else if(typeof(Notion).IsAssignableFrom(field.ValueType))
+				{
+					return GetSingularReference(referencingObject, field);
 				}
 				else
 				{
@@ -129,7 +131,7 @@ namespace Grasp.Semantics.Discovery.Reflection
 				}
 			}
 
-			private ReferenceModel GetSingularReference(ObjectModel referencingObject, Field referencingField)
+			private ReferenceModel GetSingularReference(EntityModel referencingObject, Field referencingField)
 			{
 				var x = new ReferenceModel();
 
@@ -147,7 +149,7 @@ namespace Grasp.Semantics.Discovery.Reflection
 				return referencingField.IsNullable ? Cardinality.ZeroToOne : Cardinality.OneToOne;
 			}
 
-			private ReferenceModel GetPluralReference(ObjectModel referencingObject, Field referencingField)
+			private ReferenceModel GetPluralReference(EntityModel referencingObject, Field referencingField)
 			{
 				var x = new ReferenceModel();
 
@@ -165,18 +167,24 @@ namespace Grasp.Semantics.Discovery.Reflection
 				return Cardinality.ZeroToMany;
 			}
 
-			private ObjectModel GetReferencedEntity(Field pluralReferencingField)
+			private EntityModel GetReferencedEntity(Field pluralReferencingField)
 			{
 				var entityType = pluralReferencingField.ValueType.GetGenericArguments().Single();
 
 				return GetReferencedEntity(entityType);
 			}
 
-			private ObjectModel GetReferencedEntity(Type entityType)
+			private EntityModel GetReferencedEntity(Type entityType)
 			{
+
+
+				var x = _namespaces.SelectMany(@namespace => @namespace.Types.OfType<EntityModel>()).ToList();
+
+
+
 				return _namespaces
-					.SelectMany(@namespace => @namespace.Types.OfType<ObjectModel>())
-					.Where(@object => @object.Type == entityType)
+					.SelectMany(@namespace => @namespace.Types.OfType<EntityModel>())
+					.Where(entity => entity.Type == entityType)
 					.Single();
 			}
 		}

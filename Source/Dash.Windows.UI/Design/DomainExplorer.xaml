@@ -21,7 +21,7 @@
 
 	<DataTemplate DataType="{x:Type dash:NamespaceView}">
 		<TextBlock>
-			<Hyperlink ToolTip="Explore this namespace" Command="{Binding OpenCommand}">
+			<Hyperlink ToolTip="Explore this namespace" Command="{Binding ExploreCommand}">
 				<TextBlock>
 					<Run Text="{Binding Name, Mode=OneTime}" />
 					(<Run Text="{Binding TypeCount, Mode=OneTime}" />)
@@ -29,6 +29,57 @@
 			</Hyperlink>
 		</TextBlock>
 	</DataTemplate>
+
+	<DataTemplate DataType="{x:Type dash:NamespaceExplorerView}">
+		<Border CornerRadius="2" BorderThickness="1" BorderBrush="{StaticResource dashDarkBrush}" Background="White" Margin="3" Padding="3">
+			<ItemsControl ItemsSource="{Binding Types}" />
+		</Border>
+	</DataTemplate>
+
+	<DataTemplate DataType="{x:Type dash:EntityView}">
+		<TextBlock>
+			<Hyperlink ToolTip="Explore this entity" Command="{Binding ExploreCommand}">
+				<TextBlock>
+					<Run Text="{Binding Name, Mode=OneTime}" />
+					(<Run Text="{Binding FieldCount, Mode=OneTime}" />)
+				</TextBlock>
+			</Hyperlink>
+		</TextBlock>
+	</DataTemplate>
+
+	<DataTemplate DataType="{x:Type dash:TypeExplorerView}">
+		<Border CornerRadius="2" BorderThickness="1" BorderBrush="{StaticResource dashDarkBrush}" Background="White" Margin="3" Padding="3">
+			<ItemsControl ItemsSource="{Binding Fields}" />
+		</Border>
+	</DataTemplate>
+
+	<DataTemplate DataType="{x:Type dash:SingularFieldView}">
+		<TextBlock>
+			<Hyperlink ToolTip="Explore this field" Command="{Binding ExploreCommand}">
+				<TextBlock>
+					<Run Text="{Binding Name, Mode=OneTime}" />
+					(<Run Text="{Binding ValueType, Mode=OneTime}" />)
+				</TextBlock>
+			</Hyperlink>
+		</TextBlock>
+	</DataTemplate>
+
+	<DataTemplate DataType="{x:Type dash:PluralFieldView}">
+		<TextBlock>
+			<Hyperlink ToolTip="Explore this field" Command="{Binding ExploreCommand}">
+				<TextBlock>
+					<Run Text="{Binding Name, Mode=OneTime}" />
+					(Many&lt;<Run Text="{Binding ElementType, Mode=OneTime}" />&gt;)
+				</TextBlock>
+			</Hyperlink>
+		</TextBlock>
+	</DataTemplate>
+
+
+
+
+
+
 
 	<DataTemplate DataType="{x:Type relationships:OneWayRelationshipModel}">
 		<StackPanel>
