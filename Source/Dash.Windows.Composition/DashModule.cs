@@ -44,7 +44,7 @@ namespace Dash.Windows.Composition
 			{
 				var dash = new UserDash();
 
-				var topic = new Topic("Domain Explorer", TopicStatus.Default, _domainExplorerViewFactory());
+				var topic = new Topic("Domain Explorer", ProcessStatus.Over, _domainExplorerViewFactory());
 
 				dash.SetValue(UserDash.UsernameField, username);
 				dash.SetValue(UserDash.TopicsField, new Many<Topic>(topic));

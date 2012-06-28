@@ -6,12 +6,12 @@
 
 	<Style x:Key="topicCloseButton" TargetType="{x:Type Button}">
 		<Setter Property="Cursor" Value="Hand" />
-		<Setter Property="VerticalAlignment" Value="Center" />
+		<Setter Property="VerticalAlignment" Value="Top" />
 		<Setter Property="ToolTip" Value="Close this topic" />
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type Button}">
-					<Grid>
+					<Grid Margin="0 3 0 0">
 						<Ellipse Width="13" Height="13" Fill="White" HorizontalAlignment="Center" VerticalAlignment="Center" />
 						<Ellipse Width="10" Height="10" Fill="{StaticResource dashDarkBrush}" HorizontalAlignment="Center" VerticalAlignment="Center" />
 						<Line X1="1" Y1="1" X2="5" Y2="5" Stroke="White" StrokeThickness="2" HorizontalAlignment="Center" VerticalAlignment="Center" />
@@ -44,33 +44,72 @@
 	</DataTemplate>
 
 	<DataTemplate x:Key="topicLifetimeTemplate">
-		<Border CornerRadius="2" BorderThickness="1" BorderBrush="{StaticResource dashDarkBrush}" Background="{StaticResource dashLightBrush}" Margin="3 0 3 3">
-			<ContentControl Grid.Column="1" Content="{Binding}" HorizontalAlignment="Right" Margin="3 2" TextBlock.Foreground="{StaticResource dashDarkBrush}" TextBlock.FontSize="8" />
-		</Border>
+		<ContentControl Grid.Column="1" Content="{Binding}" HorizontalAlignment="Right" Margin="5 0 5 4" TextBlock.FontSize="8" TextBlock.Foreground="White" />
 	</DataTemplate>
 
 	<DataTemplate DataType="{x:Type presentation:TopicView}">
-		<StackPanel>
-			<Border CornerRadius="2" BorderThickness="2" BorderBrush="Ivory" Background="{StaticResource dashDarkBrush}" Margin="0 0 10 10">
-				<Border.Effect>
-					<DropShadowEffect />
-				</Border.Effect>
-				<StackPanel>
-					<ContentControl Content="{Binding}" ContentTemplate="{StaticResource topicHeaderTemplate}" />
-					<ContentControl x:Name="content" Content="{Binding Content}" ContentTemplate="{StaticResource topicCompositeContentTemplate}" />
-					<ContentControl Content="{Binding WhenModified}" ContentTemplate="{StaticResource topicLifetimeTemplate}" HorizontalAlignment="Right" />
-				</StackPanel>
-			</Border>
-		</StackPanel>
+		<Grid x:Name="surface">
+			<StackPanel>
+				<Border CornerRadius="2" BorderThickness="2" BorderBrush="Ivory" Background="{StaticResource dashDarkBrush}" Margin="0 0 10 10">
+					<Border.Effect>
+						<DropShadowEffect />
+					</Border.Effect>
+					<StackPanel>
+						<ContentControl Content="{Binding}" ContentTemplate="{StaticResource topicHeaderTemplate}" />
+						<ContentControl x:Name="content" Content="{Binding Content}" ContentTemplate="{StaticResource topicCompositeContentTemplate}" />
+						<ContentControl Content="{Binding WhenModified}" ContentTemplate="{StaticResource topicLifetimeTemplate}" HorizontalAlignment="Right" />
+					</StackPanel>
+				</Border>
+			</StackPanel>
+		</Grid>
 		<DataTemplate.Triggers>
 			<DataTrigger Binding="{Binding Content.Parts}" Value="{x:Null}">
 				<Setter TargetName="content" Property="ContentTemplate" Value="{StaticResource topicScalarContentTemplate}" />
+			</DataTrigger>
+			<DataTrigger Binding="{Binding Status}" Value="{x:Static dash:TopicStatus.Default}">
+				<Setter TargetName="surface" Property="Opacity" Value="1" />
+			</DataTrigger>
+			<DataTrigger Binding="{Binding Status}" Value="{x:Static dash:ProcessStatus.Pending}">
+				<Setter TargetName="surface" Property="Opacity" Value="1" />
+			</DataTrigger>
+			<DataTrigger Binding="{Binding Status}" Value="{x:Static dash:ProcessStatus.Waiting}">
+				<Setter TargetName="surface" Property="Opacity" Value="0.3" />
+			</DataTrigger>
+			<DataTrigger Binding="{Binding Status}" Value="{x:Static dash:ProcessStatus.Reminding}">
+				<DataTrigger.EnterActions>
+					<BeginStoryboard>
+						<Storyboard>
+							<DoubleAnimation
+								Storyboard.TargetName="surface"
+								Storyboard.TargetProperty="Opacity"
+								From="0.7"
+								To="0.3"
+								AccelerationRatio="0.4"
+								DecelerationRatio="0.4"
+								Duration="0:0:1"
+								AutoReverse="True"
+								RepeatBehavior="Forever"
+							/>
+						</Storyboard>
+					</BeginStoryboard>
+				</DataTrigger.EnterActions>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding Status}" Value="{x:Static dash:ProcessStatus.Over}">
+				<Setter TargetName="surface" Property="Opacity" Value="0.1" />
 			</DataTrigger>
 		</DataTemplate.Triggers>
 	</DataTemplate>
 
 	<DataTemplate DataType="{x:Type dash:TopicStatus}">
 		<TextBlock Text="{Binding Name}" Foreground="White" />
+	</DataTemplate>
+
+	<DataTemplate DataType="{x:Type dash:ProcessStatus}">
+		<Grid>
+			<Ellipse Width="25" Height="25" Fill="{StaticResource dashLightBrush}"/>
+			<Ellipse Width="5" Height="12" Fill="{StaticResource dashDarkBrush}" Margin="0 -6 0 0" />
+			<Ellipse Width="5" Height="5" Fill="{StaticResource dashDarkBrush}" Margin="0 14 0 0" />
+		</Grid>
 	</DataTemplate>
 
 </ResourceDictionary>
