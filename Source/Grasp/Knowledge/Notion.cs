@@ -15,7 +15,7 @@ namespace Grasp.Knowledge
 		/// </summary>
 		protected Notion()
 		{
-			Context = new InitialNotionContext();
+			Context = new InitialContext();
 		}
 
 		internal INotionContext Context { get; set; }
@@ -63,5 +63,24 @@ namespace Grasp.Knowledge
 		//{
 		//  Context.SetValue(this, field, value);
 		//}
+
+		private sealed class InitialContext : INotionContext
+		{
+			private readonly IDictionary<Field, object> _values = new Dictionary<Field, object>();
+
+			public object GetValue(Notion notion, Field field)
+			{
+				object value;
+
+				_values.TryGetValue(field, out value);
+
+				return value;
+			}
+
+			public void SetValue(Notion notion, Field field, object value)
+			{
+				_values[field] = value;
+			}
+		}
 	}
 }
