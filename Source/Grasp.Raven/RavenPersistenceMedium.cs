@@ -28,8 +28,8 @@ namespace Grasp.Raven
 		{
 			var entities = new RavenEntitySet<T>();
 
-			entities.SetValue(RavenEntitySet<T>.SessionField, Session);
-			entities.SetValue(EntitySet<T>.QueryProviderField, GetQueryProvider<T>());
+			RavenEntitySet<T>.SessionField.Set(entities, Session);
+			EntitySet<T>.QueryProviderField.Set(entities, GetQueryProvider<T>());
 
 			return entities;
 		}

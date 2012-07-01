@@ -22,8 +22,8 @@ namespace Grasp.Semantics.Discovery.Reflection
 		{
 			var x = new EntityModel();
 
-			x.SetValue(EntityModel.TypeField, Type);
-			x.SetValue(EntityModel.FieldsField, new Many<Field>(GetFields()));
+			EntityModel.TypeField.Set(x, Type);
+			EntityModel.FieldsField.Set(x, new Many<Field>(GetFields()));
 
 			return x;
 		}
@@ -34,7 +34,7 @@ namespace Grasp.Semantics.Discovery.Reflection
 
 			var x = new ValueModel();
 
-			x.SetValue(TypeModel.TypeField, Type);
+			TypeModel.TypeField.Set(x, Type);
 
 			return x;
 		}

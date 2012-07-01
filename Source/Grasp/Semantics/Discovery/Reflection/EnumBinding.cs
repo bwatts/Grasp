@@ -13,8 +13,8 @@ namespace Grasp.Semantics.Discovery.Reflection
 		{
 			var x = new EnumModel();
 
-			x.SetValue(TypeModel.TypeField, Type);
-			x.SetValue(EnumModel.ValuesField, new Many<EnumValueModel>(GetValues(x)));
+			TypeModel.TypeField.Set(x, Type);
+			EnumModel.ValuesField.Set(x, new Many<EnumValueModel>(GetValues(x)));
 
 			return x;
 		}
@@ -25,10 +25,10 @@ namespace Grasp.Semantics.Discovery.Reflection
 			{
 				var x = new EnumValueModel();
 
-				x.SetValue(EnumValueModel.EnumModelField, enumModel);
-				x.SetValue(EnumValueModel.NameField, value.ToString());
-				x.SetValue(EnumValueModel.NumericValueField, (int) value);
-				x.SetValue(EnumValueModel.ObjectValueField, value);
+				EnumValueModel.EnumModelField.Set(x, enumModel);
+				EnumValueModel.NameField.Set(x, value.ToString());
+				EnumValueModel.NumericValueField.Set(x, (int) value);
+				EnumValueModel.ObjectValueField.Set(x, value);
 
 				yield return x;
 			}

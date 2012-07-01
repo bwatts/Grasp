@@ -29,9 +29,9 @@ namespace Grasp.Hypermedia.Http.Mesh
 		{
 			var api = new RootResource();
 
-			api.SetValue(RootResource.DescriptionField, "This is my API");
-			api.SetValue(RootResource.MediaTypesField, new Many<MediaType>(_mediaTypeRepository.GetAll()));
-			api.SetValue(RootResource.RelationshipsField, new Many<Relationship>(_relationshipRepository.GetAll()));
+			RootResource.DescriptionField.Set(api, "This is my API");
+			RootResource.MediaTypesField.Set(api, new Many<MediaType>(_mediaTypeRepository.GetAll()));
+			RootResource.RelationshipsField.Set(api, new Many<Relationship>(_relationshipRepository.GetAll()));
 
 			return api;
 		}

@@ -22,8 +22,8 @@ namespace Grasp.Semantics.Discovery.Reflection
 
 			var namespaces = GetNamespaces().ToList().AsReadOnly();
 
-			x.SetValue(DomainModel.NameField, "<| Reflected |>");
-			x.SetValue(DomainModel.NamespacesField, new Many<NamespaceModel>(namespaces));
+			DomainModel.NameField.Set(x, "<| Reflected |>");
+			DomainModel.NamespacesField.Set(x, new Many<NamespaceModel>(namespaces));
 			
 			SetRelationships(x, namespaces);
 
@@ -65,8 +65,8 @@ namespace Grasp.Semantics.Discovery.Reflection
 				}
 			}
 
-			domainModel.SetValue(DomainModel.OneWayRelationshipsField, new Many<OneWayRelationshipModel>(oneWayRelationships));
-			domainModel.SetValue(DomainModel.TwoWayRelationshipsField, new Many<TwoWayRelationshipModel>(twoWayRelationships));
+			DomainModel.OneWayRelationshipsField.Set(domainModel, new Many<OneWayRelationshipModel>(oneWayRelationships));
+			DomainModel.TwoWayRelationshipsField.Set(domainModel, new Many<TwoWayRelationshipModel>(twoWayRelationships));
 		}
 
 		private static IEnumerable<ReferenceModel> GetReferences(IEnumerable<NamespaceModel> namespaces)
@@ -78,8 +78,8 @@ namespace Grasp.Semantics.Discovery.Reflection
 		{
 			var x = new TwoWayRelationshipModel();
 
-			x.SetValue(TwoWayRelationshipModel.Reference1Field, reference1);
-			x.SetValue(TwoWayRelationshipModel.Reference2Field, reference2);
+			TwoWayRelationshipModel.Reference1Field.Set(x, reference1);
+			TwoWayRelationshipModel.Reference2Field.Set(x, reference2);
 
 			return x;
 		}
@@ -88,7 +88,7 @@ namespace Grasp.Semantics.Discovery.Reflection
 		{
 			var x = new OneWayRelationshipModel();
 
-			x.SetValue(OneWayRelationshipModel.ReferenceField, reference);
+			OneWayRelationshipModel.ReferenceField.Set(x, reference);
 
 			return x;
 		}
@@ -135,10 +135,10 @@ namespace Grasp.Semantics.Discovery.Reflection
 			{
 				var x = new ReferenceModel();
 
-				x.SetValue(ReferenceModel.ReferencedEntityField, GetReferencedEntity(referencingField.ValueType));
-				x.SetValue(ReferenceModel.CardinalityField, GetSingularCardinality(referencingField));
-				x.SetValue(ReferenceModel.ReferencingObjectField, referencingObject);
-				x.SetValue(ReferenceModel.ReferencingFieldField, referencingField);
+				ReferenceModel.ReferencedEntityField.Set(x, GetReferencedEntity(referencingField.ValueType));
+				ReferenceModel.CardinalityField.Set(x, GetSingularCardinality(referencingField));
+				ReferenceModel.ReferencingObjectField.Set(x, referencingObject);
+				ReferenceModel.ReferencingFieldField.Set(x, referencingField);
 
 				return x;
 			}
@@ -153,10 +153,10 @@ namespace Grasp.Semantics.Discovery.Reflection
 			{
 				var x = new ReferenceModel();
 
-				x.SetValue(ReferenceModel.ReferencedEntityField, GetReferencedEntity(referencingField));
-				x.SetValue(ReferenceModel.CardinalityField, GetPluralCardinality(referencingField));
-				x.SetValue(ReferenceModel.ReferencingObjectField, referencingObject);
-				x.SetValue(ReferenceModel.ReferencingFieldField, referencingField);
+				ReferenceModel.ReferencedEntityField.Set(x, GetReferencedEntity(referencingField));
+				ReferenceModel.CardinalityField.Set(x, GetPluralCardinality(referencingField));
+				ReferenceModel.ReferencingObjectField.Set(x, referencingObject);
+				ReferenceModel.ReferencingFieldField.Set(x, referencingField);
 
 				return x;
 			}
