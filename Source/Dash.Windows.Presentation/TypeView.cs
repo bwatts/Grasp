@@ -14,10 +14,10 @@ namespace Dash.Windows.Presentation
 	public abstract class TypeView : ViewModel, ITopicSource
 	{
 		private readonly TypeModel _type;
-		private readonly IDashContext _dashContext;
+		private readonly IBoardContext _dashContext;
 		private readonly Func<TypeModel, TypeExplorerView> _typeExplorerFactory;
 
-		protected TypeView(TypeModel type, IDashContext dashContext, Func<TypeModel, TypeExplorerView> typeExplorerFactory)
+		protected TypeView(TypeModel type, IBoardContext dashContext, Func<TypeModel, TypeExplorerView> typeExplorerFactory)
 		{
 			Contract.Requires(type != null);
 			Contract.Requires(dashContext != null);

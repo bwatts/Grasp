@@ -17,7 +17,7 @@ namespace Dash.Windows.Presentation
 	{
 		private readonly EntityModel _entity;
 
-		public EntityView(EntityModel entity, IDashContext dashContext, Func<TypeModel, TypeExplorerView> typeExplorerFactory)
+		public EntityView(EntityModel entity, IBoardContext dashContext, Func<TypeModel, TypeExplorerView> typeExplorerFactory)
 			: base(entity, dashContext, typeExplorerFactory)
 		{
 			_entity = entity;

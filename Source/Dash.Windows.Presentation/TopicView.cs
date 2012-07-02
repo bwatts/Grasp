@@ -16,9 +16,9 @@ namespace Dash.Windows.Presentation
 {
 	public class TopicView : ViewModel
 	{
-		private readonly IDashContext _dashContext;
+		private readonly IBoardContext _dashContext;
 
-		public TopicView(Topic topic, IDashContext dashContext)
+		public TopicView(Topic topic, IBoardContext dashContext)
 		{
 			Contract.Requires(topic != null);
 			Contract.Requires(dashContext != null);

@@ -5,8 +5,8 @@ using System.Text;
 
 namespace Dash.Infrastructure
 {
-	public interface IUserDashRepository
+	public interface IBoardRepository
 	{
-		UserDash GetDash(string username);
+		Board GetBoard(string username);
 	}
 }

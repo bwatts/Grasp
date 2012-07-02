@@ -98,7 +98,12 @@
     <CodeContractsAnalysisWarningLevel>0</CodeContractsAnalysisWarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Cloak, Version=0.5.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Cloak.0.5.0.0\lib\net40\Cloak.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -110,9 +115,18 @@
     <Compile Include="..\DashAssemblyInfo.cs">
       <Link>Properties\DashAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="IDashContext.cs" />
+    <Compile Include="Hosting\IDashProcess.cs" />
+    <Compile Include="IBoardContext.cs" />
+    <Compile Include="Hosting\CancelledResult.cs" />
+    <Compile Include="Hosting\ConsoleDashHost.cs" />
+    <Compile Include="Hosting\DashRuntime.cs" />
+    <Compile Include="Hosting\ErrorResult.cs" />
+    <Compile Include="Integration\IDashable.cs" />
+    <Compile Include="Hosting\IDashHost.cs" />
+    <Compile Include="Hosting\IDashRuntime.cs" />
+    <Compile Include="Hosting\RuntimeResult.cs" />
     <Compile Include="ITopicSource.cs" />
-    <Compile Include="IUserDashRepository.cs" />
+    <Compile Include="IBoardRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -124,6 +138,9 @@
       <Project>{0A728107-2D52-4E6B-B651-793048876837}</Project>
       <Name>Grasp</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

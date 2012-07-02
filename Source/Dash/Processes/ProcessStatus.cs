@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Dash
+namespace Dash.Processes
 {
 	public class ProcessStatus : TopicStatus
 	{

@@ -13,6 +13,7 @@ namespace Grasp.Knowledge.Work
 		EntityDeleted,
 		EntityAddedToSet,
 		EntityRemovedFromSet,
-		Field
+		Field,
+		Ownership
 	}
 }

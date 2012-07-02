@@ -291,6 +291,9 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Knowledge\ComparableNotion.cs" />
+    <Compile Include="Knowledge\ComparableString.cs" />
+    <Compile Include="Knowledge\ComparableToExactType.cs" />
+    <Compile Include="Knowledge\ComparableValue.cs" />
     <Compile Include="Knowledge\EquatableNotion.cs" />
     <Compile Include="Knowledge\Field.cs" />
     <Compile Include="Knowledge\IFieldContext.cs" />
@@ -319,6 +322,7 @@
     <Compile Include="Knowledge\Work\IWorkContext.cs" />
     <Compile Include="Knowledge\Work\NotionLifetime.cs" />
     <Compile Include="Knowledge\Work\NotionLifetimeChange.cs" />
+    <Compile Include="Knowledge\Work\OwnershipChange.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Analysis\Resources.Designer.cs">
       <AutoGen>True</AutoGen>

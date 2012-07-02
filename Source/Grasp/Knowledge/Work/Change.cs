@@ -64,6 +64,19 @@ namespace Grasp.Knowledge.Work
 			return change;
 		}
 
+
+		public static OwnershipChange InOwnership(Notion notion, string priorOwner, string newOwner)
+		{
+			var change = new OwnershipChange();
+
+			SetBaseValues(change, notion, when);
+
+			change.SetValue(OwnershipChange.PriorOwnerField, priorOwner);
+			change.SetValue(OwnershipChange.NewOwnerField, newOwner);
+
+			return change;
+		}
+
 		internal static EntitySetChange EntitySet(ChangeType type, Notion notion, DateTime when, IEntitySet entitySet)
 		{
 			var change = new EntitySetChange(type);

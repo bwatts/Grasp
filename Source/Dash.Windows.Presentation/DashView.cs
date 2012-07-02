@@ -12,11 +12,11 @@ namespace Dash.Windows.Presentation
 {
 	public class DashView : ViewModel
 	{
-		private readonly IUserDashRepository _dashRepository;
+		private readonly IBoardRepository _dashRepository;
 		private readonly Func<Topic, TopicView> _topicFactory;
 		private DateTime? _whenModified;
 
-		public DashView(string username, IUserDashRepository dashRepository, Func<Topic, TopicView> topicFactory)
+		public DashView(string username, IBoardRepository dashRepository, Func<Topic, TopicView> topicFactory)
 		{
 			Contract.Requires(username != null);
 			Contract.Requires(dashRepository != null);
@@ -66,10 +66,10 @@ namespace Dash.Windows.Presentation
 
 		private void GetTopicsAsync()
 		{
-			GetTopicsOperation.ExecuteAsync(() => _dashRepository.GetDash(Username), OnGetDashCompleted);
+			GetTopicsOperation.ExecuteAsync(() => _dashRepository.GetBoard(Username), OnGetDashCompleted);
 		}
 
-		private void OnGetDashCompleted(UserDash dash)
+		private void OnGetDashCompleted(Board dash)
 		{
 			Topics.Clear();
 

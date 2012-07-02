@@ -18,20 +18,20 @@ namespace Dash.Windows.Composition
 
 
 			// TODO: Real dash repository
-			RegisterType<FakeDashRepository>().As<IUserDashRepository>().SingleInstance();
+			RegisterType<FakeDashRepository>().As<IBoardRepository>().SingleInstance();
 
 
 
 			RegisterType<TopicView>().InstancePerDependency();
 
-			Register(c => new DashView("bwatts", c.Resolve<IUserDashRepository>(), c.Resolve<Func<Topic, TopicView>>())).InstancePerLifetimeScope();
+			Register(c => new DashView("bwatts", c.Resolve<IBoardRepository>(), c.Resolve<Func<Topic, TopicView>>())).InstancePerLifetimeScope();
 
-			RegisterType<DashViewContext>().As<IDashContext>().InstancePerDependency();
+			RegisterType<DashViewContext>().As<IBoardContext>().InstancePerDependency();
 		}
 
 
 
-		private sealed class FakeDashRepository : IUserDashRepository
+		private sealed class FakeDashRepository : IBoardRepository
 		{
 			private readonly Func<DomainExplorerView> _domainExplorerViewFactory;
 
@@ -40,14 +40,14 @@ namespace Dash.Windows.Composition
 				_domainExplorerViewFactory = domainExplorerViewFactory;
 			}
 
-			public UserDash GetDash(string username)
+			public Board GetBoard(string username)
 			{
-				var dash = new UserDash();
+				var dash = new Board();
 
 				var topic = new Topic("Domain Explorer", ProcessStatus.Over, _domainExplorerViewFactory());
 
-				dash.SetValue(UserDash.UsernameField, username);
-				dash.SetValue(UserDash.TopicsField, new Many<Topic>(topic));
+				dash.SetValue(Board.UsernameField, username);
+				dash.SetValue(Board.TopicsField, new Many<Topic>(topic));
 
 				NotionLifetime.SetWhenModified(topic, Change.EntityModified(topic, DateTime.Now));
 				NotionLifetime.SetWhenModified(dash, Change.EntityCreated(dash, DateTime.Now));

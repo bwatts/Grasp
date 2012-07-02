@@ -14,10 +14,10 @@ namespace Dash.Windows.Presentation
 	public class NamespaceView : ViewModel, ITopicSource
 	{
 		private readonly NamespaceModel _namespace;
-		private readonly IDashContext _dashContext;
+		private readonly IBoardContext _dashContext;
 		private readonly Func<NamespaceModel, NamespaceExplorerView> _namespaceExplorerFactory;
 
-		public NamespaceView(NamespaceModel @namespace, IDashContext dashContext, Func<NamespaceModel, NamespaceExplorerView> namespaceExplorerFactory)
+		public NamespaceView(NamespaceModel @namespace, IBoardContext dashContext, Func<NamespaceModel, NamespaceExplorerView> namespaceExplorerFactory)
 		{
 			Contract.Requires(@namespace != null);
 			Contract.Requires(dashContext != null);

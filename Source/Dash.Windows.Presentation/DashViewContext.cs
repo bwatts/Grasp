@@ -7,7 +7,7 @@ using Dash.Infrastructure;
 
 namespace Dash.Windows.Presentation
 {
-	public sealed class DashViewContext : IDashContext
+	public sealed class DashViewContext : IBoardContext
 	{
 		private readonly Func<DashView> _dashViewAccessor;
 

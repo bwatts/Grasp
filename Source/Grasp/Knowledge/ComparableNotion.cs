@@ -5,28 +5,28 @@ using System.Text;
 
 namespace Grasp.Knowledge
 {
-	public abstract class ComparableNotion<T> : EquatableNotion<T>, IComparable<T> where T : ComparableNotion<T>
+	public abstract class ComparableNotion<TThis> : EquatableNotion<TThis>, IComparable<TThis> where TThis : ComparableNotion<TThis>
 	{
-		public static bool operator >(ComparableNotion<T> x, T y)
+		public static bool operator >(ComparableNotion<TThis> x, TThis y)
 		{
 			return x.CompareTo(y) > 0;
 		}
 
-		public static bool operator <(ComparableNotion<T> x, T y)
+		public static bool operator <(ComparableNotion<TThis> x, TThis y)
 		{
 			return x.CompareTo(y) < 0;
 		}
 
-		public static bool operator >=(ComparableNotion<T> x, T y)
+		public static bool operator >=(ComparableNotion<TThis> x, TThis y)
 		{
 			return x.CompareTo(y) >= 0;
 		}
 
-		public static bool operator <=(ComparableNotion<T> x, T y)
+		public static bool operator <=(ComparableNotion<TThis> x, TThis y)
 		{
 			return x.CompareTo(y) <= 0;
 		}
 
-		public abstract int CompareTo(T other);
+		public abstract int CompareTo(TThis other);
 	}
 }
