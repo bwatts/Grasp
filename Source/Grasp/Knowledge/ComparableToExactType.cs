@@ -17,17 +17,7 @@ namespace Grasp.Knowledge
 			return other != null && IsExactType(other) && EqualsExactType(other);
 		}
 
-		public override int GetHashCode()
-		{
-			return Value.GetHashCode();
-		}
-
-		public override string ToString()
-		{
-			return Value.ToString();
-		}
-
-		protected abstract bool CompareToExactType(TThis other);
+		protected abstract int CompareToExactType(TThis other);
 
 		protected abstract bool EqualsExactType(TThis other);
 

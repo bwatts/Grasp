@@ -31,7 +31,7 @@ namespace Grasp.Knowledge
 			return Value.ToString();
 		}
 
-		protected override bool CompareToExactType(TThis other)
+		protected override int CompareToExactType(TThis other)
 		{
 			return Value.CompareTo(other.Value);
 		}

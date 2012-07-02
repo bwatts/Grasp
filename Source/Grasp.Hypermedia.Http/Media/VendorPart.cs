@@ -7,11 +7,11 @@ using Grasp.Knowledge;
 
 namespace Grasp.Hypermedia.Http.Media
 {
-	public abstract class MediaTypePart<T> : ComparableNotion<T> where T : MediaTypePart<T>
+	public abstract class VendorPart<TThis> : ComparableNotion<TThis> where TThis : VendorPart<TThis>
 	{
-		public static readonly Field<string> ValueField = Field.On<MediaTypePart<T>>.Backing(x => x.Value);
+		public static readonly Field<string> ValueField = Field.On<VendorPart<TThis>>.Backing(x => x.Value);
 
-		protected MediaTypePart(string value)
+		protected VendorPart(string value)
 		{
 			Contract.Requires(value != null);
 
@@ -20,12 +20,12 @@ namespace Grasp.Hypermedia.Http.Media
 
 		public string Value { get { return GetValue(ValueField); } private set { SetValue(ValueField, value); } }
 
-		public override int CompareTo(T other)
+		public override int CompareTo(TThis other)
 		{
 			return other == null ? 1 : Value.CompareTo(other.Value);
 		}
 
-		public override bool Equals(T other)
+		public override bool Equals(TThis other)
 		{
 			return other != null && Value.Equals(other.Value);
 		}

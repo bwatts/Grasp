@@ -61,6 +61,105 @@ namespace Grasp.Hypermedia.Http.Media {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to json.
+        /// </summary>
+        internal static string FormatJson {
+            get {
+                return ResourceManager.GetString("FormatJson", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to JavaScript Object Notation (JSON).
+        /// </summary>
+        internal static string FormatJsonDescription {
+            get {
+                return ResourceManager.GetString("FormatJsonDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to http://en.wikipedia.org/wiki/JSON.
+        /// </summary>
+        internal static string FormatJsonUrl {
+            get {
+                return ResourceManager.GetString("FormatJsonUrl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string FormatUnspecified {
+            get {
+                return ResourceManager.GetString("FormatUnspecified", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unspecified.
+        /// </summary>
+        internal static string FormatUnspecifiedDescription {
+            get {
+                return ResourceManager.GetString("FormatUnspecifiedDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to xhtml.
+        /// </summary>
+        internal static string FormatXhtml {
+            get {
+                return ResourceManager.GetString("FormatXhtml", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to eXtensible HyperText Markup Language (XHTML).
+        /// </summary>
+        internal static string FormatXhtmlDescription {
+            get {
+                return ResourceManager.GetString("FormatXhtmlDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to http://en.wikipedia.org/wiki/XHTML.
+        /// </summary>
+        internal static string FormatXhtmlUrl {
+            get {
+                return ResourceManager.GetString("FormatXhtmlUrl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to xml.
+        /// </summary>
+        internal static string FormatXml {
+            get {
+                return ResourceManager.GetString("FormatXml", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to eXtensible Markup Language (XML).
+        /// </summary>
+        internal static string FormatXmlDescription {
+            get {
+                return ResourceManager.GetString("FormatXmlDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to http://en.wikipedia.org/wiki/XML.
+        /// </summary>
+        internal static string FormatXmlUrl {
+            get {
+                return ResourceManager.GetString("FormatXmlUrl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to media-types.
         /// </summary>
         internal static string MediaTypesRelationship {

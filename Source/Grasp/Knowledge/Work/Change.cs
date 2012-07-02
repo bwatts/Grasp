@@ -65,7 +65,7 @@ namespace Grasp.Knowledge.Work
 		}
 
 
-		public static OwnershipChange InOwnership(Notion notion, string priorOwner, string newOwner)
+		public static OwnershipChange InOwnership(Notion notion, DateTime when, string priorOwner, string newOwner)
 		{
 			var change = new OwnershipChange();
 

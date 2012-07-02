@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{75771C68-B495-400C-B11F-B1221E2AF231}</ProjectGuid>
+    <ProjectGuid>{17783381-3FB0-42E0-9397-6CDDE1C46279}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Grasp.Hypermedia.Http</RootNamespace>
-    <AssemblyName>Grasp.Hypermedia.Http</AssemblyName>
+    <AssemblyName>Grasp.Hypermedia.Http.Examples</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <CodeContractsAssemblyMode>0</CodeContractsAssemblyMode>
@@ -98,25 +98,42 @@
     <CodeContractsAnalysisWarningLevel>0</CodeContractsAnalysisWarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Castle.Core">
+      <HintPath>..\packages\Castle.Core.3.0.0.4001\lib\net40-client\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Cloak">
+      <HintPath>..\packages\Cloak.0.5.0.0\lib\net40\Cloak.dll</HintPath>
+    </Reference>
+    <Reference Include="Cloak.NUnit">
+      <HintPath>..\packages\Cloak.NUnit.0.4.0.0\lib\net40\Cloak.NUnit.dll</HintPath>
+    </Reference>
+    <Reference Include="FakeItEasy">
+      <HintPath>..\packages\FakeItEasy.1.7.4507.61\lib\NET40\FakeItEasy.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.4.5.6\lib\net40\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.4.5.7\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework">
+      <HintPath>..\packages\NUnit.2.5.10.11092\lib\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.mocks">
+      <HintPath>..\packages\NUnit.2.5.10.11092\lib\nunit.mocks.dll</HintPath>
+    </Reference>
+    <Reference Include="pnunit.framework">
+      <HintPath>..\packages\NUnit.2.5.10.11092\lib\pnunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Net.Http, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <Private>True</Private>
+    <Reference Include="System.Net.Http">
       <HintPath>..\packages\Microsoft.Net.Http.2.0.20505.0\lib\net40\System.Net.Http.dll</HintPath>
     </Reference>
-    <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
+    <Reference Include="System.Net.Http.Formatting">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.4.0.20505.0\lib\net40\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
-    <Reference Include="System.Net.Http.WebRequest, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <Private>True</Private>
+    <Reference Include="System.Net.Http.WebRequest">
       <HintPath>..\packages\Microsoft.Net.Http.2.0.20505.0\lib\net40\System.Net.Http.WebRequest.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
+    <Reference Include="System.Web.Http">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.4.0.20505.0\lib\net40\System.Web.Http.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.Linq" />
@@ -129,50 +146,34 @@
     <Compile Include="..\GraspAssemblyInfo.cs">
       <Link>Properties\GraspAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="HttpLink.cs" />
-    <Compile Include="HypermediaApi.cs" />
-    <Compile Include="IHttpMesh.cs" />
-    <Compile Include="Media\IMediaTypeRepository.cs" />
-    <Compile Include="Media\MediaFormat.cs" />
-    <Compile Include="Media\MediaFormatAttribute.cs" />
-    <Compile Include="Media\MediaType.cs" />
-    <Compile Include="Media\VendorFormat.cs" />
-    <Compile Include="Media\VendorPart.cs" />
-    <Compile Include="Media\VendorResource.cs" />
-    <Compile Include="Media\VendorPath.cs" />
-    <Compile Include="Media\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
+    <Compile Include="ResourceUris\RootPartThenTextToAbsoluteUrl.cs" />
+    <Compile Include="ResourceUris\RootPartToAbsoluteUrl.cs" />
+    <Compile Include="ResourceUris\RootPartThenText.cs" />
+    <Compile Include="ResourceUris\RootPartThenFormattedObject.cs" />
+    <Compile Include="ResourceUris\RootPartThenObject.cs" />
+    <Compile Include="ResourceUris\RootPartThenParameter.cs" />
+    <Compile Include="ResourceUris\RootPartThenSeparator.cs" />
+    <Compile Include="ResourceUris\GetRootPart.cs" />
+    <Compile Include="Media\CreateMediaTypeWithVendor.cs" />
+    <Compile Include="Media\ParseVendorPathWithResourceWithoutFormat.cs" />
+    <Compile Include="Media\ParseVendorPathWithoutFormat.cs" />
+    <Compile Include="Media\ParseVendorPathWithResource.cs" />
+    <Compile Include="Media\ParseVendorPath.cs" />
+    <Compile Include="Media\CreateMediaTypeWithoutVendor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ResourceMesh.cs" />
-    <Compile Include="Resources.Designer.cs">
-      <DependentUpon>Resources.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="ResourceUriPart.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Grasp\Grasp.csproj">
-      <Project>{0A728107-2D52-4E6B-B651-793048876837}</Project>
-      <Name>Grasp</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <EmbeddedResource Include="Media\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
+    <ProjectReference Include="..\Grasp.Hypermedia.Http\Grasp.Hypermedia.Http.csproj">
+      <Project>{75771C68-B495-400C-B11F-B1221E2AF231}</Project>
+      <Name>Grasp.Hypermedia.Http</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Grasp\Grasp.csproj">
+      <Project>{0A728107-2D52-4E6B-B651-793048876837}</Project>
+      <Name>Grasp</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

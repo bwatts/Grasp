@@ -37,6 +37,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dash.Infrastructure", "Dash
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Grasp.Raven", "Grasp.Raven\Grasp.Raven.csproj", "{C2B15833-E9E0-421E-A0CD-8A2C677BAF48}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Grasp.Hypermedia.Http.Examples", "Grasp.Hypermedia.Http.Examples\Grasp.Hypermedia.Http.Examples.csproj", "{17783381-3FB0-42E0-9397-6CDDE1C46279}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -177,12 +179,23 @@ Global
 		{C2B15833-E9E0-421E-A0CD-8A2C677BAF48}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{C2B15833-E9E0-421E-A0CD-8A2C677BAF48}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{C2B15833-E9E0-421E-A0CD-8A2C677BAF48}.Release|x86.ActiveCfg = Release|Any CPU
+		{17783381-3FB0-42E0-9397-6CDDE1C46279}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17783381-3FB0-42E0-9397-6CDDE1C46279}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17783381-3FB0-42E0-9397-6CDDE1C46279}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{17783381-3FB0-42E0-9397-6CDDE1C46279}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{17783381-3FB0-42E0-9397-6CDDE1C46279}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{17783381-3FB0-42E0-9397-6CDDE1C46279}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17783381-3FB0-42E0-9397-6CDDE1C46279}.Release|Any CPU.Build.0 = Release|Any CPU
+		{17783381-3FB0-42E0-9397-6CDDE1C46279}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{17783381-3FB0-42E0-9397-6CDDE1C46279}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{17783381-3FB0-42E0-9397-6CDDE1C46279}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{177B3825-0297-44E1-AFA9-FFC86DF13194} = {48C09AFF-60C1-47CA-B581-FEAE025ED3C0}
+		{17783381-3FB0-42E0-9397-6CDDE1C46279} = {48C09AFF-60C1-47CA-B581-FEAE025ED3C0}
 		{FE657A80-99F3-49A5-B71F-E3EA341E5720} = {2851039E-DF40-432E-8C9F-B910BB6811AE}
 		{4EC9F6E9-8AD0-44F9-B9D8-7EF96F6DBCA3} = {2851039E-DF40-432E-8C9F-B910BB6811AE}
 		{7DE4156E-05D9-4EB8-8F2F-CC5F500E572B} = {2851039E-DF40-432E-8C9F-B910BB6811AE}

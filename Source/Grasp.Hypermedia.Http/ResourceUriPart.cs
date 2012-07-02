@@ -3,12 +3,16 @@ using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
+using Grasp.Knowledge;
 
 namespace Grasp.Hypermedia.Http
 {
-	public sealed class ResourceUriPart
+	public sealed class ResourceUriPart : ComparableNotion<ResourceUriPart>
 	{
 		public const string Separator = "/";
+
+		public static readonly Field<ResourceUriPart> BasePartField = Field.On<ResourceUriPart>.Backing(x => x.BasePart);
+		public static readonly Field<string> ValueField = Field.On<ResourceUriPart>.Backing(x => x.Value);
 
 		public static readonly ResourceUriPart Root = new ResourceUriPart();
 
@@ -21,18 +25,23 @@ namespace Grasp.Hypermedia.Http
 			Value = value;
 		}
 
+		private ResourceUriPart(ResourceUriPart basePart)
+		{
+			BasePart = basePart;
+			Value = "";
+		}
+
 		private ResourceUriPart()
 		{
 			Value = "";
 		}
 
-		public ResourceUriPart BasePart { get; private set; }
-
-		public string Value { get; private set; }
+		public ResourceUriPart BasePart { get { return GetValue(BasePartField); } private set { SetValue(BasePartField, value); } }
+		public string Value { get { return GetValue(ValueField); } private set { SetValue(ValueField, value); } }
 
 		public ResourceUriPart Then(string nextPart)
 		{
-			return new ResourceUriPart(this, nextPart);
+			return nextPart == Separator ? new ResourceUriPart(this) : new ResourceUriPart(this, nextPart);
 		}
 
 		public ResourceUriPart Then(object nextPart)
@@ -55,11 +64,35 @@ namespace Grasp.Hypermedia.Http
 			return new ResourceUriPart(this, "{" + parameterName + "}");
 		}
 
-		public Uri ToAbsoluteUri(Uri baseUri)
+		public bool TryGetParameterName(out string name)
 		{
-			Contract.Requires(baseUri != null);
+			var isParameter = Value.StartsWith("{") && Value.EndsWith("}");
 
-			return new Uri(baseUri, ToString());
+			name = !isParameter ? null : Value.Substring(1, Value.Length - 2);
+
+			return isParameter;
+		}
+
+		public Uri ToAbsoluteUrl(Uri baseUrl)
+		{
+			Contract.Requires(baseUrl != null);
+
+			return new Uri(baseUrl, ToString());
+		}
+
+		public override int CompareTo(ResourceUriPart other)
+		{
+			return other == null ? 1 : Value.CompareTo(other.Value);
+		}
+
+		public override bool Equals(ResourceUriPart other)
+		{
+			return other != null && Value.Equals(other.Value);
+		}
+
+		public override int GetHashCode()
+		{
+			return Value.GetHashCode();
 		}
 
 		public override string ToString()
