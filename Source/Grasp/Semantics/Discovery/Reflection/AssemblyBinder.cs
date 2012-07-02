@@ -25,7 +25,7 @@ namespace Grasp.Semantics.Discovery.Reflection
 
 			var x = new ReflectionBinding();
 
-			x.SetValue(ReflectionBinding.NamespaceBindingsField, new Many<NamespaceBinding>(GetNamespaceBindings(assemblies)));
+			ReflectionBinding.NamespaceBindingsField.Set(x, new Many<NamespaceBinding>(GetNamespaceBindings(assemblies)));
 
 			return x;
 		}
@@ -67,8 +67,8 @@ namespace Grasp.Semantics.Discovery.Reflection
 				{
 					var x = new NamespaceBinding();
 
-					x.SetValue(NamespaceBinding.NameField, @namespace.Name);
-					x.SetValue(NamespaceBinding.PartBindingsField, @namespace.PartBindings);
+					NamespaceBinding.NameField.Set(x, @namespace.Name);
+					NamespaceBinding.PartBindingsField.Set(x, @namespace.PartBindings);
 
 					yield return x;
 				}
@@ -90,8 +90,8 @@ namespace Grasp.Semantics.Discovery.Reflection
 				{
 					var x = new NamespacePartBinding();
 
-					x.SetValue(NamespacePartBinding.AssemblyField, part.Assembly);
-					x.SetValue(NamespacePartBinding.TypeBindingsField, part.TypeBindings);
+					NamespacePartBinding.AssemblyField.Set(x, part.Assembly);
+					NamespacePartBinding.TypeBindingsField.Set(x, part.TypeBindings);
 
 					yield return x;
 				}
@@ -109,7 +109,7 @@ namespace Grasp.Semantics.Discovery.Reflection
 			{
 				var x = new EnumBinding();
 
-				x.SetValue(EnumBinding.TypeField, type);
+				EnumBinding.TypeField.Set(x, type);
 
 				return x;
 			}
@@ -118,8 +118,8 @@ namespace Grasp.Semantics.Discovery.Reflection
 			{
 				var x = new EntityBinding();
 
-				x.SetValue(TypeBinding.TypeField, type);
-				x.SetValue(EntityBinding.MemberBindingsField, new Many<MemberBinding>(GetMemberBindings(type)));
+				TypeBinding.TypeField.Set(x, type);
+				EntityBinding.MemberBindingsField.Set(x, new Many<MemberBinding>(GetMemberBindings(type)));
 
 				return x;
 			}
@@ -133,9 +133,9 @@ namespace Grasp.Semantics.Discovery.Reflection
 					var field = GetField(property);
 
 					// TODO: Remove base info field binding after implementing shadowing
-					x.SetValue(MemberBinding.InfoField, property);
-					x.SetValue(MemberBinding.FieldField, field);
-					x.SetValue(PropertyInfoBinding.InfoField, property);
+					MemberBinding.InfoField.Set(x, property);
+					MemberBinding.FieldField.Set(x, field);
+					PropertyInfoBinding.InfoField.Set(x, property);
 
 					// TODO: Don't allow unmatched fields
 					if(field != null)
@@ -149,9 +149,9 @@ namespace Grasp.Semantics.Discovery.Reflection
 					var x = new FieldInfoBinding();
 
 					// TODO: Remove base info field binding after implementing shadowing
-					x.SetValue(MemberBinding.InfoField, field);
-					x.SetValue(MemberBinding.FieldField, GetField(field));
-					x.SetValue(FieldInfoBinding.InfoField, field);
+					MemberBinding.InfoField.Set(x, field);
+					MemberBinding.FieldField.Set(x, GetField(field));
+					FieldInfoBinding.InfoField.Set(x, field);
 
 					// TODO: Don't allow unmatched fields
 					if(x.Field != null)

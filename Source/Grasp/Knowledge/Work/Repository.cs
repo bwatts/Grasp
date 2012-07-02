@@ -7,13 +7,13 @@ using System.Text;
 namespace Grasp.Knowledge.Work
 {
 	/// <summary>
-	/// Base implementation of a repository which houses entities of a particular type
+	/// Base implementation of a repository housing entities of a particular type
 	/// </summary>
 	/// <typeparam name="TEntity">The type of entity in the repository</typeparam>
 	public abstract class Repository<TEntity> where TEntity : Notion
 	{
 		/// <summary>
-		/// Initializes a repository withing the specified work context
+		/// Initializes a repository within the specified work context
 		/// </summary>
 		/// <param name="context">The context in which this repository does its work</param>
 		protected Repository(IWorkContext context)

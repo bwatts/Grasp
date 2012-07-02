@@ -25,9 +25,9 @@ namespace Grasp.Hypermedia.Formats.Xthml
 
 			var resource = new RootResource();
 
-			resource.SetValue(RootResource.DescriptionField, (string) media.Attribute("description"));
-			resource.SetValue(RootResource.MediaTypesField, new Many<MediaType>());
-			resource.SetValue(RootResource.RelationshipsField, new Many<Relationship>());
+			RootResource.DescriptionField.Set(resource, (string) media.Attribute("description"));
+			RootResource.MediaTypesField.Set(resource, new Many<MediaType>());
+			RootResource.RelationshipsField.Set(resource, new Many<Relationship>());
 
 			return resource;
 		}

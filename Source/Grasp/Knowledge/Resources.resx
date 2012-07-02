@@ -117,20 +117,23 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="DeclaringFieldNameDoesNotEndWithSuffix" xml:space="preserve">
+    <value>Declaring field "{0}" does not end with "{1}"</value>
+  </data>
+  <data name="DeclaringFieldNotDeclaredOnOwningType" xml:space="preserve">
+    <value>Declaring field "{0}" is not declared by owning type {1}</value>
+  </data>
+  <data name="DeclaringFieldNotStatic" xml:space="preserve">
+    <value>Declaring field "{0}" is not static</value>
+  </data>
   <data name="Field" xml:space="preserve">
     <value>{0} ({1})</value>
   </data>
-  <data name="GetPrefix" xml:space="preserve">
-    <value>Get</value>
+  <data name="FieldSuffix" xml:space="preserve">
+    <value>Field</value>
   </data>
-  <data name="GetterMethodNameDoesNotStartWithGet" xml:space="preserve">
-    <value>Getter method "{0}" does not start with "Get"</value>
-  </data>
-  <data name="GetterMethodNotDeclaredOnOwningType" xml:space="preserve">
-    <value>Getter method "{0}" is not declared on owning type {1}</value>
-  </data>
-  <data name="GetterMethodNotStatic" xml:space="preserve">
-    <value>Getter method "{0}" is not static</value>
+  <data name="GetterDoesNotAccessField" xml:space="preserve">
+    <value>Getter {0} does not access a field</value>
   </data>
   <data name="MemberIsNotProperty" xml:space="preserve">
     <value>Member "{0}" is not a property</value>

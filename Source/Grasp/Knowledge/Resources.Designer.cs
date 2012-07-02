@@ -61,6 +61,33 @@ namespace Grasp.Knowledge {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Declaring field &quot;{0}&quot; does not end with &quot;{1}&quot;.
+        /// </summary>
+        internal static string DeclaringFieldNameDoesNotEndWithSuffix {
+            get {
+                return ResourceManager.GetString("DeclaringFieldNameDoesNotEndWithSuffix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Declaring field &quot;{0}&quot; is not declared by owning type {1}.
+        /// </summary>
+        internal static string DeclaringFieldNotDeclaredOnOwningType {
+            get {
+                return ResourceManager.GetString("DeclaringFieldNotDeclaredOnOwningType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Declaring field &quot;{0}&quot; is not static.
+        /// </summary>
+        internal static string DeclaringFieldNotStatic {
+            get {
+                return ResourceManager.GetString("DeclaringFieldNotStatic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} ({1}).
         /// </summary>
         internal static string Field {
@@ -70,38 +97,20 @@ namespace Grasp.Knowledge {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Get.
+        ///   Looks up a localized string similar to Field.
         /// </summary>
-        internal static string GetPrefix {
+        internal static string FieldSuffix {
             get {
-                return ResourceManager.GetString("GetPrefix", resourceCulture);
+                return ResourceManager.GetString("FieldSuffix", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Getter method &quot;{0}&quot; does not start with &quot;Get&quot;.
+        ///   Looks up a localized string similar to Getter {0} does not access a field.
         /// </summary>
-        internal static string GetterMethodNameDoesNotStartWithGet {
+        internal static string GetterDoesNotAccessField {
             get {
-                return ResourceManager.GetString("GetterMethodNameDoesNotStartWithGet", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Getter method &quot;{0}&quot; is not declared on owning type {1}.
-        /// </summary>
-        internal static string GetterMethodNotDeclaredOnOwningType {
-            get {
-                return ResourceManager.GetString("GetterMethodNotDeclaredOnOwningType", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Getter method &quot;{0}&quot; is not static.
-        /// </summary>
-        internal static string GetterMethodNotStatic {
-            get {
-                return ResourceManager.GetString("GetterMethodNotStatic", resourceCulture);
+                return ResourceManager.GetString("GetterDoesNotAccessField", resourceCulture);
             }
         }
         

@@ -78,7 +78,7 @@ namespace Dash.Windows.Presentation
 				AddTopic(topic);
 			}
 
-			var change = NotionLifetime.GetWhenModified(dash);
+			var change = NotionLifetime.WhenModifiedField.Get(dash);
 
 			WhenModified = change == null ? (DateTime?) null : change.When;
 		}

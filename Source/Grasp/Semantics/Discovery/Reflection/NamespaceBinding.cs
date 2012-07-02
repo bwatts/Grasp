@@ -24,8 +24,8 @@ namespace Grasp.Semantics.Discovery.Reflection
 		{
 			var x = new NamespaceModel();
 
-			x.SetValue(NamespaceModel.NameField, Name);
-			x.SetValue(NamespaceModel.TypesField, new Many<TypeModel>(GetTypeModels()));
+			NamespaceModel.NameField.Set(x, Name);
+			NamespaceModel.TypesField.Set(x, new Many<TypeModel>(GetTypeModels()));
 
 			return x;
 		}

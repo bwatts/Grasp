@@ -50,7 +50,7 @@ namespace Dash.Windows.Presentation
 		{
 			get
 			{
-				var change = NotionLifetime.GetWhenModified(Topic);
+				var change = NotionLifetime.WhenModifiedField.Get(Topic);
 
 				return change == null ? (DateTime?) null : change.When;
 			}

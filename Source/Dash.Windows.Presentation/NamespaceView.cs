@@ -48,7 +48,7 @@ namespace Dash.Windows.Presentation
 
 			var topic = new Topic(_namespace.Name, TopicStatus.Default, explorer);
 
-			NotionLifetime.SetWhenModified(topic, Change.EntityModified(topic, DateTime.Now));
+			NotionLifetime.WhenModifiedField.Set(topic, Change.EntityModified(topic, DateTime.Now));
 
 			_dashContext.AddTopic(this, topic);
 		}

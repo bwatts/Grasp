@@ -46,11 +46,11 @@ namespace Dash.Windows.Composition
 
 				var topic = new Topic("Domain Explorer", ProcessStatus.Over, _domainExplorerViewFactory());
 
-				dash.SetValue(Board.UsernameField, username);
-				dash.SetValue(Board.TopicsField, new Many<Topic>(topic));
+				UserDash.UsernameField.Set(dash, username);
+				UserDash.TopicsField.Set(dash, new Many<Topic>(topic));
 
-				NotionLifetime.SetWhenModified(topic, Change.EntityModified(topic, DateTime.Now));
-				NotionLifetime.SetWhenModified(dash, Change.EntityCreated(dash, DateTime.Now));
+				NotionLifetime.WhenModifiedField.Set(topic, Change.EntityModified(topic, DateTime.Now));
+				NotionLifetime.WhenModifiedField.Set(dash, Change.EntityCreated(dash, DateTime.Now));
 
 				return dash;
 			}

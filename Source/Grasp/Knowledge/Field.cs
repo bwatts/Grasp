@@ -69,34 +69,40 @@ namespace Grasp.Knowledge
 				/// Specify the static method which gets the value from an instance of <typeparamref name="TTarget"/>
 				/// </summary>
 				/// <typeparam name="TValue">The type of the attached field's value</typeparam>
-				/// <param name="callGetter">A call to the static method which gets the value from an instance of <typeparamref name="TTarget"/></param>
+				/// <param name="getField">A call to the static method which accesses the declared field</param>
 				/// <returns>An attached field which contains the value accessed by the specified getter</returns>
 				/// <exception cref="ArgumentException">
-				/// Thrown if <paramref name="callGetter"/> does not represent a static method call, -or- the static method is not declared by <typeparamref name="TOwner"/>,
-				/// -or- the static method name does not start with the "Get" prefix
+				/// Thrown if <paramref name="getField"/> does not access a static field, -or- the static field is not declared by <typeparamref name="TOwner"/>,
+				/// -or- the static field's name does not end with the "Field" suffix
 				/// </exception>
-				public static Field<TValue> For<TValue>(Expression<Func<TTarget, TValue>> callGetter)
+				public static Field<TValue> Backing<TValue>(Expression<Func<Field<TValue>>> getField)
 				{
-					Contract.Requires(callGetter != null);
+					Contract.Requires(getField != null);
 
-					var getter = callGetter.GetMethodInfo();
+					var memberAccess = getField.Body as MemberExpression;
+					var fieldGetter = memberAccess == null ? null : memberAccess.Member as FieldInfo;
 
-					if(getter.DeclaringType != typeof(TOwner))
+					if(fieldGetter == null)
 					{
-						throw new ArgumentException(Resources.GetterMethodNotDeclaredOnOwningType.FormatInvariant(getter.Name, typeof(TOwner)), "callGetter");
+						throw new ArgumentException(Resources.GetterDoesNotAccessField.FormatInvariant(getField));
 					}
 
-					if(!getter.IsStatic)
+					if(!fieldGetter.IsStatic)
 					{
-						throw new ArgumentException(Resources.GetterMethodNotStatic.FormatInvariant(getter.Name, typeof(TOwner)), "callGetter");
+						throw new ArgumentException(Resources.DeclaringFieldNotStatic.FormatInvariant(fieldGetter.Name, typeof(TOwner)), "getField");
 					}
 
-					if(!getter.Name.StartsWith(Resources.GetPrefix))
+					if(fieldGetter.DeclaringType != typeof(TOwner))
 					{
-						throw new ArgumentException(Resources.GetterMethodNameDoesNotStartWithGet.FormatInvariant(getter.Name), "callGetter");
+						throw new ArgumentException(Resources.DeclaringFieldNotDeclaredOnOwningType.FormatInvariant(fieldGetter.Name, typeof(TOwner)), "getField");
 					}
 
-					var fieldName = getter.Name.Substring(Resources.GetPrefix.Length);
+					if(!fieldGetter.Name.EndsWith(Resources.FieldSuffix))
+					{
+						throw new ArgumentException(Resources.DeclaringFieldNameDoesNotEndWithSuffix.FormatInvariant(fieldGetter.Name, Resources.FieldSuffix), "getField");
+					}
+
+					var fieldName = fieldGetter.Name.Substring(0, fieldGetter.Name.Length - Resources.FieldSuffix.Length);
 
 					return new Field<TValue>(typeof(TOwner), fieldName, true);
 				}
@@ -177,5 +183,15 @@ namespace Grasp.Knowledge
 	{
 		internal Field(Type ownerType, string name, bool isAttachable) : base(ownerType, name, typeof(TValue), isAttachable)
 		{}
+
+		public TValue Get(Notion notion)
+		{
+			return ((IFieldContext) notion).GetValue(this);
+		}
+
+		public void Set(Notion notion, TValue value)
+		{
+			((IFieldContext) notion).SetValue(this, value);
+		}
 	}
 }

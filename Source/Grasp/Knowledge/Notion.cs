@@ -15,53 +15,68 @@ namespace Grasp.Knowledge
 		/// </summary>
 		protected Notion()
 		{
-			Context = new InitialNotionContext();
+			Context = new InitialContext();
 		}
 
 		internal INotionContext Context { get; set; }
 
-		// TODO: Eventually replace this with the explicit implementation
-
-		public object GetValue(Field field)
+		object IFieldContext.GetValue(Field field)
 		{
 			return Context.GetValue(this, field);
 		}
 
-		public T GetValue<T>(Field<T> field)
+		T IFieldContext.GetValue<T>(Field<T> field)
 		{
 			return (T) Context.GetValue(this, field);
 		}
 
-		public void SetValue(Field field, object value)
+		void IFieldContext.SetValue(Field field, object value)
 		{
 			Context.SetValue(this, field, value);
 		}
 
-		public void SetValue<T>(Field<T> field, T value)
+		void IFieldContext.SetValue<T>(Field<T> field, T value)
 		{
 			Context.SetValue(this, field, value);
 		}
 
-		// Keep these off the public interface by unconditionally passing through to the context
+		protected object GetValue(Field field)
+		{
+			return Context.GetValue(this, field);
+		}
 
-		//object IFieldContext.GetValue(Field field)
-		//{
-		//  return Context.GetValue(this, field);
-		//}
+		protected T GetValue<T>(Field<T> field)
+		{
+			return (T) Context.GetValue(this, field);
+		}
 
-		//T IFieldContext.GetValue<T>(Field<T> field)
-		//{
-		//  return (T) Context.GetValue(this, field);
-		//}
+		protected void SetValue(Field field, object value)
+		{
+			Context.SetValue(this, field, value);
+		}
 
-		//void IFieldContext.SetValue(Field field, object value)
-		//{
-		//  Context.SetValue(this, field, value);
-		//}
+		protected void SetValue<T>(Field<T> field, T value)
+		{
+			Context.SetValue(this, field, value);
+		}
 
-		//void IFieldContext.SetValue<T>(Field<T> field, T value)
-		//{
-		//  Context.SetValue(this, field, value);
-		//}
+		private sealed class InitialContext : INotionContext
+		{
+			private readonly IDictionary<Field, object> _values = new Dictionary<Field, object>();
+
+			public object GetValue(Notion notion, Field field)
+			{
+				object value;
+
+				_values.TryGetValue(field, out value);
+
+				return value;
+			}
+
+			public void SetValue(Notion notion, Field field, object value)
+			{
+				_values[field] = value;
+			}
+		}
 	}
 }
