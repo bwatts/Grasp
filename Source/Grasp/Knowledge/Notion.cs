@@ -18,7 +18,7 @@ namespace Grasp.Knowledge
 			Context = new InitialContext();
 		}
 
-		internal INotionContext Context { get; set; }
+		#region IFieldContext
 
 		object IFieldContext.GetValue(Field field)
 		{
@@ -59,6 +59,9 @@ namespace Grasp.Knowledge
 		{
 			Context.SetValue(this, field, value);
 		}
+		#endregion
+
+		internal INotionContext Context { get; set; }
 
 		private sealed class InitialContext : INotionContext
 		{

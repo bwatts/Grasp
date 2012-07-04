@@ -117,16 +117,49 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="MediaTypePluralRelationship" xml:space="preserve">
-    <value>media-types</value>
+  <data name="FormatJson" xml:space="preserve">
+    <value>json</value>
   </data>
-  <data name="MediaTypeRelationship" xml:space="preserve">
-    <value>media-type</value>
+  <data name="FormatJsonDescription" xml:space="preserve">
+    <value>JavaScript Object Notation (JSON)</value>
+  </data>
+  <data name="FormatJsonUrl" xml:space="preserve">
+    <value>http://en.wikipedia.org/wiki/JSON</value>
+  </data>
+  <data name="FormatUnspecified" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FormatUnspecifiedDescription" xml:space="preserve">
+    <value>Unspecified</value>
+  </data>
+  <data name="FormatXhtml" xml:space="preserve">
+    <value>xhtml</value>
+  </data>
+  <data name="FormatXhtmlDescription" xml:space="preserve">
+    <value>eXtensible HyperText Markup Language (XHTML)</value>
+  </data>
+  <data name="FormatXhtmlUrl" xml:space="preserve">
+    <value>http://en.wikipedia.org/wiki/XHTML</value>
+  </data>
+  <data name="FormatXml" xml:space="preserve">
+    <value>xml</value>
+  </data>
+  <data name="FormatXmlDescription" xml:space="preserve">
+    <value>eXtensible Markup Language (XML)</value>
+  </data>
+  <data name="FormatXmlUrl" xml:space="preserve">
+    <value>http://en.wikipedia.org/wiki/XML</value>
+  </data>
+  <data name="MediaTypesRelationship" xml:space="preserve">
+    <value>media-types</value>
   </data>
   <data name="MemberIsNotProperty" xml:space="preserve">
     <value>Expression does not access a property: {0}</value>
   </data>
   <data name="MemberNotDeclaredOnOwningType" xml:space="preserve">
     <value>Member "{0}" is not declared on owning type {1}</value>
+  </data>
+  <data name="UnsupportedMediaType" xml:space="preserve">
+    <value>Formatter of type {0} does not support media of type {1}</value>
   </data>
 </root>

@@ -284,6 +284,7 @@
     <Compile Include="Checks\Specification.cs" />
     <Compile Include="Checks\CheckException.cs" />
     <Compile Include="GraspException.cs" />
+    <Compile Include="Hypermedia\HypermediaApi.cs" />
     <Compile Include="Hypermedia\IRelationshipRepository.cs" />
     <Compile Include="Hypermedia\Resources.Designer.cs">
       <DependentUpon>Resources.resx</DependentUpon>

@@ -129,30 +129,31 @@
     <Compile Include="..\GraspAssemblyInfo.cs">
       <Link>Properties\GraspAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="HttpLink.cs" />
-    <Compile Include="HypermediaApi.cs" />
-    <Compile Include="IHttpMesh.cs" />
-    <Compile Include="Media\IMediaTypeRepository.cs" />
-    <Compile Include="Media\MediaFormat.cs" />
-    <Compile Include="Media\MediaFormatAttribute.cs" />
-    <Compile Include="Media\MediaType.cs" />
-    <Compile Include="Media\VendorFormat.cs" />
-    <Compile Include="Media\VendorPart.cs" />
-    <Compile Include="Media\VendorResource.cs" />
-    <Compile Include="Media\VendorPath.cs" />
-    <Compile Include="Media\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
+    <Compile Include="Mesh\HttpLink.cs" />
+    <Compile Include="HttpHypermediaApi.cs" />
+    <Compile Include="Mesh\IHttpMesh.cs" />
+    <Compile Include="IMediaTypeRepository.cs" />
+    <Compile Include="MediaFormat.cs" />
+    <Compile Include="MediaType.cs" />
+    <Compile Include="Mesh\HttpResource.cs" />
+    <Compile Include="Mesh\MediaTypeResource.cs" />
+    <Compile Include="Mesh\MediaTypesResource.cs" />
+    <Compile Include="Mesh\RelationshipResource.cs" />
+    <Compile Include="Mesh\RelationshipsResource.cs" />
+    <Compile Include="Mesh\RootResource.cs" />
+    <Compile Include="Mesh\RootMedia.cs" />
+    <Compile Include="VendorFormat.cs" />
+    <Compile Include="VendorPart.cs" />
+    <Compile Include="VendorResource.cs" />
+    <Compile Include="VendorPath.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ResourceMesh.cs" />
+    <Compile Include="Mesh\MediaMesh.cs" />
     <Compile Include="Resources.Designer.cs">
       <DependentUpon>Resources.resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="ResourceUriPart.cs" />
+    <Compile Include="Mesh\UriPart.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Grasp\Grasp.csproj">
@@ -165,10 +166,6 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <EmbeddedResource Include="Media\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
     <EmbeddedResource Include="Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

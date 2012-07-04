@@ -63,9 +63,9 @@ namespace Grasp.Hypermedia {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string DefaultRelationship {
+        internal static string HomeRelationship {
             get {
-                return ResourceManager.GetString("DefaultRelationship", resourceCulture);
+                return ResourceManager.GetString("HomeRelationship", resourceCulture);
             }
         }
         

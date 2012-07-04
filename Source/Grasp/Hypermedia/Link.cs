@@ -9,16 +9,16 @@ namespace Grasp.Hypermedia
 {
 	public sealed class Link : Notion
 	{
-		public static readonly Field<Notion> SourceField = Field.On<Link>.Backing(x => x.Source);
-		public static readonly Field<Notion> TargetField = Field.On<Link>.Backing(x => x.Target);
+		public static readonly Field<object> SourceField = Field.On<Link>.Backing(x => x.Source);
+		public static readonly Field<object> TargetField = Field.On<Link>.Backing(x => x.Target);
 		public static readonly Field<Relationship> RelationshipField = Field.On<Link>.Backing(x => x.Relationship);
 
-		public static Link Self(Notion source)
+		public static Link Self(object source)
 		{
 			return new Link(source, source, Relationship.Self);
 		}
 
-		public Link(Notion source, Notion target, Relationship relationship)
+		public Link(object source, object target, Relationship relationship)
 		{
 			Contract.Requires(source != null);
 			Contract.Requires(target != null);
@@ -29,8 +29,8 @@ namespace Grasp.Hypermedia
 			Relationship = relationship;
 		}
 
-		public Notion Source { get { return GetValue(SourceField); } private set { SetValue(SourceField, value); } }
-		public Notion Target { get { return GetValue(TargetField); } private set { SetValue(TargetField, value); } }
+		public object Source { get { return GetValue(SourceField); } private set { SetValue(SourceField, value); } }
+		public object Target { get { return GetValue(TargetField); } private set { SetValue(TargetField, value); } }
 		public Relationship Relationship { get { return GetValue(RelationshipField); } private set { SetValue(RelationshipField, value); } }
 	}
 }
