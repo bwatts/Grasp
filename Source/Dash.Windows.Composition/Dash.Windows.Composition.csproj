@@ -135,13 +135,8 @@
     <Compile Include="DomainExplorerModule.cs" />
     <Compile Include="DashModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Shell.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Dash.Infrastructure\Dash.Infrastructure.csproj">
-      <Project>{944ACA52-CECE-4861-92E5-D1B18543EC60}</Project>
-      <Name>Dash.Infrastructure</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Dash.Windows.Presentation\Dash.Windows.Presentation.csproj">
       <Project>{4EC9F6E9-8AD0-44F9-B9D8-7EF96F6DBCA3}</Project>
       <Name>Dash.Windows.Presentation</Name>

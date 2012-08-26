@@ -4,6 +4,8 @@ using System.Configuration;
 using System.Data;
 using System.Linq;
 using System.Windows;
+using Dash.Autofac;
+using Dash.Context;
 using Dash.Windows.Composition;
 using Dash.Windows.UI.Composition;
 using Dash.Windows.UI.Views;
@@ -12,7 +14,7 @@ namespace Dash.Windows.UI
 {
 	public partial class App : Application
 	{
-		private Shell<ShellWindow> _shell;
+		private IDashContext _appContext;
 
 		public App()
 		{
@@ -21,16 +23,11 @@ namespace Dash.Windows.UI
 
 		protected override void OnStartup(StartupEventArgs e)
 		{
-			_shell = new Shell<ShellWindow>(() => new AppModule());
+			_appContext = DashApplication.GetContext<AppModule, ShellModule>(root => new WindowsContext(this, root));
 
-			_shell.Start(this);
-		}
+			// TODO: Get an IHostable from MEF and execute it with _host
 
-		protected override void OnExit(ExitEventArgs e)
-		{
-			_shell.Stop();
-
-			base.OnExit(e);
+			// _host.Execute(system);
 		}
 	}
 }

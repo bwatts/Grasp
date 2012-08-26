@@ -163,9 +163,9 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Dash.Infrastructure\Dash.Infrastructure.csproj">
-      <Project>{944ACA52-CECE-4861-92E5-D1B18543EC60}</Project>
-      <Name>Dash.Infrastructure</Name>
+    <ProjectReference Include="..\Dash.Autofac\Dash.Autofac.csproj">
+      <Project>{21538DC6-DE7F-40C9-B5B4-E33D8F8D1D3F}</Project>
+      <Name>Dash.Autofac</Name>
     </ProjectReference>
     <ProjectReference Include="..\Dash.Windows.Composition\Dash.Windows.Composition.csproj">
       <Project>{FE657A80-99F3-49A5-B71F-E3EA341E5720}</Project>
@@ -175,11 +175,15 @@
       <Project>{4EC9F6E9-8AD0-44F9-B9D8-7EF96F6DBCA3}</Project>
       <Name>Dash.Windows.Presentation</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Dash.Windows\Dash.Windows.csproj">
+      <Project>{04E8B6AC-F539-4B5F-AF52-F591E57AEEFC}</Project>
+      <Name>Dash.Windows</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Dash\Dash.csproj">
       <Project>{1A782573-0CDB-4972-939F-5A874874E727}</Project>
       <Name>Dash %28Dash\Dash%29</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Grasp.Hypermedia.Http\Grasp.Hypermedia.Http.csproj">
+    <ProjectReference Include="..\Grasp.Hypermedia\Grasp.Hypermedia.csproj">
       <Project>{75771C68-B495-400C-B11F-B1221E2AF231}</Project>
       <Name>Grasp.Hypermedia.Http</Name>
     </ProjectReference>

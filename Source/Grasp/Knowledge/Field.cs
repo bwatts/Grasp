@@ -110,6 +110,8 @@ namespace Grasp.Knowledge
 		}
 		#endregion
 
+		public static readonly object UnsetValue = new object();
+
 		internal Field(Type ownerType, string name, Type valueType, bool isAttachable)
 		{
 			OwnerType = ownerType;
@@ -173,6 +175,21 @@ namespace Grasp.Knowledge
 		{
 			return Resources.Field.FormatInvariant(Name, ValueType);
 		}
+
+		public object Get(Notion notion)
+		{
+			return ((IFieldContext) notion).GetValue(this);
+		}
+
+		public void Set(Notion notion, object value)
+		{
+			((IFieldContext) notion).SetValue(this, value);
+		}
+
+		public bool IsUnset(Notion notion)
+		{
+			return ((INotionContext) this).GetValue(notion, this) == UnsetValue;
+		}
 	}
 
 	/// <summary>
@@ -184,12 +201,12 @@ namespace Grasp.Knowledge
 		internal Field(Type ownerType, string name, bool isAttachable) : base(ownerType, name, typeof(TValue), isAttachable)
 		{}
 
-		public TValue Get(Notion notion)
+		public new TValue Get(Notion notion)
 		{
 			return ((IFieldContext) notion).GetValue(this);
 		}
 
-		public void Set(Notion notion, TValue value)
+		public new void Set(Notion notion, TValue value)
 		{
 			((IFieldContext) notion).SetValue(this, value);
 		}
