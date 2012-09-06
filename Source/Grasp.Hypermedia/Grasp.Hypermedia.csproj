@@ -129,13 +129,8 @@
     <Compile Include="..\GraspAssemblyInfo.cs">
       <Link>Properties\GraspAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Api\HttpApiFormat.cs" />
-    <Compile Include="Api\MediaTypeFormat.cs" />
-    <Compile Include="Api\RelationshipFormat.cs" />
     <Compile Include="HttpLink.cs" />
-    <Compile Include="Api\HttpApi.cs" />
     <Compile Include="IHttpMesh.cs" />
-    <Compile Include="IMediaTypeRepository.cs" />
     <Compile Include="Linq\HtmlLink.cs" />
     <Compile Include="Linq\MLink.cs" />
     <Compile Include="Linq\MText.cs" />
@@ -149,11 +144,6 @@
     <Compile Include="Linq\MRepresentation.cs" />
     <Compile Include="Linq\MHead.cs" />
     <Compile Include="HttpResource.cs" />
-    <Compile Include="Api\MediaTypeResource.cs" />
-    <Compile Include="Api\MediaTypesResource.cs" />
-    <Compile Include="Api\RelationshipResource.cs" />
-    <Compile Include="Api\RelationshipsResource.cs" />
-    <Compile Include="Api\RootResource.cs" />
     <Compile Include="VendorPath.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources.Designer.cs">

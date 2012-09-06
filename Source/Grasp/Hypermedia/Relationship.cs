@@ -11,9 +11,7 @@ namespace Grasp.Hypermedia
 	{
 		public static readonly Field<string> NameField = Field.On<Relationship>.Backing(x => x.Name);
 
-		public static readonly Relationship Home = new Relationship(Resources.HomeRelationship);
 		public static readonly Relationship Self = new Relationship(Resources.SelfRelationship);
-		public static readonly Relationship Meta = new Relationship(Resources.MetaRelationship);
 
 		public static readonly Relationship Singular = new Relationship(Resources.SingularRelationship);
 		public static readonly Relationship Plural = new Relationship(Resources.PluralRelationship);
