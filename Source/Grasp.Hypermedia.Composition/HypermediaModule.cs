@@ -19,8 +19,6 @@ namespace Grasp.Hypermedia.Http.Composition
 			// TODO: Resource types
 
 			httpConfiguration.Services.Replace(typeof(IHttpControllerSelector), new ResourceSelector(httpConfiguration, null));
-
-			this.RegisterHttpResources(resourceAssemblies).InstancePerApiRequest();
 		}
 	}
 }

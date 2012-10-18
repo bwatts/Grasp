@@ -10,9 +10,10 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Grasp.Hypermedia</RootNamespace>
     <AssemblyName>Grasp.Hypermedia</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <CodeContractsAssemblyMode>0</CodeContractsAssemblyMode>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -55,6 +56,7 @@
     <CodeContractsRuntimeCheckingLevel>Full</CodeContractsRuntimeCheckingLevel>
     <CodeContractsReferenceAssembly>Build</CodeContractsReferenceAssembly>
     <CodeContractsAnalysisWarningLevel>0</CodeContractsAnalysisWarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -96,84 +98,79 @@
     <CodeContractsRuntimeCheckingLevel>Full</CodeContractsRuntimeCheckingLevel>
     <CodeContractsReferenceAssembly>Build</CodeContractsReferenceAssembly>
     <CodeContractsAnalysisWarningLevel>0</CodeContractsAnalysisWarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.4.5.6\lib\net40\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.4.5.8\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Net.Http, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\Microsoft.Net.Http.2.0.20505.0\lib\net40\System.Net.Http.dll</HintPath>
-    </Reference>
+    <Reference Include="System.Net.Http, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.4.0.20505.0\lib\net40\System.Net.Http.Formatting.dll</HintPath>
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.4.0.20710.0\lib\net40\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
-    <Reference Include="System.Net.Http.WebRequest, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\Microsoft.Net.Http.2.0.20505.0\lib\net40\System.Net.Http.WebRequest.dll</HintPath>
-    </Reference>
+    <Reference Include="System.Net.Http.WebRequest, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.4.0.20505.0\lib\net40\System.Web.Http.dll</HintPath>
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.4.0.20710.0\lib\net40\System.Web.Http.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\GraspAssemblyInfo.cs">
       <Link>Properties\GraspAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="HttpLink.cs" />
-    <Compile Include="IHttpMesh.cs" />
-    <Compile Include="Linq\HtmlLink.cs" />
-    <Compile Include="Linq\MLink.cs" />
-    <Compile Include="Linq\MText.cs" />
-    <Compile Include="Linq\MClass.cs" />
-    <Compile Include="Linq\MediaFormat.cs" />
-    <Compile Include="MediaType.cs" />
-    <Compile Include="Linq\MList.cs" />
-    <Compile Include="Linq\MContent.cs" />
-    <Compile Include="Linq\MDefinitionList.cs" />
-    <Compile Include="Linq\MDivision.cs" />
-    <Compile Include="Linq\MRepresentation.cs" />
-    <Compile Include="Linq\MHead.cs" />
-    <Compile Include="HttpResource.cs" />
-    <Compile Include="VendorPath.cs" />
+    <Compile Include="HtmlFormat.cs" />
+    <Compile Include="HtmlLink.cs" />
+    <Compile Include="Apis\IHttpMesh.cs" />
+    <Compile Include="MLink.cs" />
+    <Compile Include="MText.cs" />
+    <Compile Include="MClass.cs" />
+    <Compile Include="MList.cs" />
+    <Compile Include="MContent.cs" />
+    <Compile Include="MDefinitionList.cs" />
+    <Compile Include="MDivision.cs" />
+    <Compile Include="MRepresentation.cs" />
+    <Compile Include="MHead.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources.Designer.cs">
       <DependentUpon>Resources.resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="UriPath.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\.submodules\Cloak\Source\Cloak.Http\Cloak.Http.csproj">
+      <Project>{43f24f70-06f1-4834-b241-a8ceec01d87d}</Project>
+      <Name>Cloak.Http</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\.submodules\Cloak\Source\Cloak\Cloak.csproj">
+      <Project>{a931092c-2916-4d20-a26d-d131d98e3069}</Project>
+      <Name>Cloak</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Grasp\Grasp.csproj">
       <Project>{0A728107-2D52-4E6B-B651-793048876837}</Project>
       <Name>Grasp</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Linq\_Examples\relationship.html" />
-    <Content Include="Linq\_Examples\relationships.html" />
-    <Content Include="Linq\_Examples\media-types.html" />
-    <Content Include="Linq\_Examples\media-type.html" />
-    <Content Include="Linq\_Examples\root.html" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="_Examples\media-type.html" />
+    <Content Include="_Examples\media-types.html" />
+    <Content Include="_Examples\relationship.html" />
+    <Content Include="_Examples\relationships.html" />
+    <Content Include="_Examples\api.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

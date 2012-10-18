@@ -36,6 +36,15 @@ namespace Grasp.Analysis
 		}
 
 		/// <summary>
+		/// Initializes a runtime with the specified schema, calculator, and bindings
+		/// </summary>
+		/// <param name="schema">The schema which defines the variables and calculations in effect for this runtime</param>
+		/// <param name="calculator">The calculator which applies the specified schema's calculations to this runtime</param>
+		/// <param name="bindings">The initial states of the variables in this runtime</param>
+		public GraspRuntime(GraspSchema schema, ICalculator calculator, params VariableBinding[] bindings) : this(schema, calculator, bindings as IEnumerable<VariableBinding>)
+		{}
+
+		/// <summary>
 		/// Gets the schema which defines the variables and calculations in effect for this runtime
 		/// </summary>
 		public GraspSchema Schema { get; private set; }

@@ -10,9 +10,10 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Grasp</RootNamespace>
     <AssemblyName>Grasp.Examples</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <CodeContractsAssemblyMode>0</CodeContractsAssemblyMode>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -55,6 +56,7 @@
     <CodeContractsRuntimeCheckingLevel>Full</CodeContractsRuntimeCheckingLevel>
     <CodeContractsReferenceAssembly>Build</CodeContractsReferenceAssembly>
     <CodeContractsAnalysisWarningLevel>0</CodeContractsAnalysisWarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -96,403 +98,68 @@
     <CodeContractsRuntimeCheckingLevel>Full</CodeContractsRuntimeCheckingLevel>
     <CodeContractsReferenceAssembly>Build</CodeContractsReferenceAssembly>
     <CodeContractsAnalysisWarningLevel>0</CodeContractsAnalysisWarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Castle.Core">
-      <HintPath>..\packages\Castle.Core.2.5.2\lib\NET35\Castle.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Cloak, Version=0.4.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Cloak.0.4.2.0\lib\net40\Cloak.dll</HintPath>
-    </Reference>
-    <Reference Include="Cloak.NUnit">
-      <HintPath>..\packages\Cloak.NUnit.0.4.0.0\lib\net40\Cloak.NUnit.dll</HintPath>
+      <HintPath>..\packages\Castle.Core.3.1.0\lib\net35\Castle.Core.dll</HintPath>
     </Reference>
     <Reference Include="FakeItEasy">
-      <HintPath>..\packages\FakeItEasy.1.7.4257.42\lib\NET40\FakeItEasy.dll</HintPath>
+      <HintPath>..\packages\FakeItEasy.1.7.4626.65\lib\NET40\FakeItEasy.dll</HintPath>
     </Reference>
-    <Reference Include="nunit.framework">
-      <HintPath>..\packages\NUnit.2.5.10.11092\lib\nunit.framework.dll</HintPath>
+    <Reference Include="FluentAssertions">
+      <HintPath>..\packages\FluentAssertions.2.0.0\Lib\net45\FluentAssertions.dll</HintPath>
     </Reference>
-    <Reference Include="nunit.mocks">
-      <HintPath>..\packages\NUnit.2.5.10.11092\lib\nunit.mocks.dll</HintPath>
-    </Reference>
-    <Reference Include="pnunit.framework">
-      <HintPath>..\packages\NUnit.2.5.10.11092\lib\pnunit.framework.dll</HintPath>
-    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="Xbehave, Version=0.14.0.0, Culture=neutral, PublicKeyToken=e4957f48888f9fe8, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Xbehave.0.14.0-beta02\lib\net40\Xbehave.dll</HintPath>
+    </Reference>
+    <Reference Include="xunit, Version=1.9.1.1600, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\xunit.1.9.1\lib\net20\xunit.dll</HintPath>
+    </Reference>
+    <Reference Include="xunit.extensions, Version=1.9.1.1600, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\xunit.extensions.1.9.1\lib\net20\xunit.extensions.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\GraspAssemblyInfo.cs">
       <Link>Properties\GraspAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Analysis\CalculationToString.cs" />
-    <Compile Include="Analysis\Compilation\CompileWithUnknownVariable.cs" />
-    <Compile Include="Analysis\Compilation\CompileWithImplicitVariable.cs" />
-    <Compile Include="Analysis\Compilation\CompileWithUnassignableType.cs" />
-    <Compile Include="Analysis\Compilation\CompileWithInvalidExpression.cs" />
-    <Compile Include="Analysis\Compilation\CompileWithCycle.cs" />
-    <Compile Include="Analysis\Compilation\CompileWithDeepCycle.cs" />
-    <Compile Include="Analysis\Compilation\CompileWithDerivedType.cs" />
-    <Compile Include="Analysis\Compilation\GetRuntime.cs" />
-    <Compile Include="Analysis\Compilation\CreateGraspExecutable.cs" />
-    <Compile Include="Analysis\CompileGraspSchema.cs" />
-    <Compile Include="Analysis\Calculators\ApplyFunctionCalculator.cs" />
-    <Compile Include="Analysis\Calculators\ApplyCompositeCalculator.cs" />
-    <Compile Include="Analysis\Calculators\CreateCompositeCalculator.cs" />
-    <Compile Include="Analysis\Calculators\CreateFunctionCalculator.cs" />
-    <Compile Include="Analysis\CreateVariableBinding.cs" />
-    <Compile Include="Analysis\Runtime\ApplyCalculations.cs" />
-    <Compile Include="Analysis\Runtime\ApplySingleCalculation.cs" />
-    <Compile Include="Analysis\Runtime\ApplyMultipleCalculations.cs" />
-    <Compile Include="Analysis\Runtime\ApplySingleCalculationWithVariable.cs" />
-    <Compile Include="Analysis\Runtime\ApplySingleCalculationWithTwoVariables.cs" />
-    <Compile Include="Analysis\Runtime\ApplyDependentCalculations.cs" />
-    <Compile Include="Analysis\Runtime\SetUnboundVariableValue.cs" />
-    <Compile Include="Analysis\Runtime\SetBoundVariableValue.cs" />
-    <Compile Include="Analysis\Runtime\GetUnboundVariableValue.cs" />
-    <Compile Include="Analysis\Runtime\GetBoundVariableValue.cs" />
-    <Compile Include="Analysis\Runtime\CreateGraspRuntime.cs" />
-    <Compile Include="Analysis\CreateGraspSchema.cs" />
-    <Compile Include="Analysis\CreateCalculation.cs" />
-    <Compile Include="Analysis\Variables\VariableExpressionToString.cs" />
-    <Compile Include="Analysis\Variables\CreateExpression.cs" />
-    <Compile Include="Analysis\Variables\Namespaces\EmptyIsNamespace.cs" />
-    <Compile Include="Analysis\Variables\Namespaces\MultipleParts\DotAtEndIsNamespace.cs" />
-    <Compile Include="Analysis\Variables\Namespaces\MultipleParts\DotAtStartIsNamespace.cs" />
-    <Compile Include="Analysis\Variables\Namespaces\MultipleParts\ExtraDotIsNamespace.cs" />
-    <Compile Include="Analysis\Variables\Namespaces\MultipleParts\DigitAtEndIsNamespace.cs" />
-    <Compile Include="Analysis\Variables\Namespaces\MultipleParts\DigitFirstIsNamespace.cs" />
-    <Compile Include="Analysis\Variables\Namespaces\MultipleParts\DigitInMiddleIsNamespace.cs" />
-    <Compile Include="Analysis\Variables\Namespaces\MultipleParts\IsNamespace.cs" />
-    <Compile Include="Analysis\Variables\Namespaces\MultipleParts\SpaceAtEndIsNamespace.cs" />
-    <Compile Include="Analysis\Variables\Namespaces\MultipleParts\SpaceFirstIsNamespace.cs" />
-    <Compile Include="Analysis\Variables\Namespaces\MultipleParts\SpaceInMiddleIsNamespace.cs" />
-    <Compile Include="Analysis\Variables\Namespaces\MultipleParts\SymbolAtEndIsNamespace.cs" />
-    <Compile Include="Analysis\Variables\Namespaces\MultipleParts\SymbolFirstIsNamespace.cs" />
-    <Compile Include="Analysis\Variables\Namespaces\MultipleParts\SymbolInMiddleIsNamespace.cs" />
-    <Compile Include="Analysis\Variables\Namespaces\MultipleParts\UnderscoreAtEndIsNamespace.cs" />
-    <Compile Include="Analysis\Variables\Namespaces\MultipleParts\UnderscoreFirstIsNamespace.cs" />
-    <Compile Include="Analysis\Variables\Namespaces\MultipleParts\UnderscoreInMiddleIsNamespace.cs" />
-    <Compile Include="Analysis\Variables\Namespaces\SinglePart\DigitAtEndIsNamespace.cs" />
-    <Compile Include="Analysis\Variables\Namespaces\SinglePart\DigitFirstIsNamespace.cs" />
-    <Compile Include="Analysis\Variables\Namespaces\SinglePart\DigitInMiddleIsNamespace.cs" />
-    <Compile Include="Analysis\Variables\Namespaces\SinglePart\IsNamespace.cs" />
-    <Compile Include="Analysis\Variables\Namespaces\SinglePart\SpaceAtEndIsNamespace.cs" />
-    <Compile Include="Analysis\Variables\Namespaces\SinglePart\SpaceFirstIsNamespace.cs" />
-    <Compile Include="Analysis\Variables\Namespaces\SinglePart\SpaceInMiddleIsNamespace.cs" />
-    <Compile Include="Analysis\Variables\Namespaces\SinglePart\SymbolAtEndIsNamespace.cs" />
-    <Compile Include="Analysis\Variables\Namespaces\SinglePart\SymbolFirstIsNamespace.cs" />
-    <Compile Include="Analysis\Variables\Namespaces\SinglePart\SymbolInMiddleIsNamespace.cs" />
-    <Compile Include="Analysis\Variables\Namespaces\SinglePart\UnderscoreAtEndIsNamespace.cs" />
-    <Compile Include="Analysis\Variables\Namespaces\SinglePart\UnderscoreFirstIsNamespace.cs" />
-    <Compile Include="Analysis\Variables\Namespaces\SinglePart\UnderscoreInMiddleIsNamespace.cs" />
-    <Compile Include="Analysis\Variables\VariableToString.cs" />
-    <Compile Include="Analysis\Variables\Names\UnderscoreAtEndIsName.cs" />
-    <Compile Include="Analysis\Variables\Names\SymbolAtEndIsName.cs" />
-    <Compile Include="Analysis\Variables\Names\SpaceAtEndIsName.cs" />
-    <Compile Include="Analysis\Variables\Names\DigitAtEndIsName.cs" />
-    <Compile Include="Analysis\Variables\Names\SpaceInMiddleIsName.cs" />
-    <Compile Include="Analysis\Variables\Names\SpaceFirstIsName.cs" />
-    <Compile Include="Analysis\Variables\Names\DigitInMiddleIsName.cs" />
-    <Compile Include="Analysis\Variables\Names\UnderscoreInMiddleIsName.cs" />
-    <Compile Include="Analysis\Variables\Names\SymbolInMiddleIsName.cs" />
-    <Compile Include="Analysis\Variables\Names\SymbolFirstIsName.cs" />
-    <Compile Include="Analysis\Variables\Names\EmptyIsName.cs" />
-    <Compile Include="Analysis\Variables\Names\DigitFirstIsName.cs" />
-    <Compile Include="Analysis\Variables\Names\UnderscoreFirstIsName.cs" />
-    <Compile Include="Analysis\Variables\Names\IsName.cs" />
-    <Compile Include="Analysis\Variables\CreateVariable.cs" />
-    <Compile Include="Checks\Annotation\GetAnnotatedConditionWithDefaultNameOverride.cs" />
-    <Compile Include="Checks\Annotation\GetAnnotatedCondition.cs" />
-    <Compile Include="Checks\Annotation\CreateAnnotatedConditionSourceWithDefaultNameOverride.cs" />
-    <Compile Include="Checks\Annotation\CreateAnnotatedConditionSource.cs" />
-    <Compile Include="Checks\Annotation\GetCheckConditionWithRepeatedName.cs" />
-    <Compile Include="Checks\Annotation\GetCheckConditionWithNameWithSpaces.cs" />
-    <Compile Include="Checks\Annotation\GetCheckConditionWithTwoNames.cs" />
-    <Compile Include="Checks\Annotation\GetCheckConditionWithName.cs" />
-    <Compile Include="Checks\Annotation\GetCheckConditionNegated.cs" />
-    <Compile Include="Checks\Annotation\GetCheckCondition.cs" />
-    <Compile Include="Checks\Conditions\Sources\ChangeDefaultDeclarationNames.cs" />
-    <Compile Include="Checks\ApplyThatCheck.cs" />
-    <Compile Include="Checks\ApplyThatCheckWithDefaultResult.cs" />
-    <Compile Include="Checks\Conditions\CreateTypedConditionWithName.cs" />
-    <Compile Include="Checks\Conditions\CreateTypedCondition.cs" />
-    <Compile Include="Checks\Conditions\CreateConditionWithTargetTypeAndName.cs" />
-    <Compile Include="Checks\Conditions\CreateConditionWithTargetType.cs" />
-    <Compile Include="Checks\Conditions\CreateCondition.cs" />
-    <Compile Include="Checks\Conditions\Keys\GetNameEqualityComparer.cs" />
-    <Compile Include="Checks\Conditions\Keys\GetInvalidName.cs" />
-    <Compile Include="Checks\Conditions\Keys\GetDefaultName.cs" />
-    <Compile Include="Checks\Conditions\Keys\InvariantNameIsInvariantName.cs" />
-    <Compile Include="Checks\Conditions\Keys\DefaultNameIsDefaultName.cs" />
-    <Compile Include="Checks\Conditions\Keys\KeyAppliesToNullOfTargetType.cs" />
-    <Compile Include="Checks\Conditions\Keys\KeyAppliesToNonTargetInstance.cs" />
-    <Compile Include="Checks\Conditions\Keys\KeyAppliesToNonTargetType.cs" />
-    <Compile Include="Checks\Conditions\Keys\KeyAppliesToNull.cs" />
-    <Compile Include="Checks\Conditions\Keys\KeyAppliesToTargetInstance.cs" />
-    <Compile Include="Checks\Conditions\Keys\KeyAppliesToAssignableInstance.cs" />
-    <Compile Include="Checks\Conditions\Keys\KeyAppliesToTargetType.cs" />
-    <Compile Include="Checks\Conditions\Keys\KeyAppliesToAssignableType.cs" />
-    <Compile Include="Checks\Conditions\Keys\NameEqualsDifferentCase.cs" />
-    <Compile Include="Checks\Conditions\Keys\NameEqualsDifferent.cs" />
-    <Compile Include="Checks\Conditions\Keys\NameEquals.cs" />
-    <Compile Include="Checks\Conditions\Keys\KeysEqualWithName.cs" />
-    <Compile Include="Checks\Conditions\Keys\KeysEqualWithDifferentType.cs" />
-    <Compile Include="Checks\Conditions\Keys\KeysEqualWithDifferentName.cs" />
-    <Compile Include="Checks\Conditions\Keys\KeysEqual.cs" />
-    <Compile Include="Checks\Conditions\Keys\KeysEqualWithDifferentCase.cs" />
-    <Compile Include="Checks\Conditions\Keys\KeysEqualWithOneUnnamed.cs" />
-    <Compile Include="Checks\Conditions\Keys\CreateKeyWithInvariantName.cs" />
-    <Compile Include="Checks\Conditions\Keys\CreateKeyWithDefaultName.cs" />
-    <Compile Include="Checks\Conditions\Keys\CreateKeyWithName.cs" />
-    <Compile Include="Checks\Conditions\Keys\CreateKey.cs" />
-    <Compile Include="Checks\Conditions\Sources\GetConditionsForPropertyMethods.cs" />
-    <Compile Include="Checks\Conditions\Sources\GetConditionsForPropertyFieldMethod.cs" />
-    <Compile Include="Checks\Conditions\Sources\GetConditionsForMethodWithParameters.cs" />
-    <Compile Include="Checks\Conditions\Sources\GetConditionsForVoidMethod.cs" />
-    <Compile Include="Checks\Conditions\Sources\GetConditionsForMemberWithMultiple.cs" />
-    <Compile Include="Checks\Conditions\Sources\GetConditionsForMethod.cs" />
-    <Compile Include="Checks\Conditions\Sources\GetConditionsForProperty.cs" />
-    <Compile Include="Checks\Conditions\Sources\GetConditionsForField.cs" />
-    <Compile Include="Checks\Conditions\Sources\GetConditionsWithNoSources.cs" />
-    <Compile Include="Checks\Conditions\Sources\GetConditionsWithSingleSource.cs" />
-    <Compile Include="Checks\Conditions\Sources\GetConditionsWithMultipleSources.cs" />
-    <Compile Include="Checks\Conditions\Repositories\GetConditionTwice.cs" />
-    <Compile Include="Checks\Conditions\Repositories\GetConditionWithUnknownKey.cs" />
-    <Compile Include="Checks\Conditions\Repositories\GetConditionWithOtherKeys.cs" />
-    <Compile Include="Checks\Conditions\Repositories\GetConditionWithTwo.cs" />
-    <Compile Include="Checks\Conditions\Repositories\GetConditionWithOne.cs" />
-    <Compile Include="Checks\Conditions\Repositories\GetConditionWithNone.cs" />
-    <Compile Include="Checks\Conditions\GetSpecificationForUnknownCondition.cs" />
-    <Compile Include="Checks\CreateCheck.cs" />
-    <Compile Include="Checks\ImplicitlyConvertCheckToBoolean.cs" />
-    <Compile Include="Checks\CreateThatCheckWithDefaultResult.cs" />
-    <Compile Include="Checks\CreateThatCheck.cs" />
-    <Compile Include="Checks\Methods\Inherent\Characters\GetIsNumberRuleNonChar.cs" />
-    <Compile Include="Checks\Methods\Inherent\Characters\GetIsNumberRule.cs" />
-    <Compile Include="Checks\Methods\Inherent\DateTimes\GetIsDayOfWeekRuleNonDateTime.cs" />
-    <Compile Include="Checks\Methods\Inherent\DateTimes\GetIsDayOfWeekRule.cs" />
-    <Compile Include="Checks\Methods\Inherent\Numbers\GetIsPositiveRuleNonNumber.cs" />
-    <Compile Include="Checks\Methods\Inherent\Numbers\GetIsOddRuleNonNumber.cs" />
-    <Compile Include="Checks\Methods\Inherent\Numbers\GetIsNotPositiveRuleNonNumber.cs" />
-    <Compile Include="Checks\Methods\Inherent\Numbers\GetIsNotNegativeRuleNonNumber.cs" />
-    <Compile Include="Checks\Methods\Inherent\Numbers\GetIsNegativeRuleNonNumber.cs" />
-    <Compile Include="Checks\Methods\Inherent\Numbers\GetIsEvenRuleNonNumber.cs" />
-    <Compile Include="Checks\Methods\Inherent\Numbers\GetIsLiteralPercentageRuleNonNumber.cs" />
-    <Compile Include="Checks\Methods\Inherent\Numbers\Decimal\GetIsLiteralPercentageRuleForDecimal.cs" />
-    <Compile Include="Checks\Methods\Inherent\Numbers\Decimal\GetIsAdjustedPercentageRuleForDecimal.cs" />
-    <Compile Include="Checks\Methods\Inherent\Numbers\Decimal\GetIsPositiveRuleForDecimal.cs" />
-    <Compile Include="Checks\Methods\Inherent\Numbers\Decimal\GetIsOddRuleForDecimal.cs" />
-    <Compile Include="Checks\Methods\Inherent\Numbers\Decimal\GetIsNotPositiveRuleForDecimal.cs" />
-    <Compile Include="Checks\Methods\Inherent\Numbers\Decimal\GetIsNotNegativeRuleForDecimal.cs" />
-    <Compile Include="Checks\Methods\Inherent\Numbers\Decimal\GetIsNegativeRuleForDecimal.cs" />
-    <Compile Include="Checks\Methods\Inherent\Numbers\Decimal\GetIsEvenRuleForDecimal.cs" />
-    <Compile Include="Checks\Methods\Inherent\Numbers\Double\GetIsLiteralPercentageRuleForDouble.cs" />
-    <Compile Include="Checks\Methods\Inherent\Numbers\Double\GetIsAdjustedPercentageRuleForDouble.cs" />
-    <Compile Include="Checks\Methods\Inherent\Numbers\Double\GetIsPositiveRuleForDouble.cs" />
-    <Compile Include="Checks\Methods\Inherent\Numbers\Double\GetIsOddRuleForDouble.cs" />
-    <Compile Include="Checks\Methods\Inherent\Numbers\Double\GetIsNotPositiveRuleForDouble.cs" />
-    <Compile Include="Checks\Methods\Inherent\Numbers\Double\GetIsNotNegativeRuleForDouble.cs" />
-    <Compile Include="Checks\Methods\Inherent\Numbers\Double\GetIsNegativeRuleForDouble.cs" />
-    <Compile Include="Checks\Methods\Inherent\Numbers\Double\GetIsEvenRuleForDouble.cs" />
-    <Compile Include="Checks\Methods\Inherent\Numbers\GetIsAdjustedPercentageRuleNonNumber.cs" />
-    <Compile Include="Checks\Methods\Inherent\Numbers\Int32\GetIsPercentageRuleForInt32.cs" />
-    <Compile Include="Checks\Methods\Inherent\Numbers\Int32\GetIsPositiveRuleForInt32.cs" />
-    <Compile Include="Checks\Methods\Inherent\Numbers\Int32\GetIsOddRuleForInt32.cs" />
-    <Compile Include="Checks\Methods\Inherent\Numbers\Int32\GetIsNotPositiveRuleForInt32.cs" />
-    <Compile Include="Checks\Methods\Inherent\Numbers\Int32\GetIsNotNegativeRuleForInt32.cs" />
-    <Compile Include="Checks\Methods\Inherent\Numbers\Int32\GetIsNegativeRuleForInt32.cs" />
-    <Compile Include="Checks\Methods\Inherent\Numbers\Int32\GetIsEvenRuleForInt32.cs" />
-    <Compile Include="Checks\Methods\Inherent\Numbers\Int64\GetIsPercentageRuleForInt64.cs" />
-    <Compile Include="Checks\Methods\Inherent\Numbers\Int64\GetIsPositiveRuleForInt64.cs" />
-    <Compile Include="Checks\Methods\Inherent\Numbers\Int64\GetIsOddRuleForInt64.cs" />
-    <Compile Include="Checks\Methods\Inherent\Numbers\Int64\GetIsNotPositiveRuleForInt64.cs" />
-    <Compile Include="Checks\Methods\Inherent\Numbers\Int64\GetIsNotNegativeRuleForInt64.cs" />
-    <Compile Include="Checks\Methods\Inherent\Numbers\Int64\GetIsNegativeRuleForInt64.cs" />
-    <Compile Include="Checks\Methods\Inherent\Numbers\Int64\GetIsEvenRuleForInt64.cs" />
-    <Compile Include="Checks\Methods\Inherent\Numbers\NumberMethodSupportsDouble.cs" />
-    <Compile Include="Checks\Methods\Inherent\Numbers\NumberMethodSupportsSingle.cs" />
-    <Compile Include="Checks\Methods\Inherent\Numbers\NumberMethodSupportsInt32.cs" />
-    <Compile Include="Checks\Methods\Inherent\Numbers\NumberMethodSupportsInt64.cs" />
-    <Compile Include="Checks\Methods\Inherent\Numbers\NumberMethodSupportsDecimal.cs" />
-    <Compile Include="Checks\Methods\Inherent\Numbers\Single\GetIsLiteralPercentageRuleForSingle.cs" />
-    <Compile Include="Checks\Methods\Inherent\Numbers\Single\GetIsAdjustedPercentageRuleForSingle.cs" />
-    <Compile Include="Checks\Methods\Inherent\Numbers\Single\GetIsPositiveRuleForSingle.cs" />
-    <Compile Include="Checks\Methods\Inherent\Numbers\Single\GetIsOddRuleForSingle.cs" />
-    <Compile Include="Checks\Methods\Inherent\Numbers\Single\GetIsNotPositiveRuleForSingle.cs" />
-    <Compile Include="Checks\Methods\Inherent\Numbers\Single\GetIsNotNegativeRuleForSingle.cs" />
-    <Compile Include="Checks\Methods\Inherent\Numbers\Single\GetIsNegativeRuleForSingle.cs" />
-    <Compile Include="Checks\Methods\Inherent\Numbers\Single\GetIsEvenRuleForSingle.cs" />
-    <Compile Include="Checks\Methods\MultiTypeMethodSupportsUnsupportedType.cs" />
-    <Compile Include="Checks\Methods\MultiTypeMethodSupportsSecondSupportedType.cs" />
-    <Compile Include="Checks\Methods\MultiTypeMethodSupportsFirstSupportedType.cs" />
-    <Compile Include="Checks\Methods\MultiTypeMethodSupportsDerivedType.cs" />
-    <Compile Include="Checks\Methods\GetRuleWithTwoArguments.cs" />
-    <Compile Include="Checks\Methods\GetRuleWithOneArgument.cs" />
-    <Compile Include="Checks\Methods\GetRule.cs" />
-    <Compile Include="Checks\Methods\GetEffectiveTargetType.cs" />
-    <Compile Include="Checks\Methods\GetRuleForUnsupportedTargetType.cs" />
-    <Compile Include="Checks\Methods\GetCheckArguments.cs" />
-    <Compile Include="Checks\Methods\GetCheckType.cs" />
-    <Compile Include="Checks\Methods\Inherent\Characters\GetIsWhiteSpaceRuleNonChar.cs" />
-    <Compile Include="Checks\Methods\Inherent\Characters\GetIsWhiteSpaceRule.cs" />
-    <Compile Include="Checks\Methods\Inherent\Characters\GetIsUpperCaseRuleNonChar.cs" />
-    <Compile Include="Checks\Methods\Inherent\Characters\GetIsUpperCaseRule.cs" />
-    <Compile Include="Checks\Methods\Inherent\Characters\GetIsSymbolRuleNonChar.cs" />
-    <Compile Include="Checks\Methods\Inherent\Characters\GetIsSymbolRule.cs" />
-    <Compile Include="Checks\Methods\Inherent\Characters\GetIsSurrogateRuleNonChar.cs" />
-    <Compile Include="Checks\Methods\Inherent\Characters\GetIsSurrogateRule.cs" />
-    <Compile Include="Checks\Methods\Inherent\Characters\GetIsSeparatorRuleNonChar.cs" />
-    <Compile Include="Checks\Methods\Inherent\Characters\GetIsSeparatorRule.cs" />
-    <Compile Include="Checks\Methods\Inherent\Characters\GetIsPunctuationRuleNonChar.cs" />
-    <Compile Include="Checks\Methods\Inherent\Characters\GetIsPunctuationRule.cs" />
-    <Compile Include="Checks\Methods\Inherent\Characters\GetIsLowSurrogateRuleNonChar.cs" />
-    <Compile Include="Checks\Methods\Inherent\Characters\GetIsLowSurrogateRule.cs" />
-    <Compile Include="Checks\Methods\Inherent\Characters\GetIsLowerCaseRuleNonChar.cs" />
-    <Compile Include="Checks\Methods\Inherent\Characters\GetIsLowerCaseRule.cs" />
-    <Compile Include="Checks\Methods\Inherent\Characters\GetIsLetterOrDigitRuleNonChar.cs" />
-    <Compile Include="Checks\Methods\Inherent\Characters\GetIsLetterOrDigitRule.cs" />
-    <Compile Include="Checks\Methods\Inherent\Characters\GetIsLetterRuleNonChar.cs" />
-    <Compile Include="Checks\Methods\Inherent\Characters\GetIsLetterRule.cs" />
-    <Compile Include="Checks\Methods\Inherent\Characters\GetIsHighSurrogateRuleNonChar.cs" />
-    <Compile Include="Checks\Methods\Inherent\Characters\GetIsHighSurrogateRule.cs" />
-    <Compile Include="Checks\Methods\Inherent\Characters\GetIsDigitRuleNonChar.cs" />
-    <Compile Include="Checks\Methods\Inherent\Characters\GetIsDigitRule.cs" />
-    <Compile Include="Checks\Methods\Inherent\Characters\GetIsControlRuleNonChar.cs" />
-    <Compile Include="Checks\Methods\Inherent\Characters\GetIsControlRule.cs" />
-    <Compile Include="Checks\Methods\Inherent\Comparisons\ComparisonMethodSupportsNonComparable.cs" />
-    <Compile Include="Checks\Methods\Inherent\Comparisons\GetIsBetweenNonComparable.cs" />
-    <Compile Include="Checks\Methods\Inherent\Comparisons\GetIsBetweenRuleWithBoundaryType.cs" />
-    <Compile Include="Checks\Methods\Inherent\Comparisons\GetIsBetweenRule.cs" />
-    <Compile Include="Checks\Methods\Inherent\Comparisons\GetIsGreaterThanRuleNonComparable.cs" />
-    <Compile Include="Checks\Methods\Inherent\Comparisons\GetIsGreaterThanRule.cs" />
-    <Compile Include="Checks\Methods\Inherent\Comparisons\GetIsGreaterThanOrEqualToRuleNonComparable.cs" />
-    <Compile Include="Checks\Methods\Inherent\Comparisons\GetIsGreaterThanOrEqualToRule.cs" />
-    <Compile Include="Checks\Methods\Inherent\Comparisons\GetIsLessThanOrEqualToRuleNonComparable.cs" />
-    <Compile Include="Checks\Methods\Inherent\Comparisons\GetIsLessThanOrEqualToRule.cs" />
-    <Compile Include="Checks\Methods\Inherent\Comparisons\GetIsLessThanRuleNonComparable.cs" />
-    <Compile Include="Checks\Methods\Inherent\Comparisons\GetIsLessThanRule.cs" />
-    <Compile Include="Checks\Methods\Inherent\Comparisons\ComparisonMethodSupportsComparable.cs" />
-    <Compile Include="Checks\Methods\Inherent\Strings\GetIsZipCodeRuleNonString.cs" />
-    <Compile Include="Checks\Methods\Inherent\Strings\GetIsZipCodeRule.cs" />
-    <Compile Include="Checks\Methods\Inherent\Strings\GetIsSocialSecurityNumberRuleNonString.cs" />
-    <Compile Include="Checks\Methods\Inherent\Strings\GetIsSocialSecurityNumberRule.cs" />
-    <Compile Include="Checks\Methods\Inherent\Strings\GetIsPhoneNumberRuleNonString.cs" />
-    <Compile Include="Checks\Methods\Inherent\Strings\GetIsPhoneNumberRule.cs" />
-    <Compile Include="Checks\Methods\Inherent\Strings\GetIsCreditCardNumberRuleNonString.cs" />
-    <Compile Include="Checks\Methods\Inherent\Strings\GetIsCreditCardNumberRule.cs" />
-    <Compile Include="Checks\Methods\Inherent\Strings\GetIsCreditCardCvvRuleNonString.cs" />
-    <Compile Include="Checks\Methods\Inherent\Strings\GetIsCreditCardCvvRule.cs" />
-    <Compile Include="Checks\Methods\Inherent\Strings\GetEndsWithRule.cs" />
-    <Compile Include="Checks\Methods\Inherent\Strings\GetEndsWithRuleNonString.cs" />
-    <Compile Include="Checks\Methods\Inherent\Strings\GetEndsWithRuleWithComparisonType.cs" />
-    <Compile Include="Checks\Methods\Inherent\Strings\GetEndsWithRuleWithCulture.cs" />
-    <Compile Include="Checks\Methods\Inherent\Strings\GetMatchesRuleWithPatternAndOptions.cs" />
-    <Compile Include="Checks\Methods\Inherent\Strings\GetMatchesRuleWithPattern.cs" />
-    <Compile Include="Checks\Methods\Inherent\Strings\GetMatchesRuleNonString.cs" />
-    <Compile Include="Checks\Methods\Inherent\Strings\GetMatchesRuleWithRegex.cs" />
-    <Compile Include="Checks\Methods\Inherent\GetIsLeapYearRuleNonDateTime.cs" />
-    <Compile Include="Checks\Methods\Inherent\GetIsLeapYearRule.cs" />
-    <Compile Include="Checks\Methods\Inherent\DateTimes\GetIsWeekdayRuleNonDateTime.cs" />
-    <Compile Include="Checks\Methods\Inherent\DateTimes\GetIsWeekdayRule.cs" />
-    <Compile Include="Checks\Methods\Inherent\DateTimes\GetIsWeekendRuleNonDateTime.cs" />
-    <Compile Include="Checks\Methods\Inherent\DateTimes\GetIsWeekendRule.cs" />
-    <Compile Include="Checks\Methods\Inherent\GetIsFalseRuleNonBoolean.cs" />
-    <Compile Include="Checks\Methods\Inherent\GetIsTrueRuleNonBoolean.cs" />
-    <Compile Include="Checks\Methods\Inherent\GetIsTrueRule.cs" />
-    <Compile Include="Checks\Methods\Inherent\GetIsFalseRule.cs" />
-    <Compile Include="Checks\Methods\Inherent\Strings\GetStartsWithRuleNonString.cs" />
-    <Compile Include="Checks\Methods\Inherent\Strings\GetStartsWithRuleWithCulture.cs" />
-    <Compile Include="Checks\Methods\Inherent\Strings\GetStartsWithRuleWithComparisonType.cs" />
-    <Compile Include="Checks\Methods\Inherent\Strings\GetIsNotNullOrWhiteSpaceRuleNonString.cs" />
-    <Compile Include="Checks\Methods\Inherent\Strings\GetIsNotNullOrWhiteSpaceRule.cs" />
-    <Compile Include="Checks\Methods\Inherent\Strings\GetIsNullOrWhiteSpaceRuleNonString.cs" />
-    <Compile Include="Checks\Methods\Inherent\Strings\GetIsNullOrWhiteSpaceRule.cs" />
-    <Compile Include="Checks\Methods\Inherent\Strings\GetIsNotNullOrEmptyRuleNonString.cs" />
-    <Compile Include="Checks\Methods\Inherent\Strings\GetIsNotNullOrEmptyRule.cs" />
-    <Compile Include="Checks\Methods\Inherent\Strings\GetIsNullOrEmptyRuleNonString.cs" />
-    <Compile Include="Checks\Methods\Inherent\Strings\GetIsNullOrEmptyRule.cs" />
-    <Compile Include="Checks\Methods\Inherent\Strings\GetIsNotEmptyRuleNonString.cs" />
-    <Compile Include="Checks\Methods\Inherent\Strings\GetIsNotEmptyRule.cs" />
-    <Compile Include="Checks\Methods\Inherent\Strings\GetIsEmptyRule.cs" />
-    <Compile Include="Checks\Methods\Inherent\Strings\GetIsEmptyRuleNonString.cs" />
-    <Compile Include="Checks\Methods\Inherent\Strings\GetStartsWithRule.cs" />
-    <Compile Include="Checks\Methods\SingleTypeMethodSupportsUnsupportedType.cs" />
-    <Compile Include="Checks\Methods\SingleTypeMethodSupportsDerivedType.cs" />
-    <Compile Include="Checks\Methods\SingleTypeMethodSupportsTargetType.cs" />
-    <Compile Include="Checks\Methods\Inherent\GetIsEqualToRule.cs" />
-    <Compile Include="Checks\Methods\Inherent\GetIsNotNullRule.cs" />
-    <Compile Include="Checks\Methods\Inherent\GetIsNullRule.cs" />
-    <Compile Include="Checks\Rules\LambdaExpressions\ConstantRuleToLambda.cs" />
-    <Compile Include="Checks\Rules\LambdaExpressions\AndRuleToLambda.cs" />
-    <Compile Include="Checks\Rules\LambdaExpressions\CheckRuleToLambda.cs" />
-    <Compile Include="Checks\Rules\LambdaExpressions\CheckRuleWithArgumentToLambda.cs" />
-    <Compile Include="Checks\Rules\LambdaExpressions\AndedCheckRulesToLambda.cs" />
-    <Compile Include="Checks\Rules\LambdaExpressions\MethodRuleToLambda.cs" />
-    <Compile Include="Checks\Rules\LambdaExpressions\FieldRuleToLambda.cs" />
-    <Compile Include="Checks\Rules\LambdaExpressions\PropertyRuleToLambda.cs" />
-    <Compile Include="Checks\Rules\LambdaExpressions\NottedCheckRulesToLambda.cs" />
-    <Compile Include="Checks\Rules\LambdaExpressions\OredCheckRulesToLambda.cs" />
-    <Compile Include="Checks\Rules\LambdaExpressions\ExclusiveOrRuleToLambda.cs" />
-    <Compile Include="Checks\Rules\LambdaExpressions\OrRuleToLambda.cs" />
-    <Compile Include="Checks\Rules\LambdaExpressions\LambdaRuleToLambda.cs" />
-    <Compile Include="Checks\Rules\LambdaExpressions\NotRuleToLambda.cs" />
-    <Compile Include="Checks\Rules\MakeMemberRuleForNonMemberType.cs" />
-    <Compile Include="Checks\Rules\MakeMemberRuleForMethod.cs" />
-    <Compile Include="Checks\Rules\MakeMemberRuleForField.cs" />
-    <Compile Include="Checks\Rules\MakeMemberRuleForProperty.cs" />
-    <Compile Include="Checks\Rules\CreateMethodRule.cs" />
-    <Compile Include="Checks\Rules\CreateFieldRule.cs" />
-    <Compile Include="Checks\Rules\CreatePropertyRule.cs" />
-    <Compile Include="Checks\Rules\CreateNotRule.cs" />
-    <Compile Include="Checks\Rules\MakeBinaryRuleForNonBinaryType.cs" />
-    <Compile Include="Checks\Rules\MakeBinaryRuleForExclusiveOr.cs" />
-    <Compile Include="Checks\Rules\MakeBinaryRuleForOr.cs" />
-    <Compile Include="Checks\Rules\MakeBinaryRuleForAnd.cs" />
-    <Compile Include="Checks\Rules\CreateExclusiveOrRule.cs" />
-    <Compile Include="Checks\Rules\CreateOrRule.cs" />
-    <Compile Include="Checks\Rules\CreateAndRule.cs" />
-    <Compile Include="Checks\Rules\CreateLambdaRule.cs" />
-    <Compile Include="Checks\Rules\CreateConstantRule.cs" />
-    <Compile Include="Checks\Rules\CreateCheckRuleWithArguments.cs" />
-    <Compile Include="Checks\Rules\CreateCheckRule.cs" />
-    <Compile Include="Checks\Conditions\GetSpecification.cs" />
-    <Compile Include="Checks\Rules\Visitor\VisitNullMemberRule.cs" />
-    <Compile Include="Checks\Rules\Visitor\VisitNullNotRule.cs" />
-    <Compile Include="Checks\Rules\Visitor\VisitNullBinaryRule.cs" />
-    <Compile Include="Checks\Rules\Visitor\VisitNullLambdaRule.cs" />
-    <Compile Include="Checks\Rules\Visitor\VisitNullConstantRule.cs" />
-    <Compile Include="Checks\Rules\Visitor\VisitNullCheckRule.cs" />
-    <Compile Include="Checks\Rules\Visitor\RewriteMemberRule.cs" />
-    <Compile Include="Checks\Rules\Visitor\RewriteNotRule.cs" />
-    <Compile Include="Checks\Rules\Visitor\RewriteBinaryRule.cs" />
-    <Compile Include="Checks\Rules\Visitor\RewriteBinaryRuleRight.cs" />
-    <Compile Include="Checks\Rules\Visitor\RewriteBinaryRuleLeft.cs" />
-    <Compile Include="Checks\Rules\Visitor\VisitUnknownRuleType.cs" />
-    <Compile Include="Checks\Rules\Visitor\VisitMethodRule.cs" />
-    <Compile Include="Checks\Rules\Visitor\VisitFieldRule.cs" />
-    <Compile Include="Checks\Rules\Visitor\VisitPropertyRule.cs" />
-    <Compile Include="Checks\Rules\Visitor\VisitNotRule.cs" />
-    <Compile Include="Checks\Rules\Visitor\VisitExclusiveOrRule.cs" />
-    <Compile Include="Checks\Rules\Visitor\VisitOrRule.cs" />
-    <Compile Include="Checks\Rules\Visitor\VisitAndRule.cs" />
-    <Compile Include="Checks\Rules\Visitor\VisitConstantRule.cs" />
-    <Compile Include="Checks\Rules\Visitor\VisitLambdaRule.cs" />
-    <Compile Include="Checks\Rules\Visitor\VisitCheckRule.cs" />
-    <Compile Include="Checks\Rules\Visitor\VisitNullRule.cs" />
+    <Compile Include="Analysis\Calculators.cs" />
+    <Compile Include="Analysis\ApplyCalculations.cs" />
+    <Compile Include="Analysis\Compilation\Compilation.cs" />
+    <Compile Include="Analysis\Compilation\CompilationCycles.cs" />
+    <Compile Include="Analysis\Compilation\Executables.cs" />
+    <Compile Include="Analysis\Runtimes.cs" />
+    <Compile Include="Analysis\Schemas.cs" />
+    <Compile Include="Analysis\VariableBindings.cs" />
+    <Compile Include="Analysis\Calculations.cs" />
+    <Compile Include="Analysis\Variables\Expressions.cs" />
+    <Compile Include="Analysis\Variables\MultiPartNamespaces.cs" />
+    <Compile Include="Analysis\Variables\SinglePartNamespaces.cs" />
+    <Compile Include="Analysis\Variables\Names.cs" />
+    <Compile Include="Analysis\Variables\Variables.cs" />
+    <Compile Include="Checks\ThatChecks.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\.submodules\Cloak\Source\Cloak\Cloak.csproj">
+      <Project>{a931092c-2916-4d20-a26d-d131d98e3069}</Project>
+      <Name>Cloak</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Grasp\Grasp.csproj">
       <Project>{0A728107-2D52-4E6B-B651-793048876837}</Project>
       <Name>Grasp</Name>

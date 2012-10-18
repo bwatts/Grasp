@@ -17,24 +17,21 @@ namespace Grasp.Analysis
 		/// </summary>
 		/// <param name="variables">The variables in effect for this schema</param>
 		/// <param name="calculations">The calculations in effect for this schema</param>
-		public GraspSchema(IEnumerable<Variable> variables, IEnumerable<Calculation> calculations)
+		public GraspSchema(IEnumerable<Variable> variables = null, IEnumerable<Calculation> calculations = null)
 		{
-			Contract.Requires(variables != null);
-			Contract.Requires(calculations != null);
-
-			Variables = variables.ToList().AsReadOnly();
-			Calculations = calculations.ToList().AsReadOnly();
+			Variables = (variables ?? Enumerable.Empty<Variable>()).ToList().AsReadOnly();
+			Calculations = (calculations ?? Enumerable.Empty<Calculation>()).ToList().AsReadOnly();
 		}
 
 		/// <summary>
 		/// Gets the variables in effect for this schema
 		/// </summary>
-		public ReadOnlyCollection<Variable> Variables { get; private set; }
+		public IReadOnlyList<Variable> Variables { get; private set; }
 
 		/// <summary>
 		/// Gets the calculations in effect for this schema
 		/// </summary>
-		public ReadOnlyCollection<Calculation> Calculations { get; private set; }
+		public IReadOnlyList<Calculation> Calculations { get; private set; }
 
 		/// <summary>
 		/// Gets an executable version of this schema which applies its calculations

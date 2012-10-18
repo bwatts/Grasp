@@ -1,0 +1,3 @@
+[submodule ".submodules/Cloak"]
+	path = .submodules/Cloak
+	url = git@github.com:bwatts/Cloak.git

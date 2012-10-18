@@ -80,29 +80,30 @@ namespace Grasp.Knowledge
 					Contract.Requires(getField != null);
 
 					var memberAccess = getField.Body as MemberExpression;
-					var fieldGetter = memberAccess == null ? null : memberAccess.Member as FieldInfo;
 
-					if(fieldGetter == null)
+					var field = memberAccess == null ? null : memberAccess.Member as FieldInfo;
+
+					if(field == null)
 					{
 						throw new ArgumentException(Resources.GetterDoesNotAccessField.FormatInvariant(getField));
 					}
 
-					if(!fieldGetter.IsStatic)
+					if(!field.IsStatic)
 					{
-						throw new ArgumentException(Resources.DeclaringFieldNotStatic.FormatInvariant(fieldGetter.Name, typeof(TOwner)), "getField");
+						throw new ArgumentException(Resources.DeclaringFieldNotStatic.FormatInvariant(field.Name, typeof(TOwner)), "getField");
 					}
 
-					if(fieldGetter.DeclaringType != typeof(TOwner))
+					if(field.DeclaringType != typeof(TOwner))
 					{
-						throw new ArgumentException(Resources.DeclaringFieldNotDeclaredOnOwningType.FormatInvariant(fieldGetter.Name, typeof(TOwner)), "getField");
+						throw new ArgumentException(Resources.DeclaringFieldNotDeclaredOnOwningType.FormatInvariant(field.Name, typeof(TOwner)), "getField");
 					}
 
-					if(!fieldGetter.Name.EndsWith(Resources.FieldSuffix))
+					if(!field.Name.EndsWith(Resources.FieldSuffix))
 					{
-						throw new ArgumentException(Resources.DeclaringFieldNameDoesNotEndWithSuffix.FormatInvariant(fieldGetter.Name, Resources.FieldSuffix), "getField");
+						throw new ArgumentException(Resources.DeclaringFieldNameDoesNotEndWithSuffix.FormatInvariant(field.Name, Resources.FieldSuffix), "getField");
 					}
 
-					var fieldName = fieldGetter.Name.Substring(0, fieldGetter.Name.Length - Resources.FieldSuffix.Length);
+					var fieldName = field.Name.Substring(0, field.Name.Length - Resources.FieldSuffix.Length);
 
 					return new Field<TValue>(typeof(TOwner), fieldName, true);
 				}

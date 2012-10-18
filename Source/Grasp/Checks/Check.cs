@@ -11,24 +11,13 @@ namespace Grasp.Checks
 	public static class Check
 	{
 		/// <summary>
-		/// Gets a check which applies to the specified target data and whose result defaults to true
-		/// </summary>
-		/// <typeparam name="T">The type of data to which the check applies</typeparam>
-		/// <param name="target">The data to check</param>
-		/// <returns>A check which applies to the specified target data</returns>
-		public static ICheckable<T> That<T>(T target)
-		{
-			return new ThatCheck<T>(target, true);
-		}
-
-		/// <summary>
 		/// Gets a check which applies to the specified target data and whose result defaults to the specified value
 		/// </summary>
 		/// <typeparam name="T">The type of data to which the check applies</typeparam>
 		/// <param name="target">The data to check</param>
 		/// <param name="defaultResult">The default result of invoking the check</param>
 		/// <returns>A check which applies to the specified target data</returns>
-		public static ICheckable<T> That<T>(T target, bool defaultResult)
+		public static ICheckable<T> That<T>(T target, bool defaultResult = true)
 		{
 			return new ThatCheck<T>(target, defaultResult);
 		}
