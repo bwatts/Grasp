@@ -3,15 +3,14 @@ using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
-using Grasp.Knowledge;
 
 namespace Grasp.Hypermedia
 {
 	public sealed class Link : Notion
 	{
-		public static readonly Field<object> SourceField = Field.On<Link>.Backing(x => x.Source);
-		public static readonly Field<object> TargetField = Field.On<Link>.Backing(x => x.Target);
-		public static readonly Field<Relationship> RelationshipField = Field.On<Link>.Backing(x => x.Relationship);
+		public static readonly Field<object> SourceField = Field.On<Link>.For(x => x.Source);
+		public static readonly Field<object> TargetField = Field.On<Link>.For(x => x.Target);
+		public static readonly Field<Relationship> RelationshipField = Field.On<Link>.For(x => x.Relationship);
 
 		public static Link Self(object source)
 		{

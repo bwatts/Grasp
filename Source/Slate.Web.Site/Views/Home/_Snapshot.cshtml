@@ -1,0 +1,43 @@
+﻿@model SnapshotModel
+
+<div class="title">
+	<h2>Snapshot</h2>
+</div>
+
+<div class="more">
+	<img class="arrow-right" />
+	<h2>@Html.RenderLink(Model.MoreLink)</h2>
+</div>
+
+<ul class="list">
+	<li>
+		<a href="#">3 contributors</a>
+		<div class="subtitle">2 authors, 3 respondents, 2 active in the past day</div>
+	</li>
+	<li>
+		<a href="#">11 forms</a>
+		<div class="subtitle">
+			3 drafts, 8 published, 4 with data <span class="issue-count">2 issues</span>
+		</div>
+	</li>
+	<li>
+		<a href="#">5 responses</a>
+		<div class="subtitle">3 complete, 2 in progress</div>
+	</li>
+	<li>
+		<a href="#">189 variables</a>
+		<div class="subtitle">
+			across 17 namespaces <span class="issue-count">4 issues</span>
+		</div>
+	</li>
+	<li>
+		<a href="#">64 calculations</a>
+		<div class="subtitle">
+			42 checks, 12 sums, 6 averages, 4 counts <span class="issue-count">8 issues</span>
+		</div>
+	</li>
+	<li>
+		<a href="#">11 issues</a>
+		<div class="subtitle">2 forms, 4 variables, 8 calculations</div>
+	</li>
+</ul>

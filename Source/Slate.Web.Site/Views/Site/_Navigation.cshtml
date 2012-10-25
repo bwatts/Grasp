@@ -1,0 +1,40 @@
+﻿@model NavigationModel
+
+<ul class="navigation">
+	@{
+		var wroteFirst = false;
+		
+		foreach(var area in Model.Areas)
+		{
+			if(wroteFirst)
+			{
+				@:<li>
+			}
+			else
+			{
+				@:<li class="first">
+
+				wroteFirst = true;
+			}
+
+			@Html.RenderNavigationAreaLink(area, area == Model.CurrentArea, "current")
+			@:</li>
+		}
+	}
+</ul>
+
+@if(Model.HasSubNavigation)
+{
+	<div class="sub-navigation">
+		<span class="brace">{</span>
+		<ul class="areas">
+			@{
+				foreach(var subArea in Model.CurrentArea.SubAreas)
+				{
+					<li class="first">@Html.RenderNavigationAreaLink(subArea, subArea == Model.CurrentSubArea, "current")</li>
+				}
+			}
+		</ul>
+		<span class="brace">}</span>
+	</div>
+}

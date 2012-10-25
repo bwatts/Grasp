@@ -1,0 +1,17 @@
+﻿@model Slate.Web.Presentation.Home.FormListModel
+
+<div class="work">
+	<h2>Work on a form</h2>
+</div>
+
+<div class="start">
+	<img class="add" />
+	<h2>@Html.RenderLink(Model.StartLink)</h2>
+</div>
+
+@{Html.RenderList(Model.List);}
+
+<div class="explore">
+	@Html.RenderLink(Model.ExploreItem.Number.Link)
+	<div class="subtitle">@Model.ExploreItem.Description</div>
+</div>

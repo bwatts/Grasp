@@ -65,7 +65,7 @@ namespace Grasp.Semantics.Relationships
 
 		public override int GetHashCode()
 		{
-			return Value;
+			return Value.GetHashCode();
 		}
 
 		public override string ToString()

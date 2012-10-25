@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
-using Grasp.Knowledge;
+using System.Threading.Tasks;
 
 namespace Grasp.Hypermedia
 {
-	public sealed class Mesh
+	/// <summary>
+	/// Attaches an HTML link to <see cref="Notion"/> objects, allowing it to participate in the mesh of hypermedia
+	/// </summary>
+	public static class Mesh
 	{
-		public static readonly Field<Link> SelfLinkField = Field.AttachedTo<Notion>.By<Mesh>.Backing(() => SelfLinkField);
-		public static readonly Field<Many<Link>> LinksField = Field.AttachedTo<Notion>.By<Mesh>.Backing(() => LinksField);
+		public static readonly Field<HtmlLink> LinkField = Field.AttachedTo<Notion>.By.Static(typeof(Mesh)).For(() => LinkField);
 	}
 }

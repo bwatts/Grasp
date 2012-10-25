@@ -1,79 +1,155 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
-using System.Globalization;
 using System.Linq;
-using System.Text;
+using System.Threading.Tasks;
 using Cloak;
-using Grasp.Knowledge;
-using Grasp.Knowledge.Work;
+using Cloak.Linq;
+using Grasp.Messaging;
+using Grasp.Work;
 using Raven.Client;
+using Raven.Client.Linq;
 
 namespace Grasp.Raven
 {
-	public abstract class RavenRepository<TEntity> : Repository<TEntity> where TEntity : Notion
+	public sealed class RavenRepository<TAggregate> : RavenContext, IRepository<TAggregate> where TAggregate : Aggregate, new()
 	{
-		protected RavenRepository(RavenWorkContext ravenWorkContext) : base(ravenWorkContext)
+		public RavenRepository(IDocumentStore documentStore) : base(documentStore)
 		{}
 
-		protected new RavenWorkContext Context
+		public Task SaveAsync(TAggregate aggregate, int expectedVersion)
 		{
-			get { return (RavenWorkContext) base.Context; }
+			return ExecuteWriteAsync(async session => await new EventStorage(session, aggregate, expectedVersion).StoreEventsAsync());
 		}
 
-		protected IDocumentSession Session
+		public Task<TAggregate> LoadAsync(Guid aggregateId)
 		{
-			get { return Context.Session; }
+			return ExecuteReadAsync(session =>
+			{
+				var aggregate = new TAggregate();
+
+				aggregate.SetVersion(LoadLatestVersion(aggregateId, session));
+
+				return aggregate;
+			});
 		}
 
-		protected virtual IFormatProvider IdFormatProvider
+		private static AggregateVersion LoadLatestVersion(Guid aggregateId, IDocumentSession session)
 		{
-			get { return CultureInfo.InvariantCulture; }
+			AggregateVersion version = null;
+
+			foreach(var versionDocument in LoadVersionDocuments(aggregateId, session))
+			{
+				version = version == null
+					? new AggregateVersion(versionDocument.Number, versionDocument.Events)
+					: new AggregateVersion(version, versionDocument.Number, versionDocument.Events);
+			}
+
+			return version ?? new AggregateVersion(1, Enumerable.Empty<Event>());
 		}
 
-		protected TEntity GetById(ValueType id)
+		private static List<AggregateVersionDocument> LoadVersionDocuments(Guid aggregateId, IDocumentSession session)
 		{
-			return Session.Load<TEntity>(id);
+			var aggregateDocumentId = GetAggregateDocumentId(aggregateId);
+
+			return session
+				.Query<AggregateVersionDocument, AggregateVersionDocuments_ByAggregateDocumentId>()
+				.Where(version => version.AggregateDocumentId == aggregateDocumentId)
+				.ToList();
 		}
 
-		protected TEntity	GetById(string id)
+		private static string GetAggregateDocumentId(Guid aggregateId)
 		{
-			return Session.Load<TEntity>(id);
+			return "aggregates/{0}".FormatInvariant(aggregateId);
 		}
 
-		protected IEnumerable<TEntity> GetByIds(IEnumerable<string> ids)
+		private sealed class EventStorage
 		{
-			return Session.Load<TEntity>(ids);
-		}
+			private readonly IDocumentSession _session;
+			private readonly TAggregate _aggregate;
+			private readonly int _expectedVersion;
+			private string _aggregateDocumentId;
+			private AggregateDocument _aggregateDocument;
+			private int _newVersion;
 
-		protected IEnumerable<TEntity> GetByIds(params string[] ids)
-		{
-			return Session.Load<TEntity>(ids);
-		}
+			internal EventStorage(IDocumentSession session, TAggregate aggregate, int expectedVersion)
+			{
+				_session = session;
+				_aggregate = aggregate;
+				_expectedVersion = expectedVersion;
+			}
 
-		protected virtual TEntity GetById(object id)
-		{
-			return Session.Load<TEntity>(GetIdText(id));
-		}
+			internal async Task StoreEventsAsync()
+			{
+				await InitializeAsync();
 
-		protected virtual string GetIdText(object id)
-		{
-			return "{0}".Format(IdFormatProvider, id);
-		}
+				StoreAggregateDocument();
 
-		protected virtual IEnumerable<TEntity> GetByIds(IEnumerable<object> ids)
-		{
-			return Session.Load<TEntity>(GetIdsText(ids));
-		}
+				StoreNewVersion();
+			}
 
-		protected virtual IEnumerable<string> GetIdsText(IEnumerable<object> ids)
-		{
-			return ids.Select(GetIdText);
-		}
+			private async Task InitializeAsync()
+			{
+				_aggregateDocumentId = GetAggregateDocumentId(_aggregate.Id);
 
-		protected virtual IEnumerable<string> GetIdsText(params object[] ids)
-		{
-			return ids.Select(GetIdText);
+				_aggregateDocument = await LoadAggregateDocumentAsync();
+
+				_newVersion = _aggregate.Version + 1;
+			}
+
+			private Task<AggregateDocument> LoadAggregateDocumentAsync()
+			{
+				return Task.Run(() =>
+				{
+					_aggregateDocument = _session.Load<AggregateDocument>(_aggregateDocumentId);
+
+					if(_aggregateDocument.LatestVersion != _expectedVersion)
+					{
+						throw new ConcurrencyException(Resources.ConcurrencyViolation.FormatInvariant(typeof(TAggregate), _aggregate.Id, _expectedVersion, _aggregate.Version))
+						{
+							AggregateType = typeof(TAggregate),
+							AggregateId = _aggregate.Id,
+							ExpectedVersion = _expectedVersion,
+							ActualVersion = _aggregate.Version
+						};
+					}
+
+					return _aggregateDocument;
+				});
+			}
+
+			private void StoreAggregateDocument()
+			{
+				_session.Store(new AggregateDocument
+				{
+					Id = GetAggregateDocumentId(_aggregate.Id),
+					LatestVersion = _newVersion,
+					VersionDocumentIds = GetVersionDocumentIds(_newVersion).ToList()
+				});
+			}
+
+			private void StoreNewVersion()
+			{
+				_session.Store(_aggregate);
+
+				_session.Store(new AggregateVersionDocument
+				{
+					Id = GetVersionDocumentId(_newVersion),
+					AggregateDocumentId = _aggregateDocumentId,
+					Number = _newVersion,
+					Events = _aggregate.ObserveEvents().ToList()
+				});
+			}
+
+			private IEnumerable<string> GetVersionDocumentIds(int newVersionNumber)
+			{
+				return _aggregateDocument.VersionDocumentIds.Concat(GetVersionDocumentId(newVersionNumber));
+			}
+
+			private string GetVersionDocumentId(int newVersionNumber)
+			{
+				return "aggregates/{0}/versions/{1}".FormatInvariant(_aggregate.Id, newVersionNumber);
+			}
 		}
 	}
 }

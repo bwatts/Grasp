@@ -3,15 +3,14 @@ using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
-using Grasp.Knowledge;
 
 namespace Grasp.Hypermedia
 {
-	public sealed class Relationship : ComparableNotion<Relationship>
+	public sealed class Relationship : ComparableNotion<Relationship>, IStackable<Relationship>
 	{
-		public static readonly Field<string> NameField = Field.On<Relationship>.Backing(x => x.Name);
+		public static readonly Field<string> NameField = Field.On<Relationship>.For(x => x.Name);
 
-		public static readonly Relationship Default = new Relationship();
+		public static readonly Relationship Empty = new Relationship();
 		public static readonly Relationship Self = new Relationship(Resources.SelfRelationship);
 
 		public static readonly Relationship Singular = new Relationship(Resources.SingularRelationship);

@@ -117,9 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="DefinitionListContentHasNoKeyField" xml:space="preserve">
-    <value>Definition list item specifies no key field. Attach {0} to each item in the Values collection.</value>
-  </data>
   <data name="StreamIsInvalidHtmlRepresentation" xml:space="preserve">
     <value>Stream is an invalid HTML representation</value>
   </data>

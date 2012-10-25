@@ -61,15 +61,6 @@ namespace Grasp.Hypermedia {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Definition list item specifies no key field. Attach {0} to each item in the Values collection..
-        /// </summary>
-        internal static string DefinitionListContentHasNoKeyField {
-            get {
-                return ResourceManager.GetString("DefinitionListContentHasNoKeyField", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Stream is an invalid HTML representation.
         /// </summary>
         internal static string StreamIsInvalidHtmlRepresentation {

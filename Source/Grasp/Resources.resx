@@ -117,13 +117,98 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ConditionKey" xml:space="preserve">
+    <value>"{0}" ({1})</value>
+  </data>
+  <data name="CreditCardCvvPattern" xml:space="preserve">
+    <value>(?!000)\d{3,4}$</value>
+    <comment>regexlib.com</comment>
+  </data>
+  <data name="DeclaringFieldNameDoesNotEndWithSuffix" xml:space="preserve">
+    <value>Declaring field "{0}" does not end with "{1}"</value>
+  </data>
+  <data name="DeclaringFieldNotDeclaredOnOwningType" xml:space="preserve">
+    <value>Declaring field "{0}" is not declared by owning type {1}</value>
+  </data>
+  <data name="DeclaringFieldNotStatic" xml:space="preserve">
+    <value>Declaring field "{0}" is not static</value>
+  </data>
+  <data name="Field" xml:space="preserve">
+    <value>{0} ({1})</value>
+  </data>
+  <data name="FieldSuffix" xml:space="preserve">
+    <value>Field</value>
+  </data>
+  <data name="GetterDoesNotAccessField" xml:space="preserve">
+    <value>Getter {0} does not access a field</value>
+  </data>
+  <data name="InvalidHrefUri" xml:space="preserve">
+    <value>Invalid href URI: {0}</value>
+  </data>
+  <data name="InvalidQueryPair" xml:space="preserve">
+    <value>Invalid query pair: "{0}"</value>
+  </data>
+  <data name="InvalidSortFieldFormat" xml:space="preserve">
+    <value>Invalid sort field format: "{0}"</value>
+  </data>
+  <data name="InvalidSortFieldsFormat" xml:space="preserve">
+    <value>Invalid sort fields format: "{0}"</value>
+  </data>
+  <data name="InvalidSortFormat" xml:space="preserve">
+    <value>Invalid sort format: "{0}"</value>
+  </data>
+  <data name="InvalidTargetCast" xml:space="preserve">
+    <value>Unable to cast target data of type {0} to {1}</value>
+  </data>
+  <data name="MemberIsNotProperty" xml:space="preserve">
+    <value>Member "{0}" is not a property</value>
+  </data>
+  <data name="MemberNotDeclaredOnOwningType" xml:space="preserve">
+    <value>Member "{0}" is not declared on owning type {1}</value>
+  </data>
+  <data name="MemberTypeNotSupported" xml:space="preserve">
+    <value>Member type {0} is not supported</value>
+  </data>
+  <data name="NotBinaryType" xml:space="preserve">
+    <value>Rule type {0} is not a binary type</value>
+  </data>
+  <data name="PhoneNumberPattern" xml:space="preserve">
+    <value>^(?:\([2-9]\d{2}\)\ ?|[2-9]\d{2}(?:\-?|\ ?))[2-9]\d{2}[- ]?\d{4}$</value>
+    <comment>regexlib.com</comment>
+  </data>
   <data name="PluralRelationship" xml:space="preserve">
     <value>relationships</value>
+  </data>
+  <data name="QuerySeparatorRepeated" xml:space="preserve">
+    <value>Query separator '?' is repeated: "{0}"</value>
   </data>
   <data name="SelfRelationship" xml:space="preserve">
     <value>self</value>
   </data>
   <data name="SingularRelationship" xml:space="preserve">
     <value>relationship</value>
+  </data>
+  <data name="SocialSecurityNumberPattern" xml:space="preserve">
+    <value>(^|\s)(00[1-9]|0[1-9]0|0[1-9][1-9]|[1-6]\d{2}|7[0-6]\d|77[0-2])(-?|[\. ])([1-9]0|0[1-9]|[1-9][1-9])\3(\d{3}[1-9]|[1-9]\d{3}|\d[1-9]\d{2}|\d{2}[1-9]\d)($|\s|[;:,!\.\?])</value>
+    <comment>regexlib.com</comment>
+  </data>
+  <data name="SortDescendingField" xml:space="preserve">
+    <value>{0} {1}</value>
+  </data>
+  <data name="StreamIsInvalidHtmlRepresentation" xml:space="preserve">
+    <value>Stream is an invalid HTML representation</value>
+  </data>
+  <data name="TargetTypeCannotBeAssignedNull" xml:space="preserve">
+    <value>Target type {0} cannot be assigned a null value</value>
+  </data>
+  <data name="TemplatesNotAllowed" xml:space="preserve">
+    <value>This URI cannot have templates: "{0}"</value>
+  </data>
+  <data name="UnsupportedTargetType" xml:space="preserve">
+    <value>Target type {0} is not supported by check method {1}</value>
+  </data>
+  <data name="ZipCodePattern" xml:space="preserve">
+    <value>^\d{5}$|^\d{5}-\d{4}$</value>
+    <comment>regexlib.com</comment>
   </data>
 </root>

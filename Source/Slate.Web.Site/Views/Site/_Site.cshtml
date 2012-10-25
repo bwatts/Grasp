@@ -1,0 +1,51 @@
+﻿@model ILayoutModel
+
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width" />
+		<base href="http://localhost:56789" />
+    <title>@Model.Title</title>
+    @Styles.Render("~/content/themes/base/css")
+    @Scripts.Render("~/bundles/modernizr")
+	</head>
+	<body class="layout">
+		<div class="taglines-and-user">
+			<div class="tagline tagline1">
+				Data + You = <span class="knowledge">Knowledge</span>
+			</div>
+
+			<div class="tagline tagline2">
+				You + <span class="knowledge">Knowledge</span> = <span class="power">Power</span>
+			</div>
+
+			<div class="user">
+				@{Html.RenderPartial("_User", Model.User);}
+			</div>
+
+			<div class="after-user"></div>
+		</div>
+			
+		<div class="snapshot">
+			<h1>@Html.RenderLink(Model.SystemLink)</h1>
+		</div>
+
+		<div class="navigation">
+			@{Html.RenderPartial("_Navigation", Model.Navigation);}
+		</div>
+
+		<div class="body">
+			@RenderBody()
+		</div>
+
+		<div class="site-footer">
+			Slate v0.1.0.0
+		</div>
+
+    @Scripts.Render("~/bundles/jquery")
+
+    @RenderSection("scripts", required: false)
+	</body>
+</html>

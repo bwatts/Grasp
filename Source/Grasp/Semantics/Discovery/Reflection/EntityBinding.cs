@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
-using Grasp.Knowledge;
 
 namespace Grasp.Semantics.Discovery.Reflection
 {
 	public class EntityBinding : TypeBinding
 	{
-		public static Field<Many<MemberBinding>> MemberBindingsField = Field.On<EntityBinding>.Backing(x => x.MemberBindings);
+		public static readonly Field<Many<MemberBinding>> MemberBindingsField = Field.On<EntityBinding>.For(x => x.MemberBindings);
 
 		public Many<MemberBinding> MemberBindings { get { return GetValue(MemberBindingsField); } }
 

@@ -1,0 +1,66 @@
+﻿<!DOCTYPE html>
+
+<html>
+	<head>
+		<title>Forms</title>
+		<base href="http://localhost:12345/api" />
+		<link rel="home" href="" />
+		<link rel="grasp:media-type" href="media/application%2Fvnd.grasp.list%2Bhtml" />
+	</head>
+	<body>
+		<a class="href-template" rel="grasp:list-page" href="forms?page={page}&pageSize={page-size}&sort={sort}" />
+		<div class="query">
+			<span class="page">3</span>
+			<span class="page-size">2</span>
+			<span class="sort">IssueCount desc,Name</span>
+		</div>
+		<div class="context">
+			<span class="page-count">5</span>
+			<span class="item-count">10</span>
+			<span class="previous-page">2</span>
+			<span class="next-page">4</span>
+		</div>
+		<div class="page">
+			<span class="number">3</span>
+			<span class="size">2</span>
+			<span class="first-item">5</span>
+			<span class="last-item">6</span>
+			<div class="items">
+				<dl class="schema">
+					<dt>Name</dt>
+					<dd>string</dd>
+					<dt>Visibility</dt>
+					<dd>string</dd>
+					<dt>ResponseCount</dt>
+					<dd>int</dd>
+					<dt>IssueCount</dt>
+					<dd>int</dd>
+					<dt>WhenCreated</dt>
+					<dd>datetime</dd>
+					<dt>WhenModified</dt>
+					<dd>datetime</dd>
+				</dl>
+				<ol>
+					<li>
+						<a rel="grasp:list-item" href="forms/Test" />
+						<span class="Name">Test</span>
+						<span class="Visibility">Draft</span>
+						<span class="ResponseCount">0</span>
+						<span class="IssueCount">1</span>
+						<span class="WhenCreated">2012-11-2T02:46:00Z</span>
+						<span class="WhenModified">2012-11-2T018:37:52Z</span>
+					</li>
+					<li>
+						<a rel="grasp:list-item" href="forms/Hello%20World" />
+						<span class="Name">Hello World</span>
+						<span class="Visibility">Published</span>
+						<span class="ResponseCount">3</span>
+						<span class="IssueCount">3</span>
+						<span class="WhenCreated">2012-11-2T02:46:00Z</span>
+						<span class="WhenModified">2012-11-2T018:37:52Z</span>
+					</li>
+				</ol>
+			</div>
+		</div>
+	</body>
+</html>

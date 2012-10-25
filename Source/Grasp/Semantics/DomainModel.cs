@@ -4,17 +4,16 @@ using System.Collections.ObjectModel;
 using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
-using Grasp.Knowledge;
 using Grasp.Semantics.Relationships;
 
 namespace Grasp.Semantics
 {
 	public class DomainModel : Notion
 	{
-		public static Field<string> NameField = Field.On<DomainModel>.Backing(x => x.Name);
-		public static Field<Many<NamespaceModel>> NamespacesField = Field.On<DomainModel>.Backing(x => x.Namespaces);
-		public static Field<Many<OneWayRelationshipModel>> OneWayRelationshipsField = Field.On<DomainModel>.Backing(x => x.OneWayRelationships);
-		public static Field<Many<TwoWayRelationshipModel>> TwoWayRelationshipsField = Field.On<DomainModel>.Backing(x => x.TwoWayRelationships);
+		public static readonly Field<string> NameField = Field.On<DomainModel>.For(x => x.Name);
+		public static readonly Field<Many<NamespaceModel>> NamespacesField = Field.On<DomainModel>.For(x => x.Namespaces);
+		public static readonly Field<Many<OneWayRelationshipModel>> OneWayRelationshipsField = Field.On<DomainModel>.For(x => x.OneWayRelationships);
+		public static readonly Field<Many<TwoWayRelationshipModel>> TwoWayRelationshipsField = Field.On<DomainModel>.For(x => x.TwoWayRelationships);
 
 		public string Name { get { return GetValue(NameField); } }
 		public Many<NamespaceModel> Namespaces { get { return GetValue(NamespacesField); } }

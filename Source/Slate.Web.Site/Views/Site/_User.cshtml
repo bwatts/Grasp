@@ -1,0 +1,12 @@
+﻿@model UserIdentity
+
+<div class="user">
+	@if(Model.IsAuthenticated)
+	{
+		@:Identity: <span class="identity">@Html.RenderLink(Model.Link)</span>
+	}
+	else
+	{
+		@:Unknown identity: <span class="unknown">@Html.RenderLink(Model.Link)</span>
+	}
+</div>

@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
-using Grasp.Knowledge;
 
 namespace Grasp.Semantics.Discovery.Reflection
 {
 	public class NamespaceBinding : Notion
 	{
-		public static Field<string> NameField = Field.On<NamespaceBinding>.Backing(x => x.Name);
-		public static Field<Many<NamespacePartBinding>> PartBindingsField = Field.On<NamespaceBinding>.Backing(x => x.PartBindings);
+		public static readonly Field<string> NameField = Field.On<NamespaceBinding>.For(x => x.Name);
+		public static readonly Field<Many<NamespacePartBinding>> PartBindingsField = Field.On<NamespaceBinding>.For(x => x.PartBindings);
 
 		public string Name { get { return GetValue(NameField); } }
 		public Many<NamespacePartBinding> PartBindings { get { return GetValue(PartBindingsField); } }

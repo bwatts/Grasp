@@ -3,16 +3,15 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
-using Grasp.Knowledge;
 
 namespace Grasp.Semantics
 {
 	public class EnumValueModel : Notion
 	{
-		public static Field<EnumModel> EnumModelField = Field.On<EnumValueModel>.Backing(x => x.EnumModel);
-		public static Field<string> NameField = Field.On<EnumValueModel>.Backing(x => x.Name);
-		public static Field<int> NumericValueField = Field.On<EnumValueModel>.Backing(x => x.NumericValue);
-		public static Field<object> ObjectValueField = Field.On<EnumValueModel>.Backing(x => x.ObjectValue);
+		public static readonly Field<EnumModel> EnumModelField = Field.On<EnumValueModel>.For(x => x.EnumModel);
+		public static readonly Field<string> NameField = Field.On<EnumValueModel>.For(x => x.Name);
+		public static readonly Field<int> NumericValueField = Field.On<EnumValueModel>.For(x => x.NumericValue);
+		public static readonly Field<object> ObjectValueField = Field.On<EnumValueModel>.For(x => x.ObjectValue);
 
 		public EnumModel EnumModel { get { return GetValue(EnumModelField); } }
 		public string Name { get { return GetValue(NameField); } }

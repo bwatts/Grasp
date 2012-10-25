@@ -1,0 +1,75 @@
+﻿@model ListModel
+
+<div class="list">
+	@if(!Model.IsEmpty && Model.CurrentPage.Items.Count > 0)
+	{
+		<ul>
+			@foreach(var item in Model.CurrentPage.Items)
+			{
+				<li class="item">
+					@Html.RenderNumber(item.Number)
+					<div class="subtitle">@item.Description</div>
+				</li>
+			}
+		</ul>
+	}
+
+	<div class="paging">
+		<div class="page-navigation">
+			@if(Model.IsEmpty)
+			{
+				<div class="empty-message">@Model.EmptyMessage</div>
+			}
+			else
+			{
+				if(Model.CurrentPage.Number.Value == 1)
+				{
+					<div class="page jump unavailable">&lt;-</div>
+					<div class="page jump unavailable">&lt;</div>
+				}
+				else
+				{
+					<div class="page jump">@Html.RenderNumber(Model.FirstPage, "<-")</div>
+					<div class="page jump">@Html.RenderNumber(Model.PreviousPage, "<")</div>
+				}
+
+				foreach(var page in Model.Pages)
+				{
+					if(page.Value == Model.CurrentPage.Number.Value)
+					{
+						<div class="page current">@Html.RenderNumber(page)</div>
+					}
+					else
+					{
+						<div class="page">@Html.RenderNumber(page)</div>
+					}
+				}
+
+				if(Model.CurrentPage.Number.Value == Model.LastPage.Value)
+				{
+					<div class="page jump unavailable">-&gt;</div>
+					<div class="page jump unavailable">&gt;</div>
+				}
+				else
+				{
+					<div class="page jump">@Html.RenderNumber(Model.NextPage, ">")</div>
+					<div class="page jump">@Html.RenderNumber(Model.LastPage, "->")</div>
+				}
+		}
+		</div>
+
+		@if(!Model.IsEmpty)
+		{
+			<div class="view">
+				<div class="separator">items</div>
+				<div class="number">@Html.RenderNumber(Model.CurrentPage.FirstItemNumber)</div>
+				<div class="separator">to</div>
+				<div class="number">@Html.RenderNumber(Model.CurrentPage.LastItemNumber)</div>
+				<div class="separator">of</div>
+				<div class="number">@Html.RenderNumber(Model.TotalItems)</div>
+			</div>
+		}
+	</div>
+
+	<div class="footer"></div>
+</div>

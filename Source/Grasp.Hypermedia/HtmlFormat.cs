@@ -8,13 +8,34 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using Cloak.Http.Media;
+using Grasp.Hypermedia.Linq;
 
 namespace Grasp.Hypermedia
 {
 	public abstract class HtmlFormat<TMedia> : MediaFormat<TMedia, MRepresentation>
 	{
+		protected HtmlFormat() : base()
+		{
+			IncludeMediaTypeLink = true;
+		}
+
+		protected HtmlFormat(MediaType mediaType) : base(mediaType)
+		{
+			IncludeMediaTypeLink = true;
+		}
+
+		protected HtmlFormat(params MediaType[] mediaTypes) : base(mediaTypes)
+		{}
+
+		public bool IncludeMediaTypeLink { get; set; }
+
 		protected override void WriteRepresentation(MRepresentation representation, Stream stream, HttpContent content)
 		{
+			if(IncludeMediaTypeLink)
+			{
+				representation = AddMediaTypeLink(representation);
+			}
+
 			var html = representation.ToHtml();
 
 			var settings = new XmlWriterSettings
@@ -37,11 +58,39 @@ namespace Grasp.Hypermedia
 			{
 				return MRepresentation.Load(stream);
 			}
-			catch(XmlException exception)
+			catch(XmlException xmlException)
 			{
-				formatterLogger.LogError(exception.SourceUri, exception);
+				formatterLogger.LogError("", xmlException);
 
-				throw new FormatException(Resources.StreamIsInvalidHtmlRepresentation, exception);
+				throw new FormatException(Resources.StreamIsInvalidHtmlRepresentation, xmlException);
+			}
+			catch(FormatException formatException)
+			{
+				formatterLogger.LogError("", formatException);
+
+				throw new FormatException(Resources.StreamIsInvalidHtmlRepresentation, formatException);
+			}
+		}
+
+		private static MRepresentation AddMediaTypeLink(MRepresentation representation)
+		{
+			return new MRepresentation(AddMediaTypeLink(representation.Head), representation.Body);
+		}
+
+		private static MHead AddMediaTypeLink(MHead head)
+		{
+			return new MHead(head.Title, head.BaseLink, PrependMediaTypeLink(head));
+		}
+
+		private static IEnumerable<HtmlLink> PrependMediaTypeLink(MHead head)
+		{
+			// TODO: Make URL dynamic
+
+			yield return new HtmlLink("media/application%2Fvnd.grasp.list%2Bhtml", relationship: new Relationship("grasp:media-type"));
+
+			foreach(var link in head.Links)
+			{
+				yield return link;
 			}
 		}
 	}

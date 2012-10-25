@@ -1,0 +1,396 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{9D31050E-76C9-4EFF-98F8-3826BC054785}</ProjectGuid>
+    <ProjectTypeGuids>{E3E379DF-F4C6-4180-9B81-6769533ABE47};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Slate.Web.Site</RootNamespace>
+    <AssemblyName>Slate.Web.Site</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <CodeContractsAssemblyMode>0</CodeContractsAssemblyMode>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeContractsEnableRuntimeChecking>True</CodeContractsEnableRuntimeChecking>
+    <CodeContractsRuntimeOnlyPublicSurface>False</CodeContractsRuntimeOnlyPublicSurface>
+    <CodeContractsRuntimeThrowOnFailure>True</CodeContractsRuntimeThrowOnFailure>
+    <CodeContractsRuntimeCallSiteRequires>False</CodeContractsRuntimeCallSiteRequires>
+    <CodeContractsRuntimeSkipQuantifiers>False</CodeContractsRuntimeSkipQuantifiers>
+    <CodeContractsRunCodeAnalysis>False</CodeContractsRunCodeAnalysis>
+    <CodeContractsNonNullObligations>False</CodeContractsNonNullObligations>
+    <CodeContractsBoundsObligations>False</CodeContractsBoundsObligations>
+    <CodeContractsArithmeticObligations>False</CodeContractsArithmeticObligations>
+    <CodeContractsEnumObligations>False</CodeContractsEnumObligations>
+    <CodeContractsRedundantAssumptions>False</CodeContractsRedundantAssumptions>
+    <CodeContractsInferRequires>False</CodeContractsInferRequires>
+    <CodeContractsInferEnsures>False</CodeContractsInferEnsures>
+    <CodeContractsInferObjectInvariants>False</CodeContractsInferObjectInvariants>
+    <CodeContractsSuggestAssumptions>False</CodeContractsSuggestAssumptions>
+    <CodeContractsSuggestRequires>True</CodeContractsSuggestRequires>
+    <CodeContractsSuggestEnsures>False</CodeContractsSuggestEnsures>
+    <CodeContractsSuggestObjectInvariants>False</CodeContractsSuggestObjectInvariants>
+    <CodeContractsRunInBackground>True</CodeContractsRunInBackground>
+    <CodeContractsShowSquigglies>True</CodeContractsShowSquigglies>
+    <CodeContractsUseBaseLine>False</CodeContractsUseBaseLine>
+    <CodeContractsEmitXMLDocs>True</CodeContractsEmitXMLDocs>
+    <CodeContractsCustomRewriterAssembly />
+    <CodeContractsCustomRewriterClass />
+    <CodeContractsLibPaths />
+    <CodeContractsExtraRewriteOptions />
+    <CodeContractsExtraAnalysisOptions />
+    <CodeContractsBaseLineFile />
+    <CodeContractsCacheAnalysisResults>True</CodeContractsCacheAnalysisResults>
+    <CodeContractsRuntimeCheckingLevel>Full</CodeContractsRuntimeCheckingLevel>
+    <CodeContractsReferenceAssembly>Build</CodeContractsReferenceAssembly>
+    <CodeContractsAnalysisWarningLevel>0</CodeContractsAnalysisWarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeContractsEnableRuntimeChecking>True</CodeContractsEnableRuntimeChecking>
+    <CodeContractsRuntimeOnlyPublicSurface>False</CodeContractsRuntimeOnlyPublicSurface>
+    <CodeContractsRuntimeThrowOnFailure>True</CodeContractsRuntimeThrowOnFailure>
+    <CodeContractsRuntimeCallSiteRequires>False</CodeContractsRuntimeCallSiteRequires>
+    <CodeContractsRuntimeSkipQuantifiers>False</CodeContractsRuntimeSkipQuantifiers>
+    <CodeContractsRunCodeAnalysis>False</CodeContractsRunCodeAnalysis>
+    <CodeContractsNonNullObligations>False</CodeContractsNonNullObligations>
+    <CodeContractsBoundsObligations>False</CodeContractsBoundsObligations>
+    <CodeContractsArithmeticObligations>False</CodeContractsArithmeticObligations>
+    <CodeContractsEnumObligations>False</CodeContractsEnumObligations>
+    <CodeContractsRedundantAssumptions>False</CodeContractsRedundantAssumptions>
+    <CodeContractsInferRequires>False</CodeContractsInferRequires>
+    <CodeContractsInferEnsures>False</CodeContractsInferEnsures>
+    <CodeContractsInferObjectInvariants>False</CodeContractsInferObjectInvariants>
+    <CodeContractsSuggestAssumptions>False</CodeContractsSuggestAssumptions>
+    <CodeContractsSuggestRequires>True</CodeContractsSuggestRequires>
+    <CodeContractsSuggestEnsures>False</CodeContractsSuggestEnsures>
+    <CodeContractsSuggestObjectInvariants>False</CodeContractsSuggestObjectInvariants>
+    <CodeContractsRunInBackground>True</CodeContractsRunInBackground>
+    <CodeContractsShowSquigglies>True</CodeContractsShowSquigglies>
+    <CodeContractsUseBaseLine>False</CodeContractsUseBaseLine>
+    <CodeContractsEmitXMLDocs>True</CodeContractsEmitXMLDocs>
+    <CodeContractsCustomRewriterAssembly />
+    <CodeContractsCustomRewriterClass />
+    <CodeContractsLibPaths />
+    <CodeContractsExtraRewriteOptions />
+    <CodeContractsExtraAnalysisOptions />
+    <CodeContractsBaseLineFile />
+    <CodeContractsCacheAnalysisResults>True</CodeContractsCacheAnalysisResults>
+    <CodeContractsRuntimeCheckingLevel>Full</CodeContractsRuntimeCheckingLevel>
+    <CodeContractsReferenceAssembly>Build</CodeContractsReferenceAssembly>
+    <CodeContractsAnalysisWarningLevel>0</CodeContractsAnalysisWarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Autofac, Version=2.6.3.862, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Autofac.2.6.3.862\lib\NET40\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac.Configuration, Version=2.6.3.862, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Autofac.2.6.3.862\lib\NET40\Autofac.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac.Integration.Mvc, Version=2.6.2.859, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Autofac.Mvc4.2.6.2.859\lib\NET40\Autofac.Integration.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.4.5.10\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.4.0.20710.0\lib\net40\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.4.0.20710.0\lib\net40\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.4.0.20710.0\lib\net40\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.0.0\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Providers">
+      <HintPath>..\packages\Microsoft.AspNet.Providers.Core.1.1\lib\net40\System.Web.Providers.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.1.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.1.0\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\SlateAssemblyInfo.cs">
+      <Link>Properties\SlateAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="Composition\Http\ClientModule.cs" />
+    <Compile Include="Composition\Http\HttpModule.cs" />
+    <Compile Include="Composition\Http\ListModule.cs" />
+    <Compile Include="Composition\Http\MediaModule.cs" />
+    <Compile Include="Composition\FormsModule.cs" />
+    <Compile Include="Composition\TimeModule.cs" />
+    <Compile Include="Composition\SecurityModule.cs" />
+    <Compile Include="Composition\HomeModule.cs" />
+    <Compile Include="Composition\UI\UIModule.cs" />
+    <Compile Include="Configuration\SiteSection.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Composition\UI\JQueryModule.cs" />
+    <Compile Include="Composition\UI\LayoutModule.cs" />
+    <Compile Include="Composition\UI\ModernizrModule.cs" />
+    <Compile Include="Composition\SiteModule.cs" />
+    <Compile Include="Composition\UI\ThemeModule.cs" />
+    <Compile Include="Composition\UI\ViewModule.cs" />
+    <Compile Include="Views\ModelRendering.cs" />
+    <Compile Include="Views\HtmlLinkRendering.cs" />
+    <Compile Include="Views\SlateViewEngine.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\Themes\Base\Explore.css" />
+    <Content Include="Content\Themes\Base\Images\add.png" />
+    <Content Include="Content\Themes\Base\Lists.css" />
+    <Content Include="Content\Themes\Base\Site.css" />
+    <Content Include="Content\Themes\Base\Home.css" />
+    <Content Include="Content\Themes\Base\Images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\Themes\Base\Images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\Themes\Base\Images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\Themes\Base\Images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\Themes\Base\Images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\Themes\Base\Images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\Themes\Base\Images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\Themes\Base\Images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\Themes\Base\Images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\Themes\Base\Images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\Themes\Base\Images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\Themes\Base\Images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\Themes\Base\Images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\Themes\Base\jQuery\jquery-ui.css" />
+    <Content Include="Content\Themes\Base\jQuery\jquery.ui.accordion.css" />
+    <Content Include="Content\Themes\Base\jQuery\jquery.ui.all.css" />
+    <Content Include="Content\Themes\Base\jQuery\jquery.ui.autocomplete.css" />
+    <Content Include="Content\Themes\Base\jQuery\jquery.ui.base.css" />
+    <Content Include="Content\Themes\Base\jQuery\jquery.ui.button.css" />
+    <Content Include="Content\Themes\Base\jQuery\jquery.ui.core.css" />
+    <Content Include="Content\Themes\Base\jQuery\jquery.ui.datepicker.css" />
+    <Content Include="Content\Themes\Base\jQuery\jquery.ui.dialog.css" />
+    <Content Include="Content\Themes\Base\jQuery\jquery.ui.progressbar.css" />
+    <Content Include="Content\Themes\Base\jQuery\jquery.ui.resizable.css" />
+    <Content Include="Content\Themes\Base\jQuery\jquery.ui.selectable.css" />
+    <Content Include="Content\Themes\Base\jQuery\jquery.ui.slider.css" />
+    <Content Include="Content\Themes\Base\jQuery\jquery.ui.tabs.css" />
+    <Content Include="Content\Themes\Base\jQuery\jquery.ui.theme.css" />
+    <Content Include="Content\Themes\Base\Minified\Images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\Themes\Base\Minified\Images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\Themes\Base\Minified\Images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\Themes\Base\Minified\Images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\Themes\Base\Minified\Images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\Themes\Base\Minified\Images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\Themes\Base\Minified\Images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\Themes\Base\Minified\Images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\Themes\Base\Minified\Images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\Themes\Base\Minified\Images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\Themes\Base\Minified\Images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\Themes\Base\Minified\Images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\Themes\Base\Minified\Images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\Themes\Base\Minified\jquery-ui.min.css" />
+    <Content Include="Content\Themes\Base\Minified\jquery.ui.accordion.min.css" />
+    <Content Include="Content\Themes\Base\Minified\jquery.ui.autocomplete.min.css" />
+    <Content Include="Content\Themes\Base\Minified\jquery.ui.button.min.css" />
+    <Content Include="Content\Themes\Base\Minified\jquery.ui.core.min.css" />
+    <Content Include="Content\Themes\Base\Minified\jquery.ui.datepicker.min.css" />
+    <Content Include="Content\Themes\Base\Minified\jquery.ui.dialog.min.css" />
+    <Content Include="Content\Themes\Base\Minified\jquery.ui.progressbar.min.css" />
+    <Content Include="Content\Themes\Base\Minified\jquery.ui.resizable.min.css" />
+    <Content Include="Content\Themes\Base\Minified\jquery.ui.selectable.min.css" />
+    <Content Include="Content\Themes\Base\Minified\jquery.ui.slider.min.css" />
+    <Content Include="Content\Themes\Base\Minified\jquery.ui.tabs.min.css" />
+    <Content Include="Content\Themes\Base\Minified\jquery.ui.theme.min.css" />
+    <Content Include="Global.asax" />
+    <None Include="Content\Scripts\jquery-1.7.1.intellisense.js" />
+    <Content Include="Content\Scripts\jquery-1.7.1.js" />
+    <Content Include="Content\Scripts\jquery-1.7.1.min.js" />
+    <None Include="Content\Scripts\jquery.validate-vsdoc.js" />
+    <None Include="Content\Scripts\jquery-1.8.2.intellisense.js" />
+    <Content Include="Content\Scripts\jquery-1.8.2.js" />
+    <Content Include="Content\Scripts\jquery-1.8.2.min.js" />
+    <Content Include="Content\Scripts\jquery-ui-1.8.20.js" />
+    <Content Include="Content\Scripts\jquery-ui-1.8.20.min.js" />
+    <Content Include="Content\Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Content\Scripts\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Content\Scripts\jquery.validate.js" />
+    <Content Include="Content\Scripts\jquery.validate.min.js" />
+    <Content Include="Content\Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Content\Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Content\Scripts\knockout-2.1.0.debug.js" />
+    <Content Include="Content\Scripts\knockout-2.1.0.js" />
+    <Content Include="Content\Scripts\modernizr-2.5.3.js" />
+    <Content Include="Content\Scripts\upshot.compat.knockout.js" />
+    <Content Include="Content\Scripts\upshot.js" />
+    <Content Include="Content\Scripts\upshot.knockout.extensions.js" />
+    <Content Include="Content\Scripts\upshot.min.js" />
+    <Content Include="Content\Scripts\_references.js" />
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Error.cshtml" />
+    <Content Include="Views\Site\_Site.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\_Snapshot.cshtml" />
+    <Content Include="Views\Home\_IssueList.cshtml" />
+    <Content Include="Views\Home\_FormList.cshtml" />
+    <Content Include="Views\Home\_Welcome.cshtml" />
+    <Content Include="Views\Site\_Navigation.cshtml" />
+    <Content Include="Views\Site\_List.cshtml" />
+    <Content Include="Views\Site\_User.cshtml" />
+    <Content Include="Views\Explore\Index.cshtml" />
+    <Content Include="Views\Explore\Forms.cshtml" />
+    <Content Include="Views\Explore\Responses.cshtml" />
+    <Content Include="Views\Issues\Open.cshtml" />
+    <Content Include="Views\Issues\Index.cshtml" />
+    <Content Include="Views\Issues\Mine.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Composition\Areas\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\.submodules\Cloak\Source\Cloak.Autofac\Cloak.Autofac.csproj">
+      <Project>{96b357d1-842f-48e6-9139-bb47495bd97f}</Project>
+      <Name>Cloak.Autofac</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\.submodules\Cloak\Source\Cloak.Http\Cloak.Http.csproj">
+      <Project>{43f24f70-06f1-4834-b241-a8ceec01d87d}</Project>
+      <Name>Cloak.Http</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\.submodules\Cloak\Source\Cloak.NaturalText\Cloak.NaturalText.csproj">
+      <Project>{3689db83-f70b-4df6-ab11-60dc438d3ec6}</Project>
+      <Name>Cloak.NaturalText</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\.submodules\Cloak\Source\Cloak.Web.Mvc.Autofac\Cloak.Web.Mvc.Autofac.csproj">
+      <Project>{4ce0d89f-89ac-448f-a716-b90c8e4f3c50}</Project>
+      <Name>Cloak.Web.Mvc.Autofac</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\.submodules\Cloak\Source\Cloak\Cloak.csproj">
+      <Project>{a931092c-2916-4d20-a26d-d131d98e3069}</Project>
+      <Name>Cloak</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Grasp.Hypermedia\Grasp.Hypermedia.csproj">
+      <Project>{75771c68-b495-400c-b11f-b1221e2af231}</Project>
+      <Name>Grasp.Hypermedia</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Grasp.Raven\Grasp.Raven.csproj">
+      <Project>{c2b15833-e9e0-421e-a0cd-8a2c677baf48}</Project>
+      <Name>Grasp.Raven</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Grasp\Grasp.csproj">
+      <Project>{0a728107-2d52-4e6b-b651-793048876837}</Project>
+      <Name>Grasp</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Slate.Web.Presentation\Slate.Web.Presentation.csproj">
+      <Project>{3f82fa3a-3140-46f3-8db8-9d72797dbcba}</Project>
+      <Name>Slate.Web.Presentation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Slate\Slate.csproj">
+      <Project>{b5f202a2-4794-4265-8d6a-5c1c4e5a6ed7}</Project>
+      <Name>Slate %28Slate\Core\Slate%29</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>False</AutoAssignPort>
+          <DevelopmentServerPort>56789</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:54440/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

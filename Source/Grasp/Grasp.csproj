@@ -45,7 +45,8 @@
     <CodeContractsCacheAnalysisResults>False</CodeContractsCacheAnalysisResults>
     <CodeContractsRuntimeCheckingLevel>Full</CodeContractsRuntimeCheckingLevel>
     <CodeContractsReferenceAssembly>Build</CodeContractsReferenceAssembly>
-    <DocumentationFile>bin\Debug\Grasp.xml</DocumentationFile>
+    <DocumentationFile>
+    </DocumentationFile>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -188,11 +189,6 @@
     <Compile Include="Checks\Conditions\IConditionRepository.cs" />
     <Compile Include="Checks\Conditions\IConditionSchema.cs" />
     <Compile Include="Checks\Conditions\IConditionSource.cs" />
-    <Compile Include="Checks\Conditions\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <Compile Include="Checks\ICheckable.cs" />
     <Compile Include="Checks\ISpecifiable.cs" />
     <Compile Include="Checks\ISpecificationProvider.cs" />
@@ -252,17 +248,7 @@
     <Compile Include="Checks\Methods\IsTrueMethod.cs" />
     <Compile Include="Checks\Methods\IsWeekdayMethod.cs" />
     <Compile Include="Checks\Methods\MatchesMethod.cs" />
-    <Compile Include="Checks\Methods\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <Compile Include="Checks\Methods\SingleTypeCheckMethod.cs" />
-    <Compile Include="Checks\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <Compile Include="Checks\Rules\CheckRule.cs" />
     <Compile Include="Checks\Rules\BinaryRule.cs" />
     <Compile Include="Checks\Rules\ConstantRule.cs" />
@@ -271,57 +257,76 @@
     <Compile Include="Checks\Rules\LambdaRule.cs" />
     <Compile Include="Checks\Rules\MemberRule.cs" />
     <Compile Include="Checks\Rules\NotRule.cs" />
-    <Compile Include="Checks\Rules\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <Compile Include="Checks\Rules\Rule.cs" />
     <Compile Include="Checks\Rules\RuleSequenceMerge.cs" />
     <Compile Include="Checks\Rules\RuleType.cs" />
     <Compile Include="Checks\Rules\RuleVisitor.cs" />
     <Compile Include="Checks\Specification.cs" />
     <Compile Include="Checks\CheckException.cs" />
+    <Compile Include="Hypermedia\Lists\ListItems.cs" />
+    <Compile Include="Hypermedia\Lists\Number.cs" />
+    <Compile Include="Hypermedia\Mesh.cs" />
+    <Compile Include="ManyInOrder.cs" />
+    <Compile Include="EquatableValue.cs" />
+    <Compile Include="EquatableWithExactType.cs" />
+    <Compile Include="FieldBinding.cs" />
+    <Compile Include="Hypermedia\Href.cs" />
+    <Compile Include="Hypermedia\HrefPart.cs" />
+    <Compile Include="Hypermedia\HrefQuery.cs" />
+    <Compile Include="Hypermedia\HtmlLink.cs" />
+    <Compile Include="Hypermedia\Linq\MBody.cs" />
+    <Compile Include="Hypermedia\Linq\MClass.cs" />
+    <Compile Include="Hypermedia\Linq\MContent.cs" />
+    <Compile Include="Hypermedia\Linq\MDefinitionList.cs" />
+    <Compile Include="Hypermedia\Linq\MDivision.cs" />
+    <Compile Include="Hypermedia\Linq\MHead.cs" />
+    <Compile Include="Hypermedia\Linq\MLink.cs" />
+    <Compile Include="Hypermedia\Linq\MList.cs" />
+    <Compile Include="Hypermedia\Linq\MRepresentation.cs" />
+    <Compile Include="Hypermedia\Linq\MValue.cs" />
+    <Compile Include="Messaging\IMessageHandler.cs" />
+    <Compile Include="Messaging\IPublisher.cs" />
+    <Compile Include="Messaging\Publisher.cs" />
+    <Compile Include="Messaging\Publishing.cs" />
+    <Compile Include="Messaging\IMessageChannel.cs" />
+    <Compile Include="Messaging\Message.cs" />
+    <Compile Include="Messaging\Command.cs" />
+    <Compile Include="Work\ConcurrencyException.cs" />
+    <Compile Include="Work\IRepository.cs" />
+    <Compile Include="Hypermedia\Lists\ListItem.cs" />
+    <Compile Include="Hypermedia\Lists\ListPageContext.cs" />
+    <Compile Include="Hypermedia\Lists\Sort.cs" />
+    <Compile Include="Hypermedia\Lists\IListService.cs" />
+    <Compile Include="Hypermedia\Lists\ListPage.cs" />
+    <Compile Include="Hypermedia\Lists\ListPageKey.cs" />
+    <Compile Include="Work\PersistentNotion.cs" />
+    <Compile Include="UniqueNotion.cs" />
+    <Compile Include="Work\Aggregate.cs" />
+    <Compile Include="Messaging\Event.cs" />
     <Compile Include="GraspException.cs" />
     <Compile Include="Hypermedia\HypermediaException.cs" />
+    <Compile Include="IStackable.cs" />
+    <Compile Include="ItemStack.cs" />
     <Compile Include="Resources.Designer.cs">
       <DependentUpon>Resources.resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Knowledge\ComparableNotion.cs" />
-    <Compile Include="Knowledge\ComparableString.cs" />
-    <Compile Include="Knowledge\ComparableToExactType.cs" />
-    <Compile Include="Knowledge\ComparableValue.cs" />
-    <Compile Include="Knowledge\EquatableNotion.cs" />
-    <Compile Include="Knowledge\Field.cs" />
-    <Compile Include="Knowledge\IFieldContext.cs" />
-    <Compile Include="Knowledge\INotionContext.cs" />
+    <Compile Include="ComparableNotion.cs" />
+    <Compile Include="ComparableToExactType.cs" />
+    <Compile Include="ComparableValue.cs" />
+    <Compile Include="EquatableNotion.cs" />
+    <Compile Include="Field.cs" />
+    <Compile Include="IFieldContext.cs" />
+    <Compile Include="INotionContext.cs" />
     <Compile Include="Hypermedia\Link.cs" />
-    <Compile Include="Knowledge\Many.cs" />
-    <Compile Include="Hypermedia\Mesh.cs" />
-    <Compile Include="Knowledge\Notion.cs" />
-    <Compile Include="Knowledge\Persistence\PersistenceMedium.cs" />
-    <Compile Include="Knowledge\Persistence\PersistentId.cs" />
-    <Compile Include="Knowledge\Persistence\PersistentWorkContext.cs" />
+    <Compile Include="Many.cs" />
+    <Compile Include="Notion.cs" />
+    <Compile Include="Work\PersistentId.cs" />
     <Compile Include="Hypermedia\Relationship.cs" />
-    <Compile Include="Knowledge\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Knowledge\Work\Change.cs" />
-    <Compile Include="Knowledge\Work\ChangeSet.cs" />
-    <Compile Include="Knowledge\Work\ChangeType.cs" />
-    <Compile Include="Knowledge\Work\EntitySet.cs" />
-    <Compile Include="Knowledge\Work\EntitySetChange.cs" />
-    <Compile Include="Knowledge\Work\FieldChange.cs" />
-    <Compile Include="Knowledge\Work\IEntitySet.cs" />
-    <Compile Include="Knowledge\Work\IWorkContext.cs" />
-    <Compile Include="Knowledge\Work\NotionLifetime.cs" />
-    <Compile Include="Knowledge\Work\NotionLifetimeChange.cs" />
-    <Compile Include="Knowledge\Work\Repository.cs" />
-    <Compile Include="Knowledge\Work\OwnershipChange.cs" />
+    <Compile Include="Work\EntityLifetime.cs" />
+    <Compile Include="Hypermedia\Lists\SortDirection.cs" />
+    <Compile Include="Hypermedia\Lists\SortField.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Analysis\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -362,6 +367,7 @@
     <Compile Include="Semantics\Relationships\TwoWayRelationshipModel.cs" />
     <Compile Include="Semantics\TypeModel.cs" />
     <Compile Include="Semantics\ValueModel.cs" />
+    <Compile Include="Work\AggregateVersion.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Analysis\Compilation\Resources.resx">
@@ -372,27 +378,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Checks\Conditions\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Checks\Methods\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Checks\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Checks\Rules\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
     <EmbeddedResource Include="Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Knowledge\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
@@ -407,6 +393,7 @@
       <Name>Cloak</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

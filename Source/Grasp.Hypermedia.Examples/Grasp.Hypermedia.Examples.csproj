@@ -123,10 +123,6 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="Xbehave, Version=0.14.0.0, Culture=neutral, PublicKeyToken=e4957f48888f9fe8, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Xbehave.0.14.0-beta02\lib\net40\Xbehave.dll</HintPath>
-    </Reference>
     <Reference Include="xunit, Version=1.9.1.1600, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\xunit.1.9.1\lib\net20\xunit.dll</HintPath>
@@ -141,7 +137,6 @@
       <Link>Properties\GraspAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Classes.cs" />
-    <Compile Include="HtmlRepresentations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="HtmlLinks.cs" />
   </ItemGroup>

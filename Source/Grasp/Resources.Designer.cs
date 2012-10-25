@@ -61,11 +61,191 @@ namespace Grasp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &quot;{0}&quot; ({1}).
+        /// </summary>
+        internal static string ConditionKey {
+            get {
+                return ResourceManager.GetString("ConditionKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to (?!000)\d{3,4}$.
+        /// </summary>
+        internal static string CreditCardCvvPattern {
+            get {
+                return ResourceManager.GetString("CreditCardCvvPattern", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Declaring field &quot;{0}&quot; does not end with &quot;{1}&quot;.
+        /// </summary>
+        internal static string DeclaringFieldNameDoesNotEndWithSuffix {
+            get {
+                return ResourceManager.GetString("DeclaringFieldNameDoesNotEndWithSuffix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Declaring field &quot;{0}&quot; is not declared by owning type {1}.
+        /// </summary>
+        internal static string DeclaringFieldNotDeclaredOnOwningType {
+            get {
+                return ResourceManager.GetString("DeclaringFieldNotDeclaredOnOwningType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Declaring field &quot;{0}&quot; is not static.
+        /// </summary>
+        internal static string DeclaringFieldNotStatic {
+            get {
+                return ResourceManager.GetString("DeclaringFieldNotStatic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} ({1}).
+        /// </summary>
+        internal static string Field {
+            get {
+                return ResourceManager.GetString("Field", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Field.
+        /// </summary>
+        internal static string FieldSuffix {
+            get {
+                return ResourceManager.GetString("FieldSuffix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Getter {0} does not access a field.
+        /// </summary>
+        internal static string GetterDoesNotAccessField {
+            get {
+                return ResourceManager.GetString("GetterDoesNotAccessField", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid href URI: {0}.
+        /// </summary>
+        internal static string InvalidHrefUri {
+            get {
+                return ResourceManager.GetString("InvalidHrefUri", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid query pair: &quot;{0}&quot;.
+        /// </summary>
+        internal static string InvalidQueryPair {
+            get {
+                return ResourceManager.GetString("InvalidQueryPair", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid sort field format: &quot;{0}&quot;.
+        /// </summary>
+        internal static string InvalidSortFieldFormat {
+            get {
+                return ResourceManager.GetString("InvalidSortFieldFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid sort fields format: &quot;{0}&quot;.
+        /// </summary>
+        internal static string InvalidSortFieldsFormat {
+            get {
+                return ResourceManager.GetString("InvalidSortFieldsFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid sort format: &quot;{0}&quot;.
+        /// </summary>
+        internal static string InvalidSortFormat {
+            get {
+                return ResourceManager.GetString("InvalidSortFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to cast target data of type {0} to {1}.
+        /// </summary>
+        internal static string InvalidTargetCast {
+            get {
+                return ResourceManager.GetString("InvalidTargetCast", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Member &quot;{0}&quot; is not a property.
+        /// </summary>
+        internal static string MemberIsNotProperty {
+            get {
+                return ResourceManager.GetString("MemberIsNotProperty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Member &quot;{0}&quot; is not declared on owning type {1}.
+        /// </summary>
+        internal static string MemberNotDeclaredOnOwningType {
+            get {
+                return ResourceManager.GetString("MemberNotDeclaredOnOwningType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Member type {0} is not supported.
+        /// </summary>
+        internal static string MemberTypeNotSupported {
+            get {
+                return ResourceManager.GetString("MemberTypeNotSupported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rule type {0} is not a binary type.
+        /// </summary>
+        internal static string NotBinaryType {
+            get {
+                return ResourceManager.GetString("NotBinaryType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ^(?:\([2-9]\d{2}\)\ ?|[2-9]\d{2}(?:\-?|\ ?))[2-9]\d{2}[- ]?\d{4}$.
+        /// </summary>
+        internal static string PhoneNumberPattern {
+            get {
+                return ResourceManager.GetString("PhoneNumberPattern", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to relationships.
         /// </summary>
         internal static string PluralRelationship {
             get {
                 return ResourceManager.GetString("PluralRelationship", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Query separator &apos;?&apos; is repeated: &quot;{0}&quot;.
+        /// </summary>
+        internal static string QuerySeparatorRepeated {
+            get {
+                return ResourceManager.GetString("QuerySeparatorRepeated", resourceCulture);
             }
         }
         
@@ -84,6 +264,69 @@ namespace Grasp {
         internal static string SingularRelationship {
             get {
                 return ResourceManager.GetString("SingularRelationship", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to (^|\s)(00[1-9]|0[1-9]0|0[1-9][1-9]|[1-6]\d{2}|7[0-6]\d|77[0-2])(-?|[\. ])([1-9]0|0[1-9]|[1-9][1-9])\3(\d{3}[1-9]|[1-9]\d{3}|\d[1-9]\d{2}|\d{2}[1-9]\d)($|\s|[;:,!\.\?]).
+        /// </summary>
+        internal static string SocialSecurityNumberPattern {
+            get {
+                return ResourceManager.GetString("SocialSecurityNumberPattern", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} {1}.
+        /// </summary>
+        internal static string SortDescendingField {
+            get {
+                return ResourceManager.GetString("SortDescendingField", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stream is an invalid HTML representation.
+        /// </summary>
+        internal static string StreamIsInvalidHtmlRepresentation {
+            get {
+                return ResourceManager.GetString("StreamIsInvalidHtmlRepresentation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Target type {0} cannot be assigned a null value.
+        /// </summary>
+        internal static string TargetTypeCannotBeAssignedNull {
+            get {
+                return ResourceManager.GetString("TargetTypeCannotBeAssignedNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This URI cannot have templates: &quot;{0}&quot;.
+        /// </summary>
+        internal static string TemplatesNotAllowed {
+            get {
+                return ResourceManager.GetString("TemplatesNotAllowed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Target type {0} is not supported by check method {1}.
+        /// </summary>
+        internal static string UnsupportedTargetType {
+            get {
+                return ResourceManager.GetString("UnsupportedTargetType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ^\d{5}$|^\d{5}-\d{4}$.
+        /// </summary>
+        internal static string ZipCodePattern {
+            get {
+                return ResourceManager.GetString("ZipCodePattern", resourceCulture);
             }
         }
     }

@@ -2,33 +2,28 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 using FluentAssertions;
-using Xbehave;
+using Grasp.Hypermedia.Linq;
+using Xunit;
 
 namespace Grasp.Hypermedia
 {
 	public class Classes
 	{
-		[Scenario]
-		public void CreateMClass(string name, MClass @class)
+		[Fact] public void CreateMClass()
 		{
-			"Given a class name".Given(() => name = "c");
+			var @class = new MClass("c");
 
-			"When creating a class node".When(() => @class = new MClass(name));
-
-			"It is not none".Then(() => @class.IsNone.Should().BeFalse());
-			"It has the specified class name".Then(() => @class.Name.Should().Be(name));
+			@class.IsEmpty.Should().BeFalse();
+			@class.Name.Should().Be("c");
 		}
 
-		[Scenario]
-		public void GetMClassNone(MClass @class)
+		[Fact] public void GetMClassEmpty()
 		{
-			"When getting the none class".When(() => @class = MClass.None);
+			var @class = MClass.Empty;
 
-			"It is none".Then(() => @class.IsNone.Should().BeTrue());
-			"Its name is empty".Then(() => @class.Name.Should().BeEmpty());
+			@class.IsEmpty.Should().BeTrue();
+			@class.Name.Should().BeEmpty();
 		}
 	}
 }

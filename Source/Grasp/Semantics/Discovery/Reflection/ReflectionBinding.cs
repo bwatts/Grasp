@@ -5,14 +5,13 @@ using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using Grasp.Knowledge;
 using Grasp.Semantics.Relationships;
 
 namespace Grasp.Semantics.Discovery.Reflection
 {
 	public class ReflectionBinding : DomainModelBinding
 	{
-		public static Field<Many<NamespaceBinding>> NamespaceBindingsField = Field.On<ReflectionBinding>.Backing(x => x.NamespaceBindings);
+		public static readonly Field<Many<NamespaceBinding>> NamespaceBindingsField = Field.On<ReflectionBinding>.For(x => x.NamespaceBindings);
 
 		public Many<NamespaceBinding> NamespaceBindings { get { return GetValue(NamespaceBindingsField); } }
 

@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using Grasp.Knowledge;
 
 namespace Grasp.Semantics.Discovery.Reflection
 {
 	public abstract class MemberBinding : Notion
 	{
-		public static Field<MemberInfo> InfoField = Field.On<MemberBinding>.Backing(x => x.Info);
-		public static Field<Field> FieldField = Field.On<MemberBinding>.Backing(x => x.Field);
+		public static readonly Field<MemberInfo> InfoField = Field.On<MemberBinding>.For(x => x.Info);
+		public static readonly Field<Field> FieldField = Field.On<MemberBinding>.For(x => x.Field);
 
 		public MemberInfo Info { get { return GetValue(InfoField); } }
 		public Field Field { get { return GetValue(FieldField); } }

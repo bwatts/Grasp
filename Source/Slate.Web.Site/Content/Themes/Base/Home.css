@@ -1,0 +1,154 @@
+﻿.home
+{
+	width: 800px;
+}
+
+.home .issue-count
+{
+	color: #E36F21;
+}
+
+.home .snapshot
+{
+	float: left;
+	width: 400px;
+	border-right: solid 1px #656565;
+	border-bottom: solid 1px #656565;
+	padding: 6px 0px 12px 0px;
+}
+
+.home .snapshot .title
+{
+	float: left;
+}
+
+.home .snapshot .more
+{
+	float: right;
+	margin-right: 51px;
+	white-space: nowrap;
+}
+
+.home .snapshot .more .arrow-right,
+.home .snapshot .more .arrow-right h2
+{
+	float: left;
+	margin-right: 6px;
+}
+
+.home .snapshot .list
+{
+	clear: both;
+}
+
+.home .welcome
+{
+	float: left;
+	width: 399px;
+	text-align: center;
+}
+
+.home .welcome li
+{
+	list-style-type: none;
+	text-align: left;
+	margin: 12px 0px 0px 66px;
+}
+
+.home .welcome .learn
+{
+	margin-top: 24px;
+}
+
+.home .welcome .get-started
+{
+	margin-top: 24px;
+}
+
+.home .form-list
+{
+	clear: both;
+	float: left;
+	width: 400px;
+	border-right: solid 1px #656565;
+	padding: 12px 0px 0px 0px;
+}
+
+.home .form-list .work
+{
+	float: left;
+}
+
+.home .form-list .start
+{
+	float: right;
+	margin-right: 51px;
+	white-space: nowrap;
+}
+
+.home .form-list .start .add,
+.home .form-list .start .add h2
+{
+	float: left;
+	margin-right: 6px;
+}
+
+.home .form-list .list
+{
+	clear: both;
+}
+
+.home .form-list .explore
+{
+	float: left;
+	padding: 6px 0px;
+	margin-right: 12px;
+	width: 390px;
+}
+
+.home .issue-list
+{
+	float: left;
+	width: 387px;
+	border-top: solid 1px #656565;
+	margin-top: -1px;
+	padding: 12px 0px 0px 12px;
+}
+
+.home .issue-list .work
+{
+	float: left;
+}
+
+.home .issue-list .open
+{
+	float: right;
+	margin-right: 30px;
+	white-space: nowrap;
+}
+
+.home .issue-list .open .add,
+.home .issue-list .open .add h2
+{
+	float: left;
+	margin-right: 6px;
+}
+
+.home .issue-list .list
+{
+	clear: both;
+}
+
+.home .issue-list .issues
+{
+	float: left;
+	margin: 0px;
+}
+
+.home .issue-list .explore
+{
+	float: left;
+	padding: 6px 0px;
+	margin-right: 12px;
+	width: 390px;
+}

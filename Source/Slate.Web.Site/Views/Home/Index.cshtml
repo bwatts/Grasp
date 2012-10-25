@@ -1,0 +1,20 @@
+﻿@model LayoutModel<Slate.Web.Presentation.Home.IndexModel>
+
+
+<div class="home">
+	<div class="snapshot">
+		@{Html.RenderPartial("_Snapshot", Model.Content.Snapshot);}
+	</div>
+
+	<div class="welcome">
+		@{Html.RenderPartial("_Welcome");}
+	</div>
+
+	<div class="form-list">
+		@{Html.RenderPartial("_FormList", Model.Content.FormList);}
+	</div>
+
+	<div class="issue-list">
+		@{Html.RenderPartial("_IssueList", Model.Content.IssueList);}
+	</div>
+</div>

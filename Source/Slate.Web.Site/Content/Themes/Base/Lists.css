@@ -1,0 +1,190 @@
+﻿.list
+{
+	margin-right: 12px;
+}
+
+.list .item
+{
+	margin-bottom: 12px;
+}
+
+.list .paging
+{
+	border: solid 1px #656565;
+	color: #969696;
+	float: right;
+	width: 388px;
+}
+
+.list .paging a
+{
+	text-decoration: none;
+}
+
+.list .paging a:hover
+{
+	color: #E36F21;
+}
+
+.list .paging .page-navigation
+{
+	float: left;
+	margin: 3px 3px 6px 3px;
+}
+
+.list .paging .page-navigation .empty-message
+{
+	margin-left: 6px;
+}
+
+.list .paging .page-navigation .page
+{
+	float: left;
+	border-radius: 50%;
+	width: 20px;
+	height: 20px;
+	display: block;
+	margin: 3px 0px 0px 2px;
+	border: solid 1px #969696;
+	text-align: center;
+}
+
+.list .paging .page-navigation .page a
+{
+	border-radius: 50%;
+	width: 16px;
+	height: 16px;
+	display: block;
+	margin: 1px 0px 0px 2px;
+	color: white;
+}
+
+.list .paging .page-navigation .page a:hover
+{
+	display: block;
+	width: 20px;
+	height: 20px;
+	margin: 0px;
+	color: #333333;
+	background-color: white;
+}
+
+.list .paging .page-navigation .jump
+{
+	border-radius: 50%;
+	width: 20px;
+	height: 20px;
+	display: block;
+	margin: 3px 0px 0px 2px;
+	background-color: #969696;
+}
+
+.list .paging .page-navigation .jump a
+{
+	border-radius: 50%;
+	width: 16px;
+	height: 16px;
+	display: block;
+	color: #333333;
+	margin: -1px 0px 0px 0px;
+}
+
+.list .paging .page-navigation .jump a:hover
+{
+	display: block;
+	width: 20px;
+	height: 20px;
+	margin: 0px;
+	color: white;
+	background-color: #E36F21;
+}
+
+.list .paging .page-navigation .current
+{
+	border-radius: 50%;
+	width: 20px;
+	height: 20px;
+	display: block;
+	margin: 3px 0px 0px 2px;
+	background-color: #007ACC;
+}
+
+.list .paging .page-navigation .current a
+{
+	border-radius: 50%;
+	width: 16px;
+	height: 16px;
+	display: block;
+	color: white;
+}
+
+.list .paging .page-navigation .current a:hover
+{
+	display: block;
+	width: 20px;
+	height: 20px;
+	margin: 0px;
+	color: white;
+	color: #333333;
+	background-color: white;
+}
+
+.list .paging .page-navigation .unavailable
+{
+	float: left;
+	background-color: #333333;
+	border: solid 1px #969696;
+	border-radius: 50%;
+	width: 20px;
+	height: 20px;
+}
+
+.list .paging .page-navigation .unavailable a,
+.list .paging .page-navigation .unavailable a:hover
+{
+	color: #969696;
+	background-color: none;
+	pointer-events: none;
+  cursor: pointer;
+}
+
+.list .paging .view
+{
+	float: right;
+	font-size: 12px;
+	margin: 3px 6px 0px 0px;
+}
+
+.list .paging .view .number
+{
+	margin-top: 3px;
+	float: left;
+	text-align: center;
+	background-color: #969696;
+	border: solid 1px #969696;
+}
+
+.list .paging .view .number a
+{
+	padding: 0px 3px;
+	color: #333333;
+	text-decoration: none;
+}
+
+.list .paging .view .number a:hover
+{
+	padding: 0px 3px;
+	background-color: #E36F21;
+	color: white;
+}
+
+.list .paging .view .separator
+{
+	margin: 3px 4px 0px 4px;
+	float: left;
+}
+
+.list .footer
+{
+	clear: both;
+}

@@ -5,7 +5,6 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using Cloak;
-using Grasp.Knowledge;
 using Grasp.Semantics.Relationships;
 
 namespace Grasp.Semantics.Discovery.Reflection

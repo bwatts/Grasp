@@ -1,0 +1,318 @@
+﻿/******************************************************************************
+* General
+******************************************************************************/
+
+body
+{
+	font-size: .85em;
+	font-family: "Segoe UI", Verdana, Helvetica, Sans-Serif;
+	color: white;
+	font-weight: 300;
+	background-color: #333333;
+	border: 0px;
+	margin: 0px 12px 12px 12px;
+	padding: 0px;
+}
+
+header, footer, nav, section
+{
+	display: block;
+}
+
+h1
+{
+	font-size: 2.625em;
+	margin: 0px 0px 12px 0px;
+	font-weight: 200;
+}
+
+h1 a
+{
+	text-decoration: none;
+}
+
+h2, h3, h4, h5, h6
+{
+	font-size: 1.250em;
+	margin: 0px 0px 12px 0px;
+	font-weight: 200;
+}
+
+a, a:visited
+{
+	color: white;
+}
+
+a:hover
+{
+	color: #E36F21;
+}
+
+ul
+{
+	padding: 0px;
+	margin: 0px;
+	list-style-type: none;
+}
+
+img.add
+{
+	width: 24px;
+	height: 24px;
+	background-image: url(Images/add.png);
+	background-repeat: no-repeat;
+}
+
+img.arrow-right
+{
+	width: 24px;
+	height: 24px;
+	background-image: url(Images/arrow-right.png);
+	background-repeat: no-repeat;
+}
+
+.subtitle
+{
+	color: #969696;
+}
+
+/******************************************************************************
+* Forms
+******************************************************************************/
+
+fieldset
+{
+	border: 1px solid #ddd;
+	padding: 0 1.4em 1.4em 1.4em;
+	margin: 0 0 1.5em 0;
+}
+
+legend
+{
+	font-size: 1.2em;
+	font-weight: bold;
+}
+
+textarea
+{
+	min-height: 75px;
+}
+
+.editor-label
+{
+	margin: 1em 0 0 0;
+}
+
+.editor-field
+{
+	margin: 0.5em 0 0 0;
+}
+
+/******************************************************************************
+* Validation
+******************************************************************************/
+
+.field-validation-error
+{
+	color: #f00;
+}
+
+.field-validation-valid
+{
+	display: none;
+}
+
+.input-validation-error
+{
+	border: 1px solid #f00;
+	background-color: #fee;
+}
+
+.validation-summary-errors
+{
+	font-weight: bold;
+	color: #f00;
+}
+
+.validation-summary-valid
+{
+	display: none;
+}
+
+/******************************************************************************
+* Layout and header
+******************************************************************************/
+
+.site
+{
+	width: 800px;
+}
+
+.site .taglines-and-user
+{
+	border-bottom: solid 1px #656565;
+	padding: 3px 0px;
+}
+
+.site .tagline1
+{
+	float: left;
+	padding: 3px 0px;
+	color: white;
+	font-size: 0.8em;
+}
+
+.site .tagline2
+{
+	float: left;
+	padding: 3px 0px 0px 165px;
+	text-align: center;
+	color: white;
+	font-size: 0.8em;
+}
+
+.site .tagline .knowledge
+{
+	color: #E36F21;
+}
+
+.site .tagline .power
+{
+	color: yellow;
+}
+
+.site .user
+{
+	float: right;
+}
+
+.site .user a,
+.site .user a:visited
+{
+	color: yellow;
+}
+
+.site .user a:hover
+{
+	color: #E36F21;
+}
+
+.site .user .identity,
+.site .user .unknown
+{
+	color: yellow;
+}
+
+.site .taglines-and-user .after-user
+{
+	clear: both;
+}
+
+.site .snapshot
+{
+	clear: both;
+	float: left;
+}
+
+.site .snapshot h1
+{
+	margin-bottom: 6px;
+}
+
+.site .navigation
+{
+	float: left;
+	margin: 9px 0px 0px 30px;
+	display: inline;
+	list-style-type: none;
+	font-size: 1.2em;
+	font-weight: 200;
+	color: #656565;
+}
+
+.site .navigation li
+{
+	display: inline;
+	margin-left: 12px;
+}
+
+.site .navigation li.first
+{
+	margin-left: 0px;
+}
+
+.site .navigation a,
+.site .navigation a:visited
+{
+	text-decoration: none;
+	color: #656565;
+}
+
+.site .navigation a:hover
+{
+	color: #E36F21;
+}
+
+.site .navigation a.current,
+.site .navigation a.current:visited
+{
+	color: white;
+}
+
+.site .navigation a.current:hover
+{
+	color: #E36F21;
+}
+
+
+
+
+
+
+
+
+.site .sub-navigation
+{
+	float: left;
+	margin-left: 12px;
+}
+
+.site .sub-navigation .brace
+{
+	float: left;
+	color: white;
+	font-size: 2em;
+}
+
+.site .sub-navigation .areas
+{
+	float: left;
+	margin-top: 12px;
+	margin-right: 6px;
+}
+
+.site .navigation .areas li
+{
+	display: inline;
+	margin-left: 6px;
+}
+
+
+
+
+.site .body
+{
+	clear: both;
+	float: left;
+	border-top: solid 1px #656565;
+	width: 800px;
+}
+
+.site .site-footer
+{
+	clear: both;
+	border-top: solid 1px #656565;
+	padding-top: 6px;
+	text-align: center;
+	font-size: 0.85em;
+}
