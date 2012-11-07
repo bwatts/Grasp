@@ -112,6 +112,7 @@
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.4.0.20710.0\lib\net40\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.Http.WebRequest, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.4.0.20710.0\lib\net40\System.Web.Http.dll</HintPath>
     </Reference>
@@ -123,23 +124,39 @@
     <Compile Include="..\GraspAssemblyInfo.cs">
       <Link>Properties\GraspAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="HtmlFormat.cs" />
+    <Compile Include="Linq\HtmlFormat.cs" />
+    <Compile Include="Hyperlink.cs" />
     <Compile Include="HttpResource.cs" />
     <Compile Include="HttpResourceContext.cs" />
     <Compile Include="HttpResourceHeader.cs" />
+    <Compile Include="HypermediaException.cs" />
     <Compile Include="IHttpResourceContext.cs" />
+    <Compile Include="Linq\MBody.cs" />
+    <Compile Include="Linq\MClass.cs" />
+    <Compile Include="Linq\MContent.cs" />
+    <Compile Include="Linq\MDefinitionList.cs" />
+    <Compile Include="Linq\MDivision.cs" />
+    <Compile Include="Linq\MHead.cs" />
+    <Compile Include="Linq\MLink.cs" />
+    <Compile Include="Linq\MList.cs" />
+    <Compile Include="Linq\MRepresentation.cs" />
+    <Compile Include="Linq\MValue.cs" />
+    <Compile Include="Lists\HyperlistItem.cs" />
+    <Compile Include="Lists\HyperlistItems.cs" />
     <Compile Include="Lists\IListClient.cs" />
     <Compile Include="Lists\ListClient.cs" />
     <Compile Include="Lists\ListPageKeyBinder.cs" />
-    <Compile Include="Lists\ListHtmlFormat.cs" />
-    <Compile Include="Lists\ListResourcePage.cs" />
-    <Compile Include="Lists\ListResource.cs" />
+    <Compile Include="Lists\HyperlistHtmlFormat.cs" />
+    <Compile Include="Lists\HyperlistPage.cs" />
+    <Compile Include="Lists\Hyperlist.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Relationship.cs" />
     <Compile Include="Resources.Designer.cs">
       <DependentUpon>Resources.resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="UriTemplateHasVariablesCheck.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\.submodules\Cloak\Source\Cloak.Http\Cloak.Http.csproj">
@@ -167,6 +184,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -14,5 +14,19 @@ namespace Slate.Web.Site.Configuration
 			get { return (Uri) this["apiBaseUrl"]; }
 			set { this["apiBaseUrl"] = value; }
 		}
+
+		[ConfigurationProperty("formListUrl", IsRequired = true)]
+		public Uri FormListUrl
+		{
+			get { return (Uri) this["formListUrl"]; }
+			set { this["formListUrl"] = value; }
+		}
+
+		[ConfigurationProperty("issueListUrl", IsRequired = true)]
+		public Uri IssueListUrl
+		{
+			get { return (Uri) this["issueListUrl"]; }
+			set { this["issueListUrl"] = value; }
+		}
 	}
 }

@@ -118,10 +118,6 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Xml" />
     <Reference Include="WindowsBase" />
-    <Reference Include="Xbehave, Version=0.14.0.0, Culture=neutral, PublicKeyToken=e4957f48888f9fe8, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Xbehave.0.14.0-beta03\lib\net40\Xbehave.dll</HintPath>
-    </Reference>
     <Reference Include="xunit, Version=1.9.1.1600, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\xunit.1.9.1\lib\net20\xunit.dll</HintPath>
@@ -142,7 +138,7 @@
     <Compile Include="Analysis\Compilation\Executables.cs" />
     <Compile Include="Analysis\Runtimes.cs" />
     <Compile Include="Analysis\Schemas.cs" />
-    <Compile Include="Analysis\VariableBindings.cs" />
+    <Compile Include="Analysis\Variables\Bindings.cs" />
     <Compile Include="Analysis\Calculations.cs" />
     <Compile Include="Analysis\Variables\Expressions.cs" />
     <Compile Include="Analysis\Variables\MultiPartNamespaces.cs" />
@@ -150,12 +146,6 @@
     <Compile Include="Analysis\Variables\Names.cs" />
     <Compile Include="Analysis\Variables\Variables.cs" />
     <Compile Include="Checks\ThatChecks.cs" />
-    <Compile Include="Hypermedia\AbsoluteHrefs.cs" />
-    <Compile Include="Hypermedia\HrefQueries.cs" />
-    <Compile Include="Hypermedia\HrefParts.cs" />
-    <Compile Include="Hypermedia\RelativeHrefs.cs" />
-    <Compile Include="Hypermedia\HtmlRepresentations.cs" />
-    <Compile Include="Hypermedia\RootHref.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

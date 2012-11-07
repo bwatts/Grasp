@@ -21,7 +21,7 @@ namespace Slate.Web.Site.Composition
 		{
 			public UserIdentity GetIdentity()
 			{
-				return new UserIdentity("bwatts", new HtmlLink("settings/users/bwatts", "bwatts", "User details: bwatts"));
+				return new UserIdentity("bwatts", new Hyperlink("settings/users/bwatts", "bwatts", "User details: bwatts"));
 			}
 		}
 

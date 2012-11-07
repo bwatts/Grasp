@@ -34,7 +34,7 @@ namespace Slate.Web.Site.Composition
 
 			RegisterModule(new UIModule(routes, bundles, filters, viewEngines));
 
-			RegisterModule(new HomeModule(routes));
+			RegisterModule(new HomeModule(routes, siteConfiguration));
 		}
 	}
 }

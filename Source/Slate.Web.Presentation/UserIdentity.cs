@@ -12,9 +12,9 @@ namespace Slate.Web.Presentation
 	public class UserIdentity : Notion
 	{
 		public static readonly Field<string> NameField = Field.On<UserIdentity>.For(x => x.Name);
-		public static readonly Field<HtmlLink> LinkField = Field.On<UserIdentity>.For(x => x.Link);
+		public static readonly Field<Hyperlink> LinkField = Field.On<UserIdentity>.For(x => x.Link);
 
-		public UserIdentity(string name, HtmlLink link)
+		public UserIdentity(string name, Hyperlink link)
 		{
 			Contract.Requires(name != null);
 			Contract.Requires(link != null);
@@ -24,7 +24,7 @@ namespace Slate.Web.Presentation
 		}
 
 		public string Name { get { return GetValue(NameField); } private set { SetValue(NameField, value); } }
-		public HtmlLink Link { get { return GetValue(LinkField); } private set { SetValue(LinkField, value); } }
+		public Hyperlink Link { get { return GetValue(LinkField); } private set { SetValue(LinkField, value); } }
 
 		public bool IsAuthenticated
 		{

@@ -10,15 +10,15 @@ namespace Grasp.Hypermedia
 	public sealed class HttpResourceContext : IHttpResourceContext
 	{
 		private readonly Uri _baseUrl;
-		private readonly IEnumerable<HtmlLink> _links;
+		private readonly IEnumerable<Hyperlink> _links;
 
-		public HttpResourceContext(Uri baseUrl, IEnumerable<HtmlLink> links = null)
+		public HttpResourceContext(Uri baseUrl, IEnumerable<Hyperlink> links = null)
 		{
 			Contract.Requires(baseUrl != null);
 			Contract.Requires(baseUrl.IsAbsoluteUri);
 
 			_baseUrl = baseUrl;
-			_links = links ?? Enumerable.Empty<HtmlLink>();
+			_links = links ?? Enumerable.Empty<Hyperlink>();
 		}
 
 		public HttpResourceHeader CreateHeader(string title)
@@ -26,9 +26,9 @@ namespace Grasp.Hypermedia
 			return new HttpResourceHeader(title, GetBaseLink(), _links);
 		}
 
-		private HtmlLink GetBaseLink()
+		private Hyperlink GetBaseLink()
 		{
-			return new HtmlLink(_baseUrl.ToString());
+			return new Hyperlink(_baseUrl.ToString());
 		}
 	}
 }

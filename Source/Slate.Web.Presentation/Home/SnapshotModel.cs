@@ -11,15 +11,15 @@ namespace Slate.Web.Presentation.Home
 {
 	public class SnapshotModel : ViewModel
 	{
-		public static readonly Field<HtmlLink> DashboardLinkField = Field.On<SnapshotModel>.For(x => x.DashboardLink);
+		public static readonly Field<Hyperlink> DashboardLinkField = Field.On<SnapshotModel>.For(x => x.DashboardLink);
 
-		public SnapshotModel(HtmlLink dashboardLink)
+		public SnapshotModel(Hyperlink dashboardLink)
 		{
 			Contract.Requires(dashboardLink != null);
 
 			DashboardLink = dashboardLink;
 		}
 
-		public HtmlLink DashboardLink { get { return GetValue(DashboardLinkField); } private set { SetValue(DashboardLinkField, value); } }
+		public Hyperlink DashboardLink { get { return GetValue(DashboardLinkField); } private set { SetValue(DashboardLinkField, value); } }
 	}
 }

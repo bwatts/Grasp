@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Grasp;
 using Grasp.Hypermedia;
 using Grasp.Hypermedia.Lists;
+using Grasp.Lists;
 
 namespace Slate.Web.Presentation.Lists
 {
@@ -19,7 +20,7 @@ namespace Slate.Web.Presentation.Lists
 		public static readonly Field<NumberModel> NextField = Field.On<ContextModel>.For(x => x.Next);
 		public static readonly Field<ManyInOrder<NumberModel>> NumbersField = Field.On<ContextModel>.For(x => x.Numbers);
 
-		public ContextModel(HtmlLink itemCountLink)
+		public ContextModel(Hyperlink itemCountLink)
 		{
 			Contract.Requires(itemCountLink != null);
 

@@ -13,18 +13,18 @@ namespace Grasp.Hypermedia
 	{
 		[Fact] public void Get()
 		{
-			var link = new HtmlLink(Href.Root);
+			var link = new Hyperlink(new UriTemplate(""));
 
 			var html = link.ToHtml("a");
 
 			html.Name.Should().Be((XName) "a");
 			html.Attribute("href").Should().NotBeNull();
-			html.Attribute("href").Value.Should().Be(Href.Root.ToString());
+			html.Attribute("href").Value.Should().Be("");
 		}
 
 		[Fact] public void GetWithRelationship()
 		{
-			var link = new HtmlLink(Href.Root, relationship: Relationship.Self);
+			var link = new Hyperlink(new UriTemplate(""), relationship: Relationship.Self);
 
 			var html = link.ToHtml("a");
 
@@ -34,7 +34,7 @@ namespace Grasp.Hypermedia
 
 		[Fact] public void GetWithContent()
 		{
-			var link = new HtmlLink(Href.Root, content: 1);
+			var link = new Hyperlink(new UriTemplate(""), content: 1);
 
 			var html = link.ToHtml("a");
 
@@ -43,12 +43,12 @@ namespace Grasp.Hypermedia
 
 		[Fact] public void GetWithContentAndRelationship()
 		{
-			var link = new HtmlLink(Href.Root, 1, "Title", Relationship.Self);
+			var link = new Hyperlink(new UriTemplate(""), 1, "Title", Relationship.Self);
 
 			var html = link.ToHtml("a");
 
 			html.Attribute("href").Should().NotBeNull();
-			html.Attribute("href").Value.Should().Be(Href.Root.ToString());
+			html.Attribute("href").Value.Should().Be("");
 			html.Attribute("rel").Should().NotBeNull();
 			html.Attribute("rel").Value.Should().Be(Relationship.Self.Name);
 			html.Value.Should().Be("1");

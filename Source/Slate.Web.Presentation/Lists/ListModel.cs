@@ -31,7 +31,7 @@ namespace Slate.Web.Presentation.Lists
 			EmptyMessage = emptyMessage;
 		}
 
-		public new ContextModel Context { get { return GetValue(PagesField); } private set { SetValue(PagesField, value); } }
+		public ContextModel Context { get { return GetValue(PagesField); } private set { SetValue(PagesField, value); } }
 		public PageModel Page { get { return GetValue(PageField); } private set { SetValue(PageField, value); } }
 		public string EmptyMessage { get { return GetValue(EmptyMessageField); } private set { SetValue(EmptyMessageField, value); } }
 

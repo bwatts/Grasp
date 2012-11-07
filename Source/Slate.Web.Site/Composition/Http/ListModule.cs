@@ -12,7 +12,7 @@ namespace Slate.Web.Site.Composition.Http
 	{
 		public ListModule()
 		{
-			RegisterType<ListHtmlFormat>().As<MediaFormat>().InstancePerDependency();
+			RegisterType<HyperlistHtmlFormat>().As<MediaFormat>().InstancePerDependency();
 		}
 	}
 }

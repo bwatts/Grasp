@@ -128,6 +128,7 @@
     <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.4.0.20710.0\lib\net40\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -198,7 +199,7 @@
     <Compile Include="Composition\UI\ThemeModule.cs" />
     <Compile Include="Composition\UI\ViewModule.cs" />
     <Compile Include="Views\ModelRendering.cs" />
-    <Compile Include="Views\HtmlLinkRendering.cs" />
+    <Compile Include="Views\HyperlinkRendering.cs" />
     <Compile Include="Views\SlateViewEngine.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -311,9 +312,7 @@
     <Content Include="Views\Issues\Index.cshtml" />
     <Content Include="Views\Issues\Mine.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Composition\Areas\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>

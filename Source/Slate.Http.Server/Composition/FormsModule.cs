@@ -7,6 +7,7 @@ using Autofac;
 using Cloak.Autofac;
 using Grasp.Hypermedia;
 using Grasp.Hypermedia.Lists;
+using Grasp.Lists;
 using Slate.Http.Api;
 using Slate.Http.Persistence;
 

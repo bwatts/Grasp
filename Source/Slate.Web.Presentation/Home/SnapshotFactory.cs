@@ -11,7 +11,7 @@ namespace Slate.Web.Presentation.Home
 	{
 		public Task<SnapshotModel> CreateSnapshotAsync()
 		{
-			return Task.Run(() => new SnapshotModel(new HtmlLink("dashboard", "Dashboard", "View up-to-date information about your system")));
+			return Task.Run(() => new SnapshotModel(new Hyperlink("dashboard", "Dashboard", "View up-to-date information about your system")));
 		}
 	}
 }

@@ -14,7 +14,7 @@ namespace Slate.Web.Presentation
 
 		string Title { get; }
 
-		HtmlLink SystemLink { get; }
+		Hyperlink SystemLink { get; }
 
 		NavigationModel Navigation { get; }
 

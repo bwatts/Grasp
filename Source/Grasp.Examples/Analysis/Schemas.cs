@@ -6,34 +6,32 @@ using System.Text;
 using Cloak;
 using FluentAssertions;
 using Grasp.Analysis.Compilation;
-using Xbehave;
+using Xunit;
 
 namespace Grasp.Analysis
 {
 	public class Schemas
 	{
-		[Scenario]
-		public void Create(IEnumerable<Variable> variables, IEnumerable<Calculation> calculations, GraspSchema schema)
+		[Fact] public void Create()
 		{
-			"Given a set of variables".Given(() => variables = Params.Of(new Variable<int>("X"), new Variable<int>("Y")));
-			"And a set of calculations".And(() => calculations = Params.Of(
+			var variables = Params.Of(new Variable<int>("X"), new Variable<int>("Y"));
+			var calculations = Params.Of(
 				new Calculation(new Variable<int>("A"), Expression.Constant(0)),
-				new Calculation(new Variable<int>("B"), Expression.Constant(1))));
+				new Calculation(new Variable<int>("B"), Expression.Constant(1)));
 
-			"When creating a schema".When(() => schema = new GraspSchema(variables, calculations));
+			var schema = new GraspSchema(variables, calculations);
 
-			"It has the specified variables in order".Then(() => schema.Variables.SequenceEqual(variables).Should().BeTrue());
-			"It has the specified calculations in order".Then(() => schema.Calculations.SequenceEqual(calculations).Should().BeTrue());
+			schema.Variables.SequenceEqual(variables).Should().BeTrue();
+			schema.Calculations.SequenceEqual(calculations).Should().BeTrue();
 		}
 
-		[Scenario]
-		public void Compile(GraspSchema schema, GraspExecutable executable)
+		[Fact] public void Compile()
 		{
-			"Given a schema".And(() => schema = new GraspSchema());
+			var schema = new GraspSchema();
 
-			"When compiling the schema".When(() => executable = schema.Compile());
+			var executable = schema.Compile();
 
-			"The executable has the specified schema".Then(() => executable.Schema.Should().Be(schema));
+			executable.Schema.Should().Be(schema);
 		}
 	}
 }

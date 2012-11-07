@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using Grasp.Hypermedia.Lists;
+using Grasp.Lists;
 using Slate.Web.Presentation.Navigation;
 
 namespace Slate.Web.Presentation.Home

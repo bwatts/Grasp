@@ -29,7 +29,7 @@ namespace Slate.Web.Presentation
 			return Task.Run<ILayoutModel<TContent>>(() => new LayoutModel<TContent>(
 				_userContext.GetIdentity(),
 				title,
-				new HtmlLink("", content: "Slate", title: "Your data has personality. Get to know it."),
+				new Hyperlink("", content: "Slate", title: "Your data has personality. Get to know it."),
 				CreateNavigationModel(currentAreaId, currentSubAreaId),
 				content));
 		}
@@ -45,27 +45,27 @@ namespace Slate.Web.Presentation
 
 		private static IEnumerable<NavigationArea> CreateNavigationAreas()
 		{
-			yield return new NavigationArea("home", new HtmlLink("", content: "home", title: "A high-level view of your system"));
+			yield return new NavigationArea("home", new Hyperlink("", content: "home", title: "A high-level view of your system"));
 
 			yield return new NavigationArea(
 				"explore",
-				new HtmlLink("explore", content: "explore", title: "Explore your system"),
+				new Hyperlink("explore", content: "explore", title: "Explore your system"),
 				Params.Of(
-					new NavigationArea("all", new HtmlLink("explore", "all", "Explore your forms and responses")),
-					new NavigationArea("forms", new HtmlLink("explore/forms", "forms", "Explore your forms")),
-					new NavigationArea("responses", new HtmlLink("explore/responses", "responses", "Explore your responses"))));
+					new NavigationArea("all", new Hyperlink("explore", "all", "Explore your forms and responses")),
+					new NavigationArea("forms", new Hyperlink("explore/forms", "forms", "Explore your forms")),
+					new NavigationArea("responses", new Hyperlink("explore/responses", "responses", "Explore your responses"))));
 
 			yield return new NavigationArea(
 				"issues",
-				new HtmlLink("issues", content: "issues", title: "No one is perfect. Get closer than ever before with intrinsic issue tracking."),
+				new Hyperlink("issues", content: "issues", title: "No one is perfect. Get closer than ever before with intrinsic issue tracking."),
 				Params.Of(
-				new NavigationArea("all", new HtmlLink("issues", "all", "Manage all issues")),
-				new NavigationArea("open", new HtmlLink("issues/open", "open", "Manage open issues")),
-				new NavigationArea("mine", new HtmlLink("issues/mine", "mine", "Manage your issues"))));
+				new NavigationArea("all", new Hyperlink("issues", "all", "Manage all issues")),
+				new NavigationArea("open", new Hyperlink("issues/open", "open", "Manage open issues")),
+				new NavigationArea("mine", new Hyperlink("issues/mine", "mine", "Manage your issues"))));
 
-			yield return new NavigationArea("settings", new HtmlLink("settings", content: "settings", title: "Plenty of knobs and switches to get things just how you like"));
+			yield return new NavigationArea("settings", new Hyperlink("settings", content: "settings", title: "Plenty of knobs and switches to get things just how you like"));
 
-			yield return new NavigationArea("help", new HtmlLink("help", content: "help", title: "Everything you need to run Slate like a pro"));
+			yield return new NavigationArea("help", new Hyperlink("help", content: "help", title: "Everything you need to run Slate like a pro"));
 		}
 	}
 }

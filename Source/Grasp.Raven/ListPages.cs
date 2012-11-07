@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Cloak;
-using Grasp.Hypermedia.Lists;
+using Grasp.Lists;
 using Raven.Client;
 using Raven.Client.Linq;
 

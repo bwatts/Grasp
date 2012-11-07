@@ -4,7 +4,7 @@ using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Grasp.Hypermedia.Lists;
+using Grasp.Lists;
 
 namespace Slate.Web.Presentation.Home
 {

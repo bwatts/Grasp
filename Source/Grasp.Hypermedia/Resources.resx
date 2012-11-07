@@ -117,6 +117,18 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="LinkUriDoesNotAllowVariables" xml:space="preserve">
+    <value>This link URI does not allow variables: {0}</value>
+  </data>
+  <data name="PluralRelationship" xml:space="preserve">
+    <value>relationships</value>
+  </data>
+  <data name="SelfRelationship" xml:space="preserve">
+    <value>self</value>
+  </data>
+  <data name="SingularRelationship" xml:space="preserve">
+    <value>relationship</value>
+  </data>
   <data name="StreamIsInvalidHtmlRepresentation" xml:space="preserve">
     <value>Stream is an invalid HTML representation</value>
   </data>

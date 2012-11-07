@@ -8,6 +8,7 @@ using System.Web.Http.Controllers;
 using Cloak.Autofac;
 using Cloak.Http.Media;
 using Grasp.Hypermedia.Lists;
+using Grasp.Lists;
 
 namespace Slate.Http.Server.Composition
 {
@@ -17,7 +18,7 @@ namespace Slate.Http.Server.Composition
 		{
 			Contract.Requires(httpConfiguration != null);
 
-			var listHtmlFormat = new ListHtmlFormat();
+			var listHtmlFormat = new HyperlistHtmlFormat();
 
 			httpConfiguration.Formatters.Add(listHtmlFormat);
 

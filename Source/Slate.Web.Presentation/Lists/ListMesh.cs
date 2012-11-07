@@ -9,24 +9,25 @@ using Cloak.Http;
 using Grasp;
 using Grasp.Hypermedia;
 using Grasp.Hypermedia.Lists;
+using Grasp.Lists;
 
 namespace Slate.Web.Presentation.Lists
 {
 	public sealed class ListMesh : Notion, IListMesh
 	{
-		public static readonly Field<HtmlLink> _countTemplateField = Field.On<ListMesh>.For(x => x._countTemplate);
-		public static readonly Field<HtmlLink> _pageNumberTemplateField = Field.On<ListMesh>.For(x => x._pageNumberTemplate);
-		public static readonly Field<HtmlLink> _itemNumberTemplateField = Field.On<ListMesh>.For(x => x._itemNumberTemplate);
-		public static readonly Field<HtmlLink> _itemTemplateField = Field.On<ListMesh>.For(x => x._itemTemplate);
+		public static readonly Field<Hyperlink> _countTemplateField = Field.On<ListMesh>.For(x => x._countTemplate);
+		public static readonly Field<Hyperlink> _pageNumberTemplateField = Field.On<ListMesh>.For(x => x._pageNumberTemplate);
+		public static readonly Field<Hyperlink> _itemNumberTemplateField = Field.On<ListMesh>.For(x => x._itemNumberTemplate);
+		public static readonly Field<Hyperlink> _itemTemplateField = Field.On<ListMesh>.For(x => x._itemTemplate);
 		public static readonly Field<Func<object, string>> _itemIdSelectorField = Field.On<ListMesh>.For(x => x._itemIdSelector);
 
-		private HtmlLink _countTemplate { get { return GetValue(_countTemplateField); } set { SetValue(_countTemplateField, value); } }
-		private HtmlLink _pageNumberTemplate { get { return GetValue(_pageNumberTemplateField); } set { SetValue(_pageNumberTemplateField, value); } }
-		private HtmlLink _itemNumberTemplate { get { return GetValue(_itemNumberTemplateField); } set { SetValue(_itemNumberTemplateField, value); } }
-		private HtmlLink _itemTemplate { get { return GetValue(_itemTemplateField); } set { SetValue(_itemTemplateField, value); } }
+		private Hyperlink _countTemplate { get { return GetValue(_countTemplateField); } set { SetValue(_countTemplateField, value); } }
+		private Hyperlink _pageNumberTemplate { get { return GetValue(_pageNumberTemplateField); } set { SetValue(_pageNumberTemplateField, value); } }
+		private Hyperlink _itemNumberTemplate { get { return GetValue(_itemNumberTemplateField); } set { SetValue(_itemNumberTemplateField, value); } }
+		private Hyperlink _itemTemplate { get { return GetValue(_itemTemplateField); } set { SetValue(_itemTemplateField, value); } }
 		private Func<object, string> _itemIdSelector { get { return GetValue(_itemIdSelectorField); } set { SetValue(_itemIdSelectorField, value); } }
 
-		public ListMesh(HtmlLink countTemplate, HtmlLink pageNumberTemplate, HtmlLink itemNumberTemplate, HtmlLink itemTemplate, Func<object, string> itemIdSelector)
+		public ListMesh(Hyperlink countTemplate, Hyperlink pageNumberTemplate, Hyperlink itemNumberTemplate, Hyperlink itemTemplate, Func<object, string> itemIdSelector)
 		{
 			Contract.Requires(countTemplate != null);
 			Contract.Requires(pageNumberTemplate != null);
@@ -41,38 +42,44 @@ namespace Slate.Web.Presentation.Lists
 			_itemIdSelector = itemIdSelector;
 		}
 
-		public HtmlLink GetCountLink(ListPage page)
+		public Hyperlink GetCountLink(Hyperlist list)
 		{
-			return GetPagedLink(page, page.Key.Number, _countTemplate);
+			return GetPagedLink(list, list.Page.Number, _countTemplate);
 		}
 
-		public HtmlLink GetPageLink(ListPage page, Number number)
+		public Hyperlink GetPageLink(Hyperlist list, Number number)
 		{
-			return GetPagedLink(page, number, _pageNumberTemplate);
+			return GetPagedLink(list, number, _pageNumberTemplate);
 		}
 
-		public HtmlLink GetItemLink(ListPage page, Number number)
+		public Hyperlink GetItemLink(Hyperlist list, Number number)
 		{
-			return _itemNumberTemplate
-				.BindParameter("item", number.ToString())
-				.BindParameter("item-count", page.Context.ItemCount.ToString());
+			return _itemNumberTemplate.BindVariables(new Dictionary<string, string>
+			{
+				{ "item", number.ToString() },
+				{ "item-count", list.Context.ItemCount.ToString() }
+			});
 		}
 
-		public HtmlLink GetItemLink(object id)
+		public Hyperlink GetItemLink(object id)
 		{
 			var text = _itemIdSelector(id);
 
-			return _itemTemplate
-				.BindParameter("id", text)
-				.BindParameter("id-escaped", Href.Escape(text));
+			return _itemNumberTemplate.BindVariables(new Dictionary<string, string>
+			{
+				{ "id", text },
+				{ "id-escaped", Uri.EscapeDataString(text) }
+			});
 		}
 
-		private static HtmlLink GetPagedLink(ListPage page, Number number, HtmlLink template)
+		private Hyperlink GetPagedLink(Hyperlist list, Number number, Hyperlink template)
 		{
-			return template
-				.BindParameter("page", number.ToString())
-				.BindParameter("page-count", page.Context.PageCount.ToString())
-				.BindParameter("item-count", page.Context.ItemCount.ToString());
+			return _itemNumberTemplate.BindVariables(new Dictionary<string, string>
+			{
+				{ "page", number.ToString() },
+				{ "page-count", list.Context.PageCount.ToString() },
+				{ "item-count", list.Context.ItemCount.ToString() }
+			});
 		}
 	}
 }

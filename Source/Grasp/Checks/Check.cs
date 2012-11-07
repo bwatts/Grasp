@@ -6,7 +6,7 @@ using System.Text;
 namespace Grasp.Checks
 {
 	/// <summary>
-	/// Creates checks which apply to pieces of data
+	/// Creates checks applying to pieces of data
 	/// </summary>
 	public static class Check
 	{
@@ -15,7 +15,7 @@ namespace Grasp.Checks
 		/// </summary>
 		/// <typeparam name="T">The type of data to which the check applies</typeparam>
 		/// <param name="target">The data to check</param>
-		/// <param name="defaultResult">The default result of invoking the check</param>
+		/// <param name="defaultResult">The result of invoking this check before appending any others</param>
 		/// <returns>A check which applies to the specified target data</returns>
 		public static ICheckable<T> That<T>(T target, bool defaultResult = true)
 		{

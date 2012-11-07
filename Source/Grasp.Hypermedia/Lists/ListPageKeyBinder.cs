@@ -6,6 +6,7 @@ using System.Text;
 using System.Web.Http.Controllers;
 using System.Web.Http.ModelBinding;
 using Cloak;
+using Grasp.Lists;
 
 namespace Grasp.Hypermedia.Lists
 {

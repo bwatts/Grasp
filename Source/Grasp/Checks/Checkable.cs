@@ -17,7 +17,7 @@ namespace Grasp.Checks
 	{
 		#region Passes
 		/// <summary>
-		/// Checks if the target data passes the specified check
+		/// Checks if the specified function returns <code>true</code> for the target data
 		/// </summary>
 		/// <typeparam name="T">The type of target data</typeparam>
 		/// <param name="check">The base check</param>
@@ -84,7 +84,7 @@ namespace Grasp.Checks
 
 		#region Fails
 		/// <summary>
-		/// Checks if the target data fails the specified check
+		/// Checks if the specified function returns <code>false</code> for the target data
 		/// </summary>
 		/// <typeparam name="T">The type of target data</typeparam>
 		/// <param name="check">The base check</param>

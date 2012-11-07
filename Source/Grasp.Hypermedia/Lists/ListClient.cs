@@ -9,41 +9,38 @@ using Cloak;
 using Cloak.Http;
 using Cloak.Http.Media;
 using Grasp.Checks;
+using Grasp.Lists;
 
 namespace Grasp.Hypermedia.Lists
 {
 	public sealed class ListClient : Notion, IListClient
 	{
-		public static readonly Field<Uri> _apiUrlField = Field.On<ListClient>.For(x => x._apiUrl);
 		public static readonly Field<ApiClient> _apiClientField = Field.On<ListClient>.For(x => x._apiClient);
 
-		private Uri _apiUrl { get { return GetValue(_apiUrlField); } set { SetValue(_apiUrlField, value); } }
 		private ApiClient _apiClient { get { return GetValue(_apiClientField); } set { SetValue(_apiClientField, value); } }
 
-		public ListClient(Uri apiUrl, ApiClient apiClient)
+		public ListClient(ApiClient apiClient)
 		{
-			Contract.Requires(apiUrl != null);
 			Contract.Requires(apiClient != null);
 
-			_apiUrl = apiUrl;
 			_apiClient = apiClient;
 		}
 
-		public Task<ListResource> GetListAsync(ListPageKey key = null)
+		public Task<Hyperlist> GetListAsync(Uri uri, ListPageKey pageKey = null)
 		{
-			return _apiClient.SendAsync<ListResource>(
-				http => http.GetAsync(GetApiUri()),
-				(content, formats) => content.ReadAsAsync<ListResource>(formats));
+			return _apiClient.SendWithResultAsync<Hyperlist>(
+				http => http.GetAsync(GetApiUri(uri, pageKey)),
+				(content, formats) => content.ReadAsAsync<Hyperlist>(formats));
 		}
 
-		private Uri GetApiUri(ListPageKey key = null)
+		private static Uri GetApiUri(Uri uri, ListPageKey pageKey)
 		{
-			return new UriBuilder(_apiUrl) { Query = GetQuery(key) }.Uri;
+			return new UriBuilder(uri) { Query = GetQuery(uri, pageKey) }.Uri;
 		}
 
-		private string GetQuery(ListPageKey key)
+		private static string GetQuery(Uri uri, ListPageKey pageKey)
 		{
-			return key.GetQuery().ToStringWithSeparator(hasBaseQuery: _apiUrl.Query.Length > 1);
+			return pageKey.GetQuery(includeSeparator: uri.Query.Length < 2);
 		}
 	}
 }

@@ -11,6 +11,7 @@ using Grasp;
 using Grasp.Hypermedia;
 using Grasp.Hypermedia.Linq;
 using Grasp.Hypermedia.Lists;
+using Grasp.Lists;
 
 namespace Slate.Http.Api
 {
@@ -28,18 +29,19 @@ namespace Slate.Http.Api
 			_listService = listService;
 		}
 
-		public async Task<ListResource> GetListPageAsync(ListPageKey key)
+		public async Task<Hyperlist> GetListPageAsync(ListPageKey key)
 		{
 			var page = await _listService.GetPageAsync(key);
 
-			var list = new ListResource(_resourceContext.CreateHeader("Forms"), key, page.Context, CreateResourcePage(page));
-
-			Mesh.LinkField.Set(list, new HtmlLink("forms?page={page}&pageSize={page-size}&sort={sort}", relationship: new Relationship("grasp:list-page")));
-
-			return list;
+			return new Hyperlist(
+				_resourceContext.CreateHeader("Forms"),
+				new Hyperlink("forms?page={page}&pageSize={page-size}&sort={sort}", relationship: new Relationship("grasp:list-page")),
+				key,
+				page.Context,
+				CreatePage(page));
 		}
 
-		private static ListResourcePage CreateResourcePage(ListPage page)
+		private static HyperlistPage CreatePage(ListPage page)
 		{
 			return null;
 

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Cloak.Reflection;
 using Grasp.Hypermedia;
 using Grasp.Hypermedia.Lists;
+using Grasp.Lists;
 using Slate.Web.Presentation.Lists;
 
 namespace Slate.Web.Presentation.Home
@@ -14,16 +15,22 @@ namespace Slate.Web.Presentation.Home
 	public sealed class IndexFactory : IIndexFactory
 	{
 		private readonly ISnapshotFactory _snapshotFactory;
+		private readonly Uri _formListUri;
+		private readonly Uri _issueListUri;
 		private readonly IListFactory _formListFactory;
 		private readonly IListFactory _issueListFactory;
 
-		public IndexFactory(ISnapshotFactory snapshotFactory, IListFactory formListFactory, IListFactory issuesListFactory)
+		public IndexFactory(ISnapshotFactory snapshotFactory, Uri formListUri, Uri issueListUri, IListFactory formListFactory, IListFactory issuesListFactory)
 		{
 			Contract.Requires(snapshotFactory != null);
+			Contract.Requires(formListUri != null);
+			Contract.Requires(issueListUri != null);
 			Contract.Requires(formListFactory != null);
 			Contract.Requires(issuesListFactory != null);
 
 			_snapshotFactory = snapshotFactory;
+			_formListUri = formListUri;
+			_issueListUri = issueListUri;
 			_formListFactory = formListFactory;
 			_issueListFactory = issuesListFactory;
 		}
@@ -41,26 +48,26 @@ namespace Slate.Web.Presentation.Home
 
 		private async Task<IndexListModel> CreateFormListAsync(ListPageKey formPageKey)
 		{
-			var exploreItem = new ListItem(Number.None, GetFormExploreValues());
+			var exploreItem = new HyperlistItem(
+				new Hyperlink("explore/forms", "Explore forms..."),
+				new ListItem(Number.None, GetFormExploreValues()));
 			
-			Mesh.LinkField.Set(exploreItem, new HtmlLink("explore/forms", "Explore forms..."));
-
 			return new IndexListModel(
-				newLink: new HtmlLink("explore/forms/start", "Start a form..."),
+				newLink: new Hyperlink("explore/forms/start", "Start a form..."),
 				exploreItem: exploreItem,
-				list: await _formListFactory.CreateListAsync(formPageKey, item => item["Name"]));
+				list: await _formListFactory.CreateListAsync(_formListUri, formPageKey, item => item["Name"]));
 		}
 
 		private async Task<IndexListModel> CreateIssueListAsync(ListPageKey issuePageKey)
 		{
-			var exploreItem = new ListItem(Number.None, GetIssueExploreValues());
-
-			Mesh.LinkField.Set(exploreItem, new HtmlLink("explore/issues", "Explore issues..."));
+			var exploreItem = new HyperlistItem(
+				new Hyperlink("explore/issues", "Explore issues..."),
+				new ListItem(Number.None, GetIssueExploreValues()));
 
 			return new IndexListModel(
-				newLink: new HtmlLink("explore/issues/open", "Open an issue...", "Open an issue", new Relationship("grasp:open-issue")),
+				newLink: new Hyperlink("explore/issues/open", "Open an issue...", "Open an issue", new Relationship("grasp:open-issue")),
 				exploreItem: exploreItem,
-				list: await _issueListFactory.CreateListAsync(issuePageKey, item => item["Number"]));
+				list: await _issueListFactory.CreateListAsync(_issueListUri, issuePageKey, item => item["Number"]));
 		}
 
 		private static IReadOnlyDictionary<string, object> GetFormExploreValues()

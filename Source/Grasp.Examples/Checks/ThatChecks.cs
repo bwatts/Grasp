@@ -4,58 +4,54 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using FluentAssertions;
-using Xbehave;
+using Xunit;
 
 namespace Grasp.Checks
 {
 	public class ThatChecks
 	{
-		[Scenario]
-		public void Create(int target, ICheckable<int> thatCheck)
+		[Fact] public void Create()
 		{
-			"Given a piece of target data".Given(() => target = 1);
+			var target = 1;
 
-			"When creating a 'That' check".When(() => thatCheck = Check.That(target));
+			var thatCheck = Check.That(target);
 
-			"The check is not null".Then(() => thatCheck.Should().NotBeNull());
-			"The check has the specified target".Then(() => thatCheck.Target.Should().Be(target));
-			"The check has the specified target type".Then(() => thatCheck.TargetType.Should().Be(target.GetType()));
+			thatCheck.Should().NotBeNull();
+			thatCheck.Target.Should().Be(target);
+			thatCheck.TargetType.Should().Be(target.GetType());
 		}
 
-		[Scenario]
-		public void Apply(ICheckable<int> thatCheck, bool result)
+		[Fact] public void Apply()
 		{
-			"Given a 'That' check".Given(() => thatCheck = Check.That(1));
+			var thatCheck = Check.That(1);
 
-			"When applying the check".When(() => result = thatCheck.Apply());
+			var result = thatCheck.Apply();
 
-			"The result is true".Then(() => result.Should().BeTrue());
+			result.Should().BeTrue();
 		}
 
-		[Scenario]
-		public void ApplyWithDefault(ICheckable<int> thatCheck, bool defaultResult, bool result)
+		[Fact] public void ApplyWithDefault()
 		{
-			"Given a default result".Given(() => defaultResult = false);
-			"And a 'That' check with the default result".Given(() => thatCheck = Check.That(1, defaultResult));
+			var defaultResult = false;
+			var thatCheck = Check.That(1, defaultResult);
 
-			"When applying the check".When(() => result = thatCheck.Apply());
+			var result = thatCheck.Apply();
 
-			"The result is the default result".Then(() => result.Should().Be(defaultResult));
+			result.Should().Be(defaultResult);
 		}
 
-		[Scenario]
-		public void ImplicitlyConvertToBoolean(Check<int> thatCheck, bool result)
+		[Fact] public void ImplicitlyConvertToBoolean()
 		{
-			"Given a check written for this example".Given(() => thatCheck = new ImplicitConversionCheck());
+			var check = new TestCheck();
 
-			"When applying the check implicitly".When(() => result = thatCheck);
+			bool result = check;
 
-			"The result is expected".Then(() => result.Should().BeFalse());
+			result.Should().BeFalse();
 		}
 
-		private sealed class ImplicitConversionCheck : Check<int>
+		private sealed class TestCheck : Check<int>
 		{
-			internal ImplicitConversionCheck() : base(0)
+			internal TestCheck() : base(0)
 			{}
 
 			public override bool Apply()

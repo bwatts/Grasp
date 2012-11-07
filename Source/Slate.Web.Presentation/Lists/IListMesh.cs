@@ -7,54 +7,55 @@ using System.Threading.Tasks;
 using Grasp;
 using Grasp.Hypermedia;
 using Grasp.Hypermedia.Lists;
+using Grasp.Lists;
 
 namespace Slate.Web.Presentation.Lists
 {
 	[ContractClass(typeof(IListMeshContract))]
 	public interface IListMesh
 	{
-		HtmlLink GetCountLink(ListPage page);
+		Hyperlink GetCountLink(Hyperlist list);
 
-		HtmlLink GetPageLink(ListPage page, Number number);
+		Hyperlink GetPageLink(Hyperlist list, Number number);
 
-		HtmlLink GetItemLink(ListPage page, Number number);
+		Hyperlink GetItemLink(Hyperlist list, Number number);
 
-		HtmlLink GetItemLink(object id);
+		Hyperlink GetItemLink(object id);
 	}
 
 	[ContractClassFor(typeof(IListMesh))]
 	internal abstract class IListMeshContract : IListMesh
 	{
-		HtmlLink IListMesh.GetCountLink(ListPage page)
+		Hyperlink IListMesh.GetCountLink(Hyperlist list)
 		{
-			Contract.Requires(page != null);
-			Contract.Ensures(Contract.Result<HtmlLink>() != null);
+			Contract.Requires(list != null);
+			Contract.Ensures(Contract.Result<Hyperlink>() != null);
 
 			return null;
 		}
 
-		HtmlLink IListMesh.GetPageLink(ListPage page, Number number)
+		Hyperlink IListMesh.GetPageLink(Hyperlist list, Number number)
 		{
-			Contract.Requires(page != null);
+			Contract.Requires(list != null);
 			Contract.Requires(number != Number.None);
-			Contract.Ensures(Contract.Result<HtmlLink>() != null);
+			Contract.Ensures(Contract.Result<Hyperlink>() != null);
 
 			return null;
 		}
 
-		HtmlLink IListMesh.GetItemLink(ListPage page, Number number)
+		Hyperlink IListMesh.GetItemLink(Hyperlist list, Number number)
 		{
-			Contract.Requires(page != null);
+			Contract.Requires(list != null);
 			Contract.Requires(number != Number.None);
-			Contract.Ensures(Contract.Result<HtmlLink>() != null);
+			Contract.Ensures(Contract.Result<Hyperlink>() != null);
 
 			return null;
 		}
 
-		HtmlLink IListMesh.GetItemLink(object id)
+		Hyperlink IListMesh.GetItemLink(object id)
 		{
 			Contract.Requires(id != null);
-			Contract.Ensures(Contract.Result<HtmlLink>() != null);
+			Contract.Ensures(Contract.Result<Hyperlink>() != null);
 
 			return null;
 		}

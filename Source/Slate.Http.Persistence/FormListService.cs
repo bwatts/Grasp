@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Cloak.Reflection;
-using Grasp.Hypermedia.Lists;
+using Grasp.Lists;
 using Grasp.Raven;
 using Grasp.Work;
 using Raven.Client;

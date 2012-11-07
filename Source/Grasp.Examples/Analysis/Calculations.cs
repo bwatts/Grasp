@@ -4,35 +4,32 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using FluentAssertions;
-using Xbehave;
+using Xunit;
 
 namespace Grasp.Analysis
 {
 	public class Calculations
 	{
-		[Scenario]
-		public void Create(Variable outputVariable, Expression expression, Calculation calculation)
+		[Fact] public void Create()
 		{
-			"Given an output variable".Given(() => outputVariable = new Variable<int>("X"));
-			"And an expression".And(() => expression = Expression.Constant(0));
+			var outputVariable = new Variable<int>("X");
+			var expression = Expression.Constant(0);
 
-			"When creating a calculation".When(() => calculation = new Calculation(outputVariable, expression));
+			var calculation = new Calculation(outputVariable, expression);
 
-			"It has the specified output variable".Then(() => calculation.OutputVariable.Should().Be(outputVariable));
-			"It has the specified expression".Then(() => calculation.Expression.Should().Be(expression));
+			calculation.OutputVariable.Should().Be(outputVariable);
+			calculation.Expression.Should().Be(expression);
 		}
 
-		[Scenario]
-		public void GetText(Variable outputVariable, ConstantExpression expression, Calculation calculation, string text)
+		[Fact] public void GetText()
 		{
-			"Given an output variable".Given(() => outputVariable = new Variable<int>("X"));
-			"And an expression".Given(() => expression = Expression.Constant(0));
-			"And a calculation".And(() => calculation = new Calculation(outputVariable, expression));
+			var outputVariable = new Variable<int>("X");
+			var expression = Expression.Constant(0);
+			var calculation = new Calculation(outputVariable, expression);
 
-			"When calling .ToString() on the calculation".When(() => text = calculation.ToString());
+			var text = calculation.ToString();
 
-			"It is the assignment of the expression to the output variable"
-				.Then(() => calculation.ToString().Should().Be(outputVariable.ToString() + " = " + expression.Value.ToString()));
+			calculation.ToString().Should().Be(outputVariable.ToString() + " = " + expression.Value.ToString());
 		}
 	}
 }

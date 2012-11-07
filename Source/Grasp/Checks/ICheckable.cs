@@ -22,7 +22,7 @@ namespace Grasp.Checks
 		object Target { get; }
 
 		/// <summary>
-		/// Applies the boolean-valued function to the target data
+		/// Applies a boolean-valued function to the target data
 		/// </summary>
 		/// <returns>The result of applying the boolean-valued function to the target data</returns>
 		bool Apply();

@@ -61,6 +61,42 @@ namespace Grasp.Hypermedia {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This link URI does not allow variables: {0}.
+        /// </summary>
+        internal static string LinkUriDoesNotAllowVariables {
+            get {
+                return ResourceManager.GetString("LinkUriDoesNotAllowVariables", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to relationships.
+        /// </summary>
+        internal static string PluralRelationship {
+            get {
+                return ResourceManager.GetString("PluralRelationship", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to self.
+        /// </summary>
+        internal static string SelfRelationship {
+            get {
+                return ResourceManager.GetString("SelfRelationship", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to relationship.
+        /// </summary>
+        internal static string SingularRelationship {
+            get {
+                return ResourceManager.GetString("SingularRelationship", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Stream is an invalid HTML representation.
         /// </summary>
         internal static string StreamIsInvalidHtmlRepresentation {
