@@ -63,14 +63,14 @@ namespace Slate.Web.Presentation.Lists
 				new PageModel(
 					number: new NumberModel(list.Page.Number, _mesh.GetPageLink(list, list.Page.Number)),
 					size: list.Page.Size,
-					firstItem: new NumberModel(list.Page.FirstItem, _mesh.GetItemLink(list, list.Page.FirstItem)),
-					lastItem: new NumberModel(list.Page.LastItem, _mesh.GetItemLink(list, list.Page.LastItem)),
-					items: new HyperlistItems(list.Page.Items.Schema, GetItems(list, itemIdSelector))));
+					firstItem: new NumberModel(list.Page.FirstItemNumber, _mesh.GetItemLink(list, list.Page.GetFirstItem())),
+					lastItem: new NumberModel(list.Page.LastItemNumber, _mesh.GetItemLink(list, list.Page.GetLastItem())),
+					items: new HyperlistItems(list.Page.Items.Schema, GetItems(list))));
 		}
 
-		private IEnumerable<HyperlistItem> GetItems(Hyperlist list, Func<HyperlistItem, object> itemIdSelector)
+		private IEnumerable<HyperlistItem> GetItems(Hyperlist list)
 		{
-			return list.Page.Items.Select(item => new HyperlistItem(_mesh.GetItemLink(itemIdSelector(item)), item.ListItem));
+			return list.Page.Items.Select(item => new HyperlistItem(_mesh.GetItemLink(list, item), item.ListItem));
 		}
 	}
 }

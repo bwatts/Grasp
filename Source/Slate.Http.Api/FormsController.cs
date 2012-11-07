@@ -43,31 +43,12 @@ namespace Slate.Http.Api
 
 		private static HyperlistPage CreatePage(ListPage page)
 		{
-			return null;
+			return new HyperlistPage(page.Key.Number, page.Key.Size, page.FirstItemNumber, page.LastItemNumber, page.Items.Select(CreateItem));
+		}
 
-			//return new ListResourcePage(
-			//	page.Key.Number,
-			//	page.Key.Size,
-			//	page.FirstItem,
-			//	page.LastItem,
-			//	new ListResourceItems(
-			//		AnonymousDictionary.Read<Type>(new
-			//		{
-			//			Name = typeof(string),
-			//			Visibility = typeof(string),
-			//			ResponseCount = typeof(int),
-			//			IssueCount = typeof(int),
-			//			WhenCreated = typeof(DateTime),
-			//			WhenModified = typeof(DateTime)
-			//		}),
-			//		page.Items.Select(item =>
-			//		{
-			//			MLink.ValueField.Set(item, new HtmlLink("TODO", relationship: new Relationship("grasp:list-item")));
-
-			//			return item;
-			//		})
-			//		.ToList()
-			//		.AsReadOnly()));
+		private static HyperlistItem CreateItem(ListItem listItem)
+		{
+			return new HyperlistItem(new Hyperlink(null, relationship: new Relationship("grasp:list-item")));
 		}
 	}
 }

@@ -43,17 +43,18 @@ namespace Grasp.Raven
 
 			var context = new ListPageContext(resultKey, new Count(pageCount), itemCount);
 
-			//return new ListPage(resultKey, context, SelectListItems(context, items).ToList());
-			return null;
+			return new ListPage(resultKey, context, new ListItems(GetSchema(), SelectListItems(context, items)));
 		}
 
 		private IEnumerable<ListItem> SelectListItems(ListPageContext context, IEnumerable<T> items)
 		{
 			var firstItem = context.PageKey.GetFirstItem();
 
-			return items.Select((item, index) => new ListItem(firstItem + new Number(index), SelectValues(context, item)));
+			return items.Select((item, index) => new ListItem(firstItem + new Number(index), SelectBindings(context, item)));
 		}
 
-		protected abstract IReadOnlyDictionary<string, object> SelectValues(ListPageContext context, T item);
+		protected abstract ListSchema GetSchema();
+
+		protected abstract ListItemBindings SelectBindings(ListPageContext context, T item);
 	}
 }

@@ -21,7 +21,7 @@ namespace Slate.Http.Server.Composition
 
 			Register(c => new FormsController(c.Resolve<IHttpResourceContext>(), c.ResolveNamed<IListService>("Forms"))).InstancePerDependency();
 
-			configuration.Routes.MapHttpRoute("forms", "api/forms", new { controller = "Forms", action = "GetListPageAsync" });
+			configuration.Routes.MapHttpRoute("forms", "forms", new { controller = "Forms", action = "GetListPageAsync" });
 		}
 	}
 }

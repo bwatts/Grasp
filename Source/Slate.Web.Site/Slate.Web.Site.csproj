@@ -180,7 +180,8 @@
     </Compile>
     <Compile Include="Composition\Http\ClientModule.cs" />
     <Compile Include="Composition\Http\HttpModule.cs" />
-    <Compile Include="Composition\Http\ListModule.cs" />
+    <Compile Include="Composition\IssuesModule.cs" />
+    <Compile Include="Composition\ListModule.cs" />
     <Compile Include="Composition\Http\MediaModule.cs" />
     <Compile Include="Composition\FormsModule.cs" />
     <Compile Include="Composition\TimeModule.cs" />

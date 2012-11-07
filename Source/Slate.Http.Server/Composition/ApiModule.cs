@@ -14,9 +14,9 @@ namespace Slate.Http.Server.Composition
 	{
 		public ApiModule(HttpConfiguration httpConfiguration, ServerSection serverConfiguration)
 		{
-			RegisterModule(new FormsModule(httpConfiguration));
-			RegisterModule<IssuesModule>();
 			RegisterModule(new ListModule(httpConfiguration));
+
+			RegisterModule(new FormsModule(httpConfiguration));
 
 			Register(c => new HttpResourceContext(serverConfiguration.BaseUrl)).As<IHttpResourceContext>().SingleInstance();
 		}

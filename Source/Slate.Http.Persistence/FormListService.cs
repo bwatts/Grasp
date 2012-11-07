@@ -22,9 +22,22 @@ namespace Slate.Http.Persistence
 			return session.Query<Form>();
 		}
 
-		protected override IReadOnlyDictionary<string, object> SelectValues(ListPageContext context, Form item)
+		protected override ListSchema GetSchema()
 		{
-			return AnonymousDictionary.Read(new
+			return new ListSchema(AnonymousDictionary.Read<Type>(new
+			{
+				Name = typeof(string),
+				WhenCreated = typeof(DateTime),
+				WhenModified = typeof(DateTime),
+				Visibility = typeof(FormVisibility),
+				ResponseCount = typeof(int),
+				IssueCount = typeof(int)
+			}));
+		}
+
+		protected override ListItemBindings SelectBindings(ListPageContext context, Form item)
+		{
+			return new ListItemBindings(AnonymousDictionary.Read(new
 			{
 				Name = item.Name,
 				WhenCreated = EntityLifetime.WhenCreatedField.Get(item),
@@ -32,7 +45,7 @@ namespace Slate.Http.Persistence
 				Visibility = item.Visibility,
 				ResponseCount = 4,
 				IssueCount = 2
-			});
+			}));
 		}
 	}
 }

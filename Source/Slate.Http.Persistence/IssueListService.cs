@@ -22,16 +22,28 @@ namespace Slate.Http.Persistence
 			return session.Query<Issue>();
 		}
 
-		protected override IReadOnlyDictionary<string, object> SelectValues(ListPageContext context, Issue item)
+		protected override ListSchema GetSchema()
 		{
-			return AnonymousDictionary.Read(new
+			return new ListSchema(AnonymousDictionary.Read<Type>(new
+			{
+				Number = typeof(int),
+				Description = typeof(string),
+				AssignedTo = typeof(string),
+				WhenCreated = typeof(DateTime),
+				WhenModified = typeof(DateTime)
+			}));
+		}
+
+		protected override ListItemBindings SelectBindings(ListPageContext context, Issue item)
+		{
+			return new ListItemBindings(AnonymousDictionary.Read(new
 			{
 				Number = item.Number,
 				Description = item.Title,
 				AssignedTo = "TODO",
 				WhenCreated = EntityLifetime.WhenCreatedField.Get(item),
 				WhenModified = EntityLifetime.WhenModifiedField.Get(item)
-			});
+			}));
 		}
 	}
 }

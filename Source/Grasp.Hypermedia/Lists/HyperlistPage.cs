@@ -13,26 +13,40 @@ namespace Grasp.Hypermedia.Lists
 	{
 		public static readonly Field<Number> NumberField = Field.On<HyperlistPage>.For(x => x.Number);
 		public static readonly Field<Count> SizeField = Field.On<HyperlistPage>.For(x => x.Size);
-		public static readonly Field<Number> FirstItemField = Field.On<HyperlistPage>.For(x => x.FirstItem);
-		public static readonly Field<Number> LastItemField = Field.On<HyperlistPage>.For(x => x.LastItem);
+		public static readonly Field<Number> FirstItemNumberField = Field.On<HyperlistPage>.For(x => x.FirstItemNumber);
+		public static readonly Field<Number> LastItemNumberField = Field.On<HyperlistPage>.For(x => x.LastItemNumber);
 		public static readonly Field<HyperlistItems> ItemsField = Field.On<HyperlistPage>.For(x => x.Items);
 
-		public HyperlistPage(Number number, Count size, Number firstItem, Number lastItem, HyperlistItems items)
+		public HyperlistPage(Number number, Count size, Number firstItemNumber, Number lastItemNumber, HyperlistItems items)
 		{
-			Contract.Requires(firstItem <= lastItem);
+			Contract.Requires(firstItemNumber <= lastItemNumber);
 			Contract.Requires(items != null);
 
 			Number = number;
 			Size = size;
-			FirstItem = firstItem;
-			LastItem = lastItem;
+			FirstItemNumber = firstItemNumber;
+			LastItemNumber = lastItemNumber;
 			Items = items;
 		}
 
 		public Number Number { get { return GetValue(NumberField); } private set { SetValue(NumberField, value); } }
 		public Count Size { get { return GetValue(SizeField); } private set { SetValue(SizeField, value); } }
-		public Number FirstItem { get { return GetValue(FirstItemField); } private set { SetValue(FirstItemField, value); } }
-		public Number LastItem { get { return GetValue(LastItemField); } private set { SetValue(LastItemField, value); } }
+		public Number FirstItemNumber { get { return GetValue(FirstItemNumberField); } private set { SetValue(FirstItemNumberField, value); } }
+		public Number LastItemNumber { get { return GetValue(LastItemNumberField); } private set { SetValue(LastItemNumberField, value); } }
 		public HyperlistItems Items { get { return GetValue(ItemsField); } private set { SetValue(ItemsField, value); } }
+
+		public HyperlistItem GetFirstItem()
+		{
+			var firstItemNumber = FirstItemNumber;
+
+			return firstItemNumber == Number.None ? null : Items[FirstItemNumber.Value];
+		}
+
+		public HyperlistItem GetLastItem()
+		{
+			var lastItemNumber = LastItemNumber;
+
+			return lastItemNumber == Number.None ? null : Items[LastItemNumber.Value];
+		}
 	}
 }

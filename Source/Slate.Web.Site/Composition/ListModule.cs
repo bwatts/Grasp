@@ -6,13 +6,15 @@ using Cloak.Autofac;
 using Cloak.Http.Media;
 using Grasp.Hypermedia.Lists;
 
-namespace Slate.Web.Site.Composition.Http
+namespace Slate.Web.Site.Composition
 {
 	public class ListModule : BuilderModule
 	{
 		public ListModule()
 		{
 			RegisterType<HyperlistHtmlFormat>().As<MediaFormat>().InstancePerDependency();
+
+			RegisterType<ListClient>().As<IListClient>().InstancePerDependency();
 		}
 	}
 }

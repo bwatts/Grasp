@@ -61,8 +61,8 @@ namespace Grasp.Hypermedia.Lists
 				"page",
 				new MValue("number", list.Page.Number),
 				new MValue("size", list.Page.Size),
-				new MValue("first-item", list.Page.FirstItem),
-				new MValue("last-item", list.Page.LastItem),
+				new MValue("first-item", list.Page.FirstItemNumber),
+				new MValue("last-item", list.Page.LastItemNumber),
 				new MDivision("items", GetItemSchema(list), GetItems(list)));
 		}
 

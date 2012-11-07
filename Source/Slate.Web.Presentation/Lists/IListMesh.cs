@@ -18,9 +18,7 @@ namespace Slate.Web.Presentation.Lists
 
 		Hyperlink GetPageLink(Hyperlist list, Number number);
 
-		Hyperlink GetItemLink(Hyperlist list, Number number);
-
-		Hyperlink GetItemLink(object id);
+		Hyperlink GetItemLink(Hyperlist list, HyperlistItem item);
 	}
 
 	[ContractClassFor(typeof(IListMesh))]
@@ -43,18 +41,10 @@ namespace Slate.Web.Presentation.Lists
 			return null;
 		}
 
-		Hyperlink IListMesh.GetItemLink(Hyperlist list, Number number)
+		Hyperlink IListMesh.GetItemLink(Hyperlist list, HyperlistItem item)
 		{
 			Contract.Requires(list != null);
-			Contract.Requires(number != Number.None);
-			Contract.Ensures(Contract.Result<Hyperlink>() != null);
-
-			return null;
-		}
-
-		Hyperlink IListMesh.GetItemLink(object id)
-		{
-			Contract.Requires(id != null);
+			Contract.Requires(item != null);
 			Contract.Ensures(Contract.Result<Hyperlink>() != null);
 
 			return null;

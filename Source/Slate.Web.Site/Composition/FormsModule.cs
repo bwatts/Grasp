@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using Autofac;
 using Cloak.Autofac;
+using Grasp.Hypermedia;
 using Grasp.Hypermedia.Lists;
 using Slate.Web.Presentation.Lists;
 
@@ -15,11 +16,17 @@ namespace Slate.Web.Site.Composition
 	{
 		public FormsModule(string emptyListMessage)
 		{
-			RegisterType<ListClient>().InstancePerDependency();
+			Register(c => new ListMesh(
+				countTemplate: new Hyperlink("explore/forms", "{total-items}", "Explore the forms in your system"),
+				pageTemplate: new Hyperlink("explore/forms", "{page}", "Page {page} of {total-pages}"),
+				itemTemplate: new Hyperlink("explore/forms/{id-escaped}", "{id}", "{id}"),
+				itemIdSelector: item => item["Name"]))
+			.Named<IListMesh>("Forms")
+			.SingleInstance();
 
-			//Register(c => new ListFactory(c.ResolveNamed<IListService>("Forms"), c.ResolveNamed<IListMesh>("Forms"), emptyListMessage))
-			//.Named<IListFactory>("Forms")
-			//.InstancePerDependency();
+			Register(c => new ListFactory(c.Resolve<IListClient>(), c.ResolveNamed<IListMesh>("Forms"), emptyListMessage))
+			.Named<IListFactory>("Forms")
+			.InstancePerDependency();
 		}
 	}
 }
