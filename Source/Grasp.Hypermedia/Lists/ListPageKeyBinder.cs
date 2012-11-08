@@ -6,6 +6,7 @@ using System.Text;
 using System.Web.Http.Controllers;
 using System.Web.Http.ModelBinding;
 using Cloak;
+using Grasp.Checks;
 using Grasp.Lists;
 
 namespace Grasp.Hypermedia.Lists
@@ -21,23 +22,26 @@ namespace Grasp.Hypermedia.Lists
 
 		private Number GetPage(ModelBindingContext bindingContext)
 		{
-			var page = bindingContext.ValueProvider.GetValue("page");
-
-			return page == null ? Number.None : new Number(Int32.Parse(page.AttemptedValue));
+			return GetValue(bindingContext, "page", Number.None, value => new Number(Int32.Parse(value)));
 		}
 
 		private Count GetPageSize(ModelBindingContext bindingContext)
 		{
-			var pageSize = bindingContext.ValueProvider.GetValue("pageSize");
-
-			return pageSize == null ? Count.None : new Count(Int32.Parse(pageSize.AttemptedValue));
+			return GetValue(bindingContext, "pageSize", Count.None, value => new Count(Int32.Parse(value)));
 		}
 
 		private Sort GetSort(ModelBindingContext bindingContext)
 		{
-			var sort = bindingContext.ValueProvider.GetValue("sort");
+			return GetValue(bindingContext, "sort", Sort.Empty, value => Sort.Parse(value));
+		}
 
-			return sort == null ? Sort.Empty : Sort.Parse(sort.AttemptedValue);
+		private static T GetValue<T>(ModelBindingContext bindingContext, string key, T defaultValue, Func<string, T> parse)
+		{
+			var value = bindingContext.ValueProvider.GetValue(key);
+
+			return value == null || Check.That(value.AttemptedValue).IsNullOrEmpty()
+				? defaultValue
+				: parse(value.AttemptedValue);
 		}
 	}
 }

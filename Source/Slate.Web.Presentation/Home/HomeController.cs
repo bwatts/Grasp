@@ -12,16 +12,16 @@ namespace Slate.Web.Presentation.Home
 {
 	public class HomeController : Controller
 	{
-		private readonly ILayoutFactory _layoutFactory;
-		private readonly IIndexFactory _indexFactory;
+		private readonly ILayoutModelFactory _layoutModelFactory;
+		private readonly IIndexModelFactory _indexModelFactory;
 
-		public HomeController(ILayoutFactory layoutFactory, IIndexFactory indexFactory)
+		public HomeController(ILayoutModelFactory layoutModelFactory, IIndexModelFactory indexModelFactory)
 		{
-			Contract.Requires(layoutFactory != null);
-			Contract.Requires(indexFactory != null);
+			Contract.Requires(layoutModelFactory != null);
+			Contract.Requires(indexModelFactory != null);
 
-			_layoutFactory = layoutFactory;
-			_indexFactory = indexFactory;
+			_layoutModelFactory = layoutModelFactory;
+			_indexModelFactory = indexModelFactory;
 		}
 
 		public async Task<ActionResult> Index(ListPageKey formPageKey, ListPageKey issuePageKey)
@@ -31,9 +31,9 @@ namespace Slate.Web.Presentation.Home
 
 		private async Task<object> CreateIndexModelAsync(ListPageKey formPageKey, ListPageKey issuePageKey)
 		{
-			var indexModel = await _indexFactory.CreateIndexAsync(formPageKey, issuePageKey);
+			var indexModel = await _indexModelFactory.CreateIndexModelAsync(formPageKey, issuePageKey);
 
-			return await _layoutFactory.CreateLayoutAsync("Slate : Home", indexModel, "home");
+			return await _layoutModelFactory.CreateLayoutModelAsync("Slate : Home", indexModel, "home");
 		}
 	}
 }

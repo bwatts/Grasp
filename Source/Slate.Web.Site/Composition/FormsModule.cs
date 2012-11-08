@@ -24,8 +24,8 @@ namespace Slate.Web.Site.Composition
 			.Named<IListMesh>("Forms")
 			.SingleInstance();
 
-			Register(c => new ListFactory(c.Resolve<IListClient>(), c.ResolveNamed<IListMesh>("Forms"), emptyListMessage))
-			.Named<IListFactory>("Forms")
+			Register(c => new ListModelFactory(c.Resolve<IListClient>(), c.ResolveNamed<IListMesh>("Forms"), emptyListMessage))
+			.Named<IListModelFactory>("Forms")
 			.InstancePerDependency();
 		}
 	}

@@ -8,11 +8,11 @@ namespace Slate.Web.Site.Configuration
 {
 	public class SiteSection : ConfigurationSection
 	{
-		[ConfigurationProperty("apiBaseUrl", IsRequired = true)]
-		public Uri ApiBaseUrl
+		[ConfigurationProperty("apiBaseAddress", IsRequired = true)]
+		public Uri ApiBaseAddress
 		{
-			get { return (Uri) this["apiBaseUrl"]; }
-			set { this["apiBaseUrl"] = value; }
+			get { return (Uri) this["apiBaseAddress"]; }
+			set { this["apiBaseAddress"] = value; }
 		}
 
 		[ConfigurationProperty("formListUrl", IsRequired = true)]

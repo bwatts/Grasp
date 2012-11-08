@@ -16,7 +16,6 @@ namespace Grasp.Lists
 
 		public ListItem(Number number, ListItemBindings bindings)
 		{
-			Contract.Requires(number != Number.None);
 			Contract.Requires(bindings != null);
 
 			Number = number;

@@ -54,7 +54,7 @@ namespace Grasp.Hypermedia
 
 		public override string ToString()
 		{
-			return ToHtml("link", allowTemplate: true).ToString();
+			return ToHtml("a", allowTemplate: true).ToString();
 		}
 
 		public Hyperlink WithClass(MClass @class)
@@ -98,7 +98,7 @@ namespace Grasp.Hypermedia
 				binding => binding.Value == null ? "" : binding.Value.ToString()));
 		}
 
-		public XElement ToHtml(XName elementName, bool allowTemplate = false)
+		public XElement ToHtml(XName elementName, bool allowTemplate = true)
 		{
 			return new XElement(elementName, GetHtmlContent(allowTemplate));
 		}

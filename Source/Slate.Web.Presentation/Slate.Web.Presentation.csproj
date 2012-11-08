@@ -121,30 +121,31 @@
     <Compile Include="Home\HomeController.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Home\IIndexFactory.cs" />
+    <Compile Include="Home\IIndexModelFactory.cs" />
     <Compile Include="IUserContext.cs" />
-    <Compile Include="Lists\IListFactory.cs" />
+    <Compile Include="Lists\IListModelFactory.cs" />
     <Compile Include="Home\IndexModel.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Home\IndexFactory.cs" />
+    <Compile Include="Home\IndexModelFactory.cs" />
     <Compile Include="Home\IndexListModel.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Home\ISnapshotFactory.cs" />
+    <Compile Include="Home\ISnapshotModelFactory.cs" />
     <Compile Include="Home\SnapshotModel.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Home\SnapshotFactory.cs" />
+    <Compile Include="Home\SnapshotModelFactory.cs" />
     <Compile Include="ILayoutModel.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ILayoutFactory.cs" />
+    <Compile Include="ILayoutModelFactory.cs" />
     <Compile Include="LayoutModel.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="LayoutFactory.cs" />
-    <Compile Include="Lists\ListFactory.cs" />
+    <Compile Include="LayoutModelFactory.cs" />
+    <Compile Include="Lists\ListModelFactory.cs" />
+    <Compile Include="Lists\ListPageKeyBinder.cs" />
     <Compile Include="Lists\ListPageLinks.cs" />
     <Compile Include="Lists\PageModel.cs">
       <SubType>Code</SubType>

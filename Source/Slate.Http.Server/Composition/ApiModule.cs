@@ -12,7 +12,7 @@ namespace Slate.Http.Server.Composition
 {
 	public class ApiModule : BuilderModule
 	{
-		public ApiModule(HttpConfiguration httpConfiguration, ServerSection serverConfiguration)
+		public ApiModule(HttpConfiguration httpConfiguration, SiteSection serverConfiguration)
 		{
 			RegisterModule(new ListModule(httpConfiguration));
 

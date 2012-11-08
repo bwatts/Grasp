@@ -19,13 +19,13 @@ namespace Slate.Web.Site.Composition
 			Contract.Requires(routes != null);
 			Contract.Requires(siteConfiguration != null);
 
-			Register(c => new IndexFactory(
-				c.Resolve<ISnapshotFactory>(),
+			Register(c => new IndexModelFactory(
+				c.Resolve<ISnapshotModelFactory>(),
 				siteConfiguration.FormListUrl,
 				siteConfiguration.IssueListUrl,
-				c.ResolveNamed<IListFactory>("Forms"),
-				c.ResolveNamed<IListFactory>("Issues")))
-			.As<IIndexFactory>()
+				c.ResolveNamed<IListModelFactory>("Forms"),
+				c.ResolveNamed<IListModelFactory>("Issues")))
+			.As<IIndexModelFactory>()
 			.InstancePerDependency();
 
 			RegisterType<HomeController>().InstancePerDependency();

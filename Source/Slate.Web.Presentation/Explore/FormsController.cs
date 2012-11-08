@@ -11,28 +11,28 @@ namespace Slate.Web.Presentation.Explore
 {
 	public class ExploreController : Controller
 	{
-		private readonly ILayoutFactory _layoutFactory;
+		private readonly ILayoutModelFactory _layoutModelFactory;
 
-		public ExploreController(ILayoutFactory layoutFactory)
+		public ExploreController(ILayoutModelFactory layoutModelFactory)
 		{
-			Contract.Requires(layoutFactory != null);
+			Contract.Requires(layoutModelFactory != null);
 
-			_layoutFactory = layoutFactory;
+			_layoutModelFactory = layoutModelFactory;
 		}
 
 		public async Task<ActionResult> Index()
 		{
-			return View(await _layoutFactory.CreateLayoutAsync("Slate : Explore", new IndexModel(), "explore", "all"));
+			return View(await _layoutModelFactory.CreateLayoutModelAsync("Slate : Explore", new IndexModel(), "explore", "all"));
 		}
 
 		public async Task<ActionResult> Forms()
 		{
-			return View(await _layoutFactory.CreateLayoutAsync("Slate : Explore : Forms", new FormsModel(), "explore", "forms"));
+			return View(await _layoutModelFactory.CreateLayoutModelAsync("Slate : Explore : Forms", new FormsModel(), "explore", "forms"));
 		}
 
 		public async Task<ActionResult> Responses()
 		{
-			return View(await _layoutFactory.CreateLayoutAsync("Slate : Explore : Responses", new ResponsesModel(), "explore", "responses"));
+			return View(await _layoutModelFactory.CreateLayoutModelAsync("Slate : Explore : Responses", new ResponsesModel(), "explore", "responses"));
 		}
 	}
 }

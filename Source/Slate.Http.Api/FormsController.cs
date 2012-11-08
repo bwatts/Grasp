@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
+using Cloak;
 using Cloak.Http.Media;
 using Cloak.Reflection;
 using Grasp;
@@ -43,12 +44,19 @@ namespace Slate.Http.Api
 
 		private static HyperlistPage CreatePage(ListPage page)
 		{
-			return new HyperlistPage(page.Key.Number, page.Key.Size, page.FirstItemNumber, page.LastItemNumber, page.Items.Select(CreateItem));
+			return new HyperlistPage(page.Key.Number, page.Key.Size, page.FirstItemNumber, page.LastItemNumber, CreateItems(page));
+		}
+
+		private static HyperlistItems CreateItems(ListPage page)
+		{
+			return new HyperlistItems(page.Items.Schema, page.Items.Select(CreateItem));
 		}
 
 		private static HyperlistItem CreateItem(ListItem listItem)
 		{
-			return new HyperlistItem(new Hyperlink(null, relationship: new Relationship("grasp:list-item")));
+			var link = new Hyperlink("forms/{0}".FormatCurrent(listItem["Name"]), relationship: new Relationship("grasp:list-item"));
+
+			return new HyperlistItem(link, listItem);
 		}
 	}
 }

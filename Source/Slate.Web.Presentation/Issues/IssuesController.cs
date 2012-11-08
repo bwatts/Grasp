@@ -11,28 +11,28 @@ namespace Slate.Web.Presentation.Issues
 {
 	public class IssuesController : Controller
 	{
-		private readonly ILayoutFactory _layoutFactory;
+		private readonly ILayoutModelFactory _layoutModelFactory;
 
-		public IssuesController(ILayoutFactory layoutFactory)
+		public IssuesController(ILayoutModelFactory layoutModelFactory)
 		{
-			Contract.Requires(layoutFactory != null);
+			Contract.Requires(layoutModelFactory != null);
 
-			_layoutFactory = layoutFactory;
+			_layoutModelFactory = layoutModelFactory;
 		}
 
 		public async Task<ActionResult> Index()
 		{
-			return View(await _layoutFactory.CreateLayoutAsync("Slate : Issues", new IndexModel(), "issues", "all"));
+			return View(await _layoutModelFactory.CreateLayoutModelAsync("Slate : Issues", new IndexModel(), "issues", "all"));
 		}
 
 		public async Task<ActionResult> Open()
 		{
-			return View(await _layoutFactory.CreateLayoutAsync("Slate : Issues : Open", new OpenModel(), "issues", "open"));
+			return View(await _layoutModelFactory.CreateLayoutModelAsync("Slate : Issues : Open", new OpenModel(), "issues", "open"));
 		}
 
 		public async Task<ActionResult> Mine()
 		{
-			return View(await _layoutFactory.CreateLayoutAsync("Slate : Issues : Mine", new MineModel(), "issues", "mine"));
+			return View(await _layoutModelFactory.CreateLayoutModelAsync("Slate : Issues : Mine", new MineModel(), "issues", "mine"));
 		}
 	}
 }

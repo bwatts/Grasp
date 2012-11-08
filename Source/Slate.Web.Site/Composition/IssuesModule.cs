@@ -22,8 +22,8 @@ namespace Slate.Web.Site.Composition
 			.Named<IListMesh>("Issues")
 			.SingleInstance();
 
-			Register(c => new ListFactory(c.Resolve<IListClient>(), c.ResolveNamed<IListMesh>("Issues"), emptyListMessage))
-			.Named<IListFactory>("Issues")
+			Register(c => new ListModelFactory(c.Resolve<IListClient>(), c.ResolveNamed<IListMesh>("Issues"), emptyListMessage))
+			.Named<IListModelFactory>("Issues")
 			.InstancePerDependency();
 		}
 	}

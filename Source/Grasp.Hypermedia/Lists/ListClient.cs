@@ -33,14 +33,16 @@ namespace Grasp.Hypermedia.Lists
 				(content, formats) => content.ReadAsAsync<Hyperlist>(formats));
 		}
 
-		private static Uri GetApiUri(Uri uri, ListPageKey pageKey)
+		private Uri GetApiUri(Uri uri, ListPageKey pageKey)
 		{
-			return new UriBuilder(uri) { Query = GetQuery(uri, pageKey) }.Uri;
-		}
+			if(!uri.IsAbsoluteUri)
+			{
+				uri = new Uri(_apiClient.BaseAddress, uri);
+			}
 
-		private static string GetQuery(Uri uri, ListPageKey pageKey)
-		{
-			return pageKey.GetQuery(includeSeparator: uri.Query.Length < 2);
+			var query = pageKey.GetQuery(includeSeparator: uri.Query.Length < 2);
+
+			return new UriBuilder(uri) { Query = query }.Uri;
 		}
 	}
 }

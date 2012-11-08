@@ -14,15 +14,15 @@ namespace Slate.Http.Server.Composition
 		public ServerModule()
 		{
 			var httpConfiguration = GlobalConfiguration.Configuration;
-			var serverConfiguration = CompositionConfiguration.GetRequiredSection<ServerSection>("slate/server");
+			var siteConfiguration = CompositionConfiguration.GetRequiredSection<SiteSection>("slate/site");
 
 			RegisterInstance(httpConfiguration);
 
 			RegisterModule<TimeModule>();
 
-			RegisterModule(new RavenModule(typeof(FormListService).Assembly));
+			RegisterModule(new RavenModule(siteConfiguration.ConnectionStringName, typeof(FormListService).Assembly));
 
-			RegisterModule(new ApiModule(httpConfiguration, serverConfiguration));
+			RegisterModule(new ApiModule(httpConfiguration, siteConfiguration));
 		}
 	}
 }

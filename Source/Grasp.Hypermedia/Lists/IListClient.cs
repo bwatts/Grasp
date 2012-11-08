@@ -15,10 +15,10 @@ namespace Grasp.Hypermedia.Lists
 	public interface IListClient
 	{
 		/// <summary>
-		/// Gets the page specified by the key
+		/// Gets the specified page of the hypermedia list
 		/// </summary>
-		/// <param name="uri">The URI of the API's list endpoint</param>
-		/// <param name="pageKey">The key of the page to get</param>
+		/// <param name="uri">The URI of the hypermedia list endpoint</param>
+		/// <param name="pageKey">The key of the page to fetch</param>
 		/// <returns>The work of fetching the list</returns>
 		Task<Hyperlist> GetListAsync(Uri uri, ListPageKey pageKey);
 	}

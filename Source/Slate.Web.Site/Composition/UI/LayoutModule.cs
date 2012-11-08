@@ -11,7 +11,7 @@ namespace Slate.Web.Site.Composition.UI
 	{
 		public LayoutModule()
 		{
-			RegisterType<LayoutFactory>().As<ILayoutFactory>().SingleInstance();
+			RegisterType<LayoutModelFactory>().As<ILayoutModelFactory>().SingleInstance();
 		}
 	}
 }

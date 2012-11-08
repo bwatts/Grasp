@@ -7,18 +7,18 @@ using Cloak.Autofac;
 using Grasp.Raven;
 using Grasp.Work;
 using Raven.Client;
-using Raven.Client.Embedded;
+using Raven.Client.Document;
 using Raven.Client.Indexes;
 
 namespace Slate.Http.Server.Composition
 {
 	public class RavenModule : BuilderModule
 	{
-		public RavenModule(Assembly indexAssembly)
+		public RavenModule(string connectionStringName, Assembly indexAssembly)
 		{
 			Register(c =>
 			{
-				var documentStore = new EmbeddableDocumentStore { RunInMemory = true };
+				var documentStore = new DocumentStore { ConnectionStringName = connectionStringName };
 
 				documentStore.Initialize();
 
