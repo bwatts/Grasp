@@ -10,7 +10,7 @@ namespace Grasp.Hypermedia
 	{
 		public static readonly Field<string> NameField = Field.On<Relationship>.For(x => x.Name);
 
-		public static readonly Relationship Empty = new Relationship();
+		public static readonly Relationship Empty = new Relationship("");
 		public static readonly Relationship Self = new Relationship(Resources.SelfRelationship);
 
 		public static readonly Relationship Singular = new Relationship(Resources.SingularRelationship);
@@ -22,9 +22,6 @@ namespace Grasp.Hypermedia
 
 			Name = name;
 		}
-
-		private Relationship() : this("")
-		{}
 
 		public string Name { get { return GetValue(NameField); } private set { SetValue(NameField, value); } }
 

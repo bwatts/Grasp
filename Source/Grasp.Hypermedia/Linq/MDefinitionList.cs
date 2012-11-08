@@ -11,36 +11,36 @@ namespace Grasp.Hypermedia.Linq
 {
 	public sealed class MDefinitionList : MContent
 	{
-		public static readonly Field<IReadOnlyDictionary<MValue, MContent>> TermsField = Field.On<MDefinitionList>.For(x => x.Terms);
+		public static readonly Field<IReadOnlyDictionary<MValue, MContent>> DefinitionsField = Field.On<MDefinitionList>.For(x => x.Definitions);
 
-		public MDefinitionList(MClass @class, IReadOnlyDictionary<MValue, MContent> terms) : base(@class)
+		public MDefinitionList(MClass @class, IReadOnlyDictionary<MValue, MContent> definitions) : base(@class)
 		{
-			Contract.Requires(terms != null);
+			Contract.Requires(definitions != null);
 
-			Terms = terms;
+			Definitions = definitions;
 		}
 
-		public MDefinitionList(MClass @class, IEnumerable<KeyValuePair<MValue, MContent>> terms) : this(@class, terms.ToReadOnlyDictionary())
+		public MDefinitionList(MClass @class, IEnumerable<KeyValuePair<MValue, MContent>> definitions) : this(@class, definitions.ToReadOnlyDictionary())
 		{}
 
-		public IReadOnlyDictionary<MValue, MContent> Terms { get { return GetValue(TermsField); } private set { SetValue(TermsField, value); } }
+		public IReadOnlyDictionary<MValue, MContent> Definitions { get { return GetValue(DefinitionsField); } private set { SetValue(DefinitionsField, value); } }
 
 		protected override object GetHtmlWithoutClass()
 		{
-			return new XElement("dl", GetTermsHtml());
+			return new XElement("dl", GetDefinitionsHtml());
 		}
 
 		protected override object GetHtmlWithClass(string classStack)
 		{
-			return new XElement("dl", new XAttribute("class", classStack), GetTermsHtml());
+			return new XElement("dl", new XAttribute("class", classStack), GetDefinitionsHtml());
 		}
 
-		private IEnumerable<object> GetTermsHtml()
+		private IEnumerable<object> GetDefinitionsHtml()
 		{
-			foreach(var term in Terms)
+			foreach(var definition in Definitions)
 			{
-				yield return new XElement("dt", term.Key.GetHtml());
-				yield return new XElement("dd", term.Value.GetHtml());
+				yield return new XElement("dt", definition.Key.GetHtml());
+				yield return new XElement("dd", definition.Value.GetHtml());
 			}
 		}
 	}

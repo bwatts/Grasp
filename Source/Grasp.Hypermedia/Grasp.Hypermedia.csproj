@@ -131,7 +131,7 @@
     <Compile Include="HttpResourceHeader.cs" />
     <Compile Include="HypermediaException.cs" />
     <Compile Include="IHttpResourceContext.cs" />
-    <Compile Include="Linq\MBody.cs" />
+    <Compile Include="Linq\MCompositeContent.cs" />
     <Compile Include="Linq\MClass.cs" />
     <Compile Include="Linq\MContent.cs" />
     <Compile Include="Linq\MDefinitionList.cs" />
@@ -140,6 +140,7 @@
     <Compile Include="Linq\MLink.cs" />
     <Compile Include="Linq\MList.cs" />
     <Compile Include="Linq\MRepresentation.cs" />
+    <Compile Include="Linq\MRepresentationReader.cs" />
     <Compile Include="Linq\MValue.cs" />
     <Compile Include="Lists\HyperlistItem.cs" />
     <Compile Include="Lists\HyperlistItems.cs" />

@@ -16,7 +16,6 @@ namespace Grasp.Hypermedia.Linq
 		public MHead(string title, Hyperlink baseLink, IEnumerable<Hyperlink> links)
 		{
 			Contract.Requires(title != null);
-			Contract.Requires(baseLink != null);
 			Contract.Requires(links != null);
 
 			Title = title;
@@ -40,7 +39,10 @@ namespace Grasp.Hypermedia.Linq
 		{
 			yield return new XElement("title", Title);
 
-			yield return BaseLink.ToHtml("base");
+			if(BaseLink != null)
+			{
+				yield return BaseLink.ToHtml("base");
+			}
 
 			foreach(var link in Links)
 			{
