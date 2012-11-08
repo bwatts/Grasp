@@ -10,19 +10,21 @@ namespace Grasp.Hypermedia.Linq
 {
 	public abstract class MContent : Notion
 	{
+		public static readonly Field<MClass> ClassField = Field.On<MContent>.For(x => x.Class);
+
 		protected MContent(MClass @class)
 		{
 			Contract.Requires(@class != null);
 
-			MClass.ValueField.Set(this, @class);
+			Class = @class;
 		}
+
+		public MClass Class { get { return GetValue(ClassField); } private set { SetValue(ClassField, value); } }
 
 		internal object GetHtml()
 		{
-			var @class = GetValue(MClass.ValueField);
-
-			return @class.ItemsFromHere().Any(item => !item.IsEmpty)
-				? GetHtmlWithClass(@class.ToString())
+			return Class.ItemsFromHere().Any(item => !item.IsEmpty)
+				? GetHtmlWithClass(Class.ToString())
 				: GetHtmlWithoutClass();
 		}
 

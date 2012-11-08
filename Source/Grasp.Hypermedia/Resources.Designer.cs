@@ -61,6 +61,60 @@ namespace Grasp.Hypermedia {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Expecting composite body content.
+        /// </summary>
+        internal static string ExpectingCompositeBodyContent {
+            get {
+                return ResourceManager.GetString("ExpectingCompositeBodyContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Expecting composite list item content.
+        /// </summary>
+        internal static string ExpectingCompositeListItemContent {
+            get {
+                return ResourceManager.GetString("ExpectingCompositeListItemContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Expecting definition element &apos;dd&apos; [at: {0}].
+        /// </summary>
+        internal static string ExpectingDefinition {
+            get {
+                return ResourceManager.GetString("ExpectingDefinition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Expecting term element &apos;dt&apos; [at: {0}].
+        /// </summary>
+        internal static string ExpectingTerm {
+            get {
+                return ResourceManager.GetString("ExpectingTerm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Expecting {0} for definition, received {1}.
+        /// </summary>
+        internal static string ExpectingValue {
+            get {
+                return ResourceManager.GetString("ExpectingValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid HTMLdocument type: expected HTML 5 type &lt;!DOCTYPE html&gt;.
+        /// </summary>
+        internal static string InvalidHtmlDocumentType {
+            get {
+                return ResourceManager.GetString("InvalidHtmlDocumentType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This link URI does not allow variables: {0}.
         /// </summary>
         internal static string LinkUriDoesNotAllowVariables {

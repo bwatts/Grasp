@@ -9,7 +9,7 @@ namespace Grasp.Hypermedia.Linq
 {
 	public sealed class MLink : MContent
 	{
-		public static readonly Field<Hyperlink> ValueField = Field.On<MLink>.For(x => x.Value);
+		public static readonly Field<Hyperlink> HyperlinkField = Field.On<MLink>.For(x => x.Hyperlink);
 
 		public static MLink WithClassIfTemplate(MClass templateClass, Hyperlink link)
 		{
@@ -23,22 +23,22 @@ namespace Grasp.Hypermedia.Linq
 		{
 			Contract.Requires(value != null);
 
-			Value = value;
+			Hyperlink = value;
 		}
 
 		public MLink(Hyperlink value) : this(value, MClass.Empty)
 		{}
 
-		public Hyperlink Value { get { return GetValue(ValueField); } private set { SetValue(ValueField, value); } }
+		public Hyperlink Hyperlink { get { return GetValue(HyperlinkField); } private set { SetValue(HyperlinkField, value); } }
 
 		protected override object GetHtmlWithoutClass()
 		{
-			return Value.ToHtml("a");
+			return Hyperlink.ToHtml("a");
 		}
 
 		protected override object GetHtmlWithClass(string classStack)
 		{
-			var html = Value.ToHtml("a");
+			var html = Hyperlink.ToHtml("a");
 
 			html.Add(new XAttribute("class", classStack));
 

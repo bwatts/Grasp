@@ -13,18 +13,19 @@ namespace Grasp.Hypermedia
 	public class Hyperlink : Notion
 	{
 		public static readonly XName ClassAttributeName = "class";
-		public static readonly XName HrefAttributeName = "href";
 		public static readonly XName TitleAttributeName = "title";
 		public static readonly XName RelAttributeName = "rel";
+		public static readonly XName HrefAttributeName = "href";
 
 		public static readonly Field<UriTemplate> UriField = Field.On<Hyperlink>.For(x => x.Uri);
 		public static readonly Field<object> ContentField = Field.On<Hyperlink>.For(x => x.Content);
 		public static readonly Field<string> TitleField = Field.On<Hyperlink>.For(x => x.Title);
 		public static readonly Field<Relationship> RelationshipField = Field.On<Hyperlink>.For(x => x.Relationship);
+		public static readonly Field<MClass> ClassField = Field.On<Hyperlink>.For(x => x.Class);
 
 		public static readonly Hyperlink Empty = new Hyperlink("");
 
-		public Hyperlink(UriTemplate uri, object content = null, string title = null, Relationship relationship = null)
+		public Hyperlink(UriTemplate uri, object content = null, string title = null, Relationship relationship = null, MClass @class = null)
 		{
 			Contract.Requires(uri != null);
 
@@ -32,20 +33,22 @@ namespace Grasp.Hypermedia
 			Content = content;
 			Relationship = relationship ?? Relationship.Empty;
 			Title = title ?? "";
+			Class = @class ?? MClass.Empty;
 		}
 
-		public Hyperlink(Uri uri, object content = null, string title = "", Relationship relationship = null)
-			: this(new UriTemplate(uri.ToString()), content, title, relationship)
+		public Hyperlink(Uri uri, object content = null, string title = "", Relationship relationship = null, MClass @class = null)
+			: this(new UriTemplate(uri.ToString()), content, title, relationship, @class)
 		{}
 
-		public Hyperlink(string uri, object content = null, string title = "", Relationship relationship = null)
-			: this(new UriTemplate(uri), content, title, relationship)
+		public Hyperlink(string uri, object content = null, string title = "", Relationship relationship = null, MClass @class = null)
+			: this(new UriTemplate(uri), content, title, relationship, @class)
 		{}
 
 		public UriTemplate Uri { get { return GetValue(UriField); } private set { SetValue(UriField, value); } }
 		public object Content { get { return GetValue(ContentField); } private set { SetValue(ContentField, value); } }
 		public string Title { get { return GetValue(TitleField); } private set { SetValue(TitleField, value); } }
 		public Relationship Relationship { get { return GetValue(RelationshipField); } private set { SetValue(RelationshipField, value); } }
+		public MClass Class { get { return GetValue(ClassField); } private set { SetValue(ClassField, value); } }
 
 		public bool IsTemplate
 		{
@@ -59,29 +62,12 @@ namespace Grasp.Hypermedia
 
 		public Hyperlink WithClass(MClass @class)
 		{
-			Contract.Requires(@class != null);
-
-			MClass currentClass;
-
-			if(MClass.ValueField.TryGet(this, out currentClass))
-			{
-				currentClass.Append(@class);
-			}
-			else
-			{
-				currentClass = @class;
-			}
-
-			var link = new Hyperlink(Uri, Content, Title, Relationship);
-
-			MClass.ValueField.Set(link, currentClass);
-
-			return link;
+			return new Hyperlink(Uri, Content, Title, Relationship, @class);
 		}
 
-		public Hyperlink Override(object content = null, string title = null, Relationship relationship = null)
+		public Hyperlink Override(object content = null, string title = null, Relationship relationship = null, MClass @class = null)
 		{
-			return new Hyperlink(Uri, content ?? Content, title ?? Title, relationship ?? Relationship);
+			return new Hyperlink(Uri, content ?? Content, title ?? Title, relationship ?? Relationship, @class ?? Class);
 		}
 
 		public Hyperlink BindVariables(IDictionary<string, string> bindings)
@@ -105,11 +91,9 @@ namespace Grasp.Hypermedia
 
 		private IEnumerable<object> GetHtmlContent(bool allowTemplate)
 		{
-			MClass @class;
-
-			if(MClass.ValueField.TryGet(this, out @class))
+			if(Class != MClass.Empty)
 			{
-				yield return new XAttribute(ClassAttributeName, @class.ToStackString());
+				yield return new XAttribute(ClassAttributeName, Class.ToStackString());
 			}
 
 			if(Check.That(Title).IsNotNullOrEmpty())

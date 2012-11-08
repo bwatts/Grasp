@@ -58,6 +58,11 @@ namespace Grasp
 			return item.ItemsFromHere().Reverse();
 		}
 
+		public static bool ContainsItem<T>(this IStackable<T> item, T otherItem) where T : Notion, IStackable<T>
+		{
+			return item.ItemsFromHere().Contains(otherItem);
+		}
+
 		public static string ToStackString<T>(this IStackable<T> item) where T : Notion, IStackable<T>
 		{
 			return item.ToStackString(" ");

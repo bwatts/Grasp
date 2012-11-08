@@ -65,7 +65,10 @@ namespace Grasp.Hypermedia.Linq
 			}
 			catch(FormatException formatException)
 			{
-				formatterLogger.LogError("", formatException);
+				if(formatterLogger != null)
+				{
+					formatterLogger.LogError("", formatException);
+				}
 
 				throw new FormatException(Resources.StreamIsInvalidHtmlRepresentation, formatException);
 			}

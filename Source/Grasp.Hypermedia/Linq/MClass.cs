@@ -10,8 +10,6 @@ namespace Grasp.Hypermedia.Linq
 {
 	public sealed class MClass : ComparableNotion<MClass>, IStackable<MClass>
 	{
-		public static readonly Field<MClass> ValueField = Field.AttachedTo<Notion>.By<MClass>.For(() => ValueField);
-
 		public static readonly Field<string> NameField = Field.On<MClass>.For(x => x.Name);
 
 		public static readonly MClass Empty = new MClass("");

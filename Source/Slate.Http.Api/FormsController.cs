@@ -54,7 +54,9 @@ namespace Slate.Http.Api
 
 		private static HyperlistItem CreateItem(ListItem listItem)
 		{
-			var link = new Hyperlink("forms/{0}".FormatCurrent(listItem["Name"]), relationship: new Relationship("grasp:list-item"));
+			var name = (string) listItem["Name"];
+
+			var link = new Hyperlink("forms/{0}".FormatCurrent(name), listItem.Number, name, new Relationship("grasp:list-item"));
 
 			return new HyperlistItem(link, listItem);
 		}

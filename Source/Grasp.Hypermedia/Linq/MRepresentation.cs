@@ -13,14 +13,14 @@ namespace Grasp.Hypermedia.Linq
 	{
 		public static MRepresentation Load(Stream xmlStream)
 		{
-			return Load(XElement.Load(xmlStream));
+			return Load(XDocument.Load(xmlStream));
 		}
 
-		public static MRepresentation Load(XElement xml)
+		public static MRepresentation Load(XDocument xml)
 		{
 			Contract.Requires(xml != null);
 
-			return new MRepresentation(xml);
+			return MRepresentationReader.Read(xml);
 		}
 
 		public static readonly Field<MHead> HeadField = Field.On<MRepresentation>.For(x => x.Head);
@@ -34,15 +34,6 @@ namespace Grasp.Hypermedia.Linq
 			Body = body;
 		}
 
-		private MRepresentation(XElement xml)
-		{
-			// TODO: Framework which detects format errors and throws an exception that can be made into a 4xx response (should also apply in Load method)
-
-			// See: Cloak.Xml
-
-			throw new NotImplementedException();
-		}
-
 		public MHead Head { get { return GetValue(HeadField); } private set { SetValue(HeadField, value); } }
 		public MContent Body { get { return GetValue(BodyField); } private set { SetValue(BodyField, value); } }
 
@@ -52,7 +43,7 @@ namespace Grasp.Hypermedia.Linq
 
 			if(Body != null)
 			{
-				html.Add(Body.GetHtml());
+				html.Add(new XElement("body", Body.GetHtml()));
 			}
 
 			return new XDocument(new XDocumentType("html", null, null, null), html);
