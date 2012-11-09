@@ -5,7 +5,7 @@ using System.Linq;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Cloak.Autofac;
-using Slate.Web.Presentation.Home;
+using Slate.Web.Site.Presentation.Home;
 
 namespace Slate.Web.Site.Composition
 {

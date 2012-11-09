@@ -19,7 +19,7 @@ namespace Slate.Web.Site.Composition
 			Contract.Requires(binders != null);
 			Contract.Requires(httpConfiguration != null);
 
-			binders.Add(typeof(ListPageKey), new Slate.Web.Presentation.Lists.ListPageKeyBinder());
+			binders.Add(typeof(ListPageKey), new Slate.Web.Site.Presentation.Lists.ListPageKeyBinder());
 
 			var listFormat = new HyperlistHtmlFormat();
 

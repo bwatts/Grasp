@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Cloak.Autofac;
 using Grasp.Hypermedia;
-using Slate.Web.Presentation;
+using Slate.Web.Site.Presentation;
 
 namespace Slate.Web.Site.Composition
 {

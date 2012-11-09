@@ -6,8 +6,8 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using Autofac;
 using Cloak.Autofac;
-using Slate.Web.Presentation.Home;
-using Slate.Web.Presentation.Lists;
+using Slate.Web.Site.Presentation.Home;
+using Slate.Web.Site.Presentation.Lists;
 using Slate.Web.Site.Configuration;
 
 namespace Slate.Web.Site.Composition

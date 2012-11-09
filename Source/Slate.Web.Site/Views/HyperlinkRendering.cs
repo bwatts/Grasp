@@ -9,8 +9,8 @@ using System.Web.Mvc;
 using Grasp.Checks;
 using Grasp.Hypermedia;
 using Grasp.Hypermedia.Linq;
-using Slate.Web.Presentation.Lists;
-using Slate.Web.Presentation.Navigation;
+using Slate.Web.Site.Presentation.Lists;
+using Slate.Web.Site.Presentation.Navigation;
 
 namespace Slate.Web.Site.Views
 {

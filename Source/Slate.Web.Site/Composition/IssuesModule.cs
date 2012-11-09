@@ -6,7 +6,7 @@ using Autofac;
 using Cloak.Autofac;
 using Grasp.Hypermedia;
 using Grasp.Hypermedia.Lists;
-using Slate.Web.Presentation.Lists;
+using Slate.Web.Site.Presentation.Lists;
 
 namespace Slate.Web.Site.Composition
 {
