@@ -17,25 +17,25 @@ namespace Slate.Web.Site.Views
 	[EditorBrowsable(EditorBrowsableState.Never)]
 	public static class HyperlinkRendering
 	{
-		public static IHtmlString RenderLink(this HtmlHelper html, Hyperlink link, object content = null, string title = null, Relationship relationship = null)
+		public static IHtmlString RenderLink(this HtmlHelper html, Hyperlink link, object content = null, string title = null, Relationship relationship = null, MClass @class = null)
 		{
 			Contract.Requires(html != null);
 			Contract.Requires(link != null);
 
 			if(content != null)
 			{
-				link = link.Override(content, title, relationship);
+				link = link.Override(content, title, relationship, @class);
 			}
 
 			return html.Raw(link.ToHtml("a").ToString());
 		}
 
-		public static IHtmlString RenderNumber(this HtmlHelper html, NumberModel number, object content = null, string title = null, Relationship relationship = null)
+		public static IHtmlString RenderNumber(this HtmlHelper html, NumberModel number, object content = null, string title = null, Relationship relationship = null, MClass @class = null)
 		{
 			Contract.Requires(html != null);
 			Contract.Requires(number != null);
 
-			return html.RenderLink(number.Link.Override(content ?? number.Link.Content ?? number.Value, title, relationship));
+			return html.RenderLink(number.Link.Override(content ?? number.Link.Content ?? number.Value, title, relationship, @class));
 		}
 
 		public static IHtmlString RenderNavigationAreaLink(this HtmlHelper html, NavigationArea area, bool isCurrent, string currentClass)

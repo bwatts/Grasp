@@ -11,14 +11,6 @@ namespace Grasp.Hypermedia.Linq
 	{
 		public static readonly Field<Hyperlink> HyperlinkField = Field.On<MLink>.For(x => x.Hyperlink);
 
-		public static MLink WithClassIfTemplate(MClass templateClass, Hyperlink link)
-		{
-			Contract.Requires(link != null);
-			Contract.Requires(templateClass != null);
-
-			return link.IsTemplate ? new MLink(link, templateClass) : new MLink(link);
-		}
-
 		public MLink(Hyperlink value, MClass @class) : base(@class)
 		{
 			Contract.Requires(value != null);

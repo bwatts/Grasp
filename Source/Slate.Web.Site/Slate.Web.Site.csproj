@@ -116,6 +116,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Autofac.Mvc4.2.6.2.859\lib\NET40\Autofac.Integration.Mvc.dll</HintPath>
     </Reference>
+    <Reference Include="DateTimeExtensions, Version=3.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\DateTimeExtensions.3.2.0.0\lib\net35\DateTimeExtensions.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

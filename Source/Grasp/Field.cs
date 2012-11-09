@@ -241,7 +241,7 @@ namespace Grasp
 
 		public bool IsUnset(Notion notion)
 		{
-			return ((INotionContext) this).GetValue(notion, this) == UnsetValue;
+			return ((IFieldContext) notion).GetValue(this) == UnsetValue;
 		}
 
 		public bool IsSet(Notion notion)

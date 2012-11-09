@@ -191,6 +191,7 @@
       <Link>Properties\SlateAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Composition\ApiModule.cs" />
+    <Compile Include="Composition\IssuesModule.cs" />
     <Compile Include="Composition\ListModule.cs" />
     <Compile Include="Composition\FormsModule.cs" />
     <Compile Include="Composition\RavenModule.cs" />

@@ -32,7 +32,7 @@ namespace Slate.Web.Presentation.Lists
 			_emptyMessage = emptyMessage;
 		}
 
-		public async Task<ListModel> CreateListModelAsync(Uri uri, ListPageKey pageKey, Func<HyperlistItem, object> itemIdSelector)
+		public async Task<ListModel> CreateListModelAsync(Uri uri, ListPageKey pageKey)
 		{
 			var list = await _listClient.GetListAsync(uri, pageKey);
 
@@ -42,35 +42,49 @@ namespace Slate.Web.Presentation.Lists
 				.Select(number => new NumberModel(number, _mesh.GetPageLink(list, number)))
 				.ToList();
 
-			return numbers.Count == 0 ? CreateEmptyListModel(list) : CreateListModel(list, numbers, itemIdSelector);
+			return numbers.Count == 0 ? CreateEmptyListModel(list) : CreateListModel(list, numbers);
 		}
 
 		private ListModel CreateEmptyListModel(Hyperlist list)
 		{
-			return new ListModel(new ContextModel(_mesh.GetCountLink(list)), _emptyMessage);
+			return new ListModel(new PageContextModel(_mesh.GetCountLink(list)), _emptyMessage);
 		}
 
-		private ListModel CreateListModel(Hyperlist list, List<NumberModel> numbers, Func<HyperlistItem, object> itemIdSelector)
+		private ListModel CreateListModel(Hyperlist list, List<NumberModel> numbers)
 		{
-			return new ListModel(
-				new ContextModel(
-					itemCount: new NumberModel(list.Context.ItemCount, _mesh.GetCountLink(list)),
-					first: numbers.First(),
-					last: numbers.Last(),
-					previous: numbers.ElementAt(list.Context.PreviousPage.Value - 1),
-					next: numbers.ElementAt(list.Context.NextPage.Value - 1),
-					numbers: numbers),
-				new PageModel(
-					number: new NumberModel(list.Page.Number, _mesh.GetPageLink(list, list.Page.Number)),
-					size: list.Page.Size,
-					firstItem: new NumberModel(list.Page.FirstItemNumber, _mesh.GetItemLink(list, list.Page.GetFirstItem())),
-					lastItem: new NumberModel(list.Page.LastItemNumber, _mesh.GetItemLink(list, list.Page.GetLastItem())),
-					items: new HyperlistItems(list.Page.Items.Schema, GetItems(list))));
+			return new ListModel(CreatePageContextModel(list, numbers), CreatePageModel(list));
 		}
 
-		private IEnumerable<HyperlistItem> GetItems(Hyperlist list)
+		private PageContextModel CreatePageContextModel(Hyperlist list, List<NumberModel> numbers)
 		{
-			return list.Page.Items.Select(item => new HyperlistItem(_mesh.GetItemLink(list, item), item.ListItem));
+			return new PageContextModel(
+				new NumberModel(list.Context.ItemCount, _mesh.GetCountLink(list)),
+				numbers.First(),
+				numbers.Last(),
+				numbers[list.Context.PreviousPage.Value - 1],
+				numbers[list.Context.NextPage.Value - 1],
+				numbers);
+		}
+
+		private PageModel CreatePageModel(Hyperlist list)
+		{
+			var firstItem = list.Page.GetFirstItem();
+			var lastItem = list.Page.GetLastItem();
+
+			return new PageModel(
+				new NumberModel(list.Page.Number, _mesh.GetPageLink(list, list.Page.Number)),
+				list.Page.Size,
+				new NumberModel(list.Page.FirstItemNumber, firstItem == null ? null : _mesh.GetItemLink(list, firstItem)),
+				new NumberModel(list.Page.LastItemNumber, lastItem == null ? null : _mesh.GetItemLink(list, lastItem)),
+				list.Page.Items.Schema,
+				CreateItemModels(list));
+		}
+
+		private IEnumerable<ItemModel> CreateItemModels(Hyperlist list)
+		{
+			return list.Page.Items.Select(item => new ItemModel(
+				new NumberModel(item.ListItem.Number, _mesh.GetItemLink(list, item)),
+				item.ListItem.Bindings));
 		}
 	}
 }

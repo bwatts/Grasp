@@ -150,4 +150,7 @@
   <data name="StreamIsInvalidHtmlRepresentation" xml:space="preserve">
     <value>Stream is an invalid HTML representation</value>
   </data>
+  <data name="TermHasNoDefinition" xml:space="preserve">
+    <value>Term "{0}" does not have a definition</value>
+  </data>
 </root>

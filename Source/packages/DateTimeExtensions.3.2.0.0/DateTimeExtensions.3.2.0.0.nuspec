@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>DateTimeExtensions</id>
+    <version>3.2.0.0</version>
+    <title>DateTime Extensions</title>
+    <authors>Kappy</authors>
+    <owners>Kappy</owners>
+    <licenseUrl>http://www.apache.org/licenses/LICENSE-2.0</licenseUrl>
+    <projectUrl>https://github.com/kappy/DateTimeExtensions/wiki</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>This project is a merge of several common DateTime operations on the form of
+      extensions to System.DateTime, including natural date difference text (precise and human rounded),
+      holidays and working days calculations on several culture locales.
+      Feedback will be much appreciated.</description>
+    <summary>Merge of extensions for System.DateTime like localized working days with holidays calculations and natural time date difference.</summary>
+    <tags>Natural Date Time Relative Calendar Holiday Workingday DateTime</tags>
+  </metadata>
+</package>

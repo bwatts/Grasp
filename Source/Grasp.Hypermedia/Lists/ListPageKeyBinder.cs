@@ -15,7 +15,14 @@ namespace Grasp.Hypermedia.Lists
 	{
 		public bool BindModel(HttpActionContext actionContext, ModelBindingContext bindingContext)
 		{
-			bindingContext.Model = new ListPageKey(GetPage(bindingContext), GetPageSize(bindingContext), GetSort(bindingContext));
+			var pageKey = new ListPageKey(GetPage(bindingContext), GetPageSize(bindingContext), GetSort(bindingContext));
+
+			if(pageKey == ListPageKey.Empty)
+			{
+				pageKey = ListPageKey.Default;
+			}
+
+			bindingContext.Model = pageKey;
 
 			return true;
 		}

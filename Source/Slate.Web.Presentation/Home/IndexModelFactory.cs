@@ -58,7 +58,7 @@ namespace Slate.Web.Presentation.Home
 			return new IndexListModel(
 				newLink: new Hyperlink("explore/forms/start", "Start a form..."),
 				exploreItem: new HyperlistItem(new Hyperlink("explore/forms", "Explore forms..."), new ListItem(Number.None, GetFormExploreValues())),
-				list: await _formListFactory.CreateListModelAsync(_formListUri, formPageKey, item => item["Name"]));
+				list: await _formListFactory.CreateListModelAsync(_formListUri, formPageKey));
 		}
 
 		private async Task<IndexListModel> CreateIssueListAsync(ListPageKey issuePageKey)
@@ -66,7 +66,7 @@ namespace Slate.Web.Presentation.Home
 			return new IndexListModel(
 				newLink: new Hyperlink("issues/open", "Open an issue...", "Open an issue"),
 				exploreItem: new HyperlistItem(new Hyperlink("issues", "Manage issues..."), new ListItem(Number.None, GetIssueExploreValues())),
-				list: await _issueListFactory.CreateListModelAsync(_issueListUri, issuePageKey, item => item["Number"]));
+				list: await _issueListFactory.CreateListModelAsync(_issueListUri, issuePageKey));
 		}
 
 		private static IReadOnlyDictionary<string, object> GetFormExploreValues()
@@ -86,9 +86,9 @@ namespace Slate.Web.Presentation.Home
 			return AnonymousDictionary.Read(new
 			{
 				Total = 14,
+				Forms = 2,
 				Calculations = 8,
-				Variables = 4,
-				Forms = 2
+				Variables = 4
 			});
 		}
 	}

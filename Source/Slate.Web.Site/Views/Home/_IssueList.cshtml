@@ -1,4 +1,4 @@
-﻿@model Slate.Web.Presentation.Home.IssueListModel
+﻿@model IndexListModel
 
 <div class="work">
 	<h2>Work on an issue</h2>
@@ -6,7 +6,7 @@
 
 <div class="open">
 	<img class="add" />
-	<h2>@Html.RenderLink(Model.OpenLink)</h2>
+	<h2>@Html.RenderLink(Model.NewLink)</h2>
 </div>
 
 <div class="issues">
@@ -14,6 +14,22 @@
 </div>
 
 <div class="explore">
-	@Html.RenderLink(Model.ExploreItem.Number.Link)
-	<div class="subtitle">@Model.ExploreItem.Description</div>
+	@Html.RenderLink(Model.ExploreItem.Link)
+	<div class="subtitle">
+		@{
+			var total = (int) Model.ExploreItem.ListItem["Total"];
+			var forms = (int) Model.ExploreItem.ListItem["Forms"];
+			var calculations = (int) Model.ExploreItem.ListItem["Calculations"];
+			var variables = (int) Model.ExploreItem.ListItem["Variables"];
+
+			@GlobalizedFormatting.FormatInvariant(
+				"{0} total, {1} form{2}, {3} calculation{4}, {5} variable{6}",
+				total,
+				forms,
+				forms == 1 ? "" : "s",
+				calculations,
+				calculations == 1 ? "" : "s",
+				variables,
+				variables == 1 ? "" : "s");
+		}
 </div>

@@ -17,6 +17,7 @@ namespace Slate.Http.Server.Composition
 			RegisterModule(new ListModule(httpConfiguration));
 
 			RegisterModule(new FormsModule(httpConfiguration));
+			RegisterModule(new IssuesModule(httpConfiguration));
 
 			Register(c => new HttpResourceContext(serverConfiguration.BaseUrl)).As<IHttpResourceContext>().SingleInstance();
 		}

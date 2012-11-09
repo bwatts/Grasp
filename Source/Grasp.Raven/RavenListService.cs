@@ -23,7 +23,7 @@ namespace Grasp.Raven
 		{
 			return ExecuteReadAsync(session =>
 			{
-				key = key ?? ListPageKey.Empty;
+				key = key ?? ListPageKey.Default;
 
 				var itemCount = Count.None;
 

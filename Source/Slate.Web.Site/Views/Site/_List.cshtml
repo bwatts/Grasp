@@ -1,14 +1,14 @@
 ﻿@model ListModel
 
 <div class="list">
-	@if(!Model.IsEmpty && Model.CurrentPage.Items.Count > 0)
+	@if(!Model.IsEmpty && Model.Page.Items.Any())
 	{
 		<ul>
-			@foreach(var item in Model.CurrentPage.Items)
+			@foreach(var item in Model.Page.Items)
 			{
 				<li class="item">
 					@Html.RenderNumber(item.Number)
-					<div class="subtitle">@item.Description</div>
+					<div class="subtitle">[TODO]</div>
 				</li>
 			}
 		</ul>
@@ -22,20 +22,20 @@
 			}
 			else
 			{
-				if(Model.CurrentPage.Number.Value == 1)
+				if(Model.Page.Number.Value.Value == 1)
 				{
 					<div class="page jump unavailable">&lt;-</div>
 					<div class="page jump unavailable">&lt;</div>
 				}
 				else
 				{
-					<div class="page jump">@Html.RenderNumber(Model.FirstPage, "<-")</div>
-					<div class="page jump">@Html.RenderNumber(Model.PreviousPage, "<")</div>
+					<div class="page jump">@Html.RenderNumber(Model.PageContext.First, "|<")</div>
+					<div class="page jump">@Html.RenderNumber(Model.PageContext.Previous, "<")</div>
 				}
 
-				foreach(var page in Model.Pages)
+				foreach(var page in Model.PageContext.Pages)
 				{
-					if(page.Value == Model.CurrentPage.Number.Value)
+					if(page.Value == Model.Page.Number.Value)
 					{
 						<div class="page current">@Html.RenderNumber(page)</div>
 					}
@@ -45,28 +45,28 @@
 					}
 				}
 
-				if(Model.CurrentPage.Number.Value == Model.LastPage.Value)
+				if(Model.Page.Number.Value == Model.PageContext.Last.Value)
 				{
 					<div class="page jump unavailable">-&gt;</div>
 					<div class="page jump unavailable">&gt;</div>
 				}
 				else
 				{
-					<div class="page jump">@Html.RenderNumber(Model.NextPage, ">")</div>
-					<div class="page jump">@Html.RenderNumber(Model.LastPage, "->")</div>
+					<div class="page jump">@Html.RenderNumber(Model.PageContext.Next, ">")</div>
+					<div class="page jump">@Html.RenderNumber(Model.PageContext.Last, ">|")</div>
 				}
-		}
+			}
 		</div>
 
 		@if(!Model.IsEmpty)
 		{
 			<div class="view">
 				<div class="separator">items</div>
-				<div class="number">@Html.RenderNumber(Model.CurrentPage.FirstItemNumber)</div>
+				<div class="number">@Html.RenderNumber(Model.Page.FirstItem)</div>
 				<div class="separator">to</div>
-				<div class="number">@Html.RenderNumber(Model.CurrentPage.LastItemNumber)</div>
+				<div class="number">@Html.RenderNumber(Model.Page.LastItem)</div>
 				<div class="separator">of</div>
-				<div class="number">@Html.RenderNumber(Model.TotalItems)</div>
+				<div class="number">@Html.RenderNumber(Model.PageContext.ItemCount)</div>
 			</div>
 		}
 	</div>

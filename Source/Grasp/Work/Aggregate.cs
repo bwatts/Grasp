@@ -22,6 +22,8 @@ namespace Grasp.Work
 		protected Aggregate(Guid? id = null) : base(id)
 		{
 			_unobservedEvents = new List<Event>();
+
+			Version = 1;
 		}
 
 		public int Version { get { return GetValue(VersionField); } private set { SetValue(VersionField, value); } }

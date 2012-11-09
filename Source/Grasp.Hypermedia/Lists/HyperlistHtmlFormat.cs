@@ -51,7 +51,7 @@ namespace Grasp.Hypermedia.Lists
 		{
 			var content = GetBodyContent(list).ToList();
 
-			content.Insert(0, MLink.WithClassIfTemplate("grasp:list-template", list.PageLink));
+			content.Insert(0, new MLink(list.PageLink.Override(relationship: new Relationship("grasp:list-template"))));
 
 			return new MCompositeContent(content);
 		}
@@ -96,15 +96,11 @@ namespace Grasp.Hypermedia.Lists
 
 		private static IEnumerable<MContent> GetItemsContent(Hyperlist list)
 		{
-			foreach(var item in list.Page.Items)
-			{
-				yield return MLink.WithClassIfTemplate("grasp:list-item", item.Link);
-
-				foreach(var itemValue in item.ListItem.Bindings)
-				{
-					yield return new MValue(itemValue.Key, itemValue.Value);
-				}
-			}
+			return
+				from item in list.Page.Items
+				let link = new MLink(item.Link.Override(relationship: new Relationship("grasp:list-item")))
+				let bindings = item.ListItem.Bindings.Select(binding => new MValue(binding.Key, binding.Value))
+				select new MCompositeContent(new MContent[] { link }.Concat(bindings));
 		}
 
 		private static string GetTypeString(Type type)
@@ -184,19 +180,21 @@ namespace Grasp.Hypermedia.Lists
 		{
 			var page = body.Items.ReadContent<MDivision>("page");
 
-			var schema = ReadSchema(page);
+			var items = page.Children.ReadContent<MDivision>("items");
+
+			var schema = ReadSchema(items);
 
 			return new HyperlistPage(
 				new Number(page.Children.ReadValue<int>("number")),
 				new Count(page.Children.ReadValue<int>("size")),
 				new Number(page.Children.ReadValue<int>("first-item")),
 				new Number(page.Children.ReadValue<int>("last-item")),
-				new HyperlistItems(schema, ReadItems(schema, page)));
+				new HyperlistItems(schema, ReadItems(schema, items)));
 		}
 
-		private static ListSchema ReadSchema(MDivision page)
+		private static ListSchema ReadSchema(MDivision items)
 		{
-			var schema = page.Children.ReadContent<MDefinitionList>("schema");
+			var schema = items.Children.ReadContent<MDefinitionList>("schema");
 
 			return new ListSchema(schema.Definitions.Select(definition => new KeyValuePair<string, Type>(definition.Key.ReadValue<string>(), ReadType(definition.Value))));
 		}
@@ -251,32 +249,34 @@ namespace Grasp.Hypermedia.Lists
 			return type.Equals(expectedType, StringComparison.InvariantCultureIgnoreCase);
 		}
 
-		private static IEnumerable<HyperlistItem> ReadItems(ListSchema schema, MDivision page)
+		private static IEnumerable<HyperlistItem> ReadItems(ListSchema schema, MDivision items)
 		{
-			return page.Children.Select(item => ReadItem(schema, item));
+			var list = items.Children.ReadContent<MList>(MClass.Empty);
+
+			return list.Items.Select(item => ReadItem(schema, item));
 		}
 
-		private static HyperlistItem ReadItem(ListSchema schema, MContent content)
+		private static HyperlistItem ReadItem(ListSchema schema, MContent item)
 		{
-			var compositeContent = content as MCompositeContent;
+			var content = item as MCompositeContent;
 
-			if(compositeContent == null)
+			if(content == null)
 			{
 				throw new FormatException(Resources.ExpectingCompositeListItemContent);
 			}
 
-			var link = compositeContent.Items.ReadLink(new Relationship("grasp:list-item"));
+			var link = content.Items.ReadLink(new Relationship("grasp:list-item"));
 
 			var listItem = new ListItem(
 				new Number(Convert.ToInt32(link.Hyperlink.Content)),
-				new ListItemBindings(ReadItemBindings(schema, compositeContent)));
+				new ListItemBindings(ReadItemBindings(schema, content.Items.OfType<MValue>())));
 
 			return new HyperlistItem(link.Hyperlink, listItem);
 		}
 
-		private static IEnumerable<KeyValuePair<string, object>> ReadItemBindings(ListSchema schema, MCompositeContent content)
+		private static IEnumerable<KeyValuePair<string, object>> ReadItemBindings(ListSchema schema, IEnumerable<MValue> values)
 		{
-			return content.Items.OfType<MValue>().Select(value => new KeyValuePair<string, object>(value.Class, ReadItemValue(schema, value)));
+			return values.Select(value => new KeyValuePair<string, object>(value.Class, ReadItemValue(schema, value)));
 		}
 
 		private static object ReadItemValue(ListSchema schema, MValue value)

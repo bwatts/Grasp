@@ -126,6 +126,7 @@
     <Compile Include="..\SlateAssemblyInfo.cs">
       <Link>Properties\SlateAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="IssuesController.cs" />
     <Compile Include="FormsController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

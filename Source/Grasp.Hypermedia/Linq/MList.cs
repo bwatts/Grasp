@@ -37,11 +37,14 @@ namespace Grasp.Hypermedia.Linq
 
 		private XElement GetListElement()
 		{
+			// TODO: Reinstate ordering when IsUnset is ready for prime time
+
 			var orderedItems =
 				from item in Items
-				let order = OrderField.IsUnset(item) ? null : (int?) OrderField.Get(item)
-				orderby order
-				select new { Value = item, HasOrder = order != null };
+				select new { Value = item, HasOrder = false };
+				//let order = OrderField.IsUnset(item) ? null : (int?) OrderField.Get(item)
+				//orderby order
+				//select new { Value = item, HasOrder = order != null };
 
 			var listElement = new XElement("ul");
 

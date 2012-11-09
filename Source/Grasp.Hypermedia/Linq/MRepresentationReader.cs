@@ -82,7 +82,7 @@ namespace Grasp.Hypermedia.Linq
 			{
 				return element.ReadMDefinitionList();
 			}
-			else if(element.NameIs("ol"))
+			else if(element.NameIs("ul") || element.NameIs("ol"))
 			{
 				return element.ReadMList();
 			}
@@ -94,11 +94,11 @@ namespace Grasp.Hypermedia.Linq
 
 		private static Hyperlink ReadHyperlink(this XElement element)
 		{
-			var title = (string) element.Element(Hyperlink.TitleAttributeName);
-			var rel = (string) element.Element(Hyperlink.RelAttributeName);
+			var title = ((string) element.Attribute(Hyperlink.TitleAttributeName)) ?? "";
+			var rel = ((string) element.Attribute(Hyperlink.RelAttributeName) ?? "");
 			var href = element.RequiredAttribute(Hyperlink.HrefAttributeName).RequiredString();
 
-			return new Hyperlink(href, element.Value, title, rel == null ? Relationship.Empty : new Relationship(rel));
+			return new Hyperlink(href, element.Value, title, new Relationship(rel));
 		}
 
 		private static MLink ReadMLink(this XElement element)
@@ -128,7 +128,14 @@ namespace Grasp.Hypermedia.Linq
 
 		private static MList ReadMList(this XElement element)
 		{
-			return new MList(element.ReadMClass(), element.Elements("li").ReadMContents());
+			return new MList(element.ReadMClass(), ReadMListItems(element.Elements("li")));
+		}
+
+		private static IEnumerable<MContent> ReadMListItems(IEnumerable<XElement> itemElements)
+		{
+			var y = itemElements.Select(itemElement => itemElement.Elements().ReadMContent()).ToList();
+
+			return itemElements.Select(itemElement => itemElement.Elements().ReadMContent());
 		}
 
 		private static IEnumerable<KeyValuePair<MValue, MContent>> ReadDefinitions(this XElement element)
@@ -147,7 +154,7 @@ namespace Grasp.Hypermedia.Linq
 				}
 				else if(term == null)
 				{
-					term = new MValue(element.ReadMClass(), element.Value);
+					term = new MValue(element.ReadMClass(), childElement.Value);
 				}
 				else
 				{
@@ -155,6 +162,11 @@ namespace Grasp.Hypermedia.Linq
 
 					term = null;
 				}
+			}
+
+			if(term != null)
+			{
+				throw new FormatException(Resources.TermHasNoDefinition.FormatInvariant(term));
 			}
 		}
 

@@ -37,16 +37,12 @@ namespace Grasp.Hypermedia.Lists
 
 		public HyperlistItem GetFirstItem()
 		{
-			var firstItemNumber = FirstItemNumber;
-
-			return firstItemNumber == Number.None ? null : Items[FirstItemNumber.Value];
+			return FirstItemNumber == Number.None ? null : Items[FirstItemNumber.Value - 1];
 		}
 
 		public HyperlistItem GetLastItem()
 		{
-			var lastItemNumber = LastItemNumber;
-
-			return lastItemNumber == Number.None ? null : Items[LastItemNumber.Value];
+			return LastItemNumber == Number.None ? null : Items[LastItemNumber.Value - 1];
 		}
 	}
 }

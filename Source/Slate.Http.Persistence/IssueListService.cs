@@ -41,8 +41,8 @@ namespace Slate.Http.Persistence
 				Number = item.Number,
 				Description = item.Title,
 				AssignedTo = "TODO",
-				WhenCreated = EntityLifetime.WhenCreatedField.Get(item),
-				WhenModified = EntityLifetime.WhenModifiedField.Get(item)
+				WhenCreated = DateTime.Now.AddDays(-6),
+				WhenModified = DateTime.Now.AddDays(-3)
 			}));
 		}
 	}

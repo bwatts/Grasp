@@ -16,8 +16,6 @@ namespace Grasp
 		// TODO: Is it possible to avoid generating an unused GUID when reconstituting?
 
 		protected UniqueNotion(Guid? id = null) : base(id ?? Guid.NewGuid())
-		{
-			Contract.Requires(id != Guid.Empty);
-		}
+		{}
 	}
 }

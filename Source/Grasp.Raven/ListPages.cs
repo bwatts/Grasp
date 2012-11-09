@@ -24,7 +24,12 @@ namespace Grasp.Raven
 
 			RavenQueryStatistics statistics;
 
-			var query = ravenQuery.Statistics(out statistics).Skip((key.Number.Value - 1) * key.Size.Value).Take(key.Size.Value).ToList().AsQueryable();
+			var query = ravenQuery
+				.Statistics(out statistics)
+				.Skip((key.Number.Value - 1) * key.Size.Value)
+				.Take(key.Size.Value)
+				.ToList()
+				.AsQueryable();
 
 			totalItems = new Count(statistics.TotalResults);
 

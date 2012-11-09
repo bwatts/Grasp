@@ -158,5 +158,14 @@ namespace Grasp.Hypermedia {
                 return ResourceManager.GetString("StreamIsInvalidHtmlRepresentation", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Term &quot;{0}&quot; does not have a definition.
+        /// </summary>
+        internal static string TermHasNoDefinition {
+            get {
+                return ResourceManager.GetString("TermHasNoDefinition", resourceCulture);
+            }
+        }
     }
 }

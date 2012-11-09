@@ -69,7 +69,7 @@ namespace Grasp.Lists
 
 		public Number(int value) : this()
 		{
-			Contract.Requires(value >= 1);
+			Contract.Requires(value >= 0);
 
 			Value = value;
 		}

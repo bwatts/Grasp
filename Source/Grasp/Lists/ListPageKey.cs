@@ -19,6 +19,7 @@ namespace Grasp.Lists
 		public static readonly Field<Sort> SortField = Field.On<ListPageKey>.For(x => x.Sort);
 
 		public static readonly ListPageKey Empty = new ListPageKey();
+		public static readonly ListPageKey Default = new ListPageKey(number: new Number(1), size: new Count(10));
 
 		public ListPageKey(Number number = default(Number), Count size = default(Count), Sort sort = null)
 		{
@@ -48,7 +49,7 @@ namespace Grasp.Lists
 
 		public Number GetLastItem(Count itemCount)
 		{
-			return new Number(GetFirstItem().Value + itemCount.Value);
+			return new Number(GetFirstItem().Value - 1 + itemCount.Value);
 		}
 
 		public string GetQuery(string pageKey = "page", string pageSizeKey = "size", string sortKey = "sort", bool includeSeparator = false)

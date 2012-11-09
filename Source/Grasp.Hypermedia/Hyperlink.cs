@@ -74,7 +74,15 @@ namespace Grasp.Hypermedia
 		{
 			Contract.Requires(bindings != null);
 
-			return new Hyperlink(Uri.BindByName(new Uri(""), bindings), Content, Title, Relationship);
+			var placeholderUri = new Uri("http://x");
+
+			var boundUri = Uri.BindByName(placeholderUri, bindings);
+
+			var linkUri = placeholderUri.MakeRelativeUri(boundUri);
+
+			// TODO: Bind content (if string) and title
+
+			return new Hyperlink(linkUri, Content, Title, Relationship);
 		}
 
 		public Hyperlink BindVariables(IDictionary<string, object> bindings)

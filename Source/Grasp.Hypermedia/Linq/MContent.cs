@@ -31,5 +31,10 @@ namespace Grasp.Hypermedia.Linq
 		protected abstract object GetHtmlWithoutClass();
 
 		protected abstract object GetHtmlWithClass(string classStack);
+
+		public override string ToString()
+		{
+			return GetHtml().ToString();
+		}
 	}
 }

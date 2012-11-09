@@ -39,10 +39,10 @@ namespace Slate.Http.Persistence
 		{
 			return new ListItemBindings(AnonymousDictionary.Read(new
 			{
-				Name = item.Name,
-				WhenCreated = EntityLifetime.WhenCreatedField.Get(item),
-				WhenModified = EntityLifetime.WhenModifiedField.Get(item),
-				Visibility = item.Visibility,
+				Name = "Test",
+				WhenCreated = DateTime.Now.AddDays(-2),
+				WhenModified = DateTime.Now.AddDays(-1),
+				Visibility = FormVisibility.Draft,
 				ResponseCount = 4,
 				IssueCount = 2
 			}));

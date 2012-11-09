@@ -11,39 +11,39 @@ using Grasp.Lists;
 
 namespace Slate.Web.Presentation.Lists
 {
-	public class ContextModel : ViewModel
+	public class PageContextModel : ViewModel
 	{
-		public static readonly Field<NumberModel> ItemCountField = Field.On<ContextModel>.For(x => x.ItemCount);
-		public static readonly Field<NumberModel> FirstField = Field.On<ContextModel>.For(x => x.First);
-		public static readonly Field<NumberModel> LastField = Field.On<ContextModel>.For(x => x.Last);
-		public static readonly Field<NumberModel> PreviousField = Field.On<ContextModel>.For(x => x.Previous);
-		public static readonly Field<NumberModel> NextField = Field.On<ContextModel>.For(x => x.Next);
-		public static readonly Field<ManyInOrder<NumberModel>> NumbersField = Field.On<ContextModel>.For(x => x.Numbers);
+		public static readonly Field<NumberModel> ItemCountField = Field.On<PageContextModel>.For(x => x.ItemCount);
+		public static readonly Field<NumberModel> FirstField = Field.On<PageContextModel>.For(x => x.First);
+		public static readonly Field<NumberModel> LastField = Field.On<PageContextModel>.For(x => x.Last);
+		public static readonly Field<NumberModel> PreviousField = Field.On<PageContextModel>.For(x => x.Previous);
+		public static readonly Field<NumberModel> NextField = Field.On<PageContextModel>.For(x => x.Next);
+		public static readonly Field<ManyInOrder<NumberModel>> PagesField = Field.On<PageContextModel>.For(x => x.Pages);
 
-		public ContextModel(Hyperlink itemCountLink)
+		public PageContextModel(Hyperlink itemCountLink)
 		{
 			Contract.Requires(itemCountLink != null);
 
 			ItemCount = new NumberModel(Number.None, itemCountLink);
 
-			Numbers = new ManyInOrder<NumberModel>();
+			Pages = new ManyInOrder<NumberModel>();
 		}
 
-		public ContextModel(NumberModel itemCount, NumberModel first, NumberModel last, NumberModel previous, NumberModel next, IEnumerable<NumberModel> numbers)
+		public PageContextModel(NumberModel itemCount, NumberModel first, NumberModel last, NumberModel previous, NumberModel next, IEnumerable<NumberModel> pages)
 		{
 			Contract.Requires(itemCount != null);
 			Contract.Requires(first != null);
 			Contract.Requires(last != null);
 			Contract.Requires(previous != null);
 			Contract.Requires(next != null);
-			Contract.Requires(numbers != null);
+			Contract.Requires(pages != null);
 
 			ItemCount = itemCount;
 			First = first;
 			Last = last;
 			Previous = previous;
 			Next = next;
-			Numbers = new ManyInOrder<NumberModel>(numbers);
+			Pages = new ManyInOrder<NumberModel>(pages);
 		}
 
 		public NumberModel ItemCount { get { return GetValue(ItemCountField); } private set { SetValue(ItemCountField, value); } }
@@ -51,6 +51,6 @@ namespace Slate.Web.Presentation.Lists
 		public NumberModel Last { get { return GetValue(LastField); } private set { SetValue(LastField, value); } }
 		public NumberModel Previous { get { return GetValue(PreviousField); } private set { SetValue(PreviousField, value); } }
 		public NumberModel Next { get { return GetValue(NextField); } private set { SetValue(NextField, value); } }
-		public ManyInOrder<NumberModel> Numbers { get { return GetValue(NumbersField); } private set { SetValue(NumbersField, value); } }
+		public ManyInOrder<NumberModel> Pages { get { return GetValue(PagesField); } private set { SetValue(PagesField, value); } }
 	}
 }
