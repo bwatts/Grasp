@@ -4,12 +4,12 @@
 	<h2>Start a form</h2>
 
 	<div class="description">
-		Rich knowledge capture. Fine-tuned workflow. Converse with your data on its level.
+		Rich knowledge capture. Fine-tuned workflow. A form is a conversation with your data.
 	</div>
 
 	<div>
 		<div class="caption">
-			First, pick a name which reflects the form's purpose:
+			Start with a name reflecting the form's purpose:
 		</div>
 
 		<div class="action">
@@ -18,11 +18,13 @@
 				@Html.TextBox("name", "", new { @class = "name" })
 
 				<div class="guidance">
-					Try to express what is interesting about this form among all forms.
-					(<a href="help/naming/forms">details</a>)
+					Try to express what is interesting about this form across all forms.
+					(<a href="~/help/naming/forms">details</a>)
 				</div>
-	
-				<input class="submit" type="submit" value="Next, some details &gt;&gt;" />
+		 
+			 <div>
+				 Next: <input class="submit" type="submit" value="specify details &gt;&gt;" />
+			 </div>
 			}
 		</div>
 	</div>

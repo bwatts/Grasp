@@ -13,12 +13,12 @@ namespace Grasp.Messaging
 	{
 		protected Task AnnounceAsync(Event @event)
 		{
-			return this.AnnounceAsync(@event);
+			return Publishing.AnnounceAsync(this, @event);
 		}
 
 		protected Task IssueAsync(Command command)
 		{
-			return this.IssueAsync(command);
+			return Publishing.IssueAsync(this, command);
 		}
 	}
 }

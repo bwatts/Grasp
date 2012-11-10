@@ -74,6 +74,7 @@ namespace Grasp.Raven
 			return new JObject(
 				from binding in notion.GetBindings()
 				where binding.Field != EntityLifetime.WhenReconstitutedField
+				where binding.Field != Aggregate._unobservedEventsField
 				let propertyName = binding.Field.IsAttached ? binding.Field.FullName : binding.Field.Name
 				select new JProperty(propertyName, binding.Value));
 		}

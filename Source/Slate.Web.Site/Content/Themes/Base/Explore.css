@@ -8,6 +8,12 @@
 	margin-top: 6px;
 }
 
+.start-form .description
+{
+	border-bottom: solid 1px #656565;
+	padding-bottom: 12px;
+}
+
 .start-form .caption
 {
 	margin-top: 12px;
@@ -33,4 +39,15 @@
 .start-form .action .submit
 {
 	margin-top: 12px;
+	background: transparent;
+  text-decoration: underline;
+  cursor: pointer;
+	border: none;
+	padding: 0px;
+	color: yellow;
+}
+
+.start-form .action .submit:hover
+{
+	color: #E36F21;
 }
