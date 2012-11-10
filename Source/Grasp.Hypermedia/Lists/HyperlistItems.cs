@@ -22,7 +22,7 @@ namespace Grasp.Hypermedia.Lists
 			Contract.Requires(items != null);
 
 			Schema = schema;
-			_items = new ManyInOrder<HyperlistItem>(items);
+			_items = items.ToManyInOrder();
 		}
 
 		public ListSchema Schema { get { return GetValue(SchemaField); } private set { SetValue(SchemaField, value); } }

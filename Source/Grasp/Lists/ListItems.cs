@@ -21,7 +21,7 @@ namespace Grasp.Lists
 			Contract.Requires(items != null);
 
 			Schema = schema;
-			_items = new ManyInOrder<ListItem>(items);
+			_items = items.ToManyInOrder();
 		}
 
 		public ListSchema Schema { get { return GetValue(SchemaField); } private set { SetValue(SchemaField, value); } }

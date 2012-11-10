@@ -15,13 +15,13 @@ namespace Grasp.Work
 	public abstract class Aggregate : UniqueNotion, IPublisher
 	{
 		public static readonly Field<int> VersionField = Field.On<Aggregate>.For(x => x.Version);
-		public static readonly Field<List<Event>> _unobservedEventsField = Field.On<Aggregate>.For(x => x._unobservedEvents);
+		public static readonly Field<ManyInOrder<Event>> _unobservedEventsField = Field.On<Aggregate>.For(x => x._unobservedEvents);
 
-		private List<Event> _unobservedEvents { get { return GetValue(_unobservedEventsField); } set { SetValue(_unobservedEventsField, value); } }
+		private ManyInOrder<Event> _unobservedEvents { get { return GetValue(_unobservedEventsField); } set { SetValue(_unobservedEventsField, value); } }
 
 		protected Aggregate(Guid? id = null) : base(id)
 		{
-			_unobservedEvents = new List<Event>();
+			_unobservedEvents = new ManyInOrder<Event>();
 
 			Version = 1;
 		}
@@ -32,7 +32,7 @@ namespace Grasp.Work
 		{
 			var events = _unobservedEvents.ToList();
 
-			_unobservedEvents.Clear();
+			ClearUnobservedEvents();
 
 			return events;
 		}
@@ -41,7 +41,7 @@ namespace Grasp.Work
 		{
 			Contract.Requires(version != null);
 
-			_unobservedEvents.Clear();
+			ClearUnobservedEvents();
 
 			foreach(var @event in version)
 			{
@@ -97,7 +97,12 @@ namespace Grasp.Work
 
 		private void RecordChange(Event @event)
 		{
-			_unobservedEvents.Add(@event);
+			((IList<Event>) _unobservedEvents).Add(@event);
+		}
+
+		private void ClearUnobservedEvents()
+		{
+			((ICollection<Event>) _unobservedEvents).Clear();
 		}
 	}
 }

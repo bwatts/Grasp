@@ -36,7 +36,7 @@ namespace Slate.Web.Site.Presentation
 
 		private static NavigationModel CreateNavigationModel(string currentAreaId, string currentSubAreaId)
 		{
-			var navigation = new NavigationModel(new Many<NavigationArea>(CreateNavigationAreas()));
+			var navigation = new NavigationModel(CreateNavigationAreas().ToMany());
 
 			navigation.SelectAreas(currentAreaId, currentSubAreaId);
 

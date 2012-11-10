@@ -43,7 +43,7 @@ namespace Slate.Web.Site.Presentation.Lists
 			Last = last;
 			Previous = previous;
 			Next = next;
-			Pages = new ManyInOrder<NumberModel>(pages);
+			Pages = pages.ToManyInOrder();
 		}
 
 		public NumberModel ItemCount { get { return GetValue(ItemCountField); } private set { SetValue(ItemCountField, value); } }

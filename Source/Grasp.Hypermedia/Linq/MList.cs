@@ -16,7 +16,7 @@ namespace Grasp.Hypermedia.Linq
 		{
 			Contract.Requires(items != null);
 
-			Items = new Many<MContent>(items);
+			Items = items.ToMany();
 		}
 
 		public Many<MContent> Items { get { return GetValue(ItemsField); } private set { SetValue(ItemsField, value); } }

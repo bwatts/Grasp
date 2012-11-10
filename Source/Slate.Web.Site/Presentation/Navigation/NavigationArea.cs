@@ -20,7 +20,7 @@ namespace Slate.Web.Site.Presentation.Navigation
 			Contract.Requires(link != null);
 
 			Link = link;
-			SubAreas = new Many<NavigationArea>(subAreas ?? Enumerable.Empty<NavigationArea>());
+			SubAreas = (subAreas ?? Enumerable.Empty<NavigationArea>()).ToMany();
 		}
 
 		public Hyperlink Link { get { return GetValue(LinkField); } private set { SetValue(LinkField, value); } }

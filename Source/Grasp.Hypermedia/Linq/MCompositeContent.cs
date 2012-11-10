@@ -13,7 +13,7 @@ namespace Grasp.Hypermedia.Linq
 
 		public MCompositeContent(IEnumerable<MContent> items) : base(MClass.Empty)
 		{
-			Items = new ManyInOrder<MContent>(items);
+			Items = items.ToManyInOrder();
 		}
 
 		public MCompositeContent(params MContent[] items) : this(items as IEnumerable<MContent>)

@@ -20,7 +20,7 @@ namespace Grasp.Hypermedia.Linq
 
 			Title = title;
 			BaseLink = baseLink;
-			Links = new Many<Hyperlink>(links);
+			Links = links.ToMany();
 		}
 
 		public MHead(string title, Hyperlink baseLink, params Hyperlink[] links) : this(title, baseLink, links as IEnumerable<Hyperlink>)

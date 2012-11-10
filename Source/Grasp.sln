@@ -57,6 +57,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cloak.NaturalText", "..\.su
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Slate.Http.Api", "Slate.Http.Api\Slate.Http.Api.csproj", "{0A49A4A4-D946-490B-8A7D-CFA5412B8335}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Slate.Services", "Slate.Services\Slate.Services.csproj", "{D0ABBB67-4D42-4D64-8838-603C9CF4569D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -257,6 +259,16 @@ Global
 		{0A49A4A4-D946-490B-8A7D-CFA5412B8335}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{0A49A4A4-D946-490B-8A7D-CFA5412B8335}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{0A49A4A4-D946-490B-8A7D-CFA5412B8335}.Release|x86.ActiveCfg = Release|Any CPU
+		{D0ABBB67-4D42-4D64-8838-603C9CF4569D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0ABBB67-4D42-4D64-8838-603C9CF4569D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0ABBB67-4D42-4D64-8838-603C9CF4569D}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{D0ABBB67-4D42-4D64-8838-603C9CF4569D}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{D0ABBB67-4D42-4D64-8838-603C9CF4569D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D0ABBB67-4D42-4D64-8838-603C9CF4569D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0ABBB67-4D42-4D64-8838-603C9CF4569D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D0ABBB67-4D42-4D64-8838-603C9CF4569D}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{D0ABBB67-4D42-4D64-8838-603C9CF4569D}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{D0ABBB67-4D42-4D64-8838-603C9CF4569D}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -281,5 +293,6 @@ Global
 		{4391011E-55A5-409B-AAFE-33CF5D640034} = {740D14E5-CCE4-41FD-B725-87B0ACBF1E4E}
 		{0A49A4A4-D946-490B-8A7D-CFA5412B8335} = {740D14E5-CCE4-41FD-B725-87B0ACBF1E4E}
 		{B5F202A2-4794-4265-8D6A-5C1C4E5A6ED7} = {7C4C6C73-6D38-4D20-B64F-51642747EE41}
+		{D0ABBB67-4D42-4D64-8838-603C9CF4569D} = {7C4C6C73-6D38-4D20-B64F-51642747EE41}
 	EndGlobalSection
 EndGlobal

@@ -267,6 +267,7 @@
     <Compile Include="Lists\ListSchema.cs" />
     <Compile Include="Lists\ListItems.cs" />
     <Compile Include="Lists\Number.cs" />
+    <Compile Include="ManyConversion.cs" />
     <Compile Include="ManyInOrder.cs" />
     <Compile Include="EquatableValue.cs" />
     <Compile Include="EquatableWithExactType.cs" />
@@ -278,7 +279,14 @@
     <Compile Include="Messaging\IMessageChannel.cs" />
     <Compile Include="Messaging\Message.cs" />
     <Compile Include="Messaging\Command.cs" />
+    <Compile Include="Semantics\AggregateModel.cs" />
+    <Compile Include="Semantics\FieldAttacherModel.cs" />
+    <Compile Include="Semantics\Discovery\Reflection\FieldAttacherBinding.cs" />
     <Compile Include="Work\ConcurrencyException.cs" />
+    <Compile Include="Work\FieldValueConverter.cs" />
+    <Compile Include="Work\IFieldValueConverter.cs" />
+    <Compile Include="Work\NotionActivator.cs" />
+    <Compile Include="Work\INotionActivator.cs" />
     <Compile Include="Work\IRepository.cs" />
     <Compile Include="Lists\ListItem.cs" />
     <Compile Include="Lists\ListPageContext.cs" />
@@ -321,36 +329,28 @@
     <Compile Include="Analysis\Variable.cs" />
     <Compile Include="Analysis\VariableBinding.cs" />
     <Compile Include="Analysis\VariableExpression.cs" />
-    <Compile Include="Semantics\Discovery\DomainModelBinding.cs" />
+    <Compile Include="Semantics\Discovery\IDomainModelBinding.cs" />
     <Compile Include="Semantics\Discovery\IDomainModelSource.cs" />
     <Compile Include="Semantics\Discovery\Reflection\AssemblyBinder.cs" />
-    <Compile Include="Semantics\Discovery\Reflection\AssemblySource.cs" />
+    <Compile Include="Semantics\Discovery\Reflection\ReflectionSource.cs" />
     <Compile Include="Semantics\Discovery\Reflection\EnumBinding.cs" />
-    <Compile Include="Semantics\Discovery\Reflection\FieldInfoBinding.cs" />
-    <Compile Include="Semantics\Discovery\Reflection\MemberBinding.cs" />
+    <Compile Include="Semantics\Discovery\Reflection\FieldBinding.cs" />
     <Compile Include="Semantics\Discovery\Reflection\NamespaceBinding.cs" />
     <Compile Include="Semantics\Discovery\Reflection\NamespacePartBinding.cs" />
-    <Compile Include="Semantics\Discovery\Reflection\EntityBinding.cs" />
-    <Compile Include="Semantics\Discovery\Reflection\PropertyInfoBinding.cs" />
+    <Compile Include="Semantics\Discovery\Reflection\NotionBinding.cs" />
     <Compile Include="Semantics\Discovery\Reflection\ReflectionBinding.cs" />
     <Compile Include="Semantics\Discovery\Reflection\TypeBinding.cs" />
     <Compile Include="Semantics\DomainModel.cs" />
     <Compile Include="Semantics\EnumModel.cs" />
     <Compile Include="Semantics\EnumValueModel.cs" />
     <Compile Include="Semantics\NamespaceModel.cs" />
-    <Compile Include="Semantics\EntityModel.cs" />
-    <Compile Include="Semantics\Relationships\Cardinality.cs" />
-    <Compile Include="Semantics\Relationships\CardinalityLimit.cs" />
-    <Compile Include="Semantics\Relationships\OneWayRelationshipModel.cs" />
-    <Compile Include="Semantics\Relationships\ReferenceModel.cs" />
-    <Compile Include="Semantics\Relationships\Resources1.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Semantics\Relationships\TwoWayRelationshipModel.cs" />
+    <Compile Include="Semantics\NotionModel.cs" />
+    <Compile Include="Semantics\Cardinality.cs" />
+    <Compile Include="Semantics\CardinalityLimit.cs" />
+    <Compile Include="Semantics\OneWayRelationshipModel.cs" />
+    <Compile Include="Semantics\ReferenceModel.cs" />
+    <Compile Include="Semantics\TwoWayRelationshipModel.cs" />
     <Compile Include="Semantics\TypeModel.cs" />
-    <Compile Include="Semantics\ValueModel.cs" />
     <Compile Include="Work\AggregateVersion.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -365,10 +365,6 @@
     <EmbeddedResource Include="Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Semantics\Relationships\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources1.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

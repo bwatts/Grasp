@@ -21,7 +21,7 @@ namespace Grasp.Hypermedia
 
 			Title = title;
 			BaseLink = baseLink;
-			Links = new ManyInOrder<Hyperlink>(links);
+			Links = links.ToManyInOrder();
 		}
 
 		public string Title { get { return GetValue(TitleField); } private set { SetValue(TitleField, value); } }

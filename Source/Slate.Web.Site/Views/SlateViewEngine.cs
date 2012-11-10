@@ -12,7 +12,9 @@ namespace Slate.Web.Site.Views
 	{
 		public SlateViewEngine()
 		{
-			ViewLocationFormats = Params.Of("~/Views/{0}.cshtml", "~/Views/{1}/{0}.cshtml");
+			ViewLocationFormats = Params.Of(
+				"~/Views/{0}.cshtml", "~/Views/{1}/{0}.cshtml", "~/Views/{1}/{0}.cshtml",
+				"~/Views/Explore/{0}.cshtml", "~/Views/Explore/{1}/{0}.cshtml", "~/Views/Explore/{1}/{0}.cshtml");
 
 			PartialViewLocationFormats = Params.Of("~/Views/{0}.cshtml", "~/Views/{1}/{0}.cshtml", "~/Views/Site/{0}.cshtml");
 		}

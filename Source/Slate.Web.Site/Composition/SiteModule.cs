@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using Cloak.Autofac;
+using Slate.Web.Site.Composition.Infrastructure;
 using Slate.Web.Site.Composition.UI;
 using Slate.Web.Site.Configuration;
 
@@ -27,20 +28,20 @@ namespace Slate.Web.Site.Composition
 			RegisterInstance(viewEngines);
 			RegisterInstance(binders);
 
+			var httpSettings = GlobalConfiguration.Configuration;
+			var siteSettings = CompositionConfiguration.GetRequiredSection<SiteSection>("slate/web.site");
+
+			RegisterInstance(httpSettings);
+			RegisterInstance(siteSettings);
+
+			RegisterModule(new InfrastructureModule(binders, httpSettings, siteSettings));
 			RegisterModule(new UIModule(routes, bundles, filters, viewEngines));
 
-			var httpConfiguration = GlobalConfiguration.Configuration;
-			var siteConfiguration = CompositionConfiguration.GetRequiredSection<SiteSection>("slate/web.site");
-
-			RegisterModule(new ApiClientModule(siteConfiguration));
-			RegisterModule(new FormsModule("[No forms]"));
-			RegisterModule(new HomeModule(routes, siteConfiguration));
+			RegisterModule(new ExploreModule(routes));
+			RegisterModule(new FormsModule(routes, "[No forms]"));
+			RegisterModule(new HomeModule(routes, siteSettings));
 			RegisterModule(new IssuesModule("[No issues - nice!]"));
-			RegisterModule(new ListModule(binders, httpConfiguration));
-			RegisterModule<MediaModule>();
-			RegisterModule<SecurityModule>();
 			RegisterModule<SnapshotModule>();
-			RegisterModule<TimeModule>();
 		}
 	}
 }

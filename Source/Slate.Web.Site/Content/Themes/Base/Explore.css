@@ -2,3 +2,35 @@
 {
 	width: 800px;
 }
+
+.start-form
+{
+	margin-top: 6px;
+}
+
+.start-form .caption
+{
+	margin-top: 12px;
+}
+
+.start-form .action
+{
+	margin: 12px 0px 12px 0px;
+}
+
+.start-form .action .name
+{
+	width: 375px;
+}
+
+.start-form .guidance
+{
+	font-size: 0.8em;
+	margin-bottom: 12px;
+	float: right;
+}
+
+.start-form .action .submit
+{
+	margin-top: 12px;
+}

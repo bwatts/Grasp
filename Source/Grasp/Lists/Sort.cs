@@ -40,7 +40,7 @@ namespace Grasp.Lists
 		{
 			Contract.Requires(fields != null);
 
-			Fields = new ManyInOrder<SortField>(fields);
+			Fields = fields.ToManyInOrder();
 		}
 
 		public ManyInOrder<SortField> Fields { get { return GetValue(FieldsField); } private set { SetValue(FieldsField, value); } }

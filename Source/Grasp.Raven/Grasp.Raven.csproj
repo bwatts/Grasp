@@ -127,6 +127,7 @@
     <Compile Include="AggregateDocument.cs" />
     <Compile Include="AggregateVersionDocument.cs" />
     <Compile Include="AggregateVersionDocuments_ByAggregateDocumentId.cs" />
+    <Compile Include="NotionJsonConverter.cs" />
     <Compile Include="RavenContext.cs" />
     <Compile Include="RavenListService.cs" />
     <Compile Include="ListPages.cs" />

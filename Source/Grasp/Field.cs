@@ -49,7 +49,7 @@ namespace Grasp
 					throw new ArgumentException(Resources.MemberNotDeclaredOnOwningType.FormatInvariant(property.Name, typeof(TOwner)), "getProperty");
 				}
 
-				return new Field<TValue>(typeof(TOwner), property.Name, false);
+				return new Field<TValue>(typeof(TOwner), typeof(TOwner), property.Name, false);
 			}
 		}
 
@@ -129,7 +129,7 @@ namespace Grasp
 
 						var fieldName = field.Name.Substring(0, field.Name.Length - Resources.FieldSuffix.Length);
 
-						return new Field<TValue>(OwnerType, fieldName, true);
+						return new Field<TValue>(typeof(TTarget), OwnerType, fieldName, true);
 					}
 				}
 			}
@@ -160,13 +160,19 @@ namespace Grasp
 
 		public static readonly object UnsetValue = new object();
 
-		internal Field(Type ownerType, string name, Type valueType, bool isAttachable)
+		internal Field(Type targetType, Type ownerType, string name, Type valueType, bool isAttached)
 		{
+			TargetType = targetType;
 			OwnerType = ownerType;
 			Name = name;
 			ValueType = valueType;
-			IsAttachable = isAttachable;
+			IsAttached = isAttached;
 		}
+
+		/// <summary>
+		/// Gets the type of data targeted by this field
+		/// </summary>
+		public Type TargetType { get; private set; }
 
 		/// <summary>
 		/// Gets the type which declares this field
@@ -179,14 +185,22 @@ namespace Grasp
 		public string Name { get; private set; }
 
 		/// <summary>
+		/// Gets the name of this field qualified with the full name of the owner type
+		/// </summary>
+		public string FullName
+		{
+			get { return OwnerType.FullName + "." + Name; }
+		}
+
+		/// <summary>
 		/// Gets the type of value represented by this field
 		/// </summary>
 		public Type ValueType { get; private set; }
 
 		/// <summary>
-		/// Gets whether this field can be attached to objects other than the declaring type
+		/// Gets whether this field is attached to objects other than the declaring type
 		/// </summary>
-		public bool IsAttachable { get; private set; }
+		public bool IsAttached { get; private set; }
 
 		/// <summary>
 		/// Gets whether null can be assigned to <see cref="ValueType"/>
@@ -201,7 +215,7 @@ namespace Grasp
 		/// </summary>
 		public bool IsMany
 		{
-			get { return ValueType.IsGenericType && ValueType.GetGenericTypeDefinition() == typeof(Many<>); }
+			get { return ValueType.IsGenericType && (ValueType.GetGenericTypeDefinition() == typeof(Many<>) || ValueType.GetGenericTypeDefinition() == typeof(ManyInOrder<>)); }
 		}
 
 		/// <summary>
@@ -216,12 +230,23 @@ namespace Grasp
 		}
 
 		/// <summary>
+		/// Gets the default value of this field's many type
+		/// </summary>
+		/// <returns>A value of either <see cref="Many"/> or <see cref="ManyInOrder"/> depending on this field's many type</returns>
+		public object GetManyDefault()
+		{
+			Contract.Requires(IsMany);
+
+			return Activator.CreateInstance(ValueType);
+		}
+
+		/// <summary>
 		/// Gets a textual representation of this field
 		/// </summary>
 		/// <returns>A textual representation of this field</returns>
 		public override string ToString()
 		{
-			return Resources.Field.FormatInvariant(Name, ValueType);
+			return Resources.Field.FormatInvariant(IsAttached ? FullName : Name, ValueType);
 		}
 
 		public object Get(Notion notion)
@@ -263,7 +288,7 @@ namespace Grasp
 	/// <typeparam name="TValue">The type of value represented by this field</typeparam>
 	public sealed class Field<TValue> : Field
 	{
-		internal Field(Type ownerType, string name, bool isAttachable) : base(ownerType, name, typeof(TValue), isAttachable)
+		internal Field(Type targetType, Type ownerType, string name, bool isAttached) : base(targetType, ownerType, name, typeof(TValue), isAttached)
 		{}
 
 		public new TValue Get(Notion notion)

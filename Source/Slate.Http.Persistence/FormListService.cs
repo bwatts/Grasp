@@ -9,6 +9,7 @@ using Grasp.Raven;
 using Grasp.Work;
 using Raven.Client;
 using Raven.Client.Linq;
+using Slate.Forms;
 
 namespace Slate.Http.Persistence
 {

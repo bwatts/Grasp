@@ -14,15 +14,15 @@ namespace Slate.Web.Site.Composition
 {
 	public class HomeModule : BuilderModule
 	{
-		public HomeModule(RouteCollection routes, SiteSection siteConfiguration)
+		public HomeModule(RouteCollection routes, SiteSection siteSettings)
 		{
 			Contract.Requires(routes != null);
-			Contract.Requires(siteConfiguration != null);
+			Contract.Requires(siteSettings != null);
 
 			Register(c => new IndexModelFactory(
 				c.Resolve<ISnapshotModelFactory>(),
-				siteConfiguration.FormListUrl,
-				siteConfiguration.IssueListUrl,
+				siteSettings.FormListUrl,
+				siteSettings.IssueListUrl,
 				c.ResolveNamed<IListModelFactory>("Forms"),
 				c.ResolveNamed<IListModelFactory>("Issues")))
 			.As<IIndexModelFactory>()

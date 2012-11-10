@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 
@@ -11,8 +12,17 @@ namespace Grasp.Semantics.Discovery.Reflection
 		public static readonly Field<string> NameField = Field.On<NamespaceBinding>.For(x => x.Name);
 		public static readonly Field<Many<NamespacePartBinding>> PartBindingsField = Field.On<NamespaceBinding>.For(x => x.PartBindings);
 
-		public string Name { get { return GetValue(NameField); } }
-		public Many<NamespacePartBinding> PartBindings { get { return GetValue(PartBindingsField); } }
+		public NamespaceBinding(string name, IEnumerable<NamespacePartBinding> partBindings)
+		{
+			Contract.Requires(!String.IsNullOrEmpty(name));
+			Contract.Requires(partBindings != null);
+
+			Name = name;
+			PartBindings = partBindings.ToMany();
+		}
+
+		public string Name { get { return GetValue(NameField); } private set { SetValue(NameField, value); } }
+		public Many<NamespacePartBinding> PartBindings { get { return GetValue(PartBindingsField); } private set { SetValue(PartBindingsField, value); } }
 
 		public override string ToString()
 		{
@@ -21,17 +31,7 @@ namespace Grasp.Semantics.Discovery.Reflection
 
 		public NamespaceModel GetModel()
 		{
-			var x = new NamespaceModel();
-
-			NamespaceModel.NameField.Set(x, Name);
-			NamespaceModel.TypesField.Set(x, new Many<TypeModel>(GetTypeModels()));
-
-			return x;
-		}
-
-		private IEnumerable<TypeModel> GetTypeModels()
-		{
-			return PartBindings.SelectMany(partBinding => partBinding.GetTypeModels());
+			return new NamespaceModel(Name, PartBindings.SelectMany(partBinding => partBinding.GetTypeModels()));
 		}
 	}
 }

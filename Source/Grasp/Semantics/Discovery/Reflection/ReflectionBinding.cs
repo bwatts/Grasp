@@ -5,91 +5,59 @@ using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using Grasp.Semantics.Relationships;
+using System.Threading.Tasks;
 
 namespace Grasp.Semantics.Discovery.Reflection
 {
-	public class ReflectionBinding : DomainModelBinding
+	public class ReflectionBinding : Notion, IDomainModelBinding
 	{
+		public static readonly Field<string> NameField = Field.On<ReflectionBinding>.For(x => x.Name);
 		public static readonly Field<Many<NamespaceBinding>> NamespaceBindingsField = Field.On<ReflectionBinding>.For(x => x.NamespaceBindings);
 
-		public Many<NamespaceBinding> NamespaceBindings { get { return GetValue(NamespaceBindingsField); } }
-
-		public override DomainModel GetDomainModel()
+		public ReflectionBinding(string name, IEnumerable<NamespaceBinding> namespaceBindings)
 		{
-			var x = new DomainModel();
+			Contract.Requires(name != null);
+			Contract.Requires(namespaceBindings != null);
 
-			var namespaces = GetNamespaces().ToList().AsReadOnly();
+			Name = name;
+			NamespaceBindings = namespaceBindings.ToMany();
+		}
 
-			DomainModel.NameField.Set(x, "<| Reflected |>");
-			DomainModel.NamespacesField.Set(x, new Many<NamespaceModel>(namespaces));
-			
-			SetRelationships(x, namespaces);
+		public string Name { get { return GetValue(NameField); } private set { SetValue(NameField, value); } }
+		public Many<NamespaceBinding> NamespaceBindings { get { return GetValue(NamespaceBindingsField); } private set { SetValue(NamespaceBindingsField, value); } }
 
-			return x;
+		public DomainModel BindDomainModel()
+		{
+			var references = GetReferences().ToList();
+
+			var relationships =
+				from reference1 in references
+				from reference2 in references
+				where reference1.ReferencedNotion == reference2.ReferencingNotion
+				select new
+				{
+					Reference1 = reference1,
+					Reference2 = reference2,
+					IsTwoWay = reference2.ReferencedNotion == reference1.ReferencedNotion
+				};
+
+			var relationshipsByIsTwoWay = relationships.ToLookup(relationship => relationship.IsTwoWay);
+
+			return new DomainModel(
+				Name,
+				GetNamespaces(),
+				relationshipsByIsTwoWay[false].Select(relationship => new OneWayRelationshipModel(relationship.Reference1)),
+				relationshipsByIsTwoWay[true].Select(relationship => new TwoWayRelationshipModel(relationship.Reference1, relationship.Reference2)));
+		}
+
+		private IEnumerable<ReferenceModel> GetReferences()
+		{
+			return new ReferenceBuilder(GetNamespaces()).GetReferences();
 		}
 
 		private IEnumerable<NamespaceModel> GetNamespaces()
 		{
 			return NamespaceBindings.Select(namespaceBinding => namespaceBinding.GetModel());
-		}
-
-		private static void SetRelationships(DomainModel domainModel, IEnumerable<NamespaceModel> namespaces)
-		{
-			var references = GetReferences(namespaces).ToList();
-
-			var relationships =
-				from reference1 in references
-				from reference2 in references
-				where reference1.ReferencedEntity == reference2.ReferencingObject
-				select new
-				{
-					Reference1 = reference1,
-					Reference2 = reference2,
-					IsTwoWay = reference2.ReferencedEntity == reference1.ReferencedEntity
-				};
-
-			var oneWayRelationships = new List<OneWayRelationshipModel>();
-			var twoWayRelationships = new List<TwoWayRelationshipModel>();
-
-			foreach(var relationship in relationships)
-			{
-				if(relationship.IsTwoWay)
-				{
-					twoWayRelationships.Add(GetTwoWayRelationship(relationship.Reference1, relationship.Reference2));
-				}
-				else
-				{
-					oneWayRelationships.Add(GetOneWayRelationship(relationship.Reference1));
-				}
-			}
-
-			DomainModel.OneWayRelationshipsField.Set(domainModel, new Many<OneWayRelationshipModel>(oneWayRelationships));
-			DomainModel.TwoWayRelationshipsField.Set(domainModel, new Many<TwoWayRelationshipModel>(twoWayRelationships));
-		}
-
-		private static IEnumerable<ReferenceModel> GetReferences(IEnumerable<NamespaceModel> namespaces)
-		{
-			return new ReferenceBuilder(namespaces).GetReferences();
-		}
-
-		private static TwoWayRelationshipModel GetTwoWayRelationship(ReferenceModel reference1, ReferenceModel reference2)
-		{
-			var x = new TwoWayRelationshipModel();
-
-			TwoWayRelationshipModel.Reference1Field.Set(x, reference1);
-			TwoWayRelationshipModel.Reference2Field.Set(x, reference2);
-
-			return x;
-		}
-
-		private static OneWayRelationshipModel GetOneWayRelationship(ReferenceModel reference)
-		{
-			var x = new OneWayRelationshipModel();
-
-			OneWayRelationshipModel.ReferenceField.Set(x, reference);
-
-			return x;
 		}
 
 		private sealed class ReferenceBuilder
@@ -105,24 +73,24 @@ namespace Grasp.Semantics.Discovery.Reflection
 			{
 				return
 					from @namespace in _namespaces
-					from @object in @namespace.Types.OfType<EntityModel>()
-					from field in @object.Fields
-					let reference = GetReference(@object, field)
+					from notion in @namespace.Types.OfType<NotionModel>()
+					from field in notion.Fields
+					let reference = GetReference(notion, field)
 					where reference != null
 					select reference;
 			}
 
-			private ReferenceModel GetReference(EntityModel referencingObject, Field field)
+			private ReferenceModel GetReference(NotionModel referencingNotion, Field referencingField)
 			{
-				var valueType = field.ValueType;
+				var valueType = referencingField.ValueType;
 
-				if(valueType.IsGenericType && valueType.GetGenericTypeDefinition() == typeof(Many<>))
+				if(referencingField.IsMany)
 				{
-					return GetPluralReference(referencingObject, field);
+					return GetPluralReference(referencingNotion, referencingField);
 				}
-				else if(typeof(Notion).IsAssignableFrom(field.ValueType))
+				else if(typeof(Notion).IsAssignableFrom(referencingField.ValueType))
 				{
-					return GetSingularReference(referencingObject, field);
+					return GetSingularReference(referencingNotion, referencingField);
 				}
 				else
 				{
@@ -130,34 +98,26 @@ namespace Grasp.Semantics.Discovery.Reflection
 				}
 			}
 
-			private ReferenceModel GetSingularReference(EntityModel referencingObject, Field referencingField)
+			private ReferenceModel GetPluralReference(NotionModel referencingNotion, Field referencingField)
 			{
-				var x = new ReferenceModel();
+				var referencedNotion = GetReferencedNotion(referencingField);
 
-				ReferenceModel.ReferencedEntityField.Set(x, GetReferencedEntity(referencingField.ValueType));
-				ReferenceModel.CardinalityField.Set(x, GetSingularCardinality(referencingField));
-				ReferenceModel.ReferencingObjectField.Set(x, referencingObject);
-				ReferenceModel.ReferencingFieldField.Set(x, referencingField);
-
-				return x;
+				return referencedNotion == null ? null : new ReferenceModel(referencingNotion, referencingField, referencedNotion, GetPluralCardinality(referencingField));
 			}
 
-			private static Cardinality GetSingularCardinality(Field referencingField)
+			private NotionModel GetReferencedNotion(Field pluralReferencingField)
 			{
-				// TODO: This isn't right
-				return referencingField.IsNullable ? Cardinality.ZeroToOne : Cardinality.OneToOne;
+				var notionType = pluralReferencingField.ValueType.GetGenericArguments().Single();
+
+				return GetReferencedNotion(notionType);
 			}
 
-			private ReferenceModel GetPluralReference(EntityModel referencingObject, Field referencingField)
+			private NotionModel GetReferencedNotion(Type notionType)
 			{
-				var x = new ReferenceModel();
-
-				ReferenceModel.ReferencedEntityField.Set(x, GetReferencedEntity(referencingField));
-				ReferenceModel.CardinalityField.Set(x, GetPluralCardinality(referencingField));
-				ReferenceModel.ReferencingObjectField.Set(x, referencingObject);
-				ReferenceModel.ReferencingFieldField.Set(x, referencingField);
-
-				return x;
+				return _namespaces
+					.SelectMany(@namespace => @namespace.Types.OfType<NotionModel>())
+					.Where(notion => notion.Type == notionType)
+					.FirstOrDefault();
 			}
 
 			private static Cardinality GetPluralCardinality(Field referencingField)
@@ -166,25 +126,17 @@ namespace Grasp.Semantics.Discovery.Reflection
 				return Cardinality.ZeroToMany;
 			}
 
-			private EntityModel GetReferencedEntity(Field pluralReferencingField)
+			private ReferenceModel GetSingularReference(NotionModel referencingNotion, Field referencingField)
 			{
-				var entityType = pluralReferencingField.ValueType.GetGenericArguments().Single();
+				var referencedNotion = GetReferencedNotion(referencingField.ValueType);
 
-				return GetReferencedEntity(entityType);
+				return referencedNotion == null ? null : new ReferenceModel(referencingNotion, referencingField, referencedNotion, GetSingularCardinality(referencingField));
 			}
 
-			private EntityModel GetReferencedEntity(Type entityType)
+			private static Cardinality GetSingularCardinality(Field referencingField)
 			{
-
-
-				var x = _namespaces.SelectMany(@namespace => @namespace.Types.OfType<EntityModel>()).ToList();
-
-
-
-				return _namespaces
-					.SelectMany(@namespace => @namespace.Types.OfType<EntityModel>())
-					.Where(entity => entity.Type == entityType)
-					.Single();
+				// TODO: This isn't right
+				return referencingField.IsNullable ? Cardinality.ZeroToOne : Cardinality.OneToOne;
 			}
 		}
 	}

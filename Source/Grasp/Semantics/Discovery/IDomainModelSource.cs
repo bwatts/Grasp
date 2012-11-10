@@ -3,21 +3,22 @@ using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Grasp.Semantics.Discovery
 {
 	[ContractClass(typeof(IDomainModelSourceContract))]
 	public interface IDomainModelSource
 	{
-		IEnumerable<DomainModelBinding> GetDomainModelBindings();
+		IEnumerable<IDomainModelBinding> BindDomainModels();
 	}
 
 	[ContractClassFor(typeof(IDomainModelSource))]
 	internal abstract class IDomainModelSourceContract : IDomainModelSource
 	{
-		IEnumerable<DomainModelBinding> IDomainModelSource.GetDomainModelBindings()
+		IEnumerable<IDomainModelBinding> IDomainModelSource.BindDomainModels()
 		{
-			Contract.Ensures(Contract.Result<IEnumerable<DomainModelBinding>>() != null);
+			Contract.Ensures(Contract.Result<IEnumerable<IDomainModelBinding>>() != null);
 
 			return null;
 		}

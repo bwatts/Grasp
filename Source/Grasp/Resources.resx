@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="CardinalityFormat" xml:space="preserve">
+    <value>{0}..{1}</value>
+  </data>
   <data name="ConditionKey" xml:space="preserve">
     <value>"{0}" ({1})</value>
   </data>
@@ -160,6 +163,9 @@
   <data name="InvalidTargetCast" xml:space="preserve">
     <value>Unable to cast target data of type {0} to {1}</value>
   </data>
+  <data name="ManyLimit" xml:space="preserve">
+    <value>*</value>
+  </data>
   <data name="MemberIsNotProperty" xml:space="preserve">
     <value>Member "{0}" is not a property</value>
   </data>
@@ -168,6 +174,9 @@
   </data>
   <data name="MemberTypeNotSupported" xml:space="preserve">
     <value>Member type {0} is not supported</value>
+  </data>
+  <data name="NonAttachedFieldOnNonNotionType" xml:space="preserve">
+    <value>Non-attached field "{0}" is not allowed on the non-Notion type {1}</value>
   </data>
   <data name="NotBinaryType" xml:space="preserve">
     <value>Rule type {0} is not a binary type</value>
@@ -194,6 +203,9 @@
   </data>
   <data name="TemplatesNotAllowed" xml:space="preserve">
     <value>This URI cannot have templates: "{0}"</value>
+  </data>
+  <data name="UnspecifiedLimit" xml:space="preserve">
+    <value>Unspecified</value>
   </data>
   <data name="UnsupportedTargetType" xml:space="preserve">
     <value>Target type {0} is not supported by check method {1}</value>

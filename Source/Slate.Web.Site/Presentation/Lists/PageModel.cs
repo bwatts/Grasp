@@ -34,7 +34,7 @@ namespace Slate.Web.Site.Presentation.Lists
 			FirstItem = firstItem;
 			LastItem = lastItem;
 			Schema = schema;
-			Items = new ManyInOrder<ItemModel>(items);
+			Items = items.ToManyInOrder();
 		}
 
 		public NumberModel Number { get { return GetValue(NumberField); } private set { SetValue(NumberField, value); } }

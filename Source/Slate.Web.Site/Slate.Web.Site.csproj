@@ -30,7 +30,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodeContractsEnableRuntimeChecking>True</CodeContractsEnableRuntimeChecking>
+    <CodeContractsEnableRuntimeChecking>False</CodeContractsEnableRuntimeChecking>
     <CodeContractsRuntimeOnlyPublicSurface>False</CodeContractsRuntimeOnlyPublicSurface>
     <CodeContractsRuntimeThrowOnFailure>True</CodeContractsRuntimeThrowOnFailure>
     <CodeContractsRuntimeCallSiteRequires>False</CodeContractsRuntimeCallSiteRequires>
@@ -182,21 +182,27 @@
     <Compile Include="..\SlateAssemblyInfo.cs">
       <Link>Properties\SlateAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Composition\ApiClientModule.cs" />
+    <Compile Include="Composition\ExploreModule.cs" />
+    <Compile Include="Composition\Infrastructure\ApiClientModule.cs" />
+    <Compile Include="Composition\Infrastructure\InfrastructureModule.cs" />
     <Compile Include="Composition\SnapshotModule.cs" />
     <Compile Include="Composition\IssuesModule.cs" />
-    <Compile Include="Composition\ListModule.cs" />
-    <Compile Include="Composition\MediaModule.cs" />
+    <Compile Include="Composition\Infrastructure\ListModule.cs" />
+    <Compile Include="Composition\Infrastructure\MediaModule.cs" />
     <Compile Include="Composition\FormsModule.cs" />
-    <Compile Include="Composition\TimeModule.cs" />
-    <Compile Include="Composition\SecurityModule.cs" />
+    <Compile Include="Composition\Infrastructure\TimeModule.cs" />
+    <Compile Include="Composition\Infrastructure\SecurityModule.cs" />
     <Compile Include="Composition\HomeModule.cs" />
     <Compile Include="Composition\UI\UIModule.cs" />
     <Compile Include="Configuration\SiteSection.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Presentation\Explore\FormListModel.cs" />
+    <Compile Include="Presentation\Explore\FormDetailsModel.cs" />
     <Compile Include="Presentation\Explore\FormsController.cs" />
+    <Compile Include="Presentation\Explore\StartFormModel.cs" />
+    <Compile Include="Presentation\Explore\ExploreController.cs" />
     <Compile Include="Presentation\Explore\FormsModel.cs" />
     <Compile Include="Presentation\Explore\IndexModel.cs" />
     <Compile Include="Presentation\Explore\ResponsesModel.cs" />
@@ -347,15 +353,15 @@
     <Content Include="Views\Site\_List.cshtml" />
     <Content Include="Views\Site\_User.cshtml" />
     <Content Include="Views\Explore\Index.cshtml" />
-    <Content Include="Views\Explore\Forms.cshtml" />
+    <Content Include="Views\Explore\Forms\List.cshtml" />
     <Content Include="Views\Explore\Responses.cshtml" />
     <Content Include="Views\Issues\Open.cshtml" />
     <Content Include="Views\Issues\Index.cshtml" />
     <Content Include="Views\Issues\Mine.cshtml" />
+    <Content Include="Views\Explore\Forms\Details.cshtml" />
+    <Content Include="Views\Explore\Forms\Start.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\Explore\Forms\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
@@ -391,6 +397,10 @@
     <ProjectReference Include="..\Grasp\Grasp.csproj">
       <Project>{0a728107-2d52-4e6b-b651-793048876837}</Project>
       <Name>Grasp</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Slate.Services\Slate.Services.csproj">
+      <Project>{d0abbb67-4d42-4d64-8838-603c9cf4569d}</Project>
+      <Name>Slate.Services</Name>
     </ProjectReference>
     <ProjectReference Include="..\Slate\Slate.csproj">
       <Project>{b5f202a2-4794-4265-8d6a-5c1c4e5a6ed7}</Project>

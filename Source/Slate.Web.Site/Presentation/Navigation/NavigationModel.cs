@@ -20,7 +20,7 @@ namespace Slate.Web.Site.Presentation.Navigation
 		{
 			Contract.Requires(areas != null);
 
-			Areas = new Many<NavigationArea>(areas);
+			Areas = areas.ToMany();
 
 			CurrentArea = Areas.FirstOrDefault();
 		}

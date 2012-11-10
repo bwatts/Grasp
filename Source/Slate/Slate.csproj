@@ -107,15 +107,16 @@
     <Compile Include="..\SlateAssemblyInfo.cs">
       <Link>Properties\SlateAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Forms\StartFormCommand.cs" />
     <Compile Include="IssueOpenedEvent.cs" />
-    <Compile Include="FormUnpublishedEvent.cs" />
-    <Compile Include="FormDisallowedPreviewEvent.cs" />
-    <Compile Include="FormAllowedPreviewEvent.cs" />
-    <Compile Include="FormPublishedEvent.cs" />
-    <Compile Include="FormCreatedEvent.cs" />
+    <Compile Include="Forms\FormUnpublishedEvent.cs" />
+    <Compile Include="Forms\FormDisallowedPreviewEvent.cs" />
+    <Compile Include="Forms\FormAllowedPreviewEvent.cs" />
+    <Compile Include="Forms\FormPublishedEvent.cs" />
+    <Compile Include="Forms\FormStartedEvent.cs" />
     <Compile Include="Issue.cs" />
-    <Compile Include="Form.cs" />
-    <Compile Include="FormVisibility.cs" />
+    <Compile Include="Forms\Form.cs" />
+    <Compile Include="Forms\FormVisibility.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources.Designer.cs">
       <AutoGen>True</AutoGen>

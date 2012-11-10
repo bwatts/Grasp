@@ -15,7 +15,7 @@ namespace Grasp.Hypermedia.Linq
 		{
 			Contract.Requires(children != null);
 
-			Children = new Many<MContent>(children);
+			Children = children.ToMany();
 		}
 
 		public MDivision(MClass @class, params MContent[] children) : this(@class, children as IEnumerable<MContent>)

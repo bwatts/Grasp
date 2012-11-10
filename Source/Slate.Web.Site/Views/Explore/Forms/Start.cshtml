@@ -1,0 +1,29 @@
+﻿@model LayoutModel<StartFormModel>
+
+<div class="start-form">
+	<h2>Start a form</h2>
+
+	<div class="description">
+		Rich knowledge capture. Fine-tuned workflow. Converse with your data on its level.
+	</div>
+
+	<div>
+		<div class="caption">
+			First, pick a name which reflects the form's purpose:
+		</div>
+
+		<div class="action">
+			@using(Html.BeginForm("Start", "Forms"))
+			{
+				@Html.TextBox("name", "", new { @class = "name" })
+
+				<div class="guidance">
+					Try to express what is interesting about this form among all forms.
+					(<a href="help/naming/forms">details</a>)
+				</div>
+	
+				<input class="submit" type="submit" value="Next, some details &gt;&gt;" />
+			}
+		</div>
+	</div>
+</div>

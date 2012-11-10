@@ -61,6 +61,15 @@ namespace Grasp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0}..{1}.
+        /// </summary>
+        internal static string CardinalityFormat {
+            get {
+                return ResourceManager.GetString("CardinalityFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &quot;{0}&quot; ({1}).
         /// </summary>
         internal static string ConditionKey {
@@ -187,6 +196,15 @@ namespace Grasp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to *.
+        /// </summary>
+        internal static string ManyLimit {
+            get {
+                return ResourceManager.GetString("ManyLimit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Member &quot;{0}&quot; is not a property.
         /// </summary>
         internal static string MemberIsNotProperty {
@@ -210,6 +228,15 @@ namespace Grasp {
         internal static string MemberTypeNotSupported {
             get {
                 return ResourceManager.GetString("MemberTypeNotSupported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Non-attached field &quot;{0}&quot; is not allowed on the non-Notion type {1}.
+        /// </summary>
+        internal static string NonAttachedFieldOnNonNotionType {
+            get {
+                return ResourceManager.GetString("NonAttachedFieldOnNonNotionType", resourceCulture);
             }
         }
         
@@ -282,6 +309,15 @@ namespace Grasp {
         internal static string TemplatesNotAllowed {
             get {
                 return ResourceManager.GetString("TemplatesNotAllowed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unspecified.
+        /// </summary>
+        internal static string UnspecifiedLimit {
+            get {
+                return ResourceManager.GetString("UnspecifiedLimit", resourceCulture);
             }
         }
         
