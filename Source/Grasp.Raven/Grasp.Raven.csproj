@@ -124,9 +124,8 @@
     <Compile Include="..\GraspAssemblyInfo.cs">
       <Link>Properties\GraspAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="AggregateDocument.cs" />
-    <Compile Include="AggregateVersionDocument.cs" />
-    <Compile Include="AggregateVersionDocuments_ByAggregateDocumentId.cs" />
+    <Compile Include="Revision.cs" />
+    <Compile Include="Revisions_ByAggregateId.cs" />
     <Compile Include="NotionJsonConverter.cs" />
     <Compile Include="RavenContext.cs" />
     <Compile Include="RavenListService.cs" />

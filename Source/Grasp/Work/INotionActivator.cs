@@ -11,6 +11,8 @@ namespace Grasp.Work
 	public interface INotionActivator
 	{
 		Notion ActivateUninitializedNotion(Type type);
+
+		T ActivateUninitializedNotion<T>() where T : Notion;
 	}
 
 	[ContractClassFor(typeof(INotionActivator))]
@@ -21,6 +23,13 @@ namespace Grasp.Work
 			Contract.Requires(type != null);
 			Contract.Requires(typeof(Notion).IsAssignableFrom(type));
 			Contract.Ensures(Contract.Result<Notion>() != null);
+
+			return null;
+		}
+
+		T INotionActivator.ActivateUninitializedNotion<T>()
+		{
+			Contract.Ensures(Contract.Result<T>() != null);
 
 			return null;
 		}

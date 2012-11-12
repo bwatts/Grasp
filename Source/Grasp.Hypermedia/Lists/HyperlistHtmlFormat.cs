@@ -51,7 +51,7 @@ namespace Grasp.Hypermedia.Lists
 		{
 			var content = GetBodyContent(list).ToList();
 
-			content.Insert(0, new MLink(list.PageLink.Override(relationship: new Relationship("grasp:list-template"))));
+			content.Insert(0, new MLink(list.PageLink.Override(relationship: "grasp:list-template")));
 
 			return new MCompositeContent(content);
 		}
@@ -98,7 +98,7 @@ namespace Grasp.Hypermedia.Lists
 		{
 			return
 				from item in list.Page.Items
-				let link = new MLink(item.Link.Override(relationship: new Relationship("grasp:list-item")))
+				let link = new MLink(item.Link.Override(relationship: "grasp:list-item"))
 				let bindings = item.ListItem.Bindings.Select(binding => new MValue(binding.Key, binding.Value))
 				select new MCompositeContent(new MContent[] { link }.Concat(bindings));
 		}
@@ -153,7 +153,7 @@ namespace Grasp.Hypermedia.Lists
 
 		private static Hyperlink ReadPageLink(MCompositeContent body)
 		{
-			return body.Items.ReadLink(new Relationship("grasp:list-template")).Hyperlink;
+			return body.Items.ReadLink("grasp:list-template").Hyperlink;
 		}
 
 		private static ListPageKey ReadQuery(MCompositeContent body)
@@ -265,7 +265,7 @@ namespace Grasp.Hypermedia.Lists
 				throw new FormatException(Resources.ExpectingCompositeListItemContent);
 			}
 
-			var link = content.Items.ReadLink(new Relationship("grasp:list-item"));
+			var link = content.Items.ReadLink("grasp:list-item");
 
 			var listItem = new ListItem(
 				new Number(Convert.ToInt32(link.Hyperlink.Content)),

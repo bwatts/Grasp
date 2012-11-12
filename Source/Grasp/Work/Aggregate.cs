@@ -12,21 +12,19 @@ namespace Grasp.Work
 	/// <summary>
 	/// A versioned consistency boundary in which all events occur on the same timeline
 	/// </summary>
-	public abstract class Aggregate : UniqueNotion, IPublisher
+	public abstract class Aggregate : PersistentNotion<Guid>, IPublisher
 	{
-		public static readonly Field<int> VersionField = Field.On<Aggregate>.For(x => x.Version);
+		public static readonly Field<Guid> RevisionIdField = Field.On<Aggregate>.For(x => x.RevisionId);
 		public static readonly Field<ManyInOrder<Event>> _unobservedEventsField = Field.On<Aggregate>.For(x => x._unobservedEvents);
 
 		private ManyInOrder<Event> _unobservedEvents { get { return GetValue(_unobservedEventsField); } set { SetValue(_unobservedEventsField, value); } }
 
-		protected Aggregate(Guid? id = null) : base(id)
+		protected Aggregate()
 		{
 			_unobservedEvents = new ManyInOrder<Event>();
-
-			Version = 1;
 		}
 
-		public int Version { get { return GetValue(VersionField); } private set { SetValue(VersionField, value); } }
+		public Guid RevisionId { get { return GetValue(RevisionIdField); } private set { SetValue(RevisionIdField, value); } }
 
 		public IEnumerable<Event> ObserveEvents()
 		{
@@ -48,19 +46,19 @@ namespace Grasp.Work
 				ApplyChange(@event, isNew: false);
 			}
 
-			Version = version.Number;
+			RevisionId = version.RevisionId;
 		}
 
 		// TODO: WhenCreated and WhenModified should be set automatically by the work context whenever a field changes, not called explicitly
 
 		protected void SetWhenCreated(DateTime when)
 		{
-			SetValue(EntityLifetime.WhenCreatedField, when);
+			SetValue(Lifetime.WhenCreatedField, when);
 		}
 
 		protected void SetWhenModified(DateTime when)
 		{
-			SetValue(EntityLifetime.WhenModifiedField, when);
+			SetValue(Lifetime.WhenModifiedField, when);
 		}
 
 		protected void Announce(Event @event)
@@ -70,15 +68,15 @@ namespace Grasp.Work
 
 		private void ApplyChange(Event @event, bool isNew)
 		{
-			DispatchEvent(@event);
+			DispatchToImplicitHandlers(@event);
 
 			if(isNew)
 			{
-				RecordChange(@event);
+				RecordUnobservedEvent(@event);
 			}
 		}
 
-		private void DispatchEvent(Event @event)
+		private void DispatchToImplicitHandlers(Event @event)
 		{
 			// This is some neat trickery from a CQRS tutorial repository:
 			//
@@ -95,7 +93,7 @@ namespace Grasp.Work
 			DynamicReflector.For(this).Handle(@event);
 		}
 
-		private void RecordChange(Event @event)
+		private void RecordUnobservedEvent(Event @event)
 		{
 			((IList<Event>) _unobservedEvents).Add(@event);
 		}

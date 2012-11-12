@@ -16,27 +16,27 @@ namespace Grasp.Work
 	public class AggregateVersion : Notion, IEnumerable<Event>
 	{
 		public static readonly Field<AggregateVersion> BaseVersionField = Field.On<AggregateVersion>.For(x => x.BaseVersion);
-		public static readonly Field<int> NumberField = Field.On<AggregateVersion>.For(x => x.Number);
+		public static readonly Field<Guid> RevisionIdField = Field.On<AggregateVersion>.For(x => x.RevisionId);
 		public static readonly Field<IEnumerable<Event>> _eventsField = Field.On<AggregateVersion>.For(x => x._events);
 
 		private IEnumerable<Event> _events { get { return GetValue(_eventsField); } set { SetValue(_eventsField, value); } }
 
-		public AggregateVersion(int number, IEnumerable<Event> events)
+		public AggregateVersion(Guid revisionId, IEnumerable<Event> events)
 		{
-			Contract.Requires(number > 0);
+			Contract.Requires(revisionId != Guid.Empty);
 			Contract.Requires(events != null);
 
-			Number = number;
+			RevisionId = revisionId;
 			_events = events;
 		}
 
-		public AggregateVersion(AggregateVersion baseVersion, int number, IEnumerable<Event> events) : this(number, events)
+		public AggregateVersion(AggregateVersion baseVersion, Guid revisionId, IEnumerable<Event> events) : this(revisionId, events)
 		{
 			BaseVersion = baseVersion;
 		}
 
 		public AggregateVersion BaseVersion { get { return GetValue(BaseVersionField); } private set { SetValue(BaseVersionField, value); } }
-		public int Number { get { return GetValue(NumberField); } private set { SetValue(NumberField, value); } }
+		public Guid RevisionId { get { return GetValue(RevisionIdField); } private set { SetValue(RevisionIdField, value); } }
 		
 		public IEnumerator<Event> GetEnumerator()
 		{

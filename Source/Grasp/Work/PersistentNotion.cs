@@ -15,12 +15,13 @@ namespace Grasp.Work
 	{
 		protected PersistentNotion(TId id = default(TId))
 		{
-			SetValue(PersistentId.ValueField, id);
+			Id = id;
 		}
 
 		public TId Id
 		{
 			get { return (TId) GetValue(PersistentId.ValueField); }
+			private set { SetValue(PersistentId.ValueField, value); }
 		}
 
 		public override string ToString()

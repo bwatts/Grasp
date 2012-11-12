@@ -36,7 +36,7 @@ namespace Slate.Http.Api
 
 			return new Hyperlist(
 				_resourceContext.CreateHeader("Issues"),
-				new Hyperlink("issues?page={page}&pageSize={page-size}&sort={sort}", relationship: new Relationship("grasp:list-page")),
+				new Hyperlink("issues?page={page}&pageSize={page-size}&sort={sort}", relationship: "grasp:list-page"),
 				key,
 				page.Context,
 				CreatePage(page));
@@ -56,7 +56,7 @@ namespace Slate.Http.Api
 		{
 			var number = ((int) listItem["Number"]).ToString();
 
-			var link = new Hyperlink("issues/{0}".FormatCurrent(number), listItem.Number, number, new Relationship("grasp:list-item"));
+			var link = new Hyperlink("issues/{0}".FormatCurrent(number), listItem.Number, number, "grasp:list-item");
 
 			return new HyperlistItem(link, listItem);
 		}

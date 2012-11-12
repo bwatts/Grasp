@@ -14,7 +14,7 @@ namespace Grasp.Work
 	[ContractClass(typeof(IRepositoryContract<>))]
 	public interface IRepository<TAggregate> where TAggregate : Aggregate
 	{
-		Task SaveAsync(TAggregate aggregate, int expectedVersion);
+		Task SaveAsync(TAggregate aggregate);
 
 		Task<TAggregate> LoadAsync(Guid aggregateId);
 	}
@@ -22,10 +22,9 @@ namespace Grasp.Work
 	[ContractClassFor(typeof(IRepository<>))]
 	internal abstract class IRepositoryContract<TAggregate> : IRepository<TAggregate> where TAggregate : Aggregate
 	{
-		Task IRepository<TAggregate>.SaveAsync(TAggregate aggregate, int expectedVersion)
+		Task IRepository<TAggregate>.SaveAsync(TAggregate aggregate)
 		{
 			Contract.Requires(aggregate != null);
-			Contract.Requires(expectedVersion > 0);
 			Contract.Ensures(Contract.Result<Task>() != null);
 
 			return null;

@@ -27,5 +27,10 @@ namespace Grasp.Work
 
 			return notion;
 		}
+
+		public T ActivateUninitializedNotion<T>() where T : Notion
+		{
+			return (T) ActivateUninitializedNotion(typeof(T));
+		}
 	}
 }

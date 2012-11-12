@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Cloak.Reflection;
 using Cloak.Time;
 using Grasp.Checks;
+using Grasp.Messaging;
 using Grasp.Semantics;
 using Grasp.Work;
 using Raven.Imports.Newtonsoft.Json;
@@ -62,6 +63,24 @@ namespace Grasp.Raven
 
 		private Notion ReconstituteNotion(NotionModel model, JToken json)
 		{
+
+
+			// TODO: Put commands and events in domain model
+			//
+			// If the current model represents an event, deserialize using a lookup in the domain model based on the "$type" property.
+			//
+			// "$type": "Grasp.Work.Items.WorkItemCreatedEvent"
+
+
+
+			// TODO: Ensure collection properties are not null when activating
+
+
+
+			
+
+
+
 			var notion = _activator.ActivateUninitializedNotion(model.Type);
 
 			new ReconstitutionContext(_timeContext, _domainModel, model, notion, json, _fieldValueConverter).Reconstitute();
@@ -73,8 +92,9 @@ namespace Grasp.Raven
 		{
 			return new JObject(
 				from binding in notion.GetBindings()
-				where binding.Field != EntityLifetime.WhenReconstitutedField
+				where binding.Field != Lifetime.WhenReconstitutedField
 				where binding.Field != Aggregate._unobservedEventsField
+				where binding.Field != Message.ChannelField
 				let propertyName = binding.Field.IsAttached ? binding.Field.FullName : binding.Field.Name
 				select new JProperty(propertyName, binding.Value));
 		}
@@ -169,7 +189,7 @@ namespace Grasp.Raven
 
 			private void SetWhenReconstituted()
 			{
-				_notion.SetValue(EntityLifetime.WhenReconstitutedField, _timeContext.Now);
+				_notion.SetValue(Lifetime.WhenReconstitutedField, _timeContext.Now);
 			}
 
 			private string GetJsonPropertyValue(string name)

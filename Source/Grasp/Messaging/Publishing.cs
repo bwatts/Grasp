@@ -14,20 +14,20 @@ namespace Grasp.Messaging
 	[EditorBrowsable(EditorBrowsableState.Never)]
 	public static class Publishing
 	{
-		public static Task AnnounceAsync(this IPublisher publisher, Event @event)
+		public static Task AnnounceAsync<TPublisher>(this TPublisher publisher, Event @event) where TPublisher : Notion, IPublisher
 		{
 			Contract.Requires(publisher != null);
 			Contract.Requires(@event != null);
 
-			return Message.Channel(@event).SendAsync(@event);
+			return Message.Channel(publisher).PublishAsync(@event);
 		}
 
-		public static Task IssueAsync(this IPublisher publisher, Command command)
+		public static Task IssueAsync<TPublisher>(this TPublisher publisher, Command command) where TPublisher : Notion, IPublisher
 		{
 			Contract.Requires(publisher != null);
 			Contract.Requires(command != null);
 
-			return Message.Channel(command).SendAsync(command);
+			return Message.Channel(publisher).PublishAsync(command);
 		}
 	}
 }

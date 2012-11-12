@@ -8,147 +8,150 @@ using Cloak.Linq;
 using Grasp.Messaging;
 using Grasp.Work;
 using Raven.Client;
+using Raven.Client.Document;
 using Raven.Client.Linq;
 
 namespace Grasp.Raven
 {
-	public sealed class RavenRepository<TAggregate> : RavenContext, IRepository<TAggregate> where TAggregate : Aggregate, new()
+	public sealed class RavenRepository<TAggregate> : RavenContext, IRepository<TAggregate> where TAggregate : Aggregate
 	{
-		public RavenRepository(IDocumentStore documentStore) : base(documentStore)
-		{}
+		public static readonly Field<INotionActivator> _activatorField = Field.On<RavenRepository<TAggregate>>.For(x => x._activator);
 
-		public Task SaveAsync(TAggregate aggregate, int expectedVersion)
+		private INotionActivator _activator { get { return GetValue(_activatorField); } set { SetValue(_activatorField, value); } }
+
+		public RavenRepository(IDocumentStore documentStore, INotionActivator activator) : base(documentStore)
 		{
-			return ExecuteWriteAsync(async session => await new EventStorage(session, aggregate, expectedVersion).StoreEventsAsync());
+			Contract.Requires(activator != null);
+
+			_activator = activator;
+		}
+
+		public Task SaveAsync(TAggregate aggregate)
+		{
+			return ExecuteWriteAsync(session => new EventStorage(aggregate, session).StoreEvents());
 		}
 
 		public Task<TAggregate> LoadAsync(Guid aggregateId)
 		{
 			return ExecuteReadAsync(session =>
 			{
-				var aggregate = new TAggregate();
+				var aggregate = _activator.ActivateUninitializedNotion<TAggregate>();
 
-				aggregate.SetVersion(LoadLatestVersion(aggregateId, session));
+				aggregate.SetVersion(LoadHeadVersion(aggregateId, session));
 
 				return aggregate;
 			});
 		}
 
-		private static AggregateVersion LoadLatestVersion(Guid aggregateId, IDocumentSession session)
+		private static AggregateVersion LoadHeadVersion(Guid aggregateId, IDocumentSession session)
 		{
-			AggregateVersion version = null;
+			// TODO: Is there a better way to find the aggregate document ID?
+			var aggregateDocumentId = DocumentConvention.DefaultTypeTagName(typeof(TAggregate)) + "/" + aggregateId.ToString("N").ToUpper();
 
-			foreach(var versionDocument in LoadVersionDocuments(aggregateId, session))
+			AggregateVersion currentVersion = null;
+
+			foreach(var revision in LoadRevisions(aggregateDocumentId, session))
 			{
-				version = version == null
-					? new AggregateVersion(versionDocument.Number, versionDocument.Events)
-					: new AggregateVersion(version, versionDocument.Number, versionDocument.Events);
+				var revisionId = GetRevisionId(revision.Id);
+
+				currentVersion = currentVersion == null
+					? new AggregateVersion(revisionId, revision.Events)
+					: new AggregateVersion(currentVersion, revisionId, revision.Events);
 			}
 
-			return version ?? new AggregateVersion(1, Enumerable.Empty<Event>());
+			if(currentVersion == null)
+			{
+				throw new GraspException(Resources.AggregateHasNoHistory.FormatInvariant(aggregateDocumentId));
+			}
+
+			return currentVersion;
 		}
 
-		private static List<AggregateVersionDocument> LoadVersionDocuments(Guid aggregateId, IDocumentSession session)
+		private static IEnumerable<Revision> LoadRevisions(string aggregateId, IDocumentSession session)
 		{
-			var aggregateDocumentId = GetAggregateDocumentId(aggregateId);
-
-			return session
-				.Query<AggregateVersionDocument, AggregateVersionDocuments_ByAggregateDocumentId>()
-				.Where(version => version.AggregateDocumentId == aggregateDocumentId)
-				.ToList();
+			return session.Query<Revision, Revisions_ByAggregateId>().Where(revision => revision.AggregateId == aggregateId);
 		}
 
-		private static string GetAggregateDocumentId(Guid aggregateId)
+		private static Guid GetRevisionId(string revisionDocumentId)
 		{
-			return "aggregates/{0}".FormatInvariant(aggregateId);
+			var idText = revisionDocumentId.Substring("Revisions/".Length);
+
+			return Guid.ParseExact(idText, "N");
+		}
+
+		private static string GetRevisionDocumentId(Guid revisionId)
+		{
+			return "Revisions/" + revisionId.ToString("N").ToUpper();
 		}
 
 		private sealed class EventStorage
 		{
-			private readonly IDocumentSession _session;
 			private readonly TAggregate _aggregate;
-			private readonly int _expectedVersion;
-			private string _aggregateDocumentId;
-			private AggregateDocument _aggregateDocument;
-			private int _newVersion;
+			private readonly IDocumentSession _session;
+			private string _aggregateId;
+			private TAggregate _existingAggregate;
+			private Revision _existingRevision;
+			private Revision _newRevision;
 
-			internal EventStorage(IDocumentSession session, TAggregate aggregate, int expectedVersion)
+			internal EventStorage(TAggregate aggregate, IDocumentSession session)
 			{
-				_session = session;
 				_aggregate = aggregate;
-				_expectedVersion = expectedVersion;
+				_session = session;
 			}
 
-			internal async Task StoreEventsAsync()
+			internal void StoreEvents()
 			{
-				await InitializeAsync();
+				LoadExistingAggregate();
 
-				StoreAggregateDocument();
+				CheckConcurrency();
 
-				StoreNewVersion();
+				CreateRevisionAndAssignToAggregate();
+
+				StoreAggregateAndRevision();
 			}
 
-			private async Task InitializeAsync()
+			private void LoadExistingAggregate()
 			{
-				_aggregateDocumentId = GetAggregateDocumentId(_aggregate.Id);
+				_aggregateId = _session.Advanced.GetDocumentId(_aggregate);
 
-				_aggregateDocument = await LoadAggregateDocumentAsync();
+				_existingAggregate = _session.Load<TAggregate>(_aggregateId);
 
-				_newVersion = _aggregate.Version + 1;
+				_existingRevision = _existingAggregate == null ? null : _session.Load<Revision>(_existingAggregate.RevisionId);
 			}
 
-			private Task<AggregateDocument> LoadAggregateDocumentAsync()
+			private void CheckConcurrency()
 			{
-				return Task.Run(() =>
+				if(_existingAggregate != null && _existingAggregate.RevisionId != _aggregate.RevisionId)
 				{
-					_aggregateDocument = _session.Load<AggregateDocument>(_aggregateDocumentId);
-
-					if(_aggregateDocument.LatestVersion != _expectedVersion)
+					throw new ConcurrencyException(Resources.ConcurrencyViolation.FormatInvariant(typeof(TAggregate), _aggregate.Id, _aggregate.RevisionId, _existingAggregate.RevisionId))
 					{
-						throw new ConcurrencyException(Resources.ConcurrencyViolation.FormatInvariant(typeof(TAggregate), _aggregate.Id, _expectedVersion, _aggregate.Version))
-						{
-							AggregateType = typeof(TAggregate),
-							AggregateId = _aggregate.Id,
-							ExpectedVersion = _expectedVersion,
-							ActualVersion = _aggregate.Version
-						};
-					}
-
-					return _aggregateDocument;
-				});
+						AggregateType = typeof(TAggregate),
+						AggregateId = _aggregate.Id,
+						ExpectedRevisionId = _aggregate.RevisionId,
+						ActualRevisionId = _existingAggregate.RevisionId
+					};
+				}
 			}
 
-			private void StoreAggregateDocument()
+			private void CreateRevisionAndAssignToAggregate()
 			{
-				_session.Store(new AggregateDocument
-				{
-					Id = GetAggregateDocumentId(_aggregate.Id),
-					LatestVersion = _newVersion,
-					VersionDocumentIds = GetVersionDocumentIds(_newVersion).ToList()
-				});
+				var newRevisionId = Guid.NewGuid();
+
+				_newRevision = new Revision(
+					GetRevisionDocumentId(newRevisionId),
+					_aggregateId,
+					GetRevisionDocumentId(_aggregate.RevisionId),
+					_existingRevision.Number + 1,
+					_aggregate.ObserveEvents());
+
+				Aggregate.RevisionIdField.Set(_aggregate, newRevisionId);
 			}
 
-			private void StoreNewVersion()
+			private void StoreAggregateAndRevision()
 			{
 				_session.Store(_aggregate);
 
-				_session.Store(new AggregateVersionDocument
-				{
-					Id = GetVersionDocumentId(_newVersion),
-					AggregateDocumentId = _aggregateDocumentId,
-					Number = _newVersion,
-					Events = _aggregate.ObserveEvents().ToList()
-				});
-			}
-
-			private IEnumerable<string> GetVersionDocumentIds(int newVersionNumber)
-			{
-				return _aggregateDocument.VersionDocumentIds.Concat(GetVersionDocumentId(newVersionNumber));
-			}
-
-			private string GetVersionDocumentId(int newVersionNumber)
-			{
-				return "aggregates/{0}/versions/{1}".FormatInvariant(_aggregate.Id, newVersionNumber);
+				_session.Store(_newRevision);
 			}
 		}
 	}

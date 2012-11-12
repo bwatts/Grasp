@@ -10,11 +10,16 @@ namespace Grasp.Hypermedia
 	{
 		public static readonly Field<string> NameField = Field.On<Relationship>.For(x => x.Name);
 
-		public static readonly Relationship Empty = new Relationship("");
-		public static readonly Relationship Self = new Relationship(Resources.SelfRelationship);
+		public static implicit operator Relationship(string name)
+		{
+			return new Relationship(name);
+		}
 
-		public static readonly Relationship Singular = new Relationship(Resources.SingularRelationship);
-		public static readonly Relationship Plural = new Relationship(Resources.PluralRelationship);
+		public static readonly Relationship Empty = "";
+		public static readonly Relationship Self = Resources.SelfRelationship;
+
+		public static readonly Relationship Singular = Resources.SingularRelationship;
+		public static readonly Relationship Plural = Resources.PluralRelationship;
 
 		public Relationship(string name)
 		{

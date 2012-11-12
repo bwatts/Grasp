@@ -98,7 +98,7 @@ namespace Grasp.Hypermedia.Linq
 			var rel = ((string) element.Attribute(Hyperlink.RelAttributeName) ?? "");
 			var href = element.RequiredAttribute(Hyperlink.HrefAttributeName).RequiredString();
 
-			return new Hyperlink(href, element.Value, title, new Relationship(rel));
+			return new Hyperlink(href, element.Value, title, rel);
 		}
 
 		private static MLink ReadMLink(this XElement element)

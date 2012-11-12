@@ -5,15 +5,16 @@ using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Grasp.Work;
 
 namespace Grasp.Messaging
 {
 	/// <summary>
 	/// A message which travels along channels in a reactive system
 	/// </summary>
-	public abstract class Message : UniqueNotion
+	public abstract class Message : PersistentNotion<Guid>
 	{
-		public static IMessageChannel Channel(Notion publisher)
+		public static IMessageChannel Channel<TPublisher>(TPublisher publisher) where TPublisher : Notion, IPublisher
 		{
 			Contract.Requires(publisher != null);
 
@@ -21,33 +22,18 @@ namespace Grasp.Messaging
 			return ChannelField.Get(publisher) ?? new DebugChannel();
 		}
 
-		// TODO: Metadata specifying a default value of a channel that writes to Debug
+		// TODO: Metadata specifying a default value of a channel read from the current thread context (how to propagate? set attached field on first access?)
 		public static readonly Field<IMessageChannel> ChannelField = Field.AttachedTo<Notion>.By<Message>.For(() => ChannelField);
-
-		protected Message(Guid? id = null) : base(id)
-		{}
 
 		private sealed class DebugChannel : IMessageChannel
 		{
-			public Task SendAsync(Message message)
+			public Task PublishAsync(Message message)
 			{
 				return Task.Run(() => Debug.WriteLine(
 					"Published message of type {0} with ID {1} and field bindings [{2}]",
 					message.GetType(),
 					message.Id,
 					String.Join("] [", message.GetBindings())));
-			}
-
-			public Task<DateTime> SendAsync(Func<DateTime, Message> messageSelector)
-			{
-				return Task.Run(() =>
-				{
-					var when = DateTime.Now;
-
-					SendAsync(messageSelector(when));
-
-					return when;
-				});
 			}
 		}
 	}

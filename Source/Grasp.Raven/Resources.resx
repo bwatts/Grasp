@@ -117,7 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AggregateHasNoHistory" xml:space="preserve">
+    <value>Aggregate {0} has no revisions in its history</value>
+  </data>
   <data name="ConcurrencyViolation" xml:space="preserve">
-    <value>Concurrency violation for entity of type {0} with ID "{1}": expected version {2} but loaded {3}</value>
+    <value>Concurrency violation for aggregate of type {0} with ID {1}: expected version {2} but loaded {3}</value>
   </data>
 </root>

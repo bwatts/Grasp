@@ -21,5 +21,12 @@ namespace Slate.Http.Server.Configuration
 			get { return (string) this["connectionStringName"]; }
 			set { this["connectionStringName"] = value; }
 		}
+
+		[ConfigurationProperty("workRetryInterval", IsRequired = true)]
+		public TimeSpan WorkRetryInterval
+		{
+			get { return (TimeSpan) this["workRetryInterval"]; }
+			set { this["workRetryInterval"] = value; }
+		}
 	}
 }

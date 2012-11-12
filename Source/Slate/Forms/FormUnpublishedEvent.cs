@@ -10,11 +10,13 @@ namespace Slate.Forms
 {
 	public class FormUnpublishedEvent : Event
 	{
-		public readonly Guid FormId;
+		public static readonly Field<Guid> FormIdField = Field.On<FormUnpublishedEvent>.For(x => x.FormId);
 
 		public FormUnpublishedEvent(Guid formId)
 		{
 			FormId = formId;
 		}
+
+		public Guid FormId { get { return GetValue(FormIdField); } private set { SetValue(FormIdField, value); } }
 	}
 }

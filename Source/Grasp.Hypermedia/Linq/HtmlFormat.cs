@@ -88,7 +88,7 @@ namespace Grasp.Hypermedia.Linq
 		{
 			// TODO: Make URL dynamic
 
-			yield return new Hyperlink("media/application%2Fvnd.grasp.list%2Bhtml", relationship: new Relationship("grasp:media-type"));
+			yield return new Hyperlink("media/application%2Fvnd.grasp.list%2Bhtml", relationship: "grasp:media-type");
 
 			foreach(var link in head.Links)
 			{

@@ -12,14 +12,15 @@ namespace Slate.Http.Server.Composition
 {
 	public class ApiModule : BuilderModule
 	{
-		public ApiModule(HttpConfiguration httpConfiguration, SiteSection serverConfiguration)
+		public ApiModule(HttpConfiguration httpSettings, SiteSection siteSettings)
 		{
-			RegisterModule(new ListModule(httpConfiguration));
+			RegisterModule(new ListModule(httpSettings));
 
-			RegisterModule(new FormsModule(httpConfiguration));
-			RegisterModule(new IssuesModule(httpConfiguration));
+			RegisterModule(new FormsModule(httpSettings, siteSettings));
+			RegisterModule(new IssuesModule(httpSettings));
+			RegisterModule(new WorkModule(httpSettings));
 
-			Register(c => new HttpResourceContext(serverConfiguration.BaseUrl)).As<IHttpResourceContext>().SingleInstance();
+			Register(c => new HttpResourceContext(siteSettings.BaseUrl)).As<IHttpResourceContext>().SingleInstance();
 		}
 	}
 }

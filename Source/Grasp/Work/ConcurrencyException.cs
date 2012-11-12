@@ -50,13 +50,13 @@ namespace Grasp.Work
 		public Guid AggregateId { get; set; }
 
 		/// <summary>
-		/// Gets the version number expected to be loaded
+		/// Gets the revision ID expected to be loaded
 		/// </summary>
-		public int ExpectedVersion { get; set; }
+		public Guid ExpectedRevisionId { get; set; }
 
 		/// <summary>
-		/// Gets the version number actually loaded
+		/// Gets the revision ID actually loaded
 		/// </summary>
-		public int ActualVersion { get; set; }
+		public Guid ActualRevisionId { get; set; }
 	}
 }

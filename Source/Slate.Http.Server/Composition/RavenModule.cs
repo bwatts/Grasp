@@ -17,7 +17,7 @@ namespace Slate.Http.Server.Composition
 {
 	public class RavenModule : BuilderModule
 	{
-		public RavenModule(string connectionStringName, Assembly indexAssembly)
+		public RavenModule(string connectionStringName, params Assembly[] indexAssemblies)
 		{
 			Register(c =>
 			{
@@ -31,7 +31,10 @@ namespace Slate.Http.Server.Composition
 
 				documentStore.Initialize();
 
-				IndexCreation.CreateIndexes(indexAssembly, documentStore);
+				foreach(var indexAssembly in indexAssemblies)
+				{
+					IndexCreation.CreateIndexes(indexAssembly, documentStore);
+				}
 
 				return documentStore;
 			})

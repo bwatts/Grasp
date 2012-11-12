@@ -159,6 +159,8 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="UriTemplateHasVariablesCheck.cs" />
+    <Compile Include="WorkItemHtmlFormat.cs" />
+    <Compile Include="WorkItemResource.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\.submodules\Cloak\Source\Cloak.Http\Cloak.Http.csproj">
@@ -178,6 +180,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="_Examples\work-item_in-progress.html" />
+    <Content Include="_Examples\work-item_complete.html" />
+    <Content Include="_Examples\work-item_accepted.html" />
     <Content Include="_Examples\forms.html" />
   </ItemGroup>
   <ItemGroup>

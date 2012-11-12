@@ -18,13 +18,13 @@ namespace Grasp.Messaging
 		/// </summary>
 		/// <param name="message">The message to publish on this channel</param>
 		/// <returns>The work of publishing the message</returns>
-		Task SendAsync(Message message);
+		Task PublishAsync(Message message);
 	}
 
 	[ContractClassFor(typeof(IMessageChannel))]
 	internal abstract class IMessageChannelContract : IMessageChannel
 	{
-		Task IMessageChannel.SendAsync(Message message)
+		Task IMessageChannel.PublishAsync(Message message)
 		{
 			Contract.Requires(message != null);
 			Contract.Ensures(Contract.Result<Task>() != null);

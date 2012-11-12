@@ -13,7 +13,7 @@ namespace Grasp.Messaging
 	{
 		public static readonly Field<DateTime> WhenField = Field.On<Event>.For(x => x.When);
 
-		protected Event(DateTime? when = null, Guid? id = null) : base(id)
+		protected Event(DateTime? when = null)
 		{
 			When = when ?? DateTime.UtcNow;
 		}

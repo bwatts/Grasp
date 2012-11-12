@@ -61,7 +61,16 @@ namespace Grasp.Raven {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Concurrency violation for entity of type {0} with ID &quot;{1}&quot;: expected version {2} but loaded {3}.
+        ///   Looks up a localized string similar to Aggregate {0} has no revisions in its history.
+        /// </summary>
+        internal static string AggregateHasNoHistory {
+            get {
+                return ResourceManager.GetString("AggregateHasNoHistory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Concurrency violation for aggregate of type {0} with ID {1}: expected version {2} but loaded {3}.
         /// </summary>
         internal static string ConcurrencyViolation {
             get {

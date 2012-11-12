@@ -113,7 +113,7 @@
     <Compile Include="Forms\FormDisallowedPreviewEvent.cs" />
     <Compile Include="Forms\FormAllowedPreviewEvent.cs" />
     <Compile Include="Forms\FormPublishedEvent.cs" />
-    <Compile Include="Forms\FormStartedEvent.cs" />
+    <Compile Include="Forms\FormCreatedEvent.cs" />
     <Compile Include="Issue.cs" />
     <Compile Include="Forms\Form.cs" />
     <Compile Include="Forms\FormVisibility.cs" />

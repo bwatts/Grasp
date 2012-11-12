@@ -16,15 +16,15 @@ namespace Slate.Http.Server.Composition
 {
 	public class IssuesModule : BuilderModule
 	{
-		public IssuesModule(HttpConfiguration configuration)
+		public IssuesModule(HttpConfiguration httpSettings)
 		{
-			Contract.Requires(configuration != null);
+			Contract.Requires(httpSettings != null);
 
 			RegisterType<IssueListService>().Named<IListService>("Issues").InstancePerDependency();
 
 			Register(c => new IssuesController(c.Resolve<IHttpResourceContext>(), c.ResolveNamed<IListService>("Issues"))).InstancePerDependency();
 
-			configuration.Routes.MapHttpRoute("issues", "issues", new { controller = "Issues", action = "GetListPageAsync" });
+			httpSettings.Routes.MapHttpRoute("issues", "issues", new { controller = "Issues", action = "GetListPageAsync" });
 		}
 	}
 }

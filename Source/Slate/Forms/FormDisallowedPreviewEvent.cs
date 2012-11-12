@@ -10,11 +10,13 @@ namespace Slate.Forms
 {
 	public class FormDisallowedPreviewEvent : Event
 	{
-		public readonly Guid FormId;
+		public static readonly Field<Guid> FormIdField = Field.On<FormDisallowedPreviewEvent>.For(x => x.FormId);
 
 		public FormDisallowedPreviewEvent(Guid formId)
 		{
 			FormId = formId;
 		}
+
+		public Guid FormId { get { return GetValue(FormIdField); } private set { SetValue(FormIdField, value); } }
 	}
 }

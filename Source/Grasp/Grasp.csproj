@@ -272,7 +272,7 @@
     <Compile Include="EquatableValue.cs" />
     <Compile Include="EquatableWithExactType.cs" />
     <Compile Include="FieldBinding.cs" />
-    <Compile Include="Messaging\IMessageHandler.cs" />
+    <Compile Include="Messaging\ISubscriber.cs" />
     <Compile Include="Messaging\IPublisher.cs" />
     <Compile Include="Messaging\Publisher.cs" />
     <Compile Include="Messaging\Publishing.cs" />
@@ -285,6 +285,12 @@
     <Compile Include="Work\ConcurrencyException.cs" />
     <Compile Include="Work\FieldValueConverter.cs" />
     <Compile Include="Work\IFieldValueConverter.cs" />
+    <Compile Include="Work\Items\Progress.cs" />
+    <Compile Include="Work\Items\ProgressReportedEvent.cs" />
+    <Compile Include="Work\Items\ProgressStartedEvent.cs" />
+    <Compile Include="Work\Items\WorkItem.cs" />
+    <Compile Include="Work\Items\WorkItemCompletedEvent.cs" />
+    <Compile Include="Work\Items\WorkItemCreatedEvent.cs" />
     <Compile Include="Work\NotionActivator.cs" />
     <Compile Include="Work\INotionActivator.cs" />
     <Compile Include="Work\IRepository.cs" />
@@ -295,7 +301,6 @@
     <Compile Include="Lists\ListPage.cs" />
     <Compile Include="Lists\ListPageKey.cs" />
     <Compile Include="Work\PersistentNotion.cs" />
-    <Compile Include="UniqueNotion.cs" />
     <Compile Include="Work\Aggregate.cs" />
     <Compile Include="Messaging\Event.cs" />
     <Compile Include="GraspException.cs" />
@@ -316,7 +321,7 @@
     <Compile Include="Many.cs" />
     <Compile Include="Notion.cs" />
     <Compile Include="Work\PersistentId.cs" />
-    <Compile Include="Work\EntityLifetime.cs" />
+    <Compile Include="Work\Lifetime.cs" />
     <Compile Include="Lists\SortDirection.cs" />
     <Compile Include="Lists\SortField.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

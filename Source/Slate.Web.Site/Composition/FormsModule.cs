@@ -30,7 +30,7 @@ namespace Slate.Web.Site.Composition
 			.Named<IListModelFactory>("Forms")
 			.InstancePerDependency();
 
-			RegisterType<StartFormService>().As<IStartFormService>().SingleInstance();
+			//RegisterType<StartFormService>().As<IStartFormService>().SingleInstance();
 
 			RegisterType<FormsController>().InstancePerDependency();
 
