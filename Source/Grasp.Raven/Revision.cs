@@ -21,7 +21,6 @@ namespace Grasp.Raven
 
 		public Revision(string id, string aggregateId, string baseRevisionId, int number, IEnumerable<Event> events)
 		{
-			Contract.Requires(!String.IsNullOrEmpty(id));
 			Contract.Requires(!String.IsNullOrEmpty(aggregateId));
 			Contract.Requires(number > 0);
 			Contract.Requires(events != null);

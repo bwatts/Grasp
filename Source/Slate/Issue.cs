@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Grasp;
 using Grasp.Work;
+using Grasp.Work.Persistence;
 
 namespace Slate
 {
@@ -27,7 +28,7 @@ namespace Slate
 
 		private void Handle(IssueOpenedEvent e)
 		{
-			PersistentId.ValueField.Set(this, e.IssueId);
+			SetValue(PersistentId.ValueField, e.IssueId);
 
 			Number = e.Number;
 			Title = e.Title;

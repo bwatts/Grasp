@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics.Contracts;
 using System.Globalization;
 using System.Linq;
@@ -12,6 +13,7 @@ namespace Grasp.Work.Items
 	/// An integer in the range 0-100 representing progress on a work item
 	/// </summary>
 	[Serializable]
+	[TypeConverter(typeof(ProgressConverter))]
 	public struct Progress : IEquatable<Progress>, IComparable<Progress>
 	{
 		#region Operators

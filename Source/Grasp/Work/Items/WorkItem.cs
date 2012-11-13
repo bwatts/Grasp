@@ -4,6 +4,7 @@ using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Grasp.Work.Persistence;
 
 namespace Grasp.Work.Items
 {
@@ -49,7 +50,7 @@ namespace Grasp.Work.Items
 
 		private void Handle(WorkItemCreatedEvent e)
 		{
-			PersistentId.ValueField.Set(this, e.WorkItemId);
+			SetValue(PersistentId.ValueField, e.WorkItemId);
 
 			Description = e.Description;
 			RetryInterval = e.RetryInterval;

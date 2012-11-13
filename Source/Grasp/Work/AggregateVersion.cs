@@ -40,23 +40,28 @@ namespace Grasp.Work
 		
 		public IEnumerator<Event> GetEnumerator()
 		{
-			var version = this;
-
-			do
-			{
-				foreach(var @event in version._events)
-				{
-					yield return @event;
-				}
-
-				version = version.BaseVersion;
-			}
-			while(version != null);
+			return GetEvents(this).GetEnumerator();
 		}
 
 		IEnumerator IEnumerable.GetEnumerator()
 		{
 			return GetEnumerator();
+		}
+
+		private IEnumerable<Event> GetEvents(AggregateVersion version)
+		{
+			if(version.BaseVersion != null)
+			{
+				foreach(var baseEvent in GetEvents(version.BaseVersion))
+				{
+					yield return baseEvent;
+				}
+			}
+
+			foreach(var @event in version._events)
+			{
+				yield return @event;
+			}
 		}
 	}
 }

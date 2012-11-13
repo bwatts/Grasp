@@ -9,6 +9,7 @@ using Cloak.Time;
 using Grasp.Raven;
 using Grasp.Semantics;
 using Grasp.Work;
+using Grasp.Work.Persistence;
 using Raven.Client;
 using Raven.Client.Document;
 using Raven.Client.Indexes;
@@ -19,15 +20,11 @@ namespace Slate.Http.Server.Composition
 	{
 		public RavenModule(string connectionStringName, params Assembly[] indexAssemblies)
 		{
+			RegisterGeneric(typeof(RavenRepository<>)).As(typeof(IRepository<>)).InstancePerDependency();
+
 			Register(c =>
 			{
-				var documentStore = CreateDocumentStore(
-					connectionStringName,
-					new NotionJsonConverter(
-						c.Resolve<ITimeContext>(),
-						c.ResolveNamed<DomainModel>("Slate"),
-						c.Resolve<INotionActivator>(),
-						c.Resolve<IFieldValueConverter>()));
+				var documentStore = CreateDocumentStore(connectionStringName, c.Resolve<IComponentContext>());
 
 				documentStore.Initialize();
 
@@ -40,18 +37,20 @@ namespace Slate.Http.Server.Composition
 			})
 			.As<IDocumentStore>()
 			.SingleInstance();
-
-			RegisterGeneric(typeof(RavenRepository<>)).As(typeof(IRepository<>)).InstancePerDependency();
 		}
 
-		private static IDocumentStore CreateDocumentStore(string connectionStringName, NotionJsonConverter notionJsonConverter)
+		private static IDocumentStore CreateDocumentStore(string connectionStringName, IComponentContext context)
 		{
+			var jsonConverter = new NotionJsonConverter(
+				json => new JsonState(json, context.Resolve<IFieldValueConverter>()),
+				context.Resolve<INotionActivator>());
+
 			return new DocumentStore
 			{
 				ConnectionStringName = connectionStringName,
 				Conventions =
 				{
-					CustomizeJsonSerializer = serializer => serializer.Converters.Add(notionJsonConverter)
+					CustomizeJsonSerializer = serializer => serializer.Converters.Add(jsonConverter)
 				}
 			};
 		}

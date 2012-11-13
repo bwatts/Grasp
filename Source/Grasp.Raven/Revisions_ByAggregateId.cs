@@ -13,7 +13,7 @@ namespace Grasp.Raven
 	{
 		public Revisions_ByAggregateId()
 		{
-			Map = revisions => from revision in revisions select new { AggregateId = revision.AggregateId };
+			Map = revisions => from revision in revisions select new { revision.AggregateId, revision.Number };
 
 			Sort(revision => revision.Number, SortOptions.Int);
 		}

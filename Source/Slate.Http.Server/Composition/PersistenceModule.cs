@@ -4,36 +4,37 @@ using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using Autofac;
 using Cloak.Autofac;
+using Cloak.Time;
 using Grasp;
 using Grasp.Semantics;
 using Grasp.Semantics.Discovery.Reflection;
-using Grasp.Work;
+using Grasp.Work.Persistence;
 
 namespace Slate.Http.Server.Composition
 {
-	public class DomainModule : BuilderModule
+	public class PersistenceModule : BuilderModule
 	{
-		public DomainModule(IEnumerable<Assembly> assemblies)
+		public PersistenceModule(IEnumerable<Assembly> assemblies)
 		{
 			Contract.Requires(assemblies != null);
 
 			Register(c => assemblies.BindDomainModel("Slate").BindDomainModel()).Named<DomainModel>("Slate").SingleInstance();
 
-			RegisterType<FakeNotionContext>().As<INotionContext>().InstancePerDependency();
+			RegisterType<IsolatedNotionContext>().As<INotionContext>().InstancePerDependency();
 
-			RegisterType<NotionActivator>().As<INotionActivator>().SingleInstance();
+			Register(c => new NotionActivator(c.Resolve<ITimeContext>(), c.ResolveNamed<DomainModel>("Slate"), c.Resolve<Func<INotionContext>>()))
+			.As<INotionActivator>()
+			.SingleInstance();
 
 			RegisterType<FieldValueConverter>().As<IFieldValueConverter>().SingleInstance();
 		}
 
-		public DomainModule(params Assembly[] assemblies) : this(assemblies as IEnumerable<Assembly>)
+		public PersistenceModule(params Assembly[] assemblies) : this(assemblies as IEnumerable<Assembly>)
 		{}
 
-
-
-
-		private sealed class FakeNotionContext : INotionContext
+		private sealed class IsolatedNotionContext : INotionContext
 		{
 			private readonly IDictionary<Field, object> _values = new Dictionary<Field, object>();
 
@@ -61,10 +62,5 @@ namespace Slate.Http.Server.Composition
 				_values[field] = value;
 			}
 		}
-
-
-
-
-
 	}
 }

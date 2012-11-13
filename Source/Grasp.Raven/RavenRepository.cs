@@ -7,6 +7,7 @@ using Cloak;
 using Cloak.Linq;
 using Grasp.Messaging;
 using Grasp.Work;
+using Grasp.Work.Persistence;
 using Raven.Client;
 using Raven.Client.Document;
 using Raven.Client.Linq;
@@ -35,7 +36,7 @@ namespace Grasp.Raven
 		{
 			return ExecuteReadAsync(session =>
 			{
-				var aggregate = _activator.ActivateUninitializedNotion<TAggregate>();
+				var aggregate = _activator.Activate<TAggregate>();
 
 				aggregate.SetVersion(LoadHeadVersion(aggregateId, session));
 
@@ -45,7 +46,7 @@ namespace Grasp.Raven
 
 		private static AggregateVersion LoadHeadVersion(Guid aggregateId, IDocumentSession session)
 		{
-			// TODO: Is there a better way to find the aggregate document ID?
+			// TODO: Is there a more preferred way to find the aggregate document ID?
 			var aggregateDocumentId = DocumentConvention.DefaultTypeTagName(typeof(TAggregate)) + "/" + aggregateId.ToString("N").ToUpper();
 
 			AggregateVersion currentVersion = null;
@@ -69,7 +70,11 @@ namespace Grasp.Raven
 
 		private static IEnumerable<Revision> LoadRevisions(string aggregateId, IDocumentSession session)
 		{
-			return session.Query<Revision, Revisions_ByAggregateId>().Where(revision => revision.AggregateId == aggregateId);
+			return
+				from revision in session.Query<Revision, Revisions_ByAggregateId>()
+				where revision.AggregateId == aggregateId
+				orderby revision.Number
+				select revision;
 		}
 
 		private static Guid GetRevisionId(string revisionDocumentId)

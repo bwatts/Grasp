@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Grasp;
 using Grasp.Messaging;
 using Grasp.Work;
+using Grasp.Work.Persistence;
 
 namespace Slate.Forms
 {
@@ -67,7 +68,7 @@ namespace Slate.Forms
 
 		private void Handle(FormCreatedEvent e)
 		{
-			PersistentId.ValueField.Set(this, e.FormId);
+			SetValue(PersistentId.ValueField, e.FormId);
 
 			Name = e.Name;
 			Visibility = FormVisibility.Draft;

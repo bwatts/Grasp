@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Cloak;
 
-namespace Grasp.Work
+namespace Grasp.Work.Persistence
 {
 	/// <summary>
 	/// A notion with a persistent identifier

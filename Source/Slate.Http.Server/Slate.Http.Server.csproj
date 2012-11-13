@@ -192,7 +192,7 @@
     </Compile>
     <Compile Include="Composition\ApiModule.cs" />
     <Compile Include="Composition\WorkModule.cs" />
-    <Compile Include="Composition\DomainModule.cs" />
+    <Compile Include="Composition\PersistenceModule.cs" />
     <Compile Include="Composition\IssuesModule.cs" />
     <Compile Include="Composition\ListModule.cs" />
     <Compile Include="Composition\FormsModule.cs" />

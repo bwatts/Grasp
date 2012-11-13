@@ -32,7 +32,15 @@ namespace Grasp.Semantics
 				let fieldAttacher = type as FieldAttacherModel
 				where fieldAttacher != null
 				from attachedField in fieldAttacher.AttachedFields
+				where attachedField.TargetType.IsAssignableFrom(Type)
 				select attachedField;
+		}
+
+		public IEnumerable<Field> GetManyFields(DomainModel domainModel)
+		{
+			Contract.Requires(domainModel != null);
+
+			return Fields.Concat(GetAttachableFields(domainModel)).Where(field => field.IsMany);
 		}
 	}
 }

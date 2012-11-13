@@ -124,6 +124,7 @@
     <Compile Include="..\GraspAssemblyInfo.cs">
       <Link>Properties\GraspAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="JsonState.cs" />
     <Compile Include="Revision.cs" />
     <Compile Include="Revisions_ByAggregateId.cs" />
     <Compile Include="NotionJsonConverter.cs" />

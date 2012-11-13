@@ -5,7 +5,7 @@ using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Grasp.Work;
+using Grasp.Work.Persistence;
 
 namespace Grasp.Messaging
 {

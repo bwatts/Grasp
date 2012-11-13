@@ -4,7 +4,7 @@ using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 
-namespace Grasp.Work
+namespace Grasp.Work.Persistence
 {
 	/// <summary>
 	/// Attaches persistent identifiers to <see cref="Notion"/> instances
