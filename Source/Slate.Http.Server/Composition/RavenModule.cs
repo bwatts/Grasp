@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -20,6 +21,9 @@ namespace Slate.Http.Server.Composition
 	{
 		public RavenModule(string connectionStringName, params Assembly[] indexAssemblies)
 		{
+			Contract.Requires(connectionStringName != null);
+			Contract.Requires(indexAssemblies != null);
+
 			RegisterGeneric(typeof(RavenRepository<>)).As(typeof(IRepository<>)).InstancePerDependency();
 
 			Register(c =>

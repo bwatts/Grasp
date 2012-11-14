@@ -191,6 +191,7 @@
       <Link>Properties\SlateAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Composition\ApiModule.cs" />
+    <Compile Include="Composition\MessagingModule.cs" />
     <Compile Include="Composition\WorkModule.cs" />
     <Compile Include="Composition\PersistenceModule.cs" />
     <Compile Include="Composition\IssuesModule.cs" />
@@ -236,6 +237,14 @@
     <ProjectReference Include="..\..\.submodules\Cloak\Source\Cloak\Cloak.csproj">
       <Project>{a931092c-2916-4d20-a26d-d131d98e3069}</Project>
       <Name>Cloak</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Grasp.Hypermedia.Raven\Grasp.Hypermedia.Raven.csproj">
+      <Project>{52d6644f-7f28-4095-88d4-4722a8da546b}</Project>
+      <Name>Grasp.Hypermedia.Raven</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Grasp.Hypermedia.Server\Grasp.Hypermedia.Server.csproj">
+      <Project>{5f9d48a2-8116-47bd-ab39-a1105e200e75}</Project>
+      <Name>Grasp.Hypermedia.Server</Name>
     </ProjectReference>
     <ProjectReference Include="..\Grasp.Hypermedia\Grasp.Hypermedia.csproj">
       <Project>{75771c68-b495-400c-b11f-b1221e2af231}</Project>

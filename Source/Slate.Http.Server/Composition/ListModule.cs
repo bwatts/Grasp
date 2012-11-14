@@ -9,6 +9,7 @@ using Cloak.Autofac;
 using Cloak.Http.Media;
 using Grasp.Hypermedia;
 using Grasp.Hypermedia.Lists;
+using Grasp.Hypermedia.Server;
 using Grasp.Lists;
 
 namespace Slate.Http.Server.Composition

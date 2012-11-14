@@ -55,11 +55,6 @@ namespace Grasp.Hypermedia
 			get { return Check.That(Uri).HasVariables(); }
 		}
 
-		public override string ToString()
-		{
-			return ToHtml("a", allowTemplate: true).ToString();
-		}
-
 		public Hyperlink WithClass(MClass @class)
 		{
 			return new Hyperlink(Uri, Content, Title, Relationship, @class);
@@ -92,9 +87,28 @@ namespace Grasp.Hypermedia
 				binding => binding.Value == null ? "" : binding.Value.ToString()));
 		}
 
+		public override string ToString()
+		{
+			return ToHtml("a", allowTemplate: true).ToString();
+		}
+
 		public XElement ToHtml(XName elementName, bool allowTemplate = true)
 		{
 			return new XElement(elementName, GetHtmlContent(allowTemplate));
+		}
+
+		public string ToHttpHeader()
+		{
+			var header = new StringBuilder();
+
+			header.Append(Uri);
+
+			if(Relationship != null && Relationship != Relationship.Empty)
+			{
+				header.Append("; rel=\"").Append(Relationship).Append("\"");
+			}
+
+			return header.ToString();
 		}
 
 		private IEnumerable<object> GetHtmlContent(bool allowTemplate)

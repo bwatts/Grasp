@@ -113,9 +113,6 @@
     </Reference>
     <Reference Include="System.Net.Http.WebRequest, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="System.ServiceModel" />
-    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.4.0.20710.0\lib\net40\System.Web.Http.dll</HintPath>
-    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Xml" />
@@ -124,6 +121,7 @@
     <Compile Include="..\GraspAssemblyInfo.cs">
       <Link>Properties\GraspAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="HttpResourceStore.cs" />
     <Compile Include="Linq\ContentReading.cs" />
     <Compile Include="Linq\HtmlFormat.cs" />
     <Compile Include="Hyperlink.cs" />
@@ -147,7 +145,6 @@
     <Compile Include="Lists\HyperlistItems.cs" />
     <Compile Include="Lists\IListClient.cs" />
     <Compile Include="Lists\ListClient.cs" />
-    <Compile Include="Lists\ListPageKeyBinder.cs" />
     <Compile Include="Lists\HyperlistHtmlFormat.cs" />
     <Compile Include="Lists\HyperlistPage.cs" />
     <Compile Include="Lists\Hyperlist.cs" />

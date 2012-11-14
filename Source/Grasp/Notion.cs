@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Cloak.Reflection;
 
 namespace Grasp
 {
@@ -78,12 +79,16 @@ namespace Grasp
 
 		protected object GetValue(Field field)
 		{
-			return Context.GetValue(this, field);
+			var value = Context.GetValue(this, field);
+
+			return value != null ? value : field.ValueType.GetDefaultValue();
 		}
 
 		protected T GetValue<T>(Field<T> field)
 		{
-			return (T) Context.GetValue(this, field);
+			var value = Context.GetValue(this, field);
+
+			return value != null ? (T) value : default(T);
 		}
 
 		protected void SetValue(Field field, object value)

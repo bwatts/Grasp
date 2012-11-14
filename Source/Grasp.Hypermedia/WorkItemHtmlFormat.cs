@@ -64,7 +64,7 @@ namespace Grasp.Hypermedia
 
 		private static IEnumerable<MContent> GetBodyContent(WorkItemResource item)
 		{
-			yield return new MValue("id", item.Id);
+			yield return new MValue("id", item.Id.ToString("N").ToUpper());
 			yield return new MValue("status", item.Status);
 
 			if(item.RetryInterval != null)

@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{52D6644F-7F28-4095-88D4-4722A8DA546B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Grasp.Hypermedia.Raven</RootNamespace>
+    <AssemblyName>Grasp.Hypermedia.Raven</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Raven.Abstractions">
+      <HintPath>..\packages\RavenDB.Client.1.2.2135-Unstable\lib\net40\Raven.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Raven.Client.Lightweight">
+      <HintPath>..\packages\RavenDB.Client.1.2.2135-Unstable\lib\net40\Raven.Client.Lightweight.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\GraspAssemblyInfo.cs">
+      <Link>Properties\GraspAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="WorkItemByIdQuery.cs" />
+    <Compile Include="WorkItemListService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\.submodules\Cloak\Source\Cloak\Cloak.csproj">
+      <Project>{a931092c-2916-4d20-a26d-d131d98e3069}</Project>
+      <Name>Cloak</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Grasp.Hypermedia.Server\Grasp.Hypermedia.Server.csproj">
+      <Project>{5f9d48a2-8116-47bd-ab39-a1105e200e75}</Project>
+      <Name>Grasp.Hypermedia.Server</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Grasp.Hypermedia\Grasp.Hypermedia.csproj">
+      <Project>{75771c68-b495-400c-b11f-b1221e2af231}</Project>
+      <Name>Grasp.Hypermedia</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Grasp.Raven\Grasp.Raven.csproj">
+      <Project>{c2b15833-e9e0-421e-a0cd-8a2c677baf48}</Project>
+      <Name>Grasp.Raven</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Grasp\Grasp.csproj">
+      <Project>{0a728107-2d52-4e6b-b651-793048876837}</Project>
+      <Name>Grasp</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

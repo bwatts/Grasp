@@ -14,7 +14,7 @@ namespace Grasp.Hypermedia
 		public static readonly Field<Guid> IdField = Field.On<WorkItemResource>.For(x => x.Id);
 		public static readonly Field<string> StatusField = Field.On<WorkItemResource>.For(x => x.Status);
 		public static readonly Field<TimeSpan?> RetryIntervalField = Field.On<WorkItemResource>.For(x => x.RetryInterval);
-		public static readonly Field<Progress?> ProgressField = Field.On<WorkItemResource>.For(x => x.Progress);
+		public static readonly Field<Progress> ProgressField = Field.On<WorkItemResource>.For(x => x.Progress);
 		public static readonly Field<Hyperlink> ResultLinkField = Field.On<WorkItemResource>.For(x => x.ResultLink);
 
 		public WorkItemResource(HttpResourceHeader header, Guid id, string status, TimeSpan retryInterval) : base(header)
@@ -39,13 +39,17 @@ namespace Grasp.Hypermedia
 			Contract.Requires(status != null);
 			Contract.Requires(resultLink != null);
 
+			Id = id;
+			Status = status;
 			ResultLink = resultLink;
+
+			Progress = Progress.Complete;
 		}
 
 		public Guid Id { get { return GetValue(IdField); } private set { SetValue(IdField, value); } }
 		public string Status { get { return GetValue(StatusField); } private set { SetValue(StatusField, value); } }
 		public TimeSpan? RetryInterval { get { return GetValue(RetryIntervalField); } private set { SetValue(RetryIntervalField, value); } }
-		public Progress? Progress { get { return GetValue(ProgressField); } private set { SetValue(ProgressField, value); } }
+		public Progress Progress { get { return GetValue(ProgressField); } private set { SetValue(ProgressField, value); } }
 		public Hyperlink ResultLink { get { return GetValue(ResultLinkField); } private set { SetValue(ResultLinkField, value); } }
 	}
 }

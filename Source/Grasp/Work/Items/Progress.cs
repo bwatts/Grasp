@@ -72,14 +72,14 @@ namespace Grasp.Work.Items
 		public static readonly Progress Accepted = new Progress(0);
 		public static readonly Progress Complete = new Progress(100);
 
-		public Progress(int value) : this()
+		public Progress(double value) : this()
 		{
 			Contract.Requires(value >= 0 && value <= 100);
 
 			Value = value;
 		}
 
-		public int Value { get; private set; }
+		public double Value { get; private set; }
 
 		public bool HasStarted
 		{

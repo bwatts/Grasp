@@ -9,7 +9,7 @@ using Cloak;
 using Grasp.Checks;
 using Grasp.Lists;
 
-namespace Grasp.Hypermedia.Lists
+namespace Grasp.Hypermedia.Server
 {
 	public sealed class ListPageKeyBinder : IModelBinder
 	{

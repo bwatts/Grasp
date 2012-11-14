@@ -283,6 +283,7 @@
     <Compile Include="Semantics\FieldAttacherModel.cs" />
     <Compile Include="Semantics\Discovery\Reflection\FieldAttacherBinding.cs" />
     <Compile Include="Work\ConcurrencyException.cs" />
+    <Compile Include="Work\Items\StartWorkCommand.cs" />
     <Compile Include="Work\Items\ProgressConverter.cs" />
     <Compile Include="Work\Persistence\FieldValueConverter.cs" />
     <Compile Include="Work\Persistence\IFieldValueConverter.cs" />

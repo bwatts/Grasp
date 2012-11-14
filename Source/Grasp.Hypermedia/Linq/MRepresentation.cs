@@ -46,7 +46,7 @@ namespace Grasp.Hypermedia.Linq
 				html.Add(new XElement("body", Body.GetHtml()));
 			}
 
-			return new XDocument(new XDocumentType("html", null, null, null), html);
+			return new XDocument(html);
 		}
 
 		public void Save(Stream stream)

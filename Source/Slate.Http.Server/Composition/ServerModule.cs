@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web.Http;
 using Cloak.Autofac;
 using Grasp;
+using Grasp.Hypermedia.Raven;
 using Grasp.Raven;
 using Slate.Forms;
 using Slate.Http.Persistence;
@@ -17,7 +18,7 @@ namespace Slate.Http.Server.Composition
 		public ServerModule()
 		{
 			var httpSettings = GlobalConfiguration.Configuration;
-			var siteSettings = CompositionConfiguration.GetRequiredSection<SiteSection>("slate/site");
+			var siteSettings = CompositionConfiguration.GetRequiredSection<SiteSection>("slate/server");
 
 			RegisterInstance(httpSettings);
 
@@ -27,7 +28,11 @@ namespace Slate.Http.Server.Composition
 
 			RegisterModule(new ApiModule(httpSettings, siteSettings));
 
-			RegisterModule(new RavenModule(siteSettings.ConnectionStringName, typeof(RavenContext).Assembly, typeof(FormListService).Assembly));
+			RegisterModule(new RavenModule(
+				siteSettings.ConnectionStringName,
+				typeof(RavenContext).Assembly,
+				typeof(FormListService).Assembly,
+				typeof(WorkItemListService).Assembly));
 		}
 	}
 }

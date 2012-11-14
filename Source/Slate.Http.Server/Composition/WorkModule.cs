@@ -8,10 +8,9 @@ using Autofac;
 using Cloak.Autofac;
 using Cloak.Http.Media;
 using Grasp.Hypermedia;
-using Grasp.Work;
-using Grasp.Work.Items;
-using Slate.Http.Api;
-using Slate.Http.Server.Configuration;
+using Grasp.Hypermedia.Raven;
+using Grasp.Hypermedia.Server;
+using Grasp.Lists;
 
 namespace Slate.Http.Server.Composition
 {
@@ -27,9 +26,18 @@ namespace Slate.Http.Server.Composition
 
 			RegisterInstance(workStatusFormat).As<MediaFormat>();
 
-			Register(c => new WorkController(c.Resolve<IHttpResourceContext>(), c.Resolve<IRepository<WorkItem>>())).InstancePerDependency();
+			RegisterType<WorkItemListService>().Named<IListService>("Work").InstancePerDependency();
 
-			httpSettings.Routes.MapHttpRoute("work", "work/{id}", new { controller = "Work" });
+			RegisterType<WorkItemByIdQuery>().As<IWorkItemByIdQuery>().InstancePerDependency();
+
+			Register(c => new WorkItemStore(c.Resolve<IHttpResourceContext>(), c.ResolveNamed<IListService>("Work"), c.Resolve<IWorkItemByIdQuery>()))
+			.As<IWorkItemStore>()
+			.InstancePerDependency();
+
+			RegisterType<WorkController>().InstancePerDependency();
+
+			httpSettings.Routes.MapHttpRoute("work-list", "work", new { controller = "Work" });
+			httpSettings.Routes.MapHttpRoute("work-details", "work/{id}", new { controller = "Work" });
 		}
 	}
 }

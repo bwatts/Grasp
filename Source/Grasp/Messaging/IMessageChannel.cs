@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Grasp.Messaging
 {
 	/// <summary>
-	/// Describes a channel along which messages travel in a publish/subscribe system
+	/// Describes a channel along which messages travel in a loosely-coupled runtime
 	/// </summary>
 	[ContractClass(typeof(IMessageChannelContract))]
 	public interface IMessageChannel

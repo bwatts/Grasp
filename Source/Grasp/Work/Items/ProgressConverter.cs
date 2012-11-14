@@ -12,23 +12,23 @@ namespace Grasp.Work.Items
 	{
 		public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
 		{
-			return sourceType == typeof(string) || sourceType == typeof(int) || base.CanConvertFrom(context, sourceType);
+			return sourceType == typeof(string) || sourceType == typeof(double) || base.CanConvertFrom(context, sourceType);
 		}
 
 		public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
 		{
-			return destinationType == typeof(string) || destinationType == typeof(int) || base.CanConvertTo(context, destinationType);
+			return destinationType == typeof(string) || destinationType == typeof(double) || base.CanConvertTo(context, destinationType);
 		}
 
 		public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
 		{
 			if(value is string)
 			{
-				return new Progress(Convert.ToInt32(value));
+				return new Progress(Convert.ToDouble(value));
 			}
-			else if(value is int)
+			else if(value is double)
 			{
-				return new Progress((int) value);
+				return new Progress((double) value);
 			}
 			else
 			{

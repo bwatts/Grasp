@@ -24,6 +24,16 @@ namespace Grasp.Hypermedia
 			_links = (links ?? Enumerable.Empty<Hyperlink>()).ToManyInOrder();
 		}
 
+		public Uri GetAbsoluteUrl(Uri relativeUrl)
+		{
+			return new Uri(_baseUrl, relativeUrl);
+		}
+
+		public Uri GetAbsoluteUrl(string relativeUrl)
+		{
+			return new Uri(_baseUrl, relativeUrl);
+		}
+
 		public HttpResourceHeader CreateHeader(string title)
 		{
 			return new HttpResourceHeader(title, GetBaseLink(), _links);
