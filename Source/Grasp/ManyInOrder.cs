@@ -131,7 +131,7 @@ namespace Grasp
 
 		public void CopyTo(T[] array, int arrayIndex)
 		{
-			_items.CopyTo(array, arrayIndex);
+			_items.Keys.CopyTo(array, arrayIndex);
 		}
 
 		public int Count

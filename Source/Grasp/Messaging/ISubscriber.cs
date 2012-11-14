@@ -8,26 +8,26 @@ using System.Threading.Tasks;
 namespace Grasp.Messaging
 {
 	/// <summary>
-	/// Describes a listener which observes messages of the specified type
+	/// Describes a listener which observes events of the specified type
 	/// </summary>
-	/// <typeparam name="TMessage">The type of messages observed by the subscriber</typeparam>
+	/// <typeparam name="TEvent">The type of observed events</typeparam>
 	[ContractClass(typeof(ISubscriberContract<>))]
-	public interface ISubscriber<TMessage> where TMessage : Message
+	public interface ISubscriber<TEvent> where TEvent : Event
 	{
 		/// <summary>
-		/// Observes the the specified message
+		/// Observes the the specified event
 		/// </summary>
-		/// <param name="message">The message to observe</param>
-		/// <returns>The work of observing the message</returns>
-		Task ObserveAsync(TMessage message);
+		/// <param name="@event">The event to observe</param>
+		/// <returns>The work of observing the event</returns>
+		Task ObserveAsync(TEvent @event);
 	}
 
 	[ContractClassFor(typeof(ISubscriber<>))]
-	internal abstract class ISubscriberContract<TMessage> : ISubscriber<TMessage> where TMessage : Message
+	internal abstract class ISubscriberContract<TEvent> : ISubscriber<TEvent> where TEvent : Event
 	{
-		Task ISubscriber<TMessage>.ObserveAsync(TMessage message)
+		Task ISubscriber<TEvent>.ObserveAsync(TEvent @event)
 		{
-			Contract.Requires(message != null);
+			Contract.Requires(@event != null);
 			Contract.Ensures(Contract.Result<Task>() != null);
 
 			return null;

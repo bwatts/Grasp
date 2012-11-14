@@ -61,6 +61,15 @@ namespace Grasp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ambient channel has not been configured in the current context.
+        /// </summary>
+        internal static string AmbientChannelNotConfigured {
+            get {
+                return ResourceManager.GetString("AmbientChannelNotConfigured", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0}..{1}.
         /// </summary>
         internal static string CardinalityFormat {

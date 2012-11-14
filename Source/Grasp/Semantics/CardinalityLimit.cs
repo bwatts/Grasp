@@ -90,9 +90,9 @@ namespace Grasp.Semantics
 		}
 		#endregion
 
-		public string ToString(IFormatProvider format)
+		public string ToString(IFormatProvider formatProvider)
 		{
-			return this == Many ? Resources.ManyLimit : Value.ToString(format);
+			return this == Many ? Resources.ManyLimit : Value.ToString(formatProvider);
 		}
 	}
 }

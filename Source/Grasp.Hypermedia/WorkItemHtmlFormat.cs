@@ -14,7 +14,7 @@ namespace Grasp.Hypermedia
 {
 	public class WorkItemHtmlFormat : HtmlFormat<WorkItemResource>
 	{
-		public static readonly MediaType MediaType = new MediaType("application/vnd.grasp.work.item+html");
+		public static readonly MediaType MediaType = new MediaType("application/vnd.grasp.work-item+html");
 
 		public WorkItemHtmlFormat() : base(MediaType)
 		{}

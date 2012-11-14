@@ -101,9 +101,9 @@ namespace Grasp.Lists
 			return Value.CompareTo(other.Value);
 		}
 
-		public string ToString(IFormatProvider format)
+		public string ToString(IFormatProvider formatProvider)
 		{
-			return Value.ToString(format);
+			return Value.ToString(formatProvider);
 		}
 	}
 }

@@ -108,6 +108,7 @@
       <Link>Properties\SlateAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Forms\StartFormCommand.cs" />
+    <Compile Include="Forms\StartFormHandler.cs" />
     <Compile Include="IssueOpenedEvent.cs" />
     <Compile Include="Forms\FormUnpublishedEvent.cs" />
     <Compile Include="Forms\FormDisallowedPreviewEvent.cs" />

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,16 +11,19 @@ namespace Slate.Forms
 {
 	public class StartFormCommand : Command
 	{
-		public static readonly Field<Guid> IdField = Field.On<StartFormCommand>.For(x => x.Id);
+		public static readonly Field<Guid> FormIdField = Field.On<StartFormCommand>.For(x => x.FormId);
 		public static readonly Field<string> NameField = Field.On<StartFormCommand>.For(x => x.Name);
 
-		public StartFormCommand(Guid id, string name)
+		public StartFormCommand(Guid formId, string name)
 		{
-			Id = id;
+			Contract.Requires(formId != Guid.Empty);
+			Contract.Requires(name != null);
+
+			FormId = formId;
 			Name = name;
 		}
 
-		public Guid Id { get { return GetValue(IdField); } private set { SetValue(IdField, value); } }
+		public Guid FormId { get { return GetValue(FormIdField); } private set { SetValue(FormIdField, value); } }
 		public string Name { get { return GetValue(NameField); } private set { SetValue(NameField, value); } }
 	}
 }

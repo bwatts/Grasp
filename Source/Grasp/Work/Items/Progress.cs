@@ -70,11 +70,11 @@ namespace Grasp.Work.Items
 		#endregion
 
 		public static readonly Progress Accepted = new Progress(0);
-		public static readonly Progress Complete = new Progress(100);
+		public static readonly Progress Complete = new Progress(1);
 
 		public Progress(double value) : this()
 		{
-			Contract.Requires(value >= 0 && value <= 100);
+			Contract.Requires(value >= 0 && value <= 1);
 
 			Value = value;
 		}
@@ -111,9 +111,9 @@ namespace Grasp.Work.Items
 			return Value.CompareTo(other.Value);
 		}
 
-		public string ToString(IFormatProvider format)
+		public string ToString(IFormatProvider formatProvider)
 		{
-			return Value.ToString(format);
+			return Value.ToString("P", formatProvider);
 		}
 	}
 }
