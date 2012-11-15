@@ -30,7 +30,7 @@ namespace Slate.Http.Persistence
 				Name = typeof(string),
 				WhenCreated = typeof(DateTime),
 				WhenModified = typeof(DateTime),
-				Visibility = typeof(FormVisibility),
+				Visibility = typeof(FormPhase),
 				ResponseCount = typeof(int),
 				IssueCount = typeof(int)
 			}));
@@ -43,7 +43,7 @@ namespace Slate.Http.Persistence
 				Name = "Test",
 				WhenCreated = DateTime.Now.AddDays(-2),
 				WhenModified = DateTime.Now.AddDays(-1),
-				Visibility = FormVisibility.Draft,
+				Visibility = FormPhase.Draft,
 				ResponseCount = 4,
 				IssueCount = 2
 			}));

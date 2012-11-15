@@ -286,7 +286,7 @@
     <Compile Include="Semantics\FieldAttacherModel.cs" />
     <Compile Include="Semantics\Discovery\Reflection\FieldAttacherBinding.cs" />
     <Compile Include="Work\ConcurrencyException.cs" />
-    <Compile Include="Work\Items\IStartWorkService.cs" />
+    <Compile Include="Work\Items\ReportProgressHandler.cs" />
     <Compile Include="Work\Items\ReportProgressCommand.cs" />
     <Compile Include="Work\Items\StartWorkHandler.cs" />
     <Compile Include="Work\Items\StartWorkCommand.cs" />
@@ -330,7 +330,7 @@
     <Compile Include="Many.cs" />
     <Compile Include="Notion.cs" />
     <Compile Include="Work\Persistence\PersistentId.cs" />
-    <Compile Include="Work\Lifetime.cs" />
+    <Compile Include="Lifetime.cs" />
     <Compile Include="Lists\SortDirection.cs" />
     <Compile Include="Lists\SortField.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

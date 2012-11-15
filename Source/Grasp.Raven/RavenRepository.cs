@@ -66,11 +66,9 @@ namespace Grasp.Raven
 
 			foreach(var revision in LoadRevisions(aggregateDocumentId, session))
 			{
-				var revisionId = GetRevisionId(revision.Id);
-
 				currentVersion = currentVersion == null
-					? new AggregateVersion(revisionId, revision.Events)
-					: new AggregateVersion(currentVersion, revisionId, revision.Events);
+					? new AggregateVersion(revision.Id, revision.Events)
+					: new AggregateVersion(currentVersion, revision.Id, revision.Events);
 			}
 
 			if(currentVersion == null)
@@ -94,18 +92,6 @@ namespace Grasp.Raven
 		{
 			// TODO: Is there a more preferred way to find the aggregate document ID?
 			return DocumentConvention.DefaultTypeTagName(typeof(TAggregate)) + "/" + aggregateId.ToString("N").ToUpper();
-		}
-
-		private static Guid GetRevisionId(string revisionDocumentId)
-		{
-			var idText = revisionDocumentId.Substring("Revisions/".Length);
-
-			return Guid.ParseExact(idText, "N");
-		}
-
-		private static string GetRevisionDocumentId(Guid revisionId)
-		{
-			return "Revisions/" + revisionId.ToString("N").ToUpper();
 		}
 
 		private sealed class EventStorage
@@ -164,16 +150,13 @@ namespace Grasp.Raven
 
 			private void CreateRevisionAndAssignToAggregate()
 			{
-				var newRevisionId = Guid.NewGuid();
-
 				_newRevision = new Revision(
-					GetRevisionDocumentId(newRevisionId),
 					_aggregateId,
-					_existingAggregate == null ? null : GetRevisionDocumentId(_existingAggregate.RevisionId),
-					1 + (_existingRevision == null ? 0 : _existingRevision.Number),
-					_aggregate.ObserveEvents());
+					baseRevisionId: _existingAggregate == null ? null : (Guid?) _existingAggregate.RevisionId,
+					number: 1 + (_existingRevision == null ? 0 : _existingRevision.Number),
+					events: _aggregate.ObserveEvents());
 
-				Aggregate.RevisionIdField.Set(_aggregate, newRevisionId);
+				Aggregate.RevisionIdField.Set(_aggregate, _newRevision.Id);
 			}
 
 			private void StoreAggregateAndRevision()

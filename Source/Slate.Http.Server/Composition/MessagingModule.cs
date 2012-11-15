@@ -12,6 +12,7 @@ using Grasp.Hypermedia.Server;
 using Grasp.Messaging;
 using Grasp.Work.Items;
 using Slate.Forms;
+using Slate.Services;
 
 namespace Slate.Http.Server.Composition
 {
@@ -25,8 +26,11 @@ namespace Slate.Http.Server.Composition
 
 			RegisterModule<AmbientMessageChannelModule>();
 
-			RegisterType<StartWorkHandler>().InstancePerDependency();
-			RegisterType<StartFormHandler>().InstancePerDependency();
+			RegisterType<StartWorkHandler>().As<IHandler<StartWorkCommand>>().InstancePerDependency();
+			RegisterType<StartFormHandler>().As<IHandler<StartFormCommand>>().InstancePerDependency();
+			RegisterType<ReportProgressHandler>().As<IHandler<ReportProgressCommand>>().InstancePerDependency();
+
+			RegisterType<FormStartedSubscriber>().As<ISubscriber<FormStartedEvent>>().InstancePerDependency();
 		}
 
 		private sealed class TypeDispatchChannelFactory
@@ -45,8 +49,17 @@ namespace Slate.Http.Server.Composition
 
 			private IEnumerable<KeyValuePair<Type, IMessageChannel>> CreateChannels()
 			{
-				yield return SetHandler<StartWorkCommand, StartWorkHandler>();
-				yield return SetHandler<StartFormCommand, StartFormHandler>();
+				// Grasp
+				yield return Handle<StartWorkCommand>();
+				yield return Handle<ReportProgressCommand>();
+
+				// Slate
+				yield return Handle<StartFormCommand>();
+				yield return Handle<StartTestingCommand>();
+				yield return Handle<ResumeDraftCommand>();
+				yield return Handle<GoLiveCommand>();
+
+				yield return Subscribe<FormStartedEvent>();
 			}
 
 			private KeyValuePair<Type, IMessageChannel> Subscribe<TEvent>() where TEvent : Event
@@ -54,9 +67,9 @@ namespace Slate.Http.Server.Composition
 				return new KeyValuePair<Type, IMessageChannel>(typeof(TEvent), new SubscriberChannel<TEvent>(_rootScope));
 			}
 
-			private KeyValuePair<Type, IMessageChannel> SetHandler<TCommand, THandler>() where TCommand : Command where THandler : IHandler<TCommand>
+			private KeyValuePair<Type, IMessageChannel> Handle<TCommand>() where TCommand : Command
 			{
-				return new KeyValuePair<Type, IMessageChannel>(typeof(TCommand), new HandlerChannel<TCommand, THandler>(_rootScope));
+				return new KeyValuePair<Type, IMessageChannel>(typeof(TCommand), new HandlerChannel<TCommand>(_rootScope));
 			}
 		}
 
@@ -85,7 +98,7 @@ namespace Slate.Http.Server.Composition
 			}
 		}
 
-		private sealed class HandlerChannel<TCommand, THandler> : IMessageChannel where TCommand : Command where THandler : IHandler<TCommand>
+		private sealed class HandlerChannel<TCommand> : IMessageChannel where TCommand : Command
 		{
 			private readonly ILifetimeScope _rootScope;
 
@@ -102,7 +115,7 @@ namespace Slate.Http.Server.Composition
 				{
 					using(var handleScope = _rootScope.BeginLifetimeScope())
 					{
-						var handler = handleScope.Resolve<THandler>();
+						var handler = handleScope.Resolve<IHandler<TCommand>>();
 
 						await handler.HandleAsync(command);
 					}
@@ -120,13 +133,13 @@ namespace Slate.Http.Server.Composition
 
 				if(isController)
 				{
-					registration.Activated += OnRegistrationActivated;
+					registration.Activated += OnApiControllerActivated;
 				}
 
 				base.AttachToComponentRegistration(componentRegistry, registration);
 			}
 
-			private void OnRegistrationActivated(object sender, ActivatedEventArgs<object> e)
+			private void OnApiControllerActivated(object sender, ActivatedEventArgs<object> e)
 			{
 				// This relies on IMessageChannel being SingleInstance. If it had any more specific lifetime, we would have to more
 				// carefully manage the instances we use to configure the ambient message channel.

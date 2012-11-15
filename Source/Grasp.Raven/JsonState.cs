@@ -120,11 +120,11 @@ namespace Grasp.Raven
 
 					if(field.IsMany)
 					{
-						var x = _json[propertyName];
+						var array = _json[propertyName] as JArray;
 
-						if(x != null)
+						if(array != null)
 						{
-							// TODO: Bind collection
+							// TODO: Bind many field
 						}
 					}
 					else

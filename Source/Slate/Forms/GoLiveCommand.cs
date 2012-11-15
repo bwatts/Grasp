@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,12 +9,14 @@ using Grasp.Messaging;
 
 namespace Slate.Forms
 {
-	public class FormAllowedPreviewEvent : Event
+	public class GoLiveCommand : Command
 	{
-		public static readonly Field<Guid> FormIdField = Field.On<FormAllowedPreviewEvent>.For(x => x.FormId);
+		public static readonly Field<Guid> FormIdField = Field.On<GoLiveCommand>.For(x => x.FormId);
 
-		public FormAllowedPreviewEvent(Guid formId)
+		public GoLiveCommand(Guid formId)
 		{
+			Contract.Requires(formId != Guid.Empty);
+
 			FormId = formId;
 		}
 

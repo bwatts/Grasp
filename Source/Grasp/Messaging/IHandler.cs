@@ -17,17 +17,17 @@ namespace Grasp.Messaging
 		/// <summary>
 		/// Handles the the specified command
 		/// </summary>
-		/// <param name="command">The command to handle</param>
+		/// <param name="c">The command to handle</param>
 		/// <returns>The work of handling the command</returns>
-		Task HandleAsync(TCommand command);
+		Task HandleAsync(TCommand c);
 	}
 
 	[ContractClassFor(typeof(IHandler<>))]
 	internal abstract class IHandlerContract<TCommand> : IHandler<TCommand> where TCommand : Command
 	{
-		Task IHandler<TCommand>.HandleAsync(TCommand command)
+		Task IHandler<TCommand>.HandleAsync(TCommand c)
 		{
-			Contract.Requires(command != null);
+			Contract.Requires(c != null);
 			Contract.Ensures(Contract.Result<Task>() != null);
 
 			return null;

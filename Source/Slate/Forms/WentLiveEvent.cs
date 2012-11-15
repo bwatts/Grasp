@@ -8,11 +8,11 @@ using Grasp.Messaging;
 
 namespace Slate.Forms
 {
-	public class FormDisallowedPreviewEvent : Event
+	public class WentLiveEvent : Event
 	{
-		public static readonly Field<Guid> FormIdField = Field.On<FormDisallowedPreviewEvent>.For(x => x.FormId);
+		public static readonly Field<Guid> FormIdField = Field.On<WentLiveEvent>.For(x => x.FormId);
 
-		public FormDisallowedPreviewEvent(Guid formId)
+		public WentLiveEvent(Guid formId)
 		{
 			FormId = formId;
 		}

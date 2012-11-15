@@ -17,6 +17,7 @@ using Slate.Forms;
 using Slate.Http.Api;
 using Slate.Http.Persistence;
 using Slate.Http.Server.Configuration;
+using Slate.Services;
 
 namespace Slate.Http.Server.Composition
 {
@@ -25,6 +26,8 @@ namespace Slate.Http.Server.Composition
 		public FormsModule(HttpConfiguration httpSettings, SiteSection siteSettings)
 		{
 			Contract.Requires(httpSettings != null);
+
+			RegisterType<FormMesh>().As<IFormMesh>().SingleInstance();
 
 			RegisterType<FormListService>().Named<IListService>("Forms").InstancePerDependency();
 

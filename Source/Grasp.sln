@@ -61,6 +61,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Grasp.Hypermedia.Server", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Grasp.Hypermedia.Raven", "Grasp.Hypermedia.Raven\Grasp.Hypermedia.Raven.csproj", "{52D6644F-7F28-4095-88D4-4722A8DA546B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Slate.Services", "Slate.Services\Slate.Services.csproj", "{C4827516-E172-4890-9B95-B26D59B46553}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -281,6 +283,16 @@ Global
 		{52D6644F-7F28-4095-88D4-4722A8DA546B}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{52D6644F-7F28-4095-88D4-4722A8DA546B}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{52D6644F-7F28-4095-88D4-4722A8DA546B}.Release|x86.ActiveCfg = Release|Any CPU
+		{C4827516-E172-4890-9B95-B26D59B46553}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4827516-E172-4890-9B95-B26D59B46553}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4827516-E172-4890-9B95-B26D59B46553}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{C4827516-E172-4890-9B95-B26D59B46553}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{C4827516-E172-4890-9B95-B26D59B46553}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C4827516-E172-4890-9B95-B26D59B46553}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4827516-E172-4890-9B95-B26D59B46553}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4827516-E172-4890-9B95-B26D59B46553}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{C4827516-E172-4890-9B95-B26D59B46553}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{C4827516-E172-4890-9B95-B26D59B46553}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -305,5 +317,6 @@ Global
 		{4391011E-55A5-409B-AAFE-33CF5D640034} = {740D14E5-CCE4-41FD-B725-87B0ACBF1E4E}
 		{0A49A4A4-D946-490B-8A7D-CFA5412B8335} = {740D14E5-CCE4-41FD-B725-87B0ACBF1E4E}
 		{B5F202A2-4794-4265-8D6A-5C1C4E5A6ED7} = {7C4C6C73-6D38-4D20-B64F-51642747EE41}
+		{C4827516-E172-4890-9B95-B26D59B46553} = {7C4C6C73-6D38-4D20-B64F-51642747EE41}
 	EndGlobalSection
 EndGlobal

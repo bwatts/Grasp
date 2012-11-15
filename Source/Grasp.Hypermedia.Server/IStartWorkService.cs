@@ -6,8 +6,11 @@ using System.Text;
 using System.Threading.Tasks;
 using Grasp.Messaging;
 
-namespace Grasp.Work.Items
+namespace Grasp.Hypermedia.Server
 {
+	/// <summary>
+	/// Describes an application service which starts work items that track command status
+	/// </summary>
 	[ContractClass(typeof(IStartWorkServiceContract))]
 	public interface IStartWorkService
 	{

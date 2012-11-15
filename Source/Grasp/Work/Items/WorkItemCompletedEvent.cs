@@ -15,9 +15,6 @@ namespace Grasp.Work.Items
 
 		public WorkItemCompletedEvent(Guid workItemId, Uri resultLocation)
 		{
-			Contract.Requires(workItemId != Guid.Empty);
-			Contract.Requires(resultLocation != null);
-
 			WorkItemId = workItemId;
 			ResultLocation = resultLocation;
 		}

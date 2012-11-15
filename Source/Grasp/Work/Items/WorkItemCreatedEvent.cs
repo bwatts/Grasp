@@ -16,10 +16,6 @@ namespace Grasp.Work.Items
 
 		public WorkItemCreatedEvent(Guid workItemId, string description, TimeSpan retryInterval)
 		{
-			Contract.Requires(workItemId != Guid.Empty);
-			Contract.Requires(description != null);
-			Contract.Requires(retryInterval >= TimeSpan.Zero);
-
 			WorkItemId = workItemId;
 			Description = description;
 			RetryInterval = retryInterval;

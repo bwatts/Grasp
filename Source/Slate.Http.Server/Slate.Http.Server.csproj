@@ -193,7 +193,7 @@
     <Compile Include="Composition\ApiModule.cs" />
     <Compile Include="Composition\MessagingModule.cs" />
     <Compile Include="Composition\WorkModule.cs" />
-    <Compile Include="Composition\PersistenceModule.cs" />
+    <Compile Include="Composition\DomainModule.cs" />
     <Compile Include="Composition\IssuesModule.cs" />
     <Compile Include="Composition\ListModule.cs" />
     <Compile Include="Composition\FormsModule.cs" />
@@ -208,7 +208,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
-    <Content Include="Raven.Studio.xap" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -265,6 +264,10 @@
     <ProjectReference Include="..\Slate.Http.Persistence\Slate.Http.Persistence.csproj">
       <Project>{36a85537-e068-415d-aa67-614eed7fbff2}</Project>
       <Name>Slate.Http.Persistence</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Slate.Services\Slate.Services.csproj">
+      <Project>{c4827516-e172-4890-9b95-b26d59b46553}</Project>
+      <Name>Slate.Services</Name>
     </ProjectReference>
     <ProjectReference Include="..\Slate\Slate.csproj">
       <Project>{b5f202a2-4794-4265-8d6a-5c1c4e5a6ed7}</Project>

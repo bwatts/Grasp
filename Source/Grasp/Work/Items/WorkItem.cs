@@ -28,13 +28,14 @@ namespace Grasp.Work.Items
 		public void Handle(ReportProgressCommand command)
 		{
 			Contract.Requires(command != null);
+			Contract.Requires(command.Progress >= Progress);
 
 			if(Progress == Progress.Accepted && command.Progress > Progress.Accepted)
 			{
 				Announce(new ProgressStartedEvent(command.WorkItemId));
 			}
 
-			Announce(new ProgressReportedEvent(command.WorkItemId, command.Progress));
+			Announce(new ProgressReportedEvent(command.WorkItemId, Progress, command.Progress));
 
 			if(command.Progress == Progress.Complete)
 			{
@@ -57,7 +58,7 @@ namespace Grasp.Work.Items
 
 		private void Observe(ProgressReportedEvent e)
 		{
-			Progress = e.Progress;
+			Progress = e.NewProgress;
 
 			SetWhenModified(e.When);
 		}

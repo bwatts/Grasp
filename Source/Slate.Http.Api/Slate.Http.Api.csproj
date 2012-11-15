@@ -126,6 +126,7 @@
     <Compile Include="..\SlateAssemblyInfo.cs">
       <Link>Properties\SlateAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="FormMesh.cs" />
     <Compile Include="IssuesController.cs" />
     <Compile Include="FormsController.cs" />
     <Compile Include="IFormStore.cs" />
@@ -154,6 +155,10 @@
     <ProjectReference Include="..\Grasp\Grasp.csproj">
       <Project>{0a728107-2d52-4e6b-b651-793048876837}</Project>
       <Name>Grasp</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Slate.Services\Slate.Services.csproj">
+      <Project>{c4827516-e172-4890-9b95-b26d59b46553}</Project>
+      <Name>Slate.Services</Name>
     </ProjectReference>
     <ProjectReference Include="..\Slate\Slate.csproj">
       <Project>{b5f202a2-4794-4265-8d6a-5c1c4e5a6ed7}</Project>

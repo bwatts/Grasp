@@ -65,7 +65,7 @@ namespace Grasp
 			public static class By
 			{
 				/// <summary>
-				/// Specify the static class which declares and owns the attached field (static classes cannot be used as type parameters)
+				/// Specify the static class which declares and owns the attached field (static classes cannot be type arguments)
 				/// </summary>
 				/// <param name="ownerType">The static class which declares and owns the attached field</param>
 				/// <returns>A builder to configure the backing field</returns>

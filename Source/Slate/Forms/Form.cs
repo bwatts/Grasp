@@ -4,6 +4,7 @@ using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Cloak;
 using Grasp;
 using Grasp.Messaging;
 using Grasp.Work;
@@ -14,95 +15,89 @@ namespace Slate.Forms
 	public class Form : Aggregate
 	{
 		public static readonly Field<string> NameField = Field.On<Form>.For(x => x.Name);
-		public static readonly Field<FormVisibility> VisibilityField = Field.On<Form>.For(x => x.Visibility);
+		public static readonly Field<FormPhase> PhaseField = Field.On<Form>.For(x => x.Phase);
 
 		public Form(Guid workItemId, Guid id, string name)
 		{
-			Contract.Requires(workItemId != Guid.Empty);
-			Contract.Requires(id != Guid.Empty);
-			Contract.Requires(name != null);
-
-			Announce(new FormCreatedEvent(workItemId, id, name));
+			Announce(new FormStartedEvent(workItemId, id, name));
 		}
 
 		public string Name { get { return GetValue(NameField); } private set { SetValue(NameField, value); } }
-		public FormVisibility Visibility { get { return GetValue(VisibilityField); } private set { SetValue(VisibilityField, value); } }
+		public FormPhase Phase { get { return GetValue(PhaseField); } private set { SetValue(PhaseField, value); } }
 
-		public void AllowPreview()
+		public void Handle(StartTestingCommand command)
 		{
-			if(Visibility == FormVisibility.Preview)
+			Contract.Requires(command != null);
+			Contract.Requires(command.FormId == Id);
+
+			if(Phase == FormPhase.Testing)
 			{
-				throw new InvalidOperationException(Resources.FormAlreadyAllowsPreview);
+				throw new InvalidOperationException(Resources.FormAlreadyTesting.FormatInvariant(Name));
 			}
 
-			Announce(new FormAllowedPreviewEvent(Id));
-		}
-
-		public void DisallowPreview()
-		{
-			if(Visibility != FormVisibility.Preview)
+			if(Phase == FormPhase.Live)
 			{
-				throw new InvalidOperationException(Resources.FormDoesNotAllowPreview);
+				throw new InvalidOperationException(Resources.CannotTestLiveForm.FormatInvariant(Name));
 			}
 
-			Announce(new FormDisallowedPreviewEvent(Id));
+			Announce(new TestingStartedEvent(Id));
 		}
 
-		public void Publish()
+		public void Handle(ResumeDraftCommand command)
 		{
-			if(Visibility == FormVisibility.Published)
+			Contract.Requires(command != null);
+			Contract.Requires(command.FormId == Id);
+
+			if(Phase == FormPhase.Live)
 			{
-				throw new InvalidOperationException(Resources.FormIsAlreadyPublished);
+				throw new InvalidOperationException(Resources.CannotResumeDraftOnLiveForm.FormatInvariant(Name));
 			}
 
-			Announce(new FormPublishedEvent(Id));
+			Announce(new DraftResumedEvent(Id));
 		}
 
-		public void Unpublish()
+		public void Handle(GoLiveCommand command)
 		{
-			if(Visibility != FormVisibility.Published)
+			Contract.Requires(command != null);
+			Contract.Requires(command.FormId == Id);
+
+			if(Phase == FormPhase.Live)
 			{
-				throw new InvalidOperationException(Resources.FormIsNotPublished);
+				throw new InvalidOperationException(Resources.FormAlreadyLive.FormatInvariant(Name));
 			}
 
-			Announce(new FormUnpublishedEvent(Id));
+			Announce(new WentLiveEvent(Id));
 		}
 
-		private void Observe(FormCreatedEvent e)
+		private void Observe(FormStartedEvent e)
 		{
 			SetValue(PersistentId.ValueField, e.FormId);
 
 			Name = e.Name;
-			Visibility = FormVisibility.Draft;
+
+			Phase = FormPhase.Draft;
 
 			SetWhenCreated(e.When);
 			SetWhenModified(e.When);
 		}
 
-		private void Observe(FormAllowedPreviewEvent e)
+		private void Observe(TestingStartedEvent e)
 		{
-			Visibility = FormVisibility.Preview;
+			Phase = FormPhase.Testing;
 
 			SetWhenModified(e.When);
 		}
 
-		private void Observe(FormDisallowedPreviewEvent e)
+		private void Observe(DraftResumedEvent e)
 		{
-			Visibility = FormVisibility.Published;
+			Phase = FormPhase.Draft;
 
 			SetWhenModified(e.When);
 		}
 
-		private void Observe(FormPublishedEvent e)
+		private void Observe(WentLiveEvent e)
 		{
-			Visibility = FormVisibility.Published;
-
-			SetWhenModified(e.When);
-		}
-
-		private void Observe(FormUnpublishedEvent e)
-		{
-			Visibility = FormVisibility.Draft;
+			Phase = FormPhase.Live;
 
 			SetWhenModified(e.When);
 		}

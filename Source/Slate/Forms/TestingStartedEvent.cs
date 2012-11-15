@@ -8,11 +8,11 @@ using Grasp.Messaging;
 
 namespace Slate.Forms
 {
-	public class FormUnpublishedEvent : Event
+	public class TestingStartedEvent : Event
 	{
-		public static readonly Field<Guid> FormIdField = Field.On<FormUnpublishedEvent>.For(x => x.FormId);
+		public static readonly Field<Guid> FormIdField = Field.On<TestingStartedEvent>.For(x => x.FormId);
 
-		public FormUnpublishedEvent(Guid formId)
+		public TestingStartedEvent(Guid formId)
 		{
 			FormId = formId;
 		}

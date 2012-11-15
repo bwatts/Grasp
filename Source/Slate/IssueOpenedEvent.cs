@@ -17,6 +17,10 @@ namespace Slate
 
 		public IssueOpenedEvent(Guid issueId, int number, string title)
 		{
+			Contract.Requires(issueId != Guid.Empty);
+			Contract.Requires(number >= 1);
+			Contract.Requires(title != null);
+
 			IssueId = issueId;
 			Number = number;
 			Title = title;

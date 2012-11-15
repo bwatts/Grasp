@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace Grasp.Work.Items
 {
 	/// <summary>
-	/// An integer in the range 0-100 representing progress on a work item
+	/// A floating-point number in the range 0-1 representing progress on a work item
 	/// </summary>
 	[Serializable]
 	[TypeConverter(typeof(ProgressConverter))]

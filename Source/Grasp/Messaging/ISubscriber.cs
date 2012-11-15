@@ -17,17 +17,17 @@ namespace Grasp.Messaging
 		/// <summary>
 		/// Observes the the specified event
 		/// </summary>
-		/// <param name="@event">The event to observe</param>
+		/// <param name="e">The event to observe</param>
 		/// <returns>The work of observing the event</returns>
-		Task ObserveAsync(TEvent @event);
+		Task ObserveAsync(TEvent e);
 	}
 
 	[ContractClassFor(typeof(ISubscriber<>))]
 	internal abstract class ISubscriberContract<TEvent> : ISubscriber<TEvent> where TEvent : Event
 	{
-		Task ISubscriber<TEvent>.ObserveAsync(TEvent @event)
+		Task ISubscriber<TEvent>.ObserveAsync(TEvent e)
 		{
-			Contract.Requires(@event != null);
+			Contract.Requires(e != null);
 			Contract.Ensures(Contract.Result<Task>() != null);
 
 			return null;

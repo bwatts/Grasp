@@ -17,9 +17,6 @@ namespace Slate
 
 		public Issue(Guid id, int number, string title)
 		{
-			Contract.Requires(number >= 1);
-			Contract.Requires(title != null);
-
 			Announce(new IssueOpenedEvent(id, number, title));
 		}
 

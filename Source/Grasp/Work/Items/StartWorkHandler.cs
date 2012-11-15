@@ -21,11 +21,9 @@ namespace Grasp.Work.Items
 			_workItemRepository = workItemRepository;
 		}
 
-		public async Task HandleAsync(StartWorkCommand command)
+		public Task HandleAsync(StartWorkCommand c)
 		{
-			var workItem = new WorkItem(command.WorkItemId, command.Description, command.RetryInterval);
-
-			await _workItemRepository.SaveAsync(workItem);
+			return _workItemRepository.SaveAsync(new WorkItem(c.WorkItemId, c.Description, c.RetryInterval));
 		}
 	}
 }

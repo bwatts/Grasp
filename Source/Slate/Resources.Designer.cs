@@ -61,38 +61,38 @@ namespace Slate {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Form already allows preview.
+        ///   Looks up a localized string similar to Cannot resume draft status on live form &quot;{0}&quot;.
         /// </summary>
-        internal static string FormAlreadyAllowsPreview {
+        internal static string CannotResumeDraftOnLiveForm {
             get {
-                return ResourceManager.GetString("FormAlreadyAllowsPreview", resourceCulture);
+                return ResourceManager.GetString("CannotResumeDraftOnLiveForm", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Form does not allow preview.
+        ///   Looks up a localized string similar to Cannot start testing on live form &quot;{0}&quot;.
         /// </summary>
-        internal static string FormDoesNotAllowPreview {
+        internal static string CannotTestLiveForm {
             get {
-                return ResourceManager.GetString("FormDoesNotAllowPreview", resourceCulture);
+                return ResourceManager.GetString("CannotTestLiveForm", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Form is already published.
+        ///   Looks up a localized string similar to Form &quot;{0}&quot; is already live.
         /// </summary>
-        internal static string FormIsAlreadyPublished {
+        internal static string FormAlreadyLive {
             get {
-                return ResourceManager.GetString("FormIsAlreadyPublished", resourceCulture);
+                return ResourceManager.GetString("FormAlreadyLive", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Form is not published.
+        ///   Looks up a localized string similar to Form &quot;{0}&quot; is already testing.
         /// </summary>
-        internal static string FormIsNotPublished {
+        internal static string FormAlreadyTesting {
             get {
-                return ResourceManager.GetString("FormIsNotPublished", resourceCulture);
+                return ResourceManager.GetString("FormAlreadyTesting", resourceCulture);
             }
         }
     }

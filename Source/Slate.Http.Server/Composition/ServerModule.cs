@@ -24,13 +24,13 @@ namespace Slate.Http.Server.Composition
 
 			RegisterModule<TimeModule>();
 
-			RegisterModule(new PersistenceModule(typeof(Notion).Assembly, typeof(Form).Assembly));
+			RegisterModule(new DomainModule(typeof(Notion).Assembly, typeof(Revision).Assembly, typeof(Form).Assembly));
 
 			RegisterModule(new ApiModule(httpSettings, siteSettings));
 
 			RegisterModule(new RavenModule(
 				siteSettings.ConnectionStringName,
-				typeof(RavenContext).Assembly,
+				typeof(Revision).Assembly,
 				typeof(FormListService).Assembly,
 				typeof(WorkItemListService).Assembly));
 		}

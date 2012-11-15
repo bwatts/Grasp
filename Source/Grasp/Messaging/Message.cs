@@ -22,5 +22,8 @@ namespace Grasp.Messaging
 
 			return ChannelField.Get(publisher) ?? AmbientMessageChannel.Resolve();
 		}
+
+		protected Message() : base(Guid.NewGuid())
+		{}
 	}
 }

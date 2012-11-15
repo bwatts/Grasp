@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Slate.Forms
 {
-	public enum FormVisibility
+	public enum FormPhase
 	{
 		Draft,
-		Preview,
-		Published
+		Testing,
+		Live
 	}
 }

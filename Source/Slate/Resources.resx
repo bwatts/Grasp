@@ -117,16 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="FormAlreadyAllowsPreview" xml:space="preserve">
-    <value>Form already allows preview</value>
+  <data name="CannotResumeDraftOnLiveForm" xml:space="preserve">
+    <value>Cannot resume draft status on live form "{0}"</value>
   </data>
-  <data name="FormDoesNotAllowPreview" xml:space="preserve">
-    <value>Form does not allow preview</value>
+  <data name="CannotTestLiveForm" xml:space="preserve">
+    <value>Cannot start testing on live form "{0}"</value>
   </data>
-  <data name="FormIsAlreadyPublished" xml:space="preserve">
-    <value>Form is already published</value>
+  <data name="FormAlreadyLive" xml:space="preserve">
+    <value>Form "{0}" is already live</value>
   </data>
-  <data name="FormIsNotPublished" xml:space="preserve">
-    <value>Form is not published</value>
+  <data name="FormAlreadyTesting" xml:space="preserve">
+    <value>Form "{0}" is already testing</value>
   </data>
 </root>

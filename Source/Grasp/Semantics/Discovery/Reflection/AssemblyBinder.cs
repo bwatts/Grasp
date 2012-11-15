@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Cloak;
 using Cloak.Reflection;
+using Grasp.Checks;
 
 namespace Grasp.Semantics.Discovery.Reflection
 {
@@ -59,7 +60,10 @@ namespace Grasp.Semantics.Discovery.Reflection
 
 			private static bool IgnoreType(Type type)
 			{
-				return type.FullName.StartsWith("System.Diagnostics.Contracts") || type.Name.StartsWith("<");
+				return type.FullName.StartsWith("System.Diagnostics.Contracts")
+					|| type.Name.StartsWith("<")
+					|| type.FullName.StartsWith("<")
+					|| Check.That(type.Namespace).IsNullOrEmpty();
 			}
 
 			private IEnumerable<NamespacePartBinding> GetNamespacePartBindings(IEnumerable<Type> types)
@@ -80,8 +84,6 @@ namespace Grasp.Semantics.Discovery.Reflection
 					where binding != null
 					select binding;
 			}
-
-
 
 			private static TypeBinding GetTypeBinding(Type type)
 			{

@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Text;
 using Autofac;
 using Cloak.Autofac;
+using Cloak.Reflection;
 using Cloak.Time;
 using Grasp.Raven;
 using Grasp.Semantics;
@@ -28,9 +29,7 @@ namespace Slate.Http.Server.Composition
 
 			Register(c =>
 			{
-				var documentStore = CreateDocumentStore(connectionStringName, c.Resolve<IComponentContext>());
-
-				documentStore.Initialize();
+				var documentStore = InitializeDocumentStore(connectionStringName, c.Resolve<IComponentContext>());
 
 				foreach(var indexAssembly in indexAssemblies)
 				{
@@ -41,6 +40,17 @@ namespace Slate.Http.Server.Composition
 			})
 			.As<IDocumentStore>()
 			.SingleInstance();
+		}
+
+		private static IDocumentStore InitializeDocumentStore(string connectionStringName, IComponentContext context)
+		{
+			var documentStore = CreateDocumentStore(connectionStringName, context);
+
+			SetConventions(documentStore.Conventions);
+
+			documentStore.Initialize();
+
+			return documentStore;
 		}
 
 		private static IDocumentStore CreateDocumentStore(string connectionStringName, IComponentContext context)
@@ -57,6 +67,26 @@ namespace Slate.Http.Server.Composition
 					CustomizeJsonSerializer = serializer => serializer.Converters.Add(jsonConverter)
 				}
 			};
+		}
+
+		private static void SetConventions(DocumentConvention conventions)
+		{
+			var originalFindFullDocumentKeyFromNonStringIdentifier = conventions.FindFullDocumentKeyFromNonStringIdentifier;
+
+			//conventions.FindFullDocumentKeyFromNonStringIdentifier =
+			//	(id, type, allowNull) => type == typeof(Guid)
+			//		? conventions.GetTypeTagName(type) + conventions.IdentityPartsSeparator + ((Guid) id).ToString("N").ToUpper()
+			//		: originalFindFullDocumentKeyFromNonStringIdentifier(id, type, allowNull);
+
+			conventions.FindFullDocumentKeyFromNonStringIdentifier = (id, type, allowNull) =>
+			{
+				return typeof(PersistentNotion<Guid>).IsAssignableFrom(type)
+					? conventions.GetTypeTagName(type) + conventions.IdentityPartsSeparator + ((Guid) id).ToString("N").ToUpper()
+					: originalFindFullDocumentKeyFromNonStringIdentifier(id, type, allowNull);
+			};
+
+			conventions.FindIdentityProperty =
+				property => property.DeclaringType.IsAssignableFromGenericDefinition(typeof(PersistentNotion<>)) && property.Name == "Id";
 		}
 	}
 }

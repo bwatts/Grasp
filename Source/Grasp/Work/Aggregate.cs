@@ -13,14 +13,14 @@ namespace Grasp.Work
 	/// <summary>
 	/// A versioned consistency boundary in which all events occur on the same timeline
 	/// </summary>
-	public abstract class Aggregate : PersistentNotion<Guid>, IPublisher
+	public abstract class Aggregate : PersistentNotion<Guid>
 	{
 		public static readonly Field<Guid> RevisionIdField = Field.On<Aggregate>.For(x => x.RevisionId);
 		public static readonly Field<ManyInOrder<Event>> _unobservedEventsField = Field.On<Aggregate>.For(x => x._unobservedEvents);
 
 		private ManyInOrder<Event> _unobservedEvents { get { return GetValue(_unobservedEventsField); } set { SetValue(_unobservedEventsField, value); } }
 
-		protected Aggregate()
+		protected Aggregate() : base(Guid.NewGuid())
 		{
 			_unobservedEvents = new ManyInOrder<Event>();
 		}
@@ -50,7 +50,7 @@ namespace Grasp.Work
 			RevisionId = version.RevisionId;
 		}
 
-		// TODO: WhenCreated and WhenModified should be set automatically by the work context whenever a field changes, not called explicitly
+		// TODO: Set WhenCreated and WhenModified automatically by detecting field changes?
 
 		protected void SetWhenCreated(DateTime when)
 		{

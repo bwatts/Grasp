@@ -14,14 +14,24 @@ namespace Grasp.Work.Items
 		public static readonly Field<Progress> ProgressField = Field.On<ReportProgressCommand>.For(x => x.Progress);
 		public static readonly Field<Uri> ResultLocationField = Field.On<ReportProgressCommand>.For(x => x.ResultLocation);
 
-		public ReportProgressCommand(Guid workItemId, Progress progress, Uri resultLocation = null)
+		public ReportProgressCommand(Guid workItemId, Progress progress)
 		{
 			Contract.Requires(workItemId != Guid.Empty);
-			Contract.Requires(progress < Progress.Complete || resultLocation == null);
+			Contract.Requires(progress > Progress.Accepted && progress < Progress.Complete);
 
 			WorkItemId = workItemId;
 			Progress = progress;
+		}
+
+		public ReportProgressCommand(Guid workItemId, Uri resultLocation)
+		{
+			Contract.Requires(workItemId != Guid.Empty);
+			Contract.Requires(resultLocation != null);
+
+			WorkItemId = workItemId;
 			ResultLocation = resultLocation;
+
+			Progress = Progress.Complete;
 		}
 
 		public Guid WorkItemId { get { return GetValue(WorkItemIdField); } private set { SetValue(WorkItemIdField, value); } }

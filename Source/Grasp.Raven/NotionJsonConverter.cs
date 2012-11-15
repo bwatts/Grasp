@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
@@ -50,37 +51,78 @@ namespace Grasp.Raven
 
 			if(notion != null)
 			{
-				GetBindingsJson(notion).WriteTo(writer, serializer.Converters.ToArray());
+				GetJson(notion).WriteTo(writer, serializer.Converters.ToArray());
 			}
 		}
 
-		private static JToken GetBindingsJson(IFieldContext notion)
+		private static JToken GetJson(IFieldContext notion)
 		{
+			return new JObject(GetJsonProperties(notion));
+		}
 
-			// TODO: Get rid of Context property in JSON using this technique:
-			//
-			// http://stackoverflow.com/questions/5872855/using-json-net-how-do-i-prevent-serializing-properties-of-a-derived-class-when
-
-			return new JObject(
+		private static IEnumerable<JProperty> GetJsonProperties(IFieldContext notion)
+		{
+			return
 				from binding in notion.GetBindings()
 				where !ExcludeField(binding.Field)
 				let propertyName = binding.Field.IsAttached ? binding.Field.FullName : binding.Field.Name
-				orderby binding.Field.IsAttached, propertyName
-				select new JProperty(propertyName, GetPropertyValue(binding.Value)));
+				orderby binding.Field.IsAttached, binding.Field.IsMany, propertyName
+				select new JProperty(propertyName, GetJsonValue(binding.Value));
 		}
 
 		private static bool ExcludeField(Field field)
 		{
 			// TODO: Externalize
 
-			return field == Lifetime.WhenReconstitutedField || field == Aggregate._unobservedEventsField || field == Message.ChannelField;
+			return field == PersistentId.ValueField
+				|| field == Lifetime.WhenReconstitutedField
+				|| field == Aggregate._unobservedEventsField
+				|| field == Message.ChannelField;
 		}
 
-		private static object GetPropertyValue(object value)
+		private static object GetJsonValue(object value)
 		{
-			// TODO: Externalize
+			if(value == null)
+			{
+				return null;
+			}
 
-			return value is Progress ? ((Progress) value).Value : value;
+			// TODO: Allow extensibility and externalize these
+
+			if(value is Notion)
+			{
+				return GetNotionObject((Notion) value);
+			}
+			else if(!(value is string) && value is IEnumerable)
+			{
+				return GetSequenceArray((IEnumerable) value);
+			}
+			else if(value is Guid)
+			{
+				return ((Guid) value).ToString("N").ToUpper();
+			}
+			else if(value is Progress)
+			{
+				return ((Progress) value).Value;
+			}
+			else
+			{
+				return value;
+			}
+		}
+
+		private static JObject GetNotionObject(Notion notion)
+		{
+			var type = notion.GetType();
+
+			return new JObject(
+				new JProperty(JsonState.TypeKey, type.FullName + ", " + type.Assembly.GetName().Name),
+				GetJsonProperties(notion));
+		}
+
+		private static JArray GetSequenceArray(IEnumerable value)
+		{
+			return new JArray(value.Cast<object>().Select(item => GetJsonValue(item)));
 		}
 	}
 }

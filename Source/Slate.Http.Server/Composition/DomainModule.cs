@@ -14,9 +14,9 @@ using Grasp.Work.Persistence;
 
 namespace Slate.Http.Server.Composition
 {
-	public class PersistenceModule : BuilderModule
+	public class DomainModule : BuilderModule
 	{
-		public PersistenceModule(IEnumerable<Assembly> assemblies)
+		public DomainModule(IEnumerable<Assembly> assemblies)
 		{
 			Contract.Requires(assemblies != null);
 
@@ -31,7 +31,7 @@ namespace Slate.Http.Server.Composition
 			RegisterType<FieldValueConverter>().As<IFieldValueConverter>().SingleInstance();
 		}
 
-		public PersistenceModule(params Assembly[] assemblies) : this(assemblies as IEnumerable<Assembly>)
+		public DomainModule(params Assembly[] assemblies) : this(assemblies as IEnumerable<Assembly>)
 		{}
 
 		private sealed class IsolatedNotionContext : INotionContext
