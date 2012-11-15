@@ -128,7 +128,7 @@ namespace Grasp.Raven
 				if(Check.That(_aggregateDocumentId).IsNotNullOrEmpty())
 				{
 					var revisions =
-					from revision in _session.Query<Revision, Revisions_ByAggregateId>()
+					from revision in _session.Query<Revision, Revisions_ByAggregateId>().Customize(c => c.WaitForNonStaleResults())
 					where revision.AggregateId == _aggregateDocumentId
 					orderby revision.Number descending
 					select revision;
