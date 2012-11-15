@@ -40,7 +40,19 @@ namespace Grasp.Semantics
 		{
 			Contract.Requires(domainModel != null);
 
-			return Fields.Concat(GetAttachableFields(domainModel)).Where(field => field.IsMany);
+			return GetCollectionFields(domainModel, field => field.AsMany.IsMany);
+		}
+
+		public IEnumerable<Field> GetNonManyFields(DomainModel domainModel)
+		{
+			Contract.Requires(domainModel != null);
+
+			return GetCollectionFields(domainModel, field => field.AsNonMany.IsNonMany);
+		}
+
+		private IEnumerable<Field> GetCollectionFields(DomainModel domainModel, Func<Field, bool> isCollectionPredicate)
+		{
+			return Fields.Concat(GetAttachableFields(domainModel)).Where(isCollectionPredicate);
 		}
 	}
 }

@@ -82,7 +82,7 @@ namespace Grasp.Raven
 		private static IEnumerable<Revision> LoadRevisions(string aggregateId, IDocumentSession session)
 		{
 			return
-				from revision in session.Query<Revision, Revisions_ByAggregateId>()
+				from revision in session.Query<Revision, Revisions_ByAggregateId>().Customize(c => c.WaitForNonStaleResults())
 				where revision.AggregateId == aggregateId
 				orderby revision.Number
 				select revision;
@@ -98,9 +98,8 @@ namespace Grasp.Raven
 		{
 			private readonly TAggregate _aggregate;
 			private readonly IDocumentSession _session;
-			private string _aggregateId;
-			private TAggregate _existingAggregate;
-			private Revision _existingRevision;
+			private string _aggregateDocumentId;
+			private Revision _currentRevision;
 			private Revision _newRevision;
 
 			internal EventStorage(TAggregate aggregate, IDocumentSession session)
@@ -111,7 +110,7 @@ namespace Grasp.Raven
 
 			internal IEnumerable<Event> StoreEvents()
 			{
-				LoadExistingAggregate();
+				LoadCurrentRevision();
 
 				CheckConcurrency();
 
@@ -122,28 +121,32 @@ namespace Grasp.Raven
 				return _newRevision.Events;
 			}
 
-			private void LoadExistingAggregate()
+			private void LoadCurrentRevision()
 			{
-				_aggregateId = GetAggregateDocumentId(_aggregate.Id);
+				_aggregateDocumentId = GetAggregateDocumentId(_aggregate.Id);
 
-				if(Check.That(_aggregateId).IsNotNullOrEmpty())
+				if(Check.That(_aggregateDocumentId).IsNotNullOrEmpty())
 				{
-					_existingAggregate = _session.Load<TAggregate>(_aggregateId);
+					var revisions =
+					from revision in _session.Query<Revision, Revisions_ByAggregateId>()
+					where revision.AggregateId == _aggregateDocumentId
+					orderby revision.Number descending
+					select revision;
 
-					_existingRevision = _existingAggregate == null ? null : _session.Load<Revision>(_existingAggregate.RevisionId);
+					_currentRevision = revisions.FirstOrDefault();
 				}
 			}
 
 			private void CheckConcurrency()
 			{
-				if(_existingAggregate != null && _existingAggregate.RevisionId != _aggregate.RevisionId)
+				if(_currentRevision != null && _currentRevision.Id != _aggregate.RevisionId)
 				{
-					throw new ConcurrencyException(Resources.ConcurrencyViolation.FormatInvariant(typeof(TAggregate), _aggregate.Id, _aggregate.RevisionId, _existingAggregate.RevisionId))
+					throw new ConcurrencyException(Resources.ConcurrencyViolation.FormatInvariant(typeof(TAggregate), _aggregate.Id, _aggregate.RevisionId, _currentRevision.Id))
 					{
 						AggregateType = typeof(TAggregate),
 						AggregateId = _aggregate.Id,
 						ExpectedRevisionId = _aggregate.RevisionId,
-						ActualRevisionId = _existingAggregate.RevisionId
+						ActualRevisionId = _currentRevision.Id
 					};
 				}
 			}
@@ -151,9 +154,9 @@ namespace Grasp.Raven
 			private void CreateRevisionAndAssignToAggregate()
 			{
 				_newRevision = new Revision(
-					_aggregateId,
-					baseRevisionId: _existingAggregate == null ? null : (Guid?) _existingAggregate.RevisionId,
-					number: 1 + (_existingRevision == null ? 0 : _existingRevision.Number),
+					_aggregateDocumentId,
+					baseRevisionId: _currentRevision == null ? null : (Guid?) _currentRevision.Id,
+					number: 1 + (_currentRevision == null ? 0 : _currentRevision.Number),
 					events: _aggregate.ObserveEvents());
 
 				Aggregate.RevisionIdField.Set(_aggregate, _newRevision.Id);

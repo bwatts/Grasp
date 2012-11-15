@@ -74,6 +74,7 @@ namespace Grasp.Work.Persistence
 			var notionModel = GetNotionModel(type);
 
 			var boundManyFields = new List<Field>();
+			var boundNonManyFields = new List<Field>();
 
 			if(state != null)
 			{
@@ -81,16 +82,28 @@ namespace Grasp.Work.Persistence
 				{
 					binding.Field.Set(notion, binding.Value);
 
-					if(binding.Field.IsMany)
+					if(binding.Field.AsMany.IsMany)
 					{
 						boundManyFields.Add(binding.Field);
+					}
+					else
+					{
+						if(binding.Field.AsNonMany.IsNonMany)
+						{
+							boundNonManyFields.Add(binding.Field);
+						}
 					}
 				}
 			}
 
 			foreach(var unboundManyField in notionModel.GetManyFields(_domainModel).Except(boundManyFields))
 			{
-				unboundManyField.Set(notion, unboundManyField.GetManyDefault());
+				unboundManyField.Set(notion, unboundManyField.AsMany.CreateEmptyValue());
+			}
+
+			foreach(var unboundNonManyField in notionModel.GetNonManyFields(_domainModel).Except(boundNonManyFields))
+			{
+				unboundNonManyField.Set(notion, unboundNonManyField.AsNonMany.CreateEmptyValue());
 			}
 		}
 
@@ -101,7 +114,7 @@ namespace Grasp.Work.Persistence
 
 		private IEnumerable<FieldBinding> GetBindings(NotionModel notionModel, INotionState state)
 		{
-			return state.GetBindings(_domainModel, notionModel);
+			return state.GetBindings(_domainModel, notionModel, this);
 		}
 	}
 }

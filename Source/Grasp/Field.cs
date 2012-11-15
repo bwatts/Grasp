@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
@@ -167,6 +168,9 @@ namespace Grasp
 			Name = name;
 			ValueType = valueType;
 			IsAttached = isAttached;
+
+			AsMany = new ManyDescriptor(this);
+			AsNonMany = new NonManyDescriptor(this, AsMany.IsMany);
 		}
 
 		/// <summary>
@@ -211,33 +215,21 @@ namespace Grasp
 		}
 
 		/// <summary>
-		/// Gets whether this field represents many values as opposed to single value
+		/// Gets a description of this field as a many collection
 		/// </summary>
-		public bool IsMany
-		{
-			get { return ValueType.IsGenericType && (ValueType.GetGenericTypeDefinition() == typeof(Many<>) || ValueType.GetGenericTypeDefinition() == typeof(ManyInOrder<>)); }
-		}
+		public ManyDescriptor AsMany { get; private set; }
 
 		/// <summary>
-		/// Gets the type of element in this field, if <see cref="IsMany"/> is true
+		/// Gets a description of this field as a non-many collection
 		/// </summary>
-		/// <returns>The type of element in this field</returns>
-		public Type GetManyElementType()
-		{
-			Contract.Requires(IsMany);
-
-			return ValueType.GetGenericArguments().Single();
-		}
+		public NonManyDescriptor AsNonMany { get; private set; }
 
 		/// <summary>
-		/// Gets the default value of this field's many type
+		/// Gets whether this field is a many or non-many collection
 		/// </summary>
-		/// <returns>A value of either <see cref="Many"/> or <see cref="ManyInOrder"/> depending on this field's many type</returns>
-		public object GetManyDefault()
+		public bool IsPlural
 		{
-			Contract.Requires(IsMany);
-
-			return Activator.CreateInstance(ValueType);
+			get { return AsMany.IsMany || AsNonMany.IsNonMany; }
 		}
 
 		/// <summary>
@@ -279,6 +271,112 @@ namespace Grasp
 			// TODO: Type/assignability checking?
 
 			return new FieldBinding(this, value);
+		}
+
+		/// <summary>
+		/// Describes a field as a many collection
+		/// </summary>
+		public sealed class ManyDescriptor
+		{
+			private readonly Field _field;
+			private readonly MethodInfo _castMethod;
+
+			internal ManyDescriptor(Field field)
+			{
+				_field = field;
+
+				IsMany = _field.ValueType.HasGenericDefinition(typeof(Many<>)) || _field.ValueType.HasGenericDefinition(typeof(ManyInOrder<>));
+
+				ElementType = !IsMany ? null : _field.ValueType.GetGenericArguments().Single();
+
+				_castMethod = typeof(Enumerable).GetMethods(BindingFlags.Public | BindingFlags.Static).Where(method => method.Name == "Cast").First();
+			}
+
+			/// <summary>
+			/// Gets whether the field is a many collection
+			/// </summary>
+			public bool IsMany { get; private set; }
+
+			/// <summary>
+			/// Gets the type of element in the collection
+			/// </summary>
+			public Type ElementType { get; private set; }
+
+			/// <summary>
+			/// Gets the empty value of the described collection type
+			/// </summary>
+			/// <returns>An empty value of the described collection type</returns>
+			public object CreateEmptyValue()
+			{
+				Contract.Requires(IsMany);
+
+				return Activator.CreateInstance(_field.ValueType);
+			}
+
+			/// <summary>
+			/// Gets an instance of the described collection type containing the specified items
+			/// </summary>
+			/// <param name="items">The items with which to initialize the collection</param>
+			/// <returns>An instance of the described collection type containing the specified items</returns>
+			public object CreateValue(IEnumerable items)
+			{
+				Contract.Requires(IsMany);
+
+				var typedItems = _castMethod.MakeGenericMethod(ElementType).Invoke(null, new[] { items });
+
+				return Activator.CreateInstance(_field.ValueType, typedItems);
+			}
+		}
+
+		/// <summary>
+		/// Describes a field as a non-many collection
+		/// </summary>
+		public sealed class NonManyDescriptor
+		{
+			private readonly Field _field;
+
+			internal NonManyDescriptor(Field field, bool isMany)
+			{
+				_field = field;
+
+				IsNonMany = !isMany && typeof(ICollection).IsAssignableFrom(_field.ValueType);
+
+				// TODO: Set element type
+			}
+
+			/// <summary>
+			/// Gets whether the field is a non-many collection
+			/// </summary>
+			public bool IsNonMany { get; private set; }
+
+			/// <summary>
+			/// Gets the type of element in the collection
+			/// </summary>
+			/// <returns>The type of element in the collection</returns>
+			public Type ElementType { get; private set; }
+
+			/// <summary>
+			/// Gets the empty value of the described collection type
+			/// </summary>
+			/// <returns>An empty value of the described collection type</returns>
+			public object CreateEmptyValue()
+			{
+				Contract.Requires(IsNonMany);
+
+				throw new NotImplementedException("Serialization of non-many fields is not complete");
+			}
+
+			/// <summary>
+			/// Gets an instance of the described collection type containing the specified items
+			/// </summary>
+			/// <param name="items">The items with which to initialize the collection</param>
+			/// <returns>An instance of the described collection type containing the specified items</returns>
+			public object CreateValue(IEnumerable items)
+			{
+				Contract.Requires(IsNonMany);
+
+				throw new NotImplementedException("Serialization of non-many fields is not complete");
+			}
 		}
 	}
 

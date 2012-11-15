@@ -66,7 +66,7 @@ namespace Grasp.Raven
 				from binding in notion.GetBindings()
 				where !ExcludeField(binding.Field)
 				let propertyName = binding.Field.IsAttached ? binding.Field.FullName : binding.Field.Name
-				orderby binding.Field.IsAttached, binding.Field.IsMany, propertyName
+				orderby binding.Field.IsAttached, binding.Field.IsPlural, propertyName
 				select new JProperty(propertyName, GetJsonValue(binding.Value));
 		}
 
@@ -87,7 +87,7 @@ namespace Grasp.Raven
 				return null;
 			}
 
-			// TODO: Allow extensibility and externalize these
+			// TODO: Externalize
 
 			if(value is Notion)
 			{

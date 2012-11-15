@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
@@ -34,14 +35,19 @@ namespace Grasp.Raven
 
 		public Type GetEffectiveType(Type expectedType)
 		{
-			var typeName = _json.Value<string>(TypeKey);
-
-			return typeName != null ? LoadType(typeName) : expectedType;
+			return LoadType() ?? expectedType;
 		}
 
-		public IEnumerable<FieldBinding> GetBindings(DomainModel domainModel, NotionModel model)
+		public IEnumerable<FieldBinding> GetBindings(DomainModel domainModel, NotionModel model, INotionActivator activator)
 		{
-			return new FieldBindingReader(_json, _fieldValueConverter, domainModel, model).ReadBindings();
+			return new FieldBindingReader(_json, _fieldValueConverter, domainModel, model, activator).ReadBindings();
+		}
+
+		private Type LoadType()
+		{
+			var typeName = _json.Value<string>(TypeKey);
+
+			return typeName == null ? null : LoadType(typeName);
 		}
 
 		private static Type LoadType(string name)
@@ -55,14 +61,16 @@ namespace Grasp.Raven
 			private readonly IFieldValueConverter _fieldValueConverter;
 			private readonly DomainModel _domainModel;
 			private readonly NotionModel _notionModel;
+			private readonly INotionActivator _activator;
 			private List<FieldBinding> _bindings;
 
-			internal FieldBindingReader(JToken json, IFieldValueConverter fieldValueConverter, DomainModel domainModel, NotionModel notionModel)
+			internal FieldBindingReader(JToken json, IFieldValueConverter fieldValueConverter, DomainModel domainModel, NotionModel notionModel, INotionActivator activator)
 			{
 				_json = json;
 				_fieldValueConverter = fieldValueConverter;
 				_domainModel = domainModel;
 				_notionModel = notionModel;
+				_activator = activator;
 			}
 
 			internal IEnumerable<FieldBinding> ReadBindings()
@@ -118,23 +126,17 @@ namespace Grasp.Raven
 				{
 					var propertyName = propertyNameSelector(field);
 
-					if(field.IsMany)
+					if(field.AsMany.IsMany)
 					{
-						var array = _json[propertyName] as JArray;
-
-						if(array != null)
-						{
-							// TODO: Bind many field
-						}
+						BindManyField(propertyName, field);
+					}
+					else if(field.AsNonMany.IsNonMany)
+					{
+						BindNonManyField(propertyName, field);
 					}
 					else
 					{
-						var value = GetJsonValue(propertyName);
-
-						if(value != null)
-						{
-							Bind(field, ConvertValueToFieldType(field.ValueType, value));
-						}
+						BindValue(propertyName, field);
 					}
 				}
 			}
@@ -147,6 +149,42 @@ namespace Grasp.Raven
 			private object ConvertValueToFieldType(Type fieldType, object value)
 			{
 				return _fieldValueConverter.ConvertValueToFieldType(fieldType, value);
+			}
+
+			private void BindManyField(string propertyName, Field field)
+			{
+				var items = GetItems(propertyName, field.AsMany.ElementType);
+
+				Bind(field, items == null ? field.AsMany.CreateEmptyValue() : field.AsMany.CreateValue(items));
+			}
+
+			private void BindNonManyField(string propertyName, Field field)
+			{
+				var items = GetItems(propertyName, field.AsNonMany.ElementType);
+
+				Bind(field, items == null ? field.AsNonMany.CreateEmptyValue() : field.AsNonMany.CreateValue(items));
+			}
+
+			private void BindValue(string propertyName, Field field)
+			{
+				var value = GetJsonValue(propertyName);
+
+				if(value != null)
+				{
+					Bind(field, ConvertValueToFieldType(field.ValueType, value));
+				}
+			}
+
+			private IEnumerable GetItems(string propertyName, Type itemType)
+			{
+				var items = _json[propertyName] as JArray;
+
+				return items == null ? null : items.Select(item => GetItem(itemType, item));
+			}
+
+			private object GetItem(Type itemType, JToken json)
+			{
+				return _activator.Activate(itemType, new JsonState(json, _fieldValueConverter));
 			}
 		}
 	}

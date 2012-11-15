@@ -84,9 +84,13 @@ namespace Grasp.Semantics.Discovery.Reflection
 			{
 				var valueType = referencingField.ValueType;
 
-				if(referencingField.IsMany)
+				if(referencingField.AsMany.IsMany)
 				{
-					return GetPluralReference(referencingNotion, referencingField);
+					return GetManyReference(referencingNotion, referencingField);
+				}
+				else if(referencingField.AsNonMany.IsNonMany)
+				{
+					return GetNonManyReference(referencingNotion, referencingField);
 				}
 				else if(typeof(Notion).IsAssignableFrom(referencingField.ValueType))
 				{
@@ -98,11 +102,16 @@ namespace Grasp.Semantics.Discovery.Reflection
 				}
 			}
 
-			private ReferenceModel GetPluralReference(NotionModel referencingNotion, Field referencingField)
+			private ReferenceModel GetManyReference(NotionModel referencingNotion, Field referencingField)
 			{
 				var referencedNotion = GetReferencedNotion(referencingField);
 
 				return referencedNotion == null ? null : new ReferenceModel(referencingNotion, referencingField, referencedNotion, GetPluralCardinality(referencingField));
+			}
+
+			private ReferenceModel GetNonManyReference(NotionModel referencingNotion, Field referencingField)
+			{
+				throw new NotImplementedException("Serialization of non-many fields is not complete");
 			}
 
 			private NotionModel GetReferencedNotion(Field pluralReferencingField)
