@@ -13,42 +13,36 @@ namespace Grasp.Work.Items
 		public static readonly Field<string> DescriptionField = Field.On<WorkItem>.For(x => x.Description);
 		public static readonly Field<TimeSpan> RetryIntervalField = Field.On<WorkItem>.For(x => x.RetryInterval);
 		public static readonly Field<Progress> ProgressField = Field.On<WorkItem>.For(x => x.Progress);
-		public static readonly Field<Uri> ResultResourceField = Field.On<WorkItem>.For(x => x.ResultResource);
+		public static readonly Field<Uri> ResultLocationField = Field.On<WorkItem>.For(x => x.ResultLocation);
 
 		public WorkItem(Guid id, string description, TimeSpan retryInterval)
 		{
-			Contract.Requires(description != null);
-			Contract.Requires(retryInterval > TimeSpan.Zero);
-
 			Announce(new WorkItemCreatedEvent(id, description, retryInterval));
 		}
 
 		public string Description { get { return GetValue(DescriptionField); } private set { SetValue(DescriptionField, value); } }
 		public TimeSpan RetryInterval { get { return GetValue(RetryIntervalField); } private set { SetValue(RetryIntervalField, value); } }
 		public Progress Progress { get { return GetValue(ProgressField); } private set { SetValue(ProgressField, value); } }
-		public Uri ResultResource { get { return GetValue(ResultResourceField); } private set { SetValue(ResultResourceField, value); } }
+		public Uri ResultLocation { get { return GetValue(ResultLocationField); } private set { SetValue(ResultLocationField, value); } }
 
-		public void ReportProgress(Progress progress, Uri resultUri = null)
+		public void Handle(ReportProgressCommand command)
 		{
-			if(Progress == Progress.Complete)
+			Contract.Requires(command != null);
+
+			if(Progress == Progress.Accepted && command.Progress > Progress.Accepted)
 			{
-				return;
+				Announce(new ProgressStartedEvent(command.WorkItemId));
 			}
 
-			if(Progress == Progress.Accepted && progress > Progress.Accepted)
-			{
-				Announce(new ProgressStartedEvent(Id));
-			}
+			Announce(new ProgressReportedEvent(command.WorkItemId, command.Progress));
 
-			Announce(new ProgressReportedEvent(Id, progress));
-
-			if(progress == Progress.Complete)
+			if(command.Progress == Progress.Complete)
 			{
-				Announce(new WorkItemCompletedEvent(Id, resultUri));
+				Announce(new WorkItemCompletedEvent(command.WorkItemId, command.ResultLocation));
 			}
 		}
 
-		private void Handle(WorkItemCreatedEvent e)
+		private void Observe(WorkItemCreatedEvent e)
 		{
 			SetValue(PersistentId.ValueField, e.WorkItemId);
 
@@ -61,16 +55,16 @@ namespace Grasp.Work.Items
 			SetWhenModified(e.When);
 		}
 
-		private void Handle(ProgressReportedEvent e)
+		private void Observe(ProgressReportedEvent e)
 		{
 			Progress = e.Progress;
 
 			SetWhenModified(e.When);
 		}
 
-		private void Handle(WorkItemCompletedEvent e)
+		private void Observe(WorkItemCompletedEvent e)
 		{
-			ResultResource = e.ResultResource;
+			ResultLocation = e.ResultLocation;
 
 			SetWhenModified(e.When);
 		}

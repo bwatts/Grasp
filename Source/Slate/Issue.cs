@@ -26,7 +26,7 @@ namespace Slate
 		public int Number { get { return GetValue(NumberField); } private set { SetValue(NumberField, value); } }
 		public string Title { get { return GetValue(TitleField); } private set { SetValue(TitleField, value); } }
 
-		private void Handle(IssueOpenedEvent e)
+		private void Observe(IssueOpenedEvent e)
 		{
 			SetValue(PersistentId.ValueField, e.IssueId);
 

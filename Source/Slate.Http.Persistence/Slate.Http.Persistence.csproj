@@ -120,6 +120,7 @@
     <Compile Include="..\SlateAssemblyInfo.cs">
       <Link>Properties\SlateAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="FormByIdQuery.cs" />
     <Compile Include="IssueListService.cs" />
     <Compile Include="FormListService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -136,6 +137,10 @@
     <ProjectReference Include="..\Grasp\Grasp.csproj">
       <Project>{0a728107-2d52-4e6b-b651-793048876837}</Project>
       <Name>Grasp</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Slate.Http.Api\Slate.Http.Api.csproj">
+      <Project>{0a49a4a4-d946-490b-8a7d-cfa5412b8335}</Project>
+      <Name>Slate.Http.Api</Name>
     </ProjectReference>
     <ProjectReference Include="..\Slate\Slate.csproj">
       <Project>{b5f202a2-4794-4265-8d6a-5c1c4e5a6ed7}</Project>

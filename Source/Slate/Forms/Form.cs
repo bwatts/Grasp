@@ -16,11 +16,13 @@ namespace Slate.Forms
 		public static readonly Field<string> NameField = Field.On<Form>.For(x => x.Name);
 		public static readonly Field<FormVisibility> VisibilityField = Field.On<Form>.For(x => x.Visibility);
 
-		public Form(Guid id, string name)
+		public Form(Guid workItemId, Guid id, string name)
 		{
+			Contract.Requires(workItemId != Guid.Empty);
+			Contract.Requires(id != Guid.Empty);
 			Contract.Requires(name != null);
 
-			Announce(new FormCreatedEvent(id, name));
+			Announce(new FormCreatedEvent(workItemId, id, name));
 		}
 
 		public string Name { get { return GetValue(NameField); } private set { SetValue(NameField, value); } }
@@ -66,7 +68,7 @@ namespace Slate.Forms
 			Announce(new FormUnpublishedEvent(Id));
 		}
 
-		private void Handle(FormCreatedEvent e)
+		private void Observe(FormCreatedEvent e)
 		{
 			SetValue(PersistentId.ValueField, e.FormId);
 
@@ -77,28 +79,28 @@ namespace Slate.Forms
 			SetWhenModified(e.When);
 		}
 
-		private void Handle(FormAllowedPreviewEvent e)
+		private void Observe(FormAllowedPreviewEvent e)
 		{
 			Visibility = FormVisibility.Preview;
 
 			SetWhenModified(e.When);
 		}
 
-		private void Handle(FormDisallowedPreviewEvent e)
+		private void Observe(FormDisallowedPreviewEvent e)
 		{
 			Visibility = FormVisibility.Published;
 
 			SetWhenModified(e.When);
 		}
 
-		private void Handle(FormPublishedEvent e)
+		private void Observe(FormPublishedEvent e)
 		{
 			Visibility = FormVisibility.Published;
 
 			SetWhenModified(e.When);
 		}
 
-		private void Handle(FormUnpublishedEvent e)
+		private void Observe(FormUnpublishedEvent e)
 		{
 			Visibility = FormVisibility.Draft;
 

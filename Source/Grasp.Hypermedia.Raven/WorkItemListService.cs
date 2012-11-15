@@ -41,7 +41,7 @@ namespace Grasp.Hypermedia.Raven
 				Description = item.Description,
 				RetryInterval = item.RetryInterval,
 				Progress = item.Progress,
-				ResultResource = item.ResultResource
+				ResultResource = item.ResultLocation
 			}));
 		}
 	}

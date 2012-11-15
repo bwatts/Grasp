@@ -12,7 +12,6 @@ using Grasp.Hypermedia.Server;
 using Grasp.Messaging;
 using Grasp.Work.Items;
 using Slate.Forms;
-using Slate.Services;
 
 namespace Slate.Http.Server.Composition
 {
@@ -20,13 +19,14 @@ namespace Slate.Http.Server.Composition
 	{
 		public MessagingModule()
 		{
-			RegisterType<StartWorkHandler>().InstancePerDependency();
-
 			Register(c => new TypeDispatchChannelFactory(c.Resolve<ILifetimeScope>()).Create())
 			.As<IMessageChannel>()
 			.SingleInstance();
 
 			RegisterModule<AmbientMessageChannelModule>();
+
+			RegisterType<StartWorkHandler>().InstancePerDependency();
+			RegisterType<StartFormHandler>().InstancePerDependency();
 		}
 
 		private sealed class TypeDispatchChannelFactory

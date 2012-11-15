@@ -8,7 +8,6 @@ using Autofac;
 using Cloak.Autofac;
 using Grasp.Hypermedia;
 using Grasp.Hypermedia.Lists;
-using Slate.Services;
 using Slate.Web.Site.Presentation.Explore;
 using Slate.Web.Site.Presentation.Lists;
 

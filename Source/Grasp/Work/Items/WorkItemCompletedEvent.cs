@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,15 +11,18 @@ namespace Grasp.Work.Items
 	public class WorkItemCompletedEvent : Event
 	{
 		public static readonly Field<Guid> WorkItemIdField = Field.On<WorkItemCompletedEvent>.For(x => x.WorkItemId);
-		public static readonly Field<Uri> ResultResourceField = Field.On<WorkItemCompletedEvent>.For(x => x.ResultResource);
+		public static readonly Field<Uri> ResultLocationField = Field.On<WorkItemCompletedEvent>.For(x => x.ResultLocation);
 
-		public WorkItemCompletedEvent(Guid workItemId, Uri resultResource)
+		public WorkItemCompletedEvent(Guid workItemId, Uri resultLocation)
 		{
+			Contract.Requires(workItemId != Guid.Empty);
+			Contract.Requires(resultLocation != null);
+
 			WorkItemId = workItemId;
-			ResultResource = resultResource;
+			ResultLocation = resultLocation;
 		}
 
 		public Guid WorkItemId { get { return GetValue(WorkItemIdField); } private set { SetValue(WorkItemIdField, value); } }
-		public Uri ResultResource { get { return GetValue(ResultResourceField); } private set { SetValue(ResultResourceField, value); } }
+		public Uri ResultLocation { get { return GetValue(ResultLocationField); } private set { SetValue(ResultLocationField, value); } }
 	}
 }

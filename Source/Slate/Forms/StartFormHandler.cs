@@ -25,7 +25,7 @@ namespace Slate.Forms
 
 		public async Task HandleAsync(StartFormCommand command)
 		{
-			var form = new Form(command.FormId, command.Name);
+			var form = new Form(command.WorkItemId, command.FormId, command.Name);
 
 			await _formRepository.SaveAsync(form);
 		}

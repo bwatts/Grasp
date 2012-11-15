@@ -75,7 +75,7 @@ namespace Grasp.Hypermedia.Server
 			}
 			else if(item.Progress == Progress.Complete)
 			{
-				return new WorkItemResource(header, item.Id, "Complete", new Hyperlink(item.ResultResource, relationship: "grasp:work-result"));
+				return new WorkItemResource(header, item.Id, "Complete", new Hyperlink(item.ResultLocation, relationship: "grasp:work-result"));
 			}
 			else
 			{

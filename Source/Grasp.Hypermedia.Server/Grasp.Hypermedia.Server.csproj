@@ -58,6 +58,7 @@
     <Compile Include="IWorkItemStore.cs" />
     <Compile Include="ListPageKeyBinder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StartWorkService.cs" />
     <Compile Include="WorkController.cs" />
     <Compile Include="WorkItemStore.cs" />
   </ItemGroup>

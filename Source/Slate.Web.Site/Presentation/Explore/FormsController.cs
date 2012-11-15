@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using Slate.Services;
 using Slate.Web.Site.Presentation.Navigation;
 
 namespace Slate.Web.Site.Presentation.Explore

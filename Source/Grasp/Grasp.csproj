@@ -286,6 +286,8 @@
     <Compile Include="Semantics\FieldAttacherModel.cs" />
     <Compile Include="Semantics\Discovery\Reflection\FieldAttacherBinding.cs" />
     <Compile Include="Work\ConcurrencyException.cs" />
+    <Compile Include="Work\Items\IStartWorkService.cs" />
+    <Compile Include="Work\Items\ReportProgressCommand.cs" />
     <Compile Include="Work\Items\StartWorkHandler.cs" />
     <Compile Include="Work\Items\StartWorkCommand.cs" />
     <Compile Include="Work\Items\ProgressConverter.cs" />

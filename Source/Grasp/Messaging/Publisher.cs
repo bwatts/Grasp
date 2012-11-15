@@ -11,14 +11,19 @@ namespace Grasp.Messaging
 	/// </summary>
 	public abstract class Publisher : Notion, IPublisher
 	{
+		protected IMessageChannel GetMessageChannel()
+		{
+			return Message.Channel(this);
+		}
+
 		protected Task AnnounceAsync(Event @event)
 		{
-			return Publishing.AnnounceAsync(this, @event);
+			return GetMessageChannel().AnnounceAsync(@event);
 		}
 
 		protected Task IssueAsync(Command command)
 		{
-			return Publishing.IssueAsync(this, command);
+			return GetMessageChannel().IssueAsync(command);
 		}
 	}
 }

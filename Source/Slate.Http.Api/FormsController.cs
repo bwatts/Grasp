@@ -4,87 +4,72 @@ using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
 using Cloak;
-using Grasp.Hypermedia;
 using Grasp.Hypermedia.Lists;
+using Grasp.Hypermedia.Server;
 using Grasp.Lists;
-using Grasp.Work;
+using Grasp.Messaging;
+using Grasp.Work.Items;
 using Slate.Forms;
-using Slate.Services;
 
 namespace Slate.Http.Api
 {
 	public class FormsController : ApiController
 	{
-		private readonly IHttpResourceContext _resourceContext;
-		private readonly IListService _listService;
-		private readonly IStartFormService _startFormService;
-		private readonly IRepository<Form> _formRepository;
+		private readonly IFormStore _formStore;
+		private readonly IStartWorkService _startWorkService;
+		private readonly TimeSpan _startRetryInterval;
 
-		public FormsController(IHttpResourceContext resourceContext, IListService listService, IStartFormService startFormService, IRepository<Form> formRepository)
+		public FormsController(IFormStore formStore, IStartWorkService startWorkService, TimeSpan startRetryInterval)
 		{
-			Contract.Requires(resourceContext != null);
-			Contract.Requires(listService != null);
-			Contract.Requires(startFormService != null);
-			Contract.Requires(formRepository != null);
+			Contract.Requires(formStore != null);
+			Contract.Requires(startWorkService != null);
+			Contract.Requires(startRetryInterval >= TimeSpan.Zero);
 
-			_resourceContext = resourceContext;
-			_listService = listService;
-			_startFormService = startFormService;
-			_formRepository = formRepository;
+			_formStore = formStore;
+			_startWorkService = startWorkService;
+			_startRetryInterval = startRetryInterval;
 		}
 
 		[HttpGet]
-		public async Task<Hyperlist> GetListPageAsync(ListPageKey key)
+		public Task<Hyperlist> GetListPageAsync(ListPageKey key)
 		{
-			var page = await _listService.GetPageAsync(key);
+			return _formStore.GetListAsync(key);
+		}
 
-			return new Hyperlist(
-				_resourceContext.CreateHeader("Forms"),
-				new Hyperlink("forms?page={page}&pageSize={page-size}&sort={sort}", relationship: "grasp:list-page"),
-				key,
-				page.Context,
-				CreatePage(page));
+		[HttpGet]
+		public async Task<HttpResponseMessage> GetItemAsync(HttpRequestMessage request, Guid id)
+		{
+			var form = await _formStore.GetFormAsync(id);
+
+			return form == null
+				? request.CreateResponse(HttpStatusCode.NotFound)
+				: request.CreateResponse(HttpStatusCode.OK, form);
 		}
 
 		[HttpPost]
-		public async Task<HttpResponseMessage> StartAsync(HttpRequestMessage request, string name)
+		public async Task<HttpResponseMessage> StartAsync(HttpRequestMessage request, StartFormArguments arguments)
 		{
-			var workItem = await _startFormService.StartFormAsync(name);
+			var response = request.CreateResponse(HttpStatusCode.Accepted);
 
-			return request.CreateResponse(HttpStatusCode.Accepted, workItem);
+			response.Headers.Location = await StartFormAsync(arguments.name);
+
+			return response;
 		}
 
-		
-
-		//[HttpGet]
-		//public async Task<object> GetDetailsAsync(Guid id)
-		//{
-			
-		//}
-
-
-
-		private static HyperlistPage CreatePage(ListPage page)
+		private Task<Uri> StartFormAsync(string name)
 		{
-			return new HyperlistPage(page.Key.Number, page.Key.Size, page.FirstItemNumber, page.LastItemNumber, CreateItems(page));
+			return _startWorkService.StartWorkAsync(
+				"Start form '{0}'".FormatCurrent(name),
+				_startRetryInterval,
+				(workItemId, channel) => channel.IssueAsync(new StartFormCommand(workItemId, Guid.NewGuid(), name)));
 		}
 
-		private static HyperlistItems CreateItems(ListPage page)
+		public sealed class StartFormArguments
 		{
-			return new HyperlistItems(page.Items.Schema, page.Items.Select(CreateItem));
-		}
-
-		private static HyperlistItem CreateItem(ListItem listItem)
-		{
-			var name = (string) listItem["Name"];
-
-			var link = new Hyperlink("forms/{0}".FormatCurrent(name), listItem.Number, name, "grasp:list-item");
-
-			return new HyperlistItem(link, listItem);
+			public string name { get; set; }
 		}
 	}
 }

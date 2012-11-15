@@ -11,6 +11,7 @@ using Grasp.Hypermedia;
 using Grasp.Hypermedia.Raven;
 using Grasp.Hypermedia.Server;
 using Grasp.Lists;
+using Grasp.Work.Items;
 
 namespace Slate.Http.Server.Composition
 {
@@ -20,11 +21,13 @@ namespace Slate.Http.Server.Composition
 		{
 			Contract.Requires(httpSettings != null);
 
-			var workStatusFormat = new WorkItemHtmlFormat();
+			var workItemFormat = new WorkItemHtmlFormat();
 
-			httpSettings.Formatters.Add(workStatusFormat);
+			httpSettings.Formatters.Add(workItemFormat);
 
-			RegisterInstance(workStatusFormat).As<MediaFormat>();
+			RegisterInstance(workItemFormat).As<MediaFormat>();
+
+			RegisterType<StartWorkService>().As<IStartWorkService>().InstancePerDependency();
 
 			RegisterType<WorkItemListService>().Named<IListService>("Work").InstancePerDependency();
 

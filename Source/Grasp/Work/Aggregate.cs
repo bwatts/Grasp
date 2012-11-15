@@ -44,7 +44,7 @@ namespace Grasp.Work
 
 			foreach(var @event in version)
 			{
-				ApplyChange(@event, isNew: false);
+				ApplyEvent(@event, isNew: false);
 			}
 
 			RevisionId = version.RevisionId;
@@ -64,12 +64,12 @@ namespace Grasp.Work
 
 		protected void Announce(Event @event)
 		{
-			ApplyChange(@event, isNew: true);
+			ApplyEvent(@event, isNew: true);
 		}
 
-		private void ApplyChange(Event @event, bool isNew)
+		private void ApplyEvent(Event @event, bool isNew)
 		{
-			DispatchToImplicitHandlers(@event);
+			DispatchToImplicitObservers(@event);
 
 			if(isNew)
 			{
@@ -77,7 +77,7 @@ namespace Grasp.Work
 			}
 		}
 
-		private void DispatchToImplicitHandlers(Event @event)
+		private void DispatchToImplicitObservers(Event @event)
 		{
 			// This is some neat trickery from a CQRS tutorial repository:
 			//
@@ -91,7 +91,7 @@ namespace Grasp.Work
 			//
 			// The original inspiration can be found at https://github.com/davidebbo/ReflectionMagic and is reflected (pun intended) in the DynamicReflector class.
 
-			DynamicReflector.For(this).Handle(@event);
+			DynamicReflector.For(this).Observe(@event);
 		}
 
 		private void RecordUnobservedEvent(Event @event)

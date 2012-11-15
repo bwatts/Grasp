@@ -8,13 +8,15 @@ using Autofac;
 using Cloak.Autofac;
 using Grasp.Hypermedia;
 using Grasp.Hypermedia.Lists;
+using Grasp.Hypermedia.Server;
 using Grasp.Lists;
+using Grasp.Messaging;
 using Grasp.Work;
+using Grasp.Work.Items;
 using Slate.Forms;
 using Slate.Http.Api;
 using Slate.Http.Persistence;
 using Slate.Http.Server.Configuration;
-using Slate.Services;
 
 namespace Slate.Http.Server.Composition
 {
@@ -26,13 +28,13 @@ namespace Slate.Http.Server.Composition
 
 			RegisterType<FormListService>().Named<IListService>("Forms").InstancePerDependency();
 
-			Register(c => new StartFormService(siteSettings.WorkRetryInterval)).As<IStartFormService>().SingleInstance();
+			RegisterType<FormByIdQuery>().As<IFormByIdQuery>().InstancePerDependency();
 
-			Register(c => new FormsController(
-				c.Resolve<IHttpResourceContext>(),
-				c.ResolveNamed<IListService>("Forms"),
-				c.Resolve<IStartFormService>(),
-				c.Resolve<IRepository<Form>>()))
+			Register(c => new FormStore(c.Resolve<IHttpResourceContext>(), c.ResolveNamed<IListService>("Forms"), c.Resolve<IFormByIdQuery>()))
+			.As<IFormStore>()
+			.InstancePerDependency();
+
+			Register(c => new FormsController(c.Resolve<IFormStore>(), c.Resolve<IStartWorkService>(), siteSettings.WorkRetryInterval))
 			.InstancePerDependency();
 
 			httpSettings.Routes.MapHttpRoute("form-list", "forms", new { controller = "Forms" });
