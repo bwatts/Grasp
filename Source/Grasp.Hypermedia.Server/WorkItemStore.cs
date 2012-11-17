@@ -38,7 +38,7 @@ namespace Grasp.Hypermedia.Server
 			var page = await _listService.GetPageAsync(pageKey);
 
 			return GetList(
-				_resourceContext.CreateHeader("Work"),
+				_resourceContext.CreateHeader("Work", "work" + pageKey.GetQuery(includeSeparator: true)),
 				new Hyperlink("work?page={page}&pageSize={page-size}&sort={sort}", relationship: "grasp:list-page"),
 				pageKey,
 				page,
@@ -62,25 +62,23 @@ namespace Grasp.Hypermedia.Server
 
 		public Uri GetLocation(Guid id)
 		{
-			return _resourceContext.GetAbsoluteUrl("work/" + id.ToString("N").ToUpper());
+			return _resourceContext.GetAbsoluteUrl(GetUrl(id));
+		}
+
+		private static string GetUrl(Guid id)
+		{
+			return "work/" + id.ToString("N").ToUpper();
 		}
 
 		private WorkItemResource CreateResource(WorkItem item)
 		{
-			var header = _resourceContext.CreateHeader(item.Description);
+			var header = _resourceContext.CreateHeader(item.Description, GetUrl(item.Id));
 
-			if(item.Progress == Progress.Accepted)
-			{
-				return new WorkItemResource(header, item.Id, "Accepted", item.RetryInterval);
-			}
-			else if(item.Progress == Progress.Complete)
-			{
-				return new WorkItemResource(header, item.Id, "Complete", new Hyperlink(item.ResultLocation, relationship: "grasp:work-result"));
-			}
-			else
-			{
-				return new WorkItemResource(header, item.Id, "In progress", item.RetryInterval, item.Progress);
-			}
+			var whenStarted = Lifetime.WhenCreatedField.Get(item);
+
+			return item.Progress < Progress.Complete
+				? new WorkItemResource(header, item.Id, whenStarted, Progress.Accepted, item.RetryInterval)
+				: new WorkItemResource(header, item.Id, whenStarted, new Hyperlink(item.ResultLocation, relationship: "grasp:work-result"));
 		}
 	}
 }

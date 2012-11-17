@@ -6,7 +6,7 @@ using System.Web;
 
 namespace Slate.Http.Server.Configuration
 {
-	public class SiteSection : ConfigurationSection
+	public class ServerSection : ConfigurationSection
 	{
 		[ConfigurationProperty("baseUrl", IsRequired = true)]
 		public Uri BaseUrl
@@ -27,6 +27,13 @@ namespace Slate.Http.Server.Configuration
 		{
 			get { return (TimeSpan) this["workRetryInterval"]; }
 			set { this["workRetryInterval"] = value; }
+		}
+
+		[ConfigurationProperty("includeStackTracesWithErrors", DefaultValue = false)]
+		public bool IncludeStackTracesWithErrors
+		{
+			get { return (bool) this["includeStackTracesWithErrors"]; }
+			set { this["includeStackTracesWithErrors"] = value; }
 		}
 	}
 }

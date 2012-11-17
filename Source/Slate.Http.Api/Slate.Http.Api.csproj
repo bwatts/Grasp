@@ -126,6 +126,7 @@
     <Compile Include="..\SlateAssemblyInfo.cs">
       <Link>Properties\SlateAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="HomeController.cs" />
     <Compile Include="FormMesh.cs" />
     <Compile Include="IssuesController.cs" />
     <Compile Include="FormsController.cs" />

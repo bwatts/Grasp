@@ -11,8 +11,8 @@ namespace Grasp.Work.Items
 	public class WorkItem : Aggregate
 	{
 		public static readonly Field<string> DescriptionField = Field.On<WorkItem>.For(x => x.Description);
-		public static readonly Field<TimeSpan> RetryIntervalField = Field.On<WorkItem>.For(x => x.RetryInterval);
 		public static readonly Field<Progress> ProgressField = Field.On<WorkItem>.For(x => x.Progress);
+		public static readonly Field<TimeSpan> RetryIntervalField = Field.On<WorkItem>.For(x => x.RetryInterval);
 		public static readonly Field<Uri> ResultLocationField = Field.On<WorkItem>.For(x => x.ResultLocation);
 
 		public WorkItem(Guid id, string description, TimeSpan retryInterval)
@@ -21,8 +21,8 @@ namespace Grasp.Work.Items
 		}
 
 		public string Description { get { return GetValue(DescriptionField); } private set { SetValue(DescriptionField, value); } }
-		public TimeSpan RetryInterval { get { return GetValue(RetryIntervalField); } private set { SetValue(RetryIntervalField, value); } }
 		public Progress Progress { get { return GetValue(ProgressField); } private set { SetValue(ProgressField, value); } }
+		public TimeSpan RetryInterval { get { return GetValue(RetryIntervalField); } private set { SetValue(RetryIntervalField, value); } }
 		public Uri ResultLocation { get { return GetValue(ResultLocationField); } private set { SetValue(ResultLocationField, value); } }
 
 		public void Handle(ReportProgressCommand command)
@@ -45,7 +45,7 @@ namespace Grasp.Work.Items
 
 		private void Observe(WorkItemCreatedEvent e)
 		{
-			SetValue(PersistentId.ValueField, e.WorkItemId);
+			SetId(e.WorkItemId);
 
 			Description = e.Description;
 			RetryInterval = e.RetryInterval;

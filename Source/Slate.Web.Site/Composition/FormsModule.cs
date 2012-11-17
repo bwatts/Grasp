@@ -9,6 +9,7 @@ using Cloak.Autofac;
 using Grasp.Hypermedia;
 using Grasp.Hypermedia.Lists;
 using Slate.Web.Site.Presentation.Explore;
+using Slate.Web.Site.Presentation.Explore.Forms;
 using Slate.Web.Site.Presentation.Lists;
 
 namespace Slate.Web.Site.Composition
@@ -17,6 +18,8 @@ namespace Slate.Web.Site.Composition
 	{
 		public FormsModule(RouteCollection routes, string emptyListMessage)
 		{
+			Contract.Requires(routes != null);
+
 			Register(c => new ListMesh(
 				countTemplate: new Hyperlink("explore/forms", "{item-count}", "Explore the forms in your system"),
 				pageTemplate: new Hyperlink("explore/forms", "{page}", "Page {page} of {page-count}"),
@@ -29,7 +32,7 @@ namespace Slate.Web.Site.Composition
 			.Named<IListModelFactory>("Forms")
 			.InstancePerDependency();
 
-			//RegisterType<StartFormService>().As<IStartFormService>().SingleInstance();
+			RegisterType<FormService>().As<IFormService>().InstancePerDependency();
 
 			RegisterType<FormsController>().InstancePerDependency();
 

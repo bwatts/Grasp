@@ -4,6 +4,7 @@ using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Grasp.Hypermedia.Linq;
 
 namespace Grasp.Hypermedia
 {
@@ -34,9 +35,14 @@ namespace Grasp.Hypermedia
 			return new Uri(_baseUrl, relativeUrl);
 		}
 
-		public HttpResourceHeader CreateHeader(string title)
+		public MHeader CreateHeader(string title, Uri selfUri)
 		{
-			return new HttpResourceHeader(title, GetBaseLink(), _links);
+			return new MHeader(title, GetBaseLink(), new Hyperlink(selfUri, relationship: Relationship.Self), _links);
+		}
+
+		public MHeader CreateHeader(string title, string selfUri)
+		{
+			return new MHeader(title, GetBaseLink(), new Hyperlink(selfUri, relationship: Relationship.Self), _links);
 		}
 
 		private Hyperlink GetBaseLink()

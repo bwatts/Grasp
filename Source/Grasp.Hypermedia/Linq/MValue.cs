@@ -10,27 +10,42 @@ namespace Grasp.Hypermedia.Linq
 	public sealed class MValue : MContent
 	{
 		public static readonly Field<object> ObjectField = Field.On<MValue>.For(x => x.Object);
+		public static readonly Field<bool> EscapedField = Field.On<MValue>.For(x => x.Escaped);
 
-		public MValue(MClass @class, object @object) : base(@class)
+		public MValue(MClass @class, object @object, bool escaped = false) : base(@class)
 		{
 			Contract.Requires(@object != null);
 
 			Object = @object;
+			Escaped = escaped;
 		}
 
-		public MValue(object @object) : this(MClass.Empty, @object)
+		public MValue(object @object, bool escaped = false) : this(MClass.Empty, @object, escaped)
 		{}
 
 		public object Object { get { return GetValue(ObjectField); } private set { SetValue(ObjectField, value); } }
+		public bool Escaped { get { return GetValue(EscapedField); } private set { SetValue(EscapedField, value); } }
 
 		protected override object GetHtmlWithoutClass()
 		{
-			return Object;
+			var content = Object;
+
+			if(content is Guid)
+			{
+				content = ((Guid) content).ToString("N").ToUpper();
+			}
+			
+			if(Escaped)
+			{
+				content = new XCData(content == null ? "" : content.ToString());
+			}
+
+			return content;
 		}
 
 		protected override object GetHtmlWithClass(string classStack)
 		{
-			return new XElement("span", new XAttribute("class", classStack), Object);
+			return new XElement("span", new XAttribute("class", classStack), GetHtmlWithoutClass());
 		}
 	}
 }

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using Grasp.Hypermedia.Linq;
 using Grasp.Lists;
 
 namespace Grasp.Hypermedia.Lists
@@ -17,7 +18,7 @@ namespace Grasp.Hypermedia.Lists
 		public static readonly Field<ListPageContext> ContextField = Field.On<Hyperlist>.For(x => x.Context);
 		public static readonly Field<HyperlistPage> PageField = Field.On<Hyperlist>.For(x => x.Page);
 
-		public Hyperlist(HttpResourceHeader header, Hyperlink pageLink, ListPageKey query, ListPageContext context, HyperlistPage page) : base(header)
+		public Hyperlist(MHeader header, Hyperlink pageLink, ListPageKey query, ListPageContext context, HyperlistPage page) : base(header)
 		{
 			Contract.Requires(pageLink != null);
 			Contract.Requires(query != null);

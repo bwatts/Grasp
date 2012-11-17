@@ -18,7 +18,7 @@ namespace Slate.Http.Server.Composition
 		public ServerModule()
 		{
 			var httpSettings = GlobalConfiguration.Configuration;
-			var siteSettings = CompositionConfiguration.GetRequiredSection<SiteSection>("slate/server");
+			var serverSettings = CompositionConfiguration.GetRequiredSection<ServerSection>("slate/server");
 
 			RegisterInstance(httpSettings);
 
@@ -26,10 +26,10 @@ namespace Slate.Http.Server.Composition
 
 			RegisterModule(new DomainModule(typeof(Notion).Assembly, typeof(Revision).Assembly, typeof(Form).Assembly));
 
-			RegisterModule(new ApiModule(httpSettings, siteSettings));
+			RegisterModule(new ApiModule(httpSettings, serverSettings));
 
 			RegisterModule(new RavenModule(
-				siteSettings.ConnectionStringName,
+				serverSettings.ConnectionStringName,
 				typeof(Revision).Assembly,
 				typeof(FormListService).Assembly,
 				typeof(WorkItemListService).Assembly));

@@ -121,13 +121,18 @@
     <Compile Include="..\GraspAssemblyInfo.cs">
       <Link>Properties\GraspAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="ApiErrorResource.cs" />
+    <Compile Include="ApiErrorHtmlFormat.cs" />
+    <Compile Include="ApiResource.cs" />
+    <Compile Include="ApiSession.cs" />
+    <Compile Include="ApiHtmlFormat.cs" />
+    <Compile Include="IApiSession.cs" />
     <Compile Include="HttpResourceStore.cs" />
     <Compile Include="Linq\ContentReading.cs" />
     <Compile Include="Linq\HtmlFormat.cs" />
     <Compile Include="Hyperlink.cs" />
     <Compile Include="HttpResource.cs" />
     <Compile Include="HttpResourceContext.cs" />
-    <Compile Include="HttpResourceHeader.cs" />
     <Compile Include="HypermediaException.cs" />
     <Compile Include="IHttpResourceContext.cs" />
     <Compile Include="Linq\MCompositeContent.cs" />
@@ -135,7 +140,7 @@
     <Compile Include="Linq\MContent.cs" />
     <Compile Include="Linq\MDefinitionList.cs" />
     <Compile Include="Linq\MDivision.cs" />
-    <Compile Include="Linq\MHead.cs" />
+    <Compile Include="Linq\MHeader.cs" />
     <Compile Include="Linq\MLink.cs" />
     <Compile Include="Linq\MList.cs" />
     <Compile Include="Linq\MRepresentation.cs" />
@@ -177,9 +182,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="_Examples\api.html" />
+    <Content Include="_Examples\error.html" />
     <Content Include="_Examples\work-item_in-progress.html" />
     <Content Include="_Examples\work-item_complete.html" />
-    <Content Include="_Examples\work-item_accepted.html" />
     <Content Include="_Examples\forms.html" />
   </ItemGroup>
   <ItemGroup>

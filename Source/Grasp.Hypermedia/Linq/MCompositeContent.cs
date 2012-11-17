@@ -11,6 +11,8 @@ namespace Grasp.Hypermedia.Linq
 	{
 		public static readonly Field<ManyInOrder<MContent>> ItemsField = Field.On<MCompositeContent>.For(x => x.Items);
 
+		public static readonly MCompositeContent Empty = new MCompositeContent();
+
 		public MCompositeContent(IEnumerable<MContent> items) : base(MClass.Empty)
 		{
 			Items = items.ToManyInOrder();

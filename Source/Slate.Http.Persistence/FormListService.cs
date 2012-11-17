@@ -27,12 +27,13 @@ namespace Slate.Http.Persistence
 		{
 			return new ListSchema(AnonymousDictionary.Read<Type>(new
 			{
+				Id = typeof(Guid),
 				Name = typeof(string),
-				WhenCreated = typeof(DateTime),
-				WhenModified = typeof(DateTime),
-				Visibility = typeof(FormPhase),
+				Phase = typeof(string),
 				ResponseCount = typeof(int),
-				IssueCount = typeof(int)
+				IssueCount = typeof(int),
+				WhenCreated = typeof(DateTime),
+				WhenModified = typeof(DateTime)
 			}));
 		}
 
@@ -40,12 +41,13 @@ namespace Slate.Http.Persistence
 		{
 			return new ListItemBindings(AnonymousDictionary.Read(new
 			{
-				Name = "Test",
-				WhenCreated = DateTime.Now.AddDays(-2),
-				WhenModified = DateTime.Now.AddDays(-1),
-				Visibility = FormPhase.Draft,
+				Id = item.Id,
+				Name = item.Name,
+				Phase = FormPhase.Draft.ToString(),
 				ResponseCount = 4,
-				IssueCount = 2
+				IssueCount = 2,
+				WhenCreated = DateTime.Now.AddDays(-2),
+				WhenModified = DateTime.Now.AddDays(-1)
 			}));
 		}
 	}

@@ -15,7 +15,7 @@ namespace Slate.Web.Site.Composition.Infrastructure
 	{
 		public InfrastructureModule(ModelBinderDictionary binders, HttpConfiguration httpSettings, SiteSection siteSettings)
 		{
-			RegisterModule(new ApiClientModule(siteSettings));
+			RegisterModule(new ApiModule(httpSettings, siteSettings));
 			RegisterModule(new ListModule(binders, httpSettings));
 			RegisterModule<MediaModule>();
 			RegisterModule<SecurityModule>();

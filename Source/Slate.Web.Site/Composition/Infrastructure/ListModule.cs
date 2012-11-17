@@ -23,13 +23,10 @@ namespace Slate.Web.Site.Composition.Infrastructure
 			binders.Add(typeof(ListPageKey), new Slate.Web.Site.Presentation.Lists.ListPageKeyBinder());
 
 			var listFormat = new HyperlistHtmlFormat();
-			var workStatusFormat = new WorkItemHtmlFormat();
 
 			RegisterInstance(listFormat).As<MediaFormat>();
-			RegisterInstance(workStatusFormat).As<MediaFormat>();
 
 			httpSettings.Formatters.Add(listFormat);
-			httpSettings.Formatters.Add(workStatusFormat);
 
 			RegisterType<ListClient>().As<IListClient>().InstancePerDependency();
 		}

@@ -14,16 +14,14 @@ namespace Grasp.Hypermedia
 		{
 			var @class = new MClass("c");
 
-			@class.IsEmpty.Should().BeFalse();
-			@class.Name.Should().Be("c");
+			@class.Value.Should().Be("c");
 		}
 
 		[Fact] public void GetMClassEmpty()
 		{
 			var @class = MClass.Empty;
 
-			@class.IsEmpty.Should().BeTrue();
-			@class.Name.Should().BeEmpty();
+			@class.Value.Should().BeEmpty();
 		}
 	}
 }

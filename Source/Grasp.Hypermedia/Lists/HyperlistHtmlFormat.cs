@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Cloak;
 using Cloak.Http.Media;
+using Grasp.Checks;
 using Grasp.Hypermedia.Linq;
 using Grasp.Lists;
 
@@ -18,43 +19,31 @@ namespace Grasp.Hypermedia.Lists
 		public HyperlistHtmlFormat() : base(MediaType)
 		{}
 
-		protected override MRepresentation ConvertToRepresentation(Hyperlist media)
+		protected override MClass MediaTypeClass
 		{
-			return new MRepresentation(GetHeader(media), GetBody(media));
+			get { return "list"; }
 		}
 
-		protected override Hyperlist ConvertFromRepresentation(MRepresentation representation, IFormatterLogger formatterLogger)
+		protected override IEnumerable<MContent> ConvertFromResource(Hyperlist resource)
 		{
-			var body = representation.Body as MCompositeContent;
+			var content = GetBodyContent(resource).ToList();
 
-			if(body == null)
-			{
-				throw new FormatException(Resources.ExpectingCompositeBodyContent);
-			}
+			content.Insert(0, new MLink(resource.PageLink.Override(relationship: "grasp:list-template")));
 
+			return content;
+		}
+
+		protected override Hyperlist ConvertToResource(MHeader header, MCompositeContent body)
+		{
 			var query = ReadQuery(body);
 			var page = ReadPage(body);
 
 			var pageKey = new ListPageKey(page.Number, page.Size, query.Sort);
 
-			return new Hyperlist(ReadHeader(representation.Head), ReadPageLink(body), query, ReadContext(body, pageKey), page);
+			return new Hyperlist(header, ReadPageLink(body), query, ReadContext(body, pageKey), page);
 		}
 
 		#region Serialization
-
-		private static MHead GetHeader(Hyperlist list)
-		{
-			return new MHead(list.Header.Title, list.Header.BaseLink, list.Header.Links);
-		}
-
-		private static MContent GetBody(Hyperlist list)
-		{
-			var content = GetBodyContent(list).ToList();
-
-			content.Insert(0, new MLink(list.PageLink.Override(relationship: "grasp:list-template")));
-
-			return new MCompositeContent(content);
-		}
 
 		private static IEnumerable<MContent> GetBodyContent(Hyperlist list)
 		{
@@ -133,6 +122,10 @@ namespace Grasp.Hypermedia.Lists
 			{
 				return "bool";
 			}
+			else if(type == typeof(Guid))
+			{
+				return "guid";
+			}
 			else if(type == typeof(DateTime))
 			{
 				return "datetime";
@@ -145,11 +138,6 @@ namespace Grasp.Hypermedia.Lists
 		#endregion
 
 		#region Deserialization
-
-		private static HttpResourceHeader ReadHeader(MHead head)
-		{
-			return new HttpResourceHeader(head.Title, head.BaseLink, head.Links);
-		}
 
 		private static Hyperlink ReadPageLink(MCompositeContent body)
 		{
@@ -234,6 +222,10 @@ namespace Grasp.Hypermedia.Lists
 			{
 				return typeof(bool);
 			}
+			else if(IsType(type, "guid"))
+			{
+				return typeof(Guid);
+			}
 			else if(IsType(type, "datetime"))
 			{
 				return typeof(DateTime);
@@ -306,6 +298,17 @@ namespace Grasp.Hypermedia.Lists
 			else if(type == typeof(bool))
 			{
 				return Convert.ToBoolean(value.Object);
+			}
+			else if(type == typeof(Guid))
+			{
+				var text = value.Object as string;
+
+				if(Check.That(text).IsNullOrEmpty())
+				{
+					throw new FormatException(Resources.InvalidGuidValue.FormatCurrent(text));
+				}
+
+				return Guid.ParseExact(text, "N");
 			}
 			else if(type == typeof(DateTime))
 			{

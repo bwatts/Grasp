@@ -19,73 +19,30 @@ namespace Grasp.Hypermedia
 		public WorkItemHtmlFormat() : base(MediaType)
 		{}
 
-		protected override MRepresentation ConvertToRepresentation(WorkItemResource media)
+		protected override MClass MediaTypeClass
 		{
-			return new MRepresentation(GetHeader(media), GetBody(media));
+			get { return "work-item"; }
 		}
 
-		protected override WorkItemResource ConvertFromRepresentation(MRepresentation representation, IFormatterLogger formatterLogger)
+		protected override WorkItemResource ConvertToResource(MHeader header, MCompositeContent body)
 		{
-			var body = representation.Body as MCompositeContent;
-
-			if(body == null)
-			{
-				throw new FormatException(Resources.ExpectingCompositeBodyContent);
-			}
-
-			var header = ReadHeader(representation.Head);
-
 			var id = body.Items.ReadValue<Guid>("id");
-			var status = body.Items.ReadValue<string>("status");
+			var whenStarted = body.Items.ReadValue<DateTime>("when-started");
+			var progress = body.Items.ReadValue<Progress>("progress");
 
-			if(status.Equals("Accepted", StringComparison.CurrentCultureIgnoreCase))
-			{
-				return new WorkItemResource(header, id, status, body.Items.ReadValue<TimeSpan>("retry-interval"));
-			}
-			else if(status.Equals("In progress", StringComparison.CurrentCultureIgnoreCase))
-			{
-				return new WorkItemResource(header, id, status, body.Items.ReadValue<TimeSpan>("retry-interval"), body.Items.ReadValue<Progress>("progress"));
-			}
-			else
-			{
-				return new WorkItemResource(header, id, status, body.Items.ReadLink("grasp:work-result").Hyperlink);
-			}
+			return progress == Progress.Complete
+				? new WorkItemResource(header, id, whenStarted, body.Items.ReadLink("grasp:work-result").Hyperlink)
+				: new WorkItemResource(header, id, whenStarted, progress, body.Items.ReadValue<TimeSpan>("retry-interval"));
 		}
 
-		private static MHead GetHeader(WorkItemResource item)
+		protected override IEnumerable<MContent> ConvertFromResource(WorkItemResource resource)
 		{
-			return new MHead(item.Header.Title, item.Header.BaseLink, item.Header.Links);
-		}
+			yield return new MValue("when-started", resource.WhenStarted);
+			yield return new MValue("progress", resource.Progress);
 
-		private static MContent GetBody(WorkItemResource item)
-		{
-			return new MCompositeContent(GetBodyContent(item));
-		}
-
-		private static IEnumerable<MContent> GetBodyContent(WorkItemResource item)
-		{
-			yield return new MValue("id", item.Id.ToString("N").ToUpper());
-			yield return new MValue("status", item.Status);
-
-			if(item.RetryInterval != null)
-			{
-				yield return new MValue("retry-interval", item.RetryInterval);
-			}
-
-			if(item.Progress != null)
-			{
-				yield return new MValue("progress", item.Progress);
-			}
-
-			if(item.ResultLink != null)
-			{
-				yield return new MLink(item.ResultLink);
-			}
-		}
-
-		private static HttpResourceHeader ReadHeader(MHead head)
-		{
-			return new HttpResourceHeader(head.Title, head.BaseLink, head.Links);
+			yield return resource.RetryInterval != null
+				? new MValue("retry-interval", resource.RetryInterval)
+				: new MLink(resource.ResultLink) as MContent;
 		}
 	}
 }

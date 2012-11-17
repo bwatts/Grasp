@@ -71,7 +71,7 @@ namespace Slate.Forms
 
 		private void Observe(FormStartedEvent e)
 		{
-			SetValue(PersistentId.ValueField, e.FormId);
+			SetId(e.FormId);
 
 			Name = e.Name;
 

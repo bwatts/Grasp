@@ -38,10 +38,11 @@ namespace Slate.Web.Site.Composition
 			RegisterModule(new UIModule(routes, bundles, filters, viewEngines));
 
 			RegisterModule(new ExploreModule(routes));
-			RegisterModule(new FormsModule(routes, "[No forms]"));
+			RegisterModule(new FormsModule(routes, "No forms"));
 			RegisterModule(new HomeModule(routes, siteSettings));
-			RegisterModule(new IssuesModule("[No issues - nice!]"));
+			RegisterModule(new IssuesModule("No issues - nice!"));
 			RegisterModule<SnapshotModule>();
+			RegisterModule(new WorkModule(routes, httpSettings));
 		}
 	}
 }

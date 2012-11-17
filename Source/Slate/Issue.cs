@@ -25,7 +25,7 @@ namespace Slate
 
 		private void Observe(IssueOpenedEvent e)
 		{
-			SetValue(PersistentId.ValueField, e.IssueId);
+			SetId(e.IssueId);
 
 			Number = e.Number;
 			Title = e.Title;

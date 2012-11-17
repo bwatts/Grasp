@@ -1,0 +1,20 @@
+﻿.work-item
+{
+
+}
+
+.work-item .description-caption
+{
+	font-weight: bold;
+}
+
+.work-item .description
+{
+
+}
+
+.work-item .progress-caption
+{
+	display: block;
+	float: left;
+}

@@ -14,10 +14,11 @@ namespace Slate.Web.Site.Composition.UI
 			Contract.Requires(bundles != null);
 
 			bundles.Add(new StyleBundle("~/content/themes/base/css").Include(
-				"~/Content/Themes/Base/Site.css",
-				"~/Content/Themes/Base/Lists.css",
-				"~/Content/Themes/Base/Home.css",
 				"~/Content/Themes/Base/Explore.css",
+				"~/Content/Themes/Base/Home.css",
+				"~/Content/Themes/Base/Lists.css",
+				"~/Content/Themes/Base/Site.css",
+				"~/Content/Themes/Base/Work.css",
 				"~/Content/Themes/Base/jQuery/jquery.ui.core.css",
 				"~/Content/Themes/Base/jQuery/jquery.ui.resizable.css",
 				"~/Content/Themes/Base/jQuery/jquery.ui.selectable.css",

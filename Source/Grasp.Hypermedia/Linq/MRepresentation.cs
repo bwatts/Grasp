@@ -23,30 +23,27 @@ namespace Grasp.Hypermedia.Linq
 			return MRepresentationReader.Read(xml);
 		}
 
-		public static readonly Field<MHead> HeadField = Field.On<MRepresentation>.For(x => x.Head);
-		public static readonly Field<MContent> BodyField = Field.On<MRepresentation>.For(x => x.Body);
+		public static readonly Field<MHeader> HeaderField = Field.On<MRepresentation>.For(x => x.Header);
+		public static readonly Field<MCompositeContent> BodyField = Field.On<MRepresentation>.For(x => x.Body);
 
-		public MRepresentation(MHead head, MContent body = null)
+		public MRepresentation(MHeader header, MCompositeContent body)
 		{
-			Contract.Requires(head != null);
+			Contract.Requires(header != null);
+			Contract.Requires(body != null);
 
-			Head = head;
+			Header = header;
 			Body = body;
 		}
 
-		public MHead Head { get { return GetValue(HeadField); } private set { SetValue(HeadField, value); } }
-		public MContent Body { get { return GetValue(BodyField); } private set { SetValue(BodyField, value); } }
+		public MHeader Header { get { return GetValue(HeaderField); } private set { SetValue(HeaderField, value); } }
+		public MCompositeContent Body { get { return GetValue(BodyField); } private set { SetValue(BodyField, value); } }
 
 		public XDocument ToHtml()
 		{
-			var html = new XElement("html", Head.GetHtml());
-
-			if(Body != null)
-			{
-				html.Add(new XElement("body", Body.GetHtml()));
-			}
-
-			return new XDocument(html);
+			return new XDocument(new XElement(
+				"html",
+				Header.GetHtml(),
+				new XElement("body", Body.GetHtml())));
 		}
 
 		public void Save(Stream stream)

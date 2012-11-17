@@ -39,7 +39,7 @@ namespace Slate.Http.Api
 			var page = await _listService.GetPageAsync(pageKey);
 
 			return GetList(
-				_resourceContext.CreateHeader("Work"),
+				_resourceContext.CreateHeader("Forms", "forms" + pageKey.GetQuery(includeSeparator: true)),
 				new Hyperlink("forms?page={page}&pageSize={page-size}&sort={sort}", relationship: "grasp:list-page"),
 				pageKey,
 				page,
@@ -48,7 +48,7 @@ namespace Slate.Http.Api
 					var id = (Guid) item["Id"];
 					var name = (string) item["Name"];
 
-					var link = new Hyperlink("forms/" + id.ToString("N").ToUpper(), name, @class: "grasp:list-item");
+					var link = new Hyperlink("forms/" + id.ToString("N").ToUpper(), item.Number, name, "grasp:list-item", "form");
 
 					return new HyperlistItem(link, item);
 				});
@@ -63,12 +63,17 @@ namespace Slate.Http.Api
 
 		public Uri GetLocation(Guid id)
 		{
-			return _resourceContext.GetAbsoluteUrl("forms/" + id.ToString("N").ToUpper());
+			return _resourceContext.GetAbsoluteUrl(GetUrl(id));
 		}
 
-		private FormResource CreateResource(Form item)
+		private static string GetUrl(Guid id)
 		{
-			return new FormResource(_resourceContext.CreateHeader(item.Name), item.Id, item.Name);
+			return "forms/" + id.ToString("N").ToUpper();
+		}
+
+		private FormResource CreateResource(Form form)
+		{
+			return new FormResource(_resourceContext.CreateHeader(form.Name, GetUrl(form.Id)), form.Id, form.Name);
 		}
 	}
 }

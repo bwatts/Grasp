@@ -54,11 +54,19 @@
     <Compile Include="..\GraspAssemblyInfo.cs">
       <Link>Properties\GraspAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="ApiExceptionFilterAttribute.cs" />
+    <Compile Include="ExceptionCodeMap.cs" />
+    <Compile Include="IExceptionCodeMap.cs" />
     <Compile Include="IStartWorkService.cs" />
     <Compile Include="IWorkItemByIdQuery.cs" />
     <Compile Include="IWorkItemStore.cs" />
     <Compile Include="ListPageKeyBinder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="StartWorkService.cs" />
     <Compile Include="WorkController.cs" />
     <Compile Include="WorkItemStore.cs" />
@@ -67,6 +75,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\.submodules\Cloak\Source\Cloak.Http\Cloak.Http.csproj">
+      <Project>{43f24f70-06f1-4834-b241-a8ceec01d87d}</Project>
+      <Name>Cloak.Http</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\.submodules\Cloak\Source\Cloak\Cloak.csproj">
       <Project>{a931092c-2916-4d20-a26d-d131d98e3069}</Project>
       <Name>Cloak</Name>
@@ -79,6 +91,12 @@
       <Project>{0a728107-2d52-4e6b-b651-793048876837}</Project>
       <Name>Grasp</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

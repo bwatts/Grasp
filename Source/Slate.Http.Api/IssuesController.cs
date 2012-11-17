@@ -35,7 +35,7 @@ namespace Slate.Http.Api
 			var page = await _listService.GetPageAsync(key);
 
 			return new Hyperlist(
-				_resourceContext.CreateHeader("Issues"),
+				_resourceContext.CreateHeader("Issues", "issues" + key.GetQuery(includeSeparator: true)),
 				new Hyperlink("issues?page={page}&pageSize={page-size}&sort={sort}", relationship: "grasp:list-page"),
 				key,
 				page.Context,

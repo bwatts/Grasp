@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -11,30 +12,44 @@ using Cloak.Http.Media;
 
 namespace Grasp.Hypermedia.Linq
 {
-	public abstract class HtmlFormat<TMedia> : MediaFormat<TMedia, MRepresentation>
+	[ContractClass(typeof(HtmlFormatContract<>))]
+	public abstract class HtmlFormat<TResource> : MediaFormat<TResource, MRepresentation> where TResource : HttpResource
 	{
-		protected HtmlFormat() : base()
-		{
-			IncludeMediaTypeLink = true;
-		}
+		public static readonly Func<MediaType, string> DefaultGetMediaTypeUrl = mediaType => "api/media/" + mediaType.Name;
 
-		protected HtmlFormat(MediaType mediaType) : base(mediaType)
-		{
-			IncludeMediaTypeLink = true;
-		}
+		private Func<MediaType, string> _getMediaTypeUrl = DefaultGetMediaTypeUrl;
 
-		protected HtmlFormat(params MediaType[] mediaTypes) : base(mediaTypes)
+		protected HtmlFormat() : base(MediaType.HtmlTypes)
 		{}
 
-		public bool IncludeMediaTypeLink { get; set; }
+		protected HtmlFormat(IEnumerable<MediaType> supportedMediaTypes) : base(supportedMediaTypes.Concat(MediaType.HtmlTypes))
+		{}
+
+		protected HtmlFormat(params MediaType[] supportedMediaTypes) : this(supportedMediaTypes as IEnumerable<MediaType>)
+		{}
+
+		protected HtmlFormat(MediaType preferredMediaType) : base(preferredMediaType, MediaType.HtmlTypes)
+		{}
+
+		protected HtmlFormat(MediaType preferredMediaType, IEnumerable<MediaType> otherMediaTypes) : base(preferredMediaType, otherMediaTypes.Concat(MediaType.HtmlTypes))
+		{}
+
+		protected HtmlFormat(MediaType preferredMediaType, params MediaType[] otherMediaTypes) : this(preferredMediaType, otherMediaTypes as IEnumerable<MediaType>)
+		{}
+
+		public Func<MediaType, string> GetMediaTypeUrl
+		{
+			get { return _getMediaTypeUrl; }
+			set
+			{
+				Contract.Requires(value != null);
+
+				_getMediaTypeUrl = value;
+			}
+		}
 
 		protected override void WriteRepresentation(MRepresentation representation, Stream stream, HttpContent content)
 		{
-			if(IncludeMediaTypeLink)
-			{
-				representation = AddMediaTypeLink(representation);
-			}
-
 			var html = representation.ToHtml();
 
 			var settings = new XmlWriterSettings
@@ -74,26 +89,84 @@ namespace Grasp.Hypermedia.Linq
 			}
 		}
 
-		private static MRepresentation AddMediaTypeLink(MRepresentation representation)
+		protected override MRepresentation ConvertToRepresentation(TResource media)
 		{
-			return new MRepresentation(AddMediaTypeLink(representation.Head), representation.Body);
+			return new MRepresentation(GetHeaderWithMediaTypeLink(media.Header), new MCompositeContent(ConvertFromResource(media)));
 		}
 
-		private static MHead AddMediaTypeLink(MHead head)
+		protected override TResource ConvertFromRepresentation(MRepresentation representation, IFormatterLogger formatterLogger)
 		{
-			return new MHead(head.Title, head.BaseLink, PrependMediaTypeLink(head));
+			return ConvertToResource(representation.Header, representation.Body);
 		}
 
-		private static IEnumerable<Hyperlink> PrependMediaTypeLink(MHead head)
+		protected abstract TResource ConvertToResource(MHeader header, MCompositeContent body);
+
+		protected abstract IEnumerable<MContent> ConvertFromResource(TResource resource);
+
+		protected abstract MClass MediaTypeClass { get; }
+
+		private MHeader GetHeaderWithMediaTypeLink(MHeader header)
 		{
-			// TODO: Make URL dynamic
+			return new MHeader(header.Title, header.BaseLink, header.SelfLink, PrependPreferredMediaTypeLink(header));
+		}
 
-			yield return new Hyperlink("media/application%2Fvnd.grasp.list%2Bhtml", relationship: "grasp:media-type");
+		private IEnumerable<Hyperlink> PrependPreferredMediaTypeLink(MHeader header)
+		{
+			if(HasPreferredMediaType)
+			{
+				var mediaTypeUrl = GetMediaTypeUrl(PreferredMediaType);
 
-			foreach(var link in head.Links)
+				if(mediaTypeUrl != null)
+				{
+					yield return new Hyperlink(mediaTypeUrl, relationship: "grasp:media-type", @class: MediaTypeClass);
+				}
+			}
+
+			foreach(var link in header.Links)
 			{
 				yield return link;
 			}
+		}
+	}
+
+	[ContractClassFor(typeof(HtmlFormat<>))]
+	internal abstract class HtmlFormatContract<TResource> : HtmlFormat<TResource> where TResource : HttpResource
+	{
+		protected override TResource ConvertToResource(MHeader header, MCompositeContent body)
+		{
+			Contract.Requires(header != null);
+			Contract.Requires(body != null);
+			Contract.Ensures(Contract.Result<TResource>() != null);
+
+			return null;
+		}
+
+		protected override IEnumerable<MContent> ConvertFromResource(TResource resource)
+		{
+			Contract.Requires(resource != null);
+			Contract.Ensures(Contract.Result<IEnumerable<MContent>>() != null);
+
+			return null;
+		}
+
+		protected override MClass MediaTypeClass
+		{
+			get
+			{
+				Contract.Ensures(Contract.Result<MClass>() != null);
+
+				return null;
+			}
+		}
+
+		protected override MRepresentation ConvertToRepresentation(TResource media)
+		{
+ 			return null;
+		}
+
+		protected override TResource ConvertFromRepresentation(MRepresentation representation, IFormatterLogger formatterLogger)
+		{
+ 			return default(TResource);
 		}
 	}
 }

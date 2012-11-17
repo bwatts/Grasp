@@ -23,7 +23,7 @@ namespace Grasp.Hypermedia.Linq
 
 		internal object GetHtml()
 		{
-			return Class.ItemsFromHere().Any(item => !item.IsEmpty)
+			return Class.ItemsFromHere().Any(item => item != MClass.Empty)
 				? GetHtmlWithClass(Class.ToString())
 				: GetHtmlWithoutClass();
 		}

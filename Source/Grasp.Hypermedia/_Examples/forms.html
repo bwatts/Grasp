@@ -1,6 +1,4 @@
-﻿<!DOCTYPE html>
-
-<html>
+﻿<html>
 	<head>
 		<title>Forms</title>
 		<base href="http://localhost:12345" />
@@ -26,9 +24,11 @@
 			<span class="last-item">6</span>
 			<div class="items">
 				<dl class="schema">
+					<dt>Id</dt>
+					<dd>guid</dd>
 					<dt>Name</dt>
 					<dd>string</dd>
-					<dt>Visibility</dt>
+					<dt>Phase</dt>
 					<dd>string</dd>
 					<dt>ResponseCount</dt>
 					<dd>int</dd>
@@ -41,18 +41,20 @@
 				</dl>
 				<ul>
 					<li>
-						<a rel="grasp:list-item" href="forms/Test" title="Test">5</a>
+						<a rel="grasp:list-item" class="form" href="forms/Test" title="Test">5</a>
+						<span class="Id">BB5191B07E4F4F61BE0F9A373E8D0132</span>
 						<span class="Name">Test</span>
-						<span class="Visibility">Draft</span>
+						<span class="Phase">Draft</span>
 						<span class="ResponseCount">0</span>
 						<span class="IssueCount">1</span>
 						<span class="WhenCreated">2012-11-2T02:46:00Z</span>
 						<span class="WhenModified">2012-11-2T018:37:52Z</span>
 					</li>
 					<li>
-						<a rel="grasp:list-item" href="forms/Hello%20World" title="Hello World">6</a>
+						<a rel="grasp:list-item" class="form" href="forms/Hello%20World" title="Hello World">6</a>
+						<span class="Id">15CA25492AFB4650850946C79F77FEA7</span>
 						<span class="Name">Hello World</span>
-						<span class="Visibility">Published</span>
+						<span class="Phase">Published</span>
 						<span class="ResponseCount">3</span>
 						<span class="IssueCount">3</span>
 						<span class="WhenCreated">2012-11-2T02:46:00Z</span>

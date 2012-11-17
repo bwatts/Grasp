@@ -7,20 +7,20 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using Slate.Web.Site.Presentation.Navigation;
 
-namespace Slate.Web.Site.Presentation.Explore
+namespace Slate.Web.Site.Presentation.Explore.Forms
 {
 	public class FormsController : Controller
 	{
 		private readonly ILayoutModelFactory _layoutModelFactory;
-		private readonly IStartFormService _startFormService;
+		private readonly IFormService _formService;
 
-		public FormsController(ILayoutModelFactory layoutModelFactory, IStartFormService startFormService)
+		public FormsController(ILayoutModelFactory layoutModelFactory, IFormService formService)
 		{
 			Contract.Requires(layoutModelFactory != null);
-			Contract.Requires(startFormService != null);
+			Contract.Requires(formService != null);
 
 			_layoutModelFactory = layoutModelFactory;
-			_startFormService = startFormService;
+			_formService = formService;
 		}
 
 		[HttpGet]
@@ -44,11 +44,9 @@ namespace Slate.Web.Site.Presentation.Explore
 		[HttpPost]
 		public async Task<RedirectToRouteResult> Start(string name)
 		{
-			var id = await _startFormService.StartFormAsync(name);
+			var workItem = await _formService.StartFormAsync(name);
 
-			// HTTP 202? Is that relevant in an MVC site?
-
-			return RedirectToRoute(new { controller = "Forms", action = "Details", id = id });
+			return RedirectToAction("Item", "Work", new { id = workItem.Id.ToString("N").ToUpper() });
 		}
 	}
 }

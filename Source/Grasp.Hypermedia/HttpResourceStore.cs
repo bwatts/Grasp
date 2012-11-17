@@ -4,6 +4,7 @@ using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Grasp.Hypermedia.Linq;
 using Grasp.Hypermedia.Lists;
 using Grasp.Lists;
 
@@ -12,7 +13,7 @@ namespace Grasp.Hypermedia
 	public abstract class HttpResourceStore : Notion
 	{
 		protected static Hyperlist GetList(
-			HttpResourceHeader header,
+			MHeader header,
 			Hyperlink pageLink,
 			ListPageKey query,
 			ListPage page,

@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 using System.Xml.Linq;
 using Cloak;
 using Cloak.Xml;
-using Grasp.Checks;
 
 namespace Grasp.Hypermedia.Linq
 {
@@ -14,42 +14,36 @@ namespace Grasp.Hypermedia.Linq
 	{
 		internal static MRepresentation Read(XDocument xml)
 		{
-			xml.ValidateDocumentType();
-
 			xml.Root.EnsureName("html");
 
-			return new MRepresentation(xml.ReadHead(), xml.ReadBody());
+			return new MRepresentation(xml.ReadHeader(), xml.ReadBody());
 		}
 
-		private static void ValidateDocumentType(this XDocument xml)
-		{
-			if(Check.That(xml.DocumentType.Name).IsNotNullOrEmpty())
-			{
-				if(xml.DocumentType.Name != "html"
-					|| Check.That(xml.DocumentType.PublicId).IsNotNullOrEmpty()
-					|| Check.That(xml.DocumentType.SystemId).IsNotNullOrEmpty()
-					|| Check.That(xml.DocumentType.InternalSubset).IsNotNullOrEmpty())
-				{
-					throw new FormatException(Resources.InvalidHtmlDocumentType);
-				}
-			}
-		}
-
-		private static MHead ReadHead(this XDocument xml)
+		private static MHeader ReadHeader(this XDocument xml)
 		{
 			var head = xml.Root.RequiredElement("head");
 
-			return new MHead(
-				head.RequiredElement("title").RequiredString(),
-				head.RequiredElement("base").ReadHyperlink(),
-				head.Elements("link").Select(linkElement => linkElement.ReadHyperlink()));
+			var links = head.Elements("link").Select(linkElement => linkElement.ReadHyperlink()).ToList();
+
+			var selfLinkIndex = links.FindIndex(link => link.Relationship == Relationship.Self);
+
+			if(selfLinkIndex == -1)
+			{
+				throw new FormatException(Resources.MissingSelfLink.FormatInvariant(Relationship.Self));
+			}
+
+			var selfLink = links[selfLinkIndex];
+
+			links.RemoveAt(selfLinkIndex);
+
+			return new MHeader(head.RequiredElement("title").RequiredString(), head.RequiredElement("base").ReadHyperlink(), selfLink, links);
 		}
 
-		private static MContent ReadBody(this XDocument xml)
+		private static MCompositeContent ReadBody(this XDocument xml)
 		{
 			var body = xml.Root.RequiredElement("body");
 
-			return body.Elements().ReadMContent();
+			return new MCompositeContent(body.Elements().ReadMContents());
 		}
 
 		private static MContent ReadMContent(this IEnumerable<XElement> elements)
@@ -88,7 +82,9 @@ namespace Grasp.Hypermedia.Linq
 			}
 			else
 			{
-				return new MValue(element.Value);
+				var escaped = element.DescendantNodes().Any(descendent => descendent.NodeType == XmlNodeType.CDATA);
+
+				return new MValue((string) element, escaped);
 			}
 		}
 
@@ -133,8 +129,6 @@ namespace Grasp.Hypermedia.Linq
 
 		private static IEnumerable<MContent> ReadMListItems(IEnumerable<XElement> itemElements)
 		{
-			var y = itemElements.Select(itemElement => itemElement.Elements().ReadMContent()).ToList();
-
 			return itemElements.Select(itemElement => itemElement.Elements().ReadMContent());
 		}
 

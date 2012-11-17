@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Grasp;
 using Grasp.Hypermedia;
+using Grasp.Hypermedia.Linq;
 
 namespace Slate.Http.Api
 {
@@ -14,7 +15,7 @@ namespace Slate.Http.Api
 		public static readonly Field<Guid> IdField = Field.On<FormResource>.For(x => x.Id);
 		public static readonly Field<string> NameField = Field.On<FormResource>.For(x => x.Name);
 
-		public FormResource(HttpResourceHeader header, Guid id, string name) : base(header)
+		public FormResource(MHeader header, Guid id, string name) : base(header)
 		{
 			Contract.Requires(id != Guid.Empty);
 			Contract.Requires(name != null);

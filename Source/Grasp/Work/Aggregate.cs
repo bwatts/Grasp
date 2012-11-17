@@ -50,6 +50,11 @@ namespace Grasp.Work
 			RevisionId = version.RevisionId;
 		}
 
+		protected void SetId(Guid id)
+		{
+			SetValue(PersistentId.ValueField, id);
+		}
+
 		// TODO: Set WhenCreated and WhenModified automatically by detecting field changes?
 
 		protected void SetWhenCreated(DateTime when)

@@ -1,0 +1,20 @@
+﻿<html>
+	<head>
+		<title>Slate Hypermedia API</title>
+		<base href="http://localhost:12345" />
+		<link rel="self" href="" />
+		<link rel="grasp:media-type" href="media/application%2Fvnd.grasp.api%2Bhtml" />
+	</head>
+	<body>
+		<div class="entity-set">
+			<a rel="grasp:entity-list" class="forms" href="forms" />
+			<a rel="grasp:entity" class="form" href="forms/{id}" />
+			<form id="start" action="forms" method="post">
+				<input name="name" type="text" />
+			</form>
+		</div>
+		<div class="entity-set">
+			<a rel="grasp:entity" class="work" href="work/{id}" />
+		</div>
+	</body>
+</html>

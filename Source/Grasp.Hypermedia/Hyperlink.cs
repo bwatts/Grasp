@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Xml.Linq;
 using Cloak;
+using Cloak.Linq;
 using Grasp.Checks;
 using Grasp.Hypermedia.Linq;
 
@@ -65,26 +66,85 @@ namespace Grasp.Hypermedia
 			return new Hyperlink(Uri, content ?? Content, title ?? Title, relationship ?? Relationship, @class ?? Class);
 		}
 
-		public Hyperlink BindVariables(IDictionary<string, string> bindings)
+		public Uri BindUriVariables(IEnumerable<KeyValuePair<string, string>> bindings)
 		{
 			Contract.Requires(bindings != null);
 
-			var placeholderUri = new Uri("http://x");
+			var baseUriStub = new Uri("http://x");
 
-			var boundUri = Uri.BindByName(placeholderUri, bindings);
+			var boundUri = Uri.BindByName(baseUriStub, bindings.ToDictionary());
 
-			var linkUri = placeholderUri.MakeRelativeUri(boundUri);
-
-			// TODO: Bind content (if string) and title
-
-			return new Hyperlink(linkUri, Content, Title, Relationship);
+			return baseUriStub.MakeRelativeUri(boundUri);
 		}
 
-		public Hyperlink BindVariables(IDictionary<string, object> bindings)
+		public Uri BindUriVariables(IEnumerable<KeyValuePair<string, object>> bindings)
 		{
+			Contract.Requires(bindings != null);
+
+			return BindUriVariables(bindings.ToDictionary(
+				binding => binding.Key,
+				binding => binding.Value == null ? "" : binding.Value.ToString()));
+		}
+
+		public Uri BindUriVariable(string name, string value)
+		{
+			Contract.Requires(!String.IsNullOrEmpty(name));
+
+			return BindUriVariables(new Dictionary<string, string> { { name, value } });
+		}
+
+		public Uri BindUriVariable(string name, object value)
+		{
+			Contract.Requires(!String.IsNullOrEmpty(name));
+
+			return BindUriVariables(new Dictionary<string, object> { { name, value } });
+		}
+
+		public Hyperlink BindVariables(IEnumerable<KeyValuePair<string, string>> bindings)
+		{
+			Contract.Requires(bindings != null);
+
+			bindings = bindings.ToReadOnlyDictionary();
+
+			return new Hyperlink(
+				BindUriVariables(bindings),
+				Content is string ? BindTemplateVariables((string) Content, bindings) : Content,
+				BindTemplateVariables(Title, bindings),
+				BindTemplateVariables(Relationship, bindings),
+				BindTemplateVariables(Class, bindings));
+		}
+
+		public Hyperlink BindVariables(IEnumerable<KeyValuePair<string, object>> bindings)
+		{
+			Contract.Requires(bindings != null);
+
 			return BindVariables(bindings.ToDictionary(
 				binding => binding.Key,
 				binding => binding.Value == null ? "" : binding.Value.ToString()));
+		}
+
+		public Hyperlink BindVariable(string name, string value)
+		{
+			Contract.Requires(!String.IsNullOrEmpty(name));
+
+			return BindVariables(new Dictionary<string, string> { { name, value } });
+		}
+
+		public Hyperlink BindVariable(string name, object value)
+		{
+			Contract.Requires(!String.IsNullOrEmpty(name));
+
+			return BindVariables(new Dictionary<string, object> { { name, value } });
+		}
+
+		public Uri ToUri()
+		{
+			if(IsTemplate)
+			{
+				throw new InvalidOperationException(Resources.HyperlinkIsTemplate);
+			}
+
+			return BindUriVariables(new Dictionary<string, string>());
 		}
 
 		public override string ToString()
@@ -111,16 +171,21 @@ namespace Grasp.Hypermedia
 			return header.ToString();
 		}
 
-		private IEnumerable<object> GetHtmlContent(bool allowTemplate)
+		private static string BindTemplateVariables(string template, IEnumerable<KeyValuePair<string, string>> bindings)
 		{
-			if(Class != MClass.Empty)
+			foreach(var binding in bindings)
 			{
-				yield return new XAttribute(ClassAttributeName, Class.ToStackString());
+				template = template.Replace("{" + binding.Key + "}", binding.Value);
 			}
 
-			if(Check.That(Title).IsNotNullOrEmpty())
+			return template;
+		}
+
+		private IEnumerable<object> GetHtmlContent(bool allowTemplate)
+		{
+			if(!allowTemplate && IsTemplate)
 			{
-				yield return new XAttribute(TitleAttributeName, Title);
+				throw new HypermediaException(Resources.LinkUriDoesNotAllowVariables.FormatCurrent(Uri));
 			}
 
 			if(Relationship != null && Relationship != Relationship.Empty)
@@ -128,9 +193,14 @@ namespace Grasp.Hypermedia
 				yield return new XAttribute(RelAttributeName, Relationship);
 			}
 
-			if(!allowTemplate && IsTemplate)
+			if(Check.That(Title).IsNotNullOrEmpty())
 			{
-				throw new HypermediaException(Resources.LinkUriDoesNotAllowVariables.FormatCurrent(Uri));
+				yield return new XAttribute(TitleAttributeName, Title);
+			}
+
+			if(Class != MClass.Empty)
+			{
+				yield return new XAttribute(ClassAttributeName, Class.ToStackString());
 			}
 
 			yield return new XAttribute(HrefAttributeName, Uri);

@@ -61,15 +61,6 @@ namespace Grasp.Hypermedia {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Expecting composite body content.
-        /// </summary>
-        internal static string ExpectingCompositeBodyContent {
-            get {
-                return ResourceManager.GetString("ExpectingCompositeBodyContent", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Expecting composite list item content.
         /// </summary>
         internal static string ExpectingCompositeListItemContent {
@@ -106,11 +97,20 @@ namespace Grasp.Hypermedia {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invalid HTMLdocument type: expected HTML 5 type &lt;!DOCTYPE html&gt;.
+        ///   Looks up a localized string similar to Hyperlink is a template and cannot be converted to a URI without replacing variables.
         /// </summary>
-        internal static string InvalidHtmlDocumentType {
+        internal static string HyperlinkIsTemplate {
             get {
-                return ResourceManager.GetString("InvalidHtmlDocumentType", resourceCulture);
+                return ResourceManager.GetString("HyperlinkIsTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid GUID value: &quot;{0}&quot;.
+        /// </summary>
+        internal static string InvalidGuidValue {
+            get {
+                return ResourceManager.GetString("InvalidGuidValue", resourceCulture);
             }
         }
         
@@ -124,11 +124,11 @@ namespace Grasp.Hypermedia {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to relationships.
+        ///   Looks up a localized string similar to Missing header link with relationship &quot;{0}&quot;.
         /// </summary>
-        internal static string PluralRelationship {
+        internal static string MissingSelfLink {
             get {
-                return ResourceManager.GetString("PluralRelationship", resourceCulture);
+                return ResourceManager.GetString("MissingSelfLink", resourceCulture);
             }
         }
         
@@ -138,15 +138,6 @@ namespace Grasp.Hypermedia {
         internal static string SelfRelationship {
             get {
                 return ResourceManager.GetString("SelfRelationship", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to relationship.
-        /// </summary>
-        internal static string SingularRelationship {
-            get {
-                return ResourceManager.GetString("SingularRelationship", resourceCulture);
             }
         }
         

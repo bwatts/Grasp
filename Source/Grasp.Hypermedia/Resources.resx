@@ -117,9 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ExpectingCompositeBodyContent" xml:space="preserve">
-    <value>Expecting composite body content</value>
-  </data>
   <data name="ExpectingCompositeListItemContent" xml:space="preserve">
     <value>Expecting composite list item content</value>
   </data>
@@ -132,20 +129,20 @@
   <data name="ExpectingValue" xml:space="preserve">
     <value>Expecting {0} for definition, received {1}</value>
   </data>
-  <data name="InvalidHtmlDocumentType" xml:space="preserve">
-    <value>Invalid HTMLdocument type: expected HTML 5 type &lt;!DOCTYPE html&gt;</value>
+  <data name="HyperlinkIsTemplate" xml:space="preserve">
+    <value>Hyperlink is a template and cannot be converted to a URI without replacing variables</value>
+  </data>
+  <data name="InvalidGuidValue" xml:space="preserve">
+    <value>Invalid GUID value: "{0}"</value>
   </data>
   <data name="LinkUriDoesNotAllowVariables" xml:space="preserve">
     <value>This link URI does not allow variables: {0}</value>
   </data>
-  <data name="PluralRelationship" xml:space="preserve">
-    <value>relationships</value>
+  <data name="MissingSelfLink" xml:space="preserve">
+    <value>Missing header link with relationship "{0}"</value>
   </data>
   <data name="SelfRelationship" xml:space="preserve">
     <value>self</value>
-  </data>
-  <data name="SingularRelationship" xml:space="preserve">
-    <value>relationship</value>
   </data>
   <data name="StreamIsInvalidHtmlRepresentation" xml:space="preserve">
     <value>Stream is an invalid HTML representation</value>

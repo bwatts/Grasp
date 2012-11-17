@@ -115,7 +115,7 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Raven.Abstractions, Version=1.2.0.0, Culture=neutral, PublicKeyToken=37f41c7f99471593, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\RavenDB.Database.1.2.2135-Unstable\lib\net40\Raven.Abstractions.dll</HintPath>
+      <HintPath>..\packages\RavenDB.Client.1.2.2135-Unstable\lib\net40\Raven.Abstractions.dll</HintPath>
     </Reference>
     <Reference Include="Raven.Client.Lightweight, Version=1.2.0.0, Culture=neutral, PublicKeyToken=37f41c7f99471593, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -191,6 +191,7 @@
       <Link>Properties\SlateAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Composition\ApiModule.cs" />
+    <Compile Include="Composition\ErrorModule.cs" />
     <Compile Include="Composition\MessagingModule.cs" />
     <Compile Include="Composition\WorkModule.cs" />
     <Compile Include="Composition\DomainModule.cs" />
@@ -199,7 +200,7 @@
     <Compile Include="Composition\FormsModule.cs" />
     <Compile Include="Composition\RavenModule.cs" />
     <Compile Include="Composition\TimeModule.cs" />
-    <Compile Include="Configuration\SiteSection.cs" />
+    <Compile Include="Configuration\ServerSection.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

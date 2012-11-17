@@ -15,12 +15,12 @@ namespace Grasp.Hypermedia
 	{
 		[Fact] public void CreateMRepresentation()
 		{
-			var head = new MHead("Title", new Hyperlink(new UriTemplate("")));
-			var body = new MValue("Body");
+			var header = new MHeader("Title", new Hyperlink(""), new Hyperlink("", relationship: Relationship.Self));
+			var body = new MCompositeContent();
 
-			var representation = new MRepresentation(head, body);
+			var representation = new MRepresentation(header, body);
 
-			representation.Head.Should().Be(head);
+			representation.Header.Should().Be(header);
 			representation.Body.Should().Be(body);
 		}
 
@@ -51,7 +51,7 @@ namespace Grasp.Hypermedia
 
 		[Fact] public void GetMLinkHtml()
 		{
-			var link = new MLink(new Hyperlink(new UriTemplate("")));
+			var link = new MLink(new Hyperlink(""));
 
 			var html = link.GetHtml();
 
@@ -66,7 +66,7 @@ namespace Grasp.Hypermedia
 
 		[Fact] public void GetMLinkHtmlWithClass()
 		{
-			var link = new MLink(new Hyperlink(new UriTemplate("")), new MClass("c"));
+			var link = new MLink(new Hyperlink(""), new MClass("c"));
 
 			var html = link.GetHtml();
 
@@ -80,28 +80,31 @@ namespace Grasp.Hypermedia
 			element.Attribute("class").Value.Should().Be("c");
 		}
 
-		[Fact] public void CreateMHead()
+		[Fact] public void CreateMHeader()
 		{
 			var title = "Title";
-			var baseLink = new Hyperlink(new UriTemplate(""));
-			var link1 = new Hyperlink(new UriTemplate("1"));
-			var link2 = new Hyperlink(new UriTemplate("2"));
+			var baseLink = new Hyperlink("");
+			var selfLink = new Hyperlink("", relationship: Relationship.Self);
+			var link1 = new Hyperlink("1");
+			var link2 = new Hyperlink("2");
 
-			var head = new MHead(title, baseLink, link1, link2);
+			var header = new MHeader(title, baseLink, selfLink, link1, link2);
 
-			head.Title.Should().Be(title);
-			head.BaseLink.Should().Be(baseLink);
-			head.Links.SequenceEqual(Params.Of(link1, link2));
+			header.Title.Should().Be(title);
+			header.BaseLink.Should().Be(baseLink);
+			header.SelfLink.Should().Be(selfLink);
+			header.Links.SequenceEqual(Params.Of(link1, link2));
 		}
 
-		[Fact] public void GetMHeadHtml()
+		[Fact] public void GetMHeaderHtml()
 		{
-			var baseLink = new Hyperlink(new UriTemplate(""));
-			var link1 = new Hyperlink(new UriTemplate(""));
-			var link2 = new Hyperlink(new UriTemplate(""));
-			var head = new MHead("Title", baseLink, link1, link2);
+			var baseLink = new Hyperlink("");
+			var selfLink = new Hyperlink("", relationship: Relationship.Self);
+			var link1 = new Hyperlink("");
+			var link2 = new Hyperlink("");
+			var header = new MHeader("Title", baseLink, selfLink, link1, link2);
 
-			var html = head.GetHtml();
+			var html = header.GetHtml();
 
 			html.Should().BeAssignableTo<XElement>();
 
@@ -111,9 +114,10 @@ namespace Grasp.Hypermedia
 			element.Element("title").Value.Should().Be("Title");
 			element.Element("base").Should().NotBeNull();
 			element.Element("base").Value.Should().Be(baseLink.Uri.ToString());
-			element.Elements("link").Count().Should().Be(2);
-			element.Elements("link").ElementAt(0).Value.Should().Be(link1.Uri.ToString());
-			element.Elements("link").ElementAt(1).Value.Should().Be(link2.Uri.ToString());
+			element.Elements("link").Count().Should().Be(3);
+			element.Elements("link").ElementAt(0).Value.Should().Be(selfLink.Uri.ToString());
+			element.Elements("link").ElementAt(1).Value.Should().Be(link1.Uri.ToString());
+			element.Elements("link").ElementAt(2).Value.Should().Be(link2.Uri.ToString());
 		}
 	}
 }

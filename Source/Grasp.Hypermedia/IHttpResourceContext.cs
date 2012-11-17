@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Grasp.Hypermedia.Linq;
 
 namespace Grasp.Hypermedia
 {
@@ -15,7 +16,9 @@ namespace Grasp.Hypermedia
 
 		Uri GetAbsoluteUrl(string relativeUrl);
 
-		HttpResourceHeader CreateHeader(string title);
+		MHeader CreateHeader(string title, Uri selfUri);
+
+		MHeader CreateHeader(string title, string selfUri);
 	}
 
 	[ContractClassFor(typeof(IHttpResourceContext))]
@@ -37,10 +40,20 @@ namespace Grasp.Hypermedia
 			return null;
 		}
 
-		HttpResourceHeader IHttpResourceContext.CreateHeader(string title)
+		MHeader IHttpResourceContext.CreateHeader(string title, Uri selfUri)
 		{
 			Contract.Requires(title != null);
-			Contract.Ensures(Contract.Result<HttpResourceHeader>() != null);
+			Contract.Requires(selfUri != null);
+			Contract.Ensures(Contract.Result<MHeader>() != null);
+
+			return null;
+		}
+
+		MHeader IHttpResourceContext.CreateHeader(string title, string selfUri)
+		{
+			Contract.Requires(title != null);
+			Contract.Requires(selfUri != null);
+			Contract.Ensures(Contract.Result<MHeader>() != null);
 
 			return null;
 		}

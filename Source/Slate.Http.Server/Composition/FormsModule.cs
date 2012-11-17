@@ -23,7 +23,7 @@ namespace Slate.Http.Server.Composition
 {
 	public class FormsModule : BuilderModule
 	{
-		public FormsModule(HttpConfiguration httpSettings, SiteSection siteSettings)
+		public FormsModule(HttpConfiguration httpSettings, ServerSection serverSettings)
 		{
 			Contract.Requires(httpSettings != null);
 
@@ -37,7 +37,7 @@ namespace Slate.Http.Server.Composition
 			.As<IFormStore>()
 			.InstancePerDependency();
 
-			Register(c => new FormsController(c.Resolve<IFormStore>(), c.Resolve<IStartWorkService>(), siteSettings.WorkRetryInterval))
+			Register(c => new FormsController(c.Resolve<IFormStore>(), c.Resolve<IStartWorkService>(), serverSettings.WorkRetryInterval))
 			.InstancePerDependency();
 
 			httpSettings.Routes.MapHttpRoute("form-list", "forms", new { controller = "Forms" });
