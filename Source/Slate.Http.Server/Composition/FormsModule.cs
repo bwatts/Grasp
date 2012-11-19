@@ -40,7 +40,7 @@ namespace Slate.Http.Server.Composition
 			Register(c => new FormsController(c.Resolve<IFormStore>(), c.Resolve<IStartWorkService>(), serverSettings.WorkRetryInterval, c.Resolve<IWorkItemStore>()))
 			.InstancePerDependency();
 
-			httpSettings.Routes.MapHttpRoute("form-list", "forms", new { controller = "Forms", action = "GetListPageAsync" });
+			httpSettings.Routes.MapHttpRoute("form-list", "forms", new { controller = "Forms" });
 			httpSettings.Routes.MapHttpRoute("form-details", "forms/{id}", new { controller = "Forms" });
 		}
 	}
