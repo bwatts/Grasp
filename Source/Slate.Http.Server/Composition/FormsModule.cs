@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Web.Http;
+using System.Web.Http.Routing;
 using Autofac;
 using Cloak.Autofac;
 using Grasp.Hypermedia;
@@ -40,8 +42,9 @@ namespace Slate.Http.Server.Composition
 			Register(c => new FormsController(c.Resolve<IFormStore>(), c.Resolve<IStartWorkService>(), serverSettings.WorkRetryInterval, c.Resolve<IWorkItemStore>()))
 			.InstancePerDependency();
 
-			httpSettings.Routes.MapHttpRoute("form-list", "forms", new { controller = "Forms" });
+			httpSettings.Routes.MapHttpRoute("form-list", "forms", new { controller = "Forms", action = "GetListPageAsync" }, new { httpMethod = new HttpMethodConstraint(HttpMethod.Get) });
 			httpSettings.Routes.MapHttpRoute("form-details", "forms/{id}", new { controller = "Forms" });
+			httpSettings.Routes.MapHttpRoute("form-start", "forms", new { controller = "Forms", action = "StartAsync" }, new { httpMethod = new HttpMethodConstraint(HttpMethod.Post) });
 		}
 	}
 }
