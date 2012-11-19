@@ -16,7 +16,7 @@ namespace Grasp.Work
 	{
 		Task SaveAsync(TAggregate aggregate);
 
-		Task<TAggregate> LoadAsync(Guid aggregateId);
+		Task<TAggregate> LoadAsync(EntityId aggregateId);
 	}
 
 	[ContractClassFor(typeof(IRepository<>))]
@@ -30,9 +30,9 @@ namespace Grasp.Work
 			return null;
 		}
 
-		Task<TAggregate> IRepository<TAggregate>.LoadAsync(Guid aggregateId)
+		Task<TAggregate> IRepository<TAggregate>.LoadAsync(EntityId aggregateId)
 		{
-			Contract.Requires(aggregateId != Guid.Empty);
+			Contract.Requires(aggregateId != EntityId.Unassigned);
 			Contract.Ensures(Contract.Result<Task<TAggregate>>() != null);
 
 			return null;

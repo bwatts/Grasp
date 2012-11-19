@@ -4,21 +4,22 @@ using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Grasp;
 
 namespace Slate.Services
 {
 	[ContractClass(typeof(IFormMeshContract))]
 	public interface IFormMesh
 	{
-		Uri GetFormLocation(Guid formId);
+		Uri GetFormLocation(EntityId formId);
 	}
 
 	[ContractClassFor(typeof(IFormMesh))]
 	internal abstract class IFormMeshContract : IFormMesh
 	{
-		Uri IFormMesh.GetFormLocation(Guid formId)
+		Uri IFormMesh.GetFormLocation(EntityId formId)
 		{
-			Contract.Requires(formId != Guid.Empty);
+			Contract.Requires(formId != EntityId.Unassigned);
 			Contract.Ensures(Contract.Result<Uri>() != null);
 
 			return null;

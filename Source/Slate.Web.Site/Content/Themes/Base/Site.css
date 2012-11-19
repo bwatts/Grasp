@@ -264,13 +264,6 @@ textarea
 	color: #E36F21;
 }
 
-
-
-
-
-
-
-
 .site .sub-navigation
 {
 	float: left;
@@ -287,7 +280,7 @@ textarea
 .site .sub-navigation .areas
 {
 	float: left;
-	margin-top: 12px;
+	margin-top: 14px;
 	margin-right: 6px;
 }
 
@@ -296,9 +289,6 @@ textarea
 	display: inline;
 	margin-left: 6px;
 }
-
-
-
 
 .site .body
 {

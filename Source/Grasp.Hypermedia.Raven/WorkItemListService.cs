@@ -25,7 +25,7 @@ namespace Grasp.Hypermedia.Raven
 		{
 			return new ListSchema(AnonymousDictionary.Read<Type>(new
 			{
-				Id = typeof(Guid),
+				Id = typeof(EntityId),
 				Description = typeof(string),
 				RetryInterval = typeof(TimeSpan),
 				Progress = typeof(Progress),

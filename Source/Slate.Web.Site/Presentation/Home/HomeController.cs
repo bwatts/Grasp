@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using Cloak;
 using Grasp.Lists;
 using Slate.Web.Site.Presentation.Navigation;
 
@@ -31,6 +32,9 @@ namespace Slate.Web.Site.Presentation.Home
 
 		private async Task<object> CreateIndexModelAsync(ListPageKey formPageKey, ListPageKey issuePageKey)
 		{
+			// TODO: Determine how to set this convention at a  more fundamental level
+			formPageKey = new ListPageKey(new Number(1), new Count(3), formPageKey.Sort);
+
 			var indexModel = await _indexModelFactory.CreateIndexModelAsync(formPageKey, issuePageKey);
 
 			return await _layoutModelFactory.CreateLayoutModelAsync("Slate : Home", indexModel, "home");

@@ -30,11 +30,11 @@ namespace Slate.Web.Site.Presentation.Explore.Forms
 			_client = client;
 		}
 
-		public async Task<FormResource> GetFormAsync(Guid id)
+		public async Task<FormResource> GetFormAsync(EntityId id)
 		{
 			// TODO: Combine session and client into single type? Might be tough because session requires Grasp.Hypermedia, but ApiClient is in Cloak.Http.
 
-			var url = await _session.GetEntityUrlAsync("form", id.ToString("N").ToUpper());
+			var url = await _session.GetEntityUrlAsync("form", id.ToString());
 
 			return await _client.SendWithResultAsync<FormResource>(
 				http => http.GetAsync(url),
@@ -51,9 +51,8 @@ namespace Slate.Web.Site.Presentation.Explore.Forms
 			// A more robust, hypermedia-based approach would instead serve a <form> element which describes the fact that "name" is
 			// a field that can be posted to start a form. See Grasp.Hypermedia/_Examples/api.html for a possible approach.
 
-			return _client.SendContentWithResultAsync<WorkItemResource>(
-				new FormDataCollection(new Dictionary<string, string> { { "name", name } }),
-				(http, content) => http.PostAsync("forms", content),
+			return _client.SendWithResultAsync<WorkItemResource>(
+				http => http.PostAsync("forms", new FormUrlEncodedContent(new Dictionary<string, string> { { "name", name } })),
 				(content, formats) => content.ReadAsAsync<WorkItemResource>(formats));
 		}
 	}

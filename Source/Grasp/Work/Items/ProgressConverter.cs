@@ -5,6 +5,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Cloak;
 
 namespace Grasp.Work.Items
 {
@@ -24,7 +25,7 @@ namespace Grasp.Work.Items
 		{
 			if(value is string)
 			{
-				return new Progress(Convert.ToDouble(value));
+				return ConvertFromString(culture, (string) value);
 			}
 			else if(value is double)
 			{
@@ -34,6 +35,49 @@ namespace Grasp.Work.Items
 			{
 				return base.ConvertFrom(context, culture, value);
 			}
+		}
+
+		public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
+		{
+			if(value is Progress)
+			{
+				var progress = (Progress) value;
+
+				if(destinationType == typeof(string))
+				{
+					return progress.ToString();
+				}
+				else
+				{
+					if(destinationType == typeof(double))
+					{
+						return progress.Value;
+					}
+				}
+			}
+
+			return base.ConvertTo(context, culture, value, destinationType);
+		}
+
+		private static Progress ConvertFromString(CultureInfo culture, string value)
+		{
+			var percentSymbol = culture.NumberFormat.PercentSymbol;
+
+			var isPercentage = value.EndsWith(percentSymbol);
+
+			if(isPercentage)
+			{
+				value = value.Substring(0, value.Length - percentSymbol.Length);
+			}
+
+			var percentage = Conversion.To<double>(value);
+
+			if(isPercentage)
+			{
+				percentage /= 100;
+			}
+
+			return new Progress(percentage);
 		}
 	}
 }

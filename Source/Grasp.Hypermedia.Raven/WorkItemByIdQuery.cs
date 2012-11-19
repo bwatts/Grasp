@@ -15,9 +15,9 @@ namespace Grasp.Hypermedia.Raven
 		public WorkItemByIdQuery(IDocumentStore documentStore) : base(documentStore)
 		{}
 
-		public Task<WorkItem> GetWorkItemAsync(Guid id)
+		public Task<WorkItem> GetWorkItemAsync(EntityId id)
 		{
-			return ExecuteReadAsync(session => session.Load<WorkItem>("WorkItems/" + id.ToString("N").ToUpper()));
+			return ExecuteReadAsync(session => session.Load<WorkItem>("WorkItems/" + id.ToString()));
 		}
 	}
 }

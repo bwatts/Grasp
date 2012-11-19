@@ -17,7 +17,7 @@ namespace Slate.Forms
 		public static readonly Field<string> NameField = Field.On<Form>.For(x => x.Name);
 		public static readonly Field<FormPhase> PhaseField = Field.On<Form>.For(x => x.Phase);
 
-		public Form(Guid workItemId, Guid id, string name)
+		public Form(EntityId workItemId, EntityId id, string name)
 		{
 			Announce(new FormStartedEvent(workItemId, id, name));
 		}

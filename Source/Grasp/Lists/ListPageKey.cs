@@ -42,14 +42,14 @@ namespace Grasp.Lists
 			return HashCode.Combine(Number, Size, Sort);
 		}
 
-		public Number GetFirstItem()
+		public Number FirstItem
 		{
-			return new Number((Number.Value - 1) * Size.Value + 1);
+			get { return Number == Number.None ? Number.None : new Number((Number.Value - 1) * Size.Value + 1); }
 		}
 
-		public Number GetLastItem(Count itemCount)
+		public Number LastItem
 		{
-			return new Number(GetFirstItem().Value - 1 + itemCount.Value);
+			get { return Number == Number.None ? Number.None : new Number(FirstItem.Value - 1 + Size.Value); }
 		}
 
 		public string GetQuery(string pageKey = "page", string pageSizeKey = "size", string sortKey = "sort", bool includeSeparator = false)

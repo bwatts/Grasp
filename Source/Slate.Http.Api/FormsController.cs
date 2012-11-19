@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using Cloak;
+using Grasp;
 using Grasp.Hypermedia.Lists;
 using Grasp.Hypermedia.Server;
 using Grasp.Lists;
@@ -21,16 +22,19 @@ namespace Slate.Http.Api
 		private readonly IFormStore _formStore;
 		private readonly IStartWorkService _startWorkService;
 		private readonly TimeSpan _startRetryInterval;
+		private readonly IWorkItemStore _workItemStore;
 
-		public FormsController(IFormStore formStore, IStartWorkService startWorkService, TimeSpan startRetryInterval)
+		public FormsController(IFormStore formStore, IStartWorkService startWorkService, TimeSpan startRetryInterval, IWorkItemStore workItemStore)
 		{
 			Contract.Requires(formStore != null);
 			Contract.Requires(startWorkService != null);
 			Contract.Requires(startRetryInterval >= TimeSpan.Zero);
+			Contract.Requires(workItemStore != null);
 
 			_formStore = formStore;
 			_startWorkService = startWorkService;
 			_startRetryInterval = startRetryInterval;
+			_workItemStore = workItemStore;
 		}
 
 		[HttpGet]
@@ -40,7 +44,7 @@ namespace Slate.Http.Api
 		}
 
 		[HttpGet]
-		public async Task<HttpResponseMessage> GetItemAsync(HttpRequestMessage request, Guid id)
+		public async Task<HttpResponseMessage> GetItemAsync(HttpRequestMessage request, EntityId id)
 		{
 			var form = await _formStore.GetFormAsync(id);
 
@@ -52,19 +56,23 @@ namespace Slate.Http.Api
 		[HttpPost]
 		public async Task<HttpResponseMessage> StartAsync(HttpRequestMessage request, StartFormArguments arguments)
 		{
-			var response = request.CreateResponse(HttpStatusCode.Accepted);
+			var workItemId = await StartFormAsync(arguments.name);
 
-			response.Headers.Location = await StartFormAsync(arguments.name);
+			var workItem = await _workItemStore.GetWorkItemAsync(workItemId);
+
+			var response = request.CreateResponse(HttpStatusCode.Accepted, workItem);
+
+			response.Headers.Location = workItem.Header.SelfLink.ToUri();
 
 			return response;
 		}
 
-		private Task<Uri> StartFormAsync(string name)
+		private Task<EntityId> StartFormAsync(string name)
 		{
 			return _startWorkService.StartWorkAsync(
 				"Start form '{0}'".FormatCurrent(name),
 				_startRetryInterval,
-				(workItemId, channel) => channel.IssueAsync(new StartFormCommand(workItemId, Guid.NewGuid(), name)));
+				(workItemId, channel) => channel.IssueAsync(new StartFormCommand(workItemId, EntityId.Generate(), name)));
 		}
 
 		public sealed class StartFormArguments

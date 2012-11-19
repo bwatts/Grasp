@@ -4,6 +4,7 @@ using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Grasp;
 using Grasp.Hypermedia;
 using Grasp.Hypermedia.Lists;
 using Grasp.Lists;
@@ -15,7 +16,7 @@ namespace Slate.Http.Api
 	{
 		Task<Hyperlist> GetListAsync(ListPageKey pageKey = null);
 
-		Task<FormResource> GetFormAsync(Guid id);
+		Task<FormResource> GetFormAsync(EntityId id);
 	}
 
 	[ContractClassFor(typeof(IFormStore))]
@@ -29,9 +30,9 @@ namespace Slate.Http.Api
 			return null;
 		}
 
-		Task<FormResource> IFormStore.GetFormAsync(Guid id)
+		Task<FormResource> IFormStore.GetFormAsync(EntityId id)
 		{
-			Contract.Requires(id != Guid.Empty);
+			Contract.Requires(id != EntityId.Unassigned);
 
 			return null;
 		}

@@ -11,15 +11,15 @@ namespace Slate.Forms
 {
 	public class ResumeDraftCommand : Command
 	{
-		public static readonly Field<Guid> FormIdField = Field.On<ResumeDraftCommand>.For(x => x.FormId);
+		public static readonly Field<EntityId> FormIdField = Field.On<ResumeDraftCommand>.For(x => x.FormId);
 
-		public ResumeDraftCommand(Guid formId)
+		public ResumeDraftCommand(EntityId formId)
 		{
-			Contract.Requires(formId != Guid.Empty);
+			Contract.Requires(formId != EntityId.Unassigned);
 
 			FormId = formId;
 		}
 
-		public Guid FormId { get { return GetValue(FormIdField); } private set { SetValue(FormIdField, value); } }
+		public EntityId FormId { get { return GetValue(FormIdField); } private set { SetValue(FormIdField, value); } }
 	}
 }

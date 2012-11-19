@@ -1,21 +1,20 @@
 ﻿@model LayoutModel<WorkItemModel>
 
 <div class="work-item">
-	<h1>Processing</h1>
+	<h2>is working on your request</h2>
 
 	<div>
-		<span class="description-caption">Work item:</span>
 		<span class="description">@Model.Content.Description</span>
 	</div>
 
-	<div>
-		<h2>@Model.Content.Progress</h2>
-		<span class="progress-caption">complete</span>
-	</div>
+	@if(Model.Content.Started)
+	{
+		<div>
+			<h2>@Model.Content.Progress</h2>
+		</div>
+	}
 	
-	@{var retryIntervalMilliseconds = Convert.ToInt32(Math.Floor(Model.Content.RetryInterval.Value.TotalMilliseconds));}
-			
 	<script type="text/javascript">
-		setTimeout(function() { location.reload(); }, @retryIntervalMilliseconds);
+		setTimeout(function() { location.reload(); }, @Model.Content.RetryIntervalMilliseconds);
 	</script>
 </div>

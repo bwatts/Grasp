@@ -4,6 +4,7 @@ using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Grasp;
 using Slate.Forms;
 
 namespace Slate.Http.Api
@@ -11,15 +12,15 @@ namespace Slate.Http.Api
 	[ContractClass(typeof(IFormByIdQueryContract))]
 	public interface IFormByIdQuery
 	{
-		Task<Form> GetFormAsync(Guid id);
+		Task<Form> GetFormAsync(EntityId id);
 	}
 
 	[ContractClassFor(typeof(IFormByIdQuery))]
 	internal abstract class IFormByIdQueryContract : IFormByIdQuery
 	{
-		Task<Form> IFormByIdQuery.GetFormAsync(Guid id)
+		Task<Form> IFormByIdQuery.GetFormAsync(EntityId id)
 		{
-			Contract.Requires(id != Guid.Empty);
+			Contract.Requires(id != EntityId.Unassigned);
 			Contract.Ensures(Contract.Result<Task<Form>>() != null);
 
 			return null;

@@ -8,6 +8,7 @@ using Autofac;
 using Cloak.Autofac;
 using Cloak.Reflection;
 using Cloak.Time;
+using Grasp;
 using Grasp.Raven;
 using Grasp.Semantics;
 using Grasp.Work;
@@ -71,22 +72,10 @@ namespace Slate.Http.Server.Composition
 
 		private static void SetConventions(DocumentConvention conventions)
 		{
-			var originalFindFullDocumentKeyFromNonStringIdentifier = conventions.FindFullDocumentKeyFromNonStringIdentifier;
-
-			//conventions.FindFullDocumentKeyFromNonStringIdentifier =
-			//	(id, type, allowNull) => type == typeof(Guid)
-			//		? conventions.GetTypeTagName(type) + conventions.IdentityPartsSeparator + ((Guid) id).ToString("N").ToUpper()
-			//		: originalFindFullDocumentKeyFromNonStringIdentifier(id, type, allowNull);
-
-			conventions.FindFullDocumentKeyFromNonStringIdentifier = (id, type, allowNull) =>
-			{
-				return typeof(PersistentNotion<Guid>).IsAssignableFrom(type)
-					? conventions.GetTypeTagName(type) + conventions.IdentityPartsSeparator + ((Guid) id).ToString("N").ToUpper()
-					: originalFindFullDocumentKeyFromNonStringIdentifier(id, type, allowNull);
-			};
-
 			conventions.FindIdentityProperty =
 				property => property.DeclaringType.IsAssignableFromGenericDefinition(typeof(PersistentNotion<>)) && property.Name == "Id";
+
+			conventions.IdentityTypeConvertors = conventions.IdentityTypeConvertors.Concat(new[] { new RavenEntityIdConverter() }).ToList();
 		}
 	}
 }

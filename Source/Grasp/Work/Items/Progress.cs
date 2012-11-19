@@ -113,7 +113,7 @@ namespace Grasp.Work.Items
 
 		public string ToString(IFormatProvider formatProvider)
 		{
-			return Value.ToString("P", formatProvider);
+			return Value.ToString("0.##%", formatProvider);
 		}
 	}
 }

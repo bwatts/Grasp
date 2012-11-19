@@ -47,16 +47,16 @@ namespace Grasp.Work
 		/// <summary>
 		/// Gets the ID of the aggregate with the concurrency issue
 		/// </summary>
-		public Guid AggregateId { get; set; }
+		public EntityId AggregateId { get; set; }
 
 		/// <summary>
 		/// Gets the revision ID expected to be loaded
 		/// </summary>
-		public Guid ExpectedRevisionId { get; set; }
+		public EntityId ExpectedRevisionId { get; set; }
 
 		/// <summary>
 		/// Gets the revision ID actually loaded
 		/// </summary>
-		public Guid ActualRevisionId { get; set; }
+		public EntityId ActualRevisionId { get; set; }
 	}
 }

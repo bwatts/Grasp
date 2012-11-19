@@ -45,30 +45,30 @@ namespace Slate.Http.Api
 				page,
 				item =>
 				{
-					var id = (Guid) item["Id"];
+					var id = (EntityId) item["Id"];
 					var name = (string) item["Name"];
 
-					var link = new Hyperlink("forms/" + id.ToString("N").ToUpper(), item.Number, name, "grasp:list-item", "form");
+					var link = new Hyperlink("forms/" + id.ToString(), item.Number, name, "grasp:list-item", "form");
 
 					return new HyperlistItem(link, item);
 				});
 		}
 
-		public async Task<FormResource> GetFormAsync(Guid id)
+		public async Task<FormResource> GetFormAsync(EntityId id)
 		{
 			var item = await _byIdQuery.GetFormAsync(id);
 
 			return item == null ? null : CreateResource(item);
 		}
 
-		public Uri GetLocation(Guid id)
+		public Uri GetLocation(EntityId id)
 		{
 			return _resourceContext.GetAbsoluteUrl(GetUrl(id));
 		}
 
-		private static string GetUrl(Guid id)
+		private static string GetUrl(EntityId id)
 		{
-			return "forms/" + id.ToString("N").ToUpper();
+			return "forms/" + id.ToString();
 		}
 
 		private FormResource CreateResource(Form form)

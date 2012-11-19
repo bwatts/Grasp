@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Cloak.Reflection;
+using Grasp;
 using Grasp.Lists;
 using Grasp.Raven;
 using Grasp.Work;
@@ -27,7 +28,7 @@ namespace Slate.Http.Persistence
 		{
 			return new ListSchema(AnonymousDictionary.Read<Type>(new
 			{
-				Id = typeof(Guid),
+				Id = typeof(EntityId),
 				Name = typeof(string),
 				Phase = typeof(string),
 				ResponseCount = typeof(int),

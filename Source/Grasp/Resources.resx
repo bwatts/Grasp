@@ -148,6 +148,9 @@
   <data name="GetterDoesNotAccessField" xml:space="preserve">
     <value>Getter {0} does not access a field</value>
   </data>
+  <data name="InvalidEntityId" xml:space="preserve">
+    <value>Invalid entity identifier: "{0}"</value>
+  </data>
   <data name="InvalidHrefUri" xml:space="preserve">
     <value>Invalid href URI: {0}</value>
   </data>

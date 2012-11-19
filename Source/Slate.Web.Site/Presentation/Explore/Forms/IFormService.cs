@@ -4,6 +4,7 @@ using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
+using Grasp;
 using Grasp.Hypermedia;
 using Slate.Http;
 
@@ -12,7 +13,7 @@ namespace Slate.Web.Site.Presentation.Explore.Forms
 	[ContractClass(typeof(IFormServiceContract))]
 	public interface IFormService
 	{
-		Task<FormResource> GetFormAsync(Guid id);
+		Task<FormResource> GetFormAsync(EntityId id);
 
 		Task<WorkItemResource> StartFormAsync(string name);
 	}
@@ -20,9 +21,9 @@ namespace Slate.Web.Site.Presentation.Explore.Forms
 	[ContractClassFor(typeof(IFormService))]
 	internal abstract class IFormServiceContract : IFormService
 	{
-		Task<FormResource> IFormService.GetFormAsync(Guid id)
+		Task<FormResource> IFormService.GetFormAsync(EntityId id)
 		{
-			Contract.Requires(id != Guid.Empty);
+			Contract.Requires(id != EntityId.Unassigned);
 			Contract.Ensures(Contract.Result<Task<FormResource>>() != null);
 
 			return null;

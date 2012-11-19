@@ -93,13 +93,14 @@ namespace Grasp.Hypermedia.Linq
 			var title = ((string) element.Attribute(Hyperlink.TitleAttributeName)) ?? "";
 			var rel = ((string) element.Attribute(Hyperlink.RelAttributeName) ?? "");
 			var href = element.RequiredAttribute(Hyperlink.HrefAttributeName).RequiredString();
+			var @class = element.ReadMClass();
 
-			return new Hyperlink(href, element.Value, title, rel);
+			return new Hyperlink(href, element.Value, title, rel, @class);
 		}
 
 		private static MLink ReadMLink(this XElement element)
 		{
-			return new MLink(element.ReadHyperlink(), element.ReadMClass());
+			return new MLink(element.ReadHyperlink());
 		}
 
 		private static MClass ReadMClass(this XElement element)

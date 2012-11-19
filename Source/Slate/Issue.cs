@@ -15,7 +15,7 @@ namespace Slate
 		public static readonly Field<int> NumberField = Field.On<Issue>.For(x => x.Number);
 		public static readonly Field<string> TitleField = Field.On<Issue>.For(x => x.Title);
 
-		public Issue(Guid id, int number, string title)
+		public Issue(EntityId id, int number, string title)
 		{
 			Announce(new IssueOpenedEvent(id, number, title));
 		}

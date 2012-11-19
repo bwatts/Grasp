@@ -28,19 +28,7 @@ namespace Grasp.Hypermedia.Linq
 
 		protected override object GetHtmlWithoutClass()
 		{
-			var content = Object;
-
-			if(content is Guid)
-			{
-				content = ((Guid) content).ToString("N").ToUpper();
-			}
-			
-			if(Escaped)
-			{
-				content = new XCData(content == null ? "" : content.ToString());
-			}
-
-			return content;
+			return !Escaped ? Object : new XCData(Object == null ? "" : Object.ToString());
 		}
 
 		protected override object GetHtmlWithClass(string classStack)

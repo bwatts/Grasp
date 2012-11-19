@@ -32,7 +32,7 @@ namespace Slate.Web.Site.Composition
 
 			RegisterType<WorkController>().InstancePerDependency();
 
-			routes.MapRoute("work", "work", new { controller = "Work" });
+			routes.MapRoute("work", "work/{id}", new { controller = "Work", action = "Item" });
 		}
 	}
 }

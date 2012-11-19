@@ -39,8 +39,8 @@ namespace Slate.Http.Server.Composition
 
 			RegisterType<WorkController>().InstancePerDependency();
 
-			httpSettings.Routes.MapHttpRoute("work-list", "work", new { controller = "Work" });
-			httpSettings.Routes.MapHttpRoute("work-details", "work/{id}", new { controller = "Work" });
+			httpSettings.Routes.MapHttpRoute("work-list", "work", new { controller = "Work", action = "GetListPageAsync" });
+			httpSettings.Routes.MapHttpRoute("work-details", "work/{id}", new { controller = "Work", action = "GetItemAsync" });
 		}
 	}
 }

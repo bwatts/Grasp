@@ -12,7 +12,7 @@ namespace Grasp.Messaging
 	/// <summary>
 	/// A message which travels along channels in a reactive system
 	/// </summary>
-	public abstract class Message : PersistentNotion<Guid>
+	public abstract class Message : Entity
 	{
 		public static readonly Field<IMessageChannel> ChannelField = Field.AttachedTo<Notion>.By<Message>.For(() => ChannelField);
 
@@ -23,7 +23,7 @@ namespace Grasp.Messaging
 			return ChannelField.Get(publisher) ?? AmbientMessageChannel.Resolve();
 		}
 
-		protected Message() : base(Guid.NewGuid())
+		protected Message() : base(EntityId.Generate())
 		{}
 	}
 }

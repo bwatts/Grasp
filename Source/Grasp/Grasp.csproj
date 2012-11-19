@@ -263,6 +263,9 @@
     <Compile Include="Checks\Rules\RuleVisitor.cs" />
     <Compile Include="Checks\Specification.cs" />
     <Compile Include="Checks\CheckException.cs" />
+    <Compile Include="Entity.cs" />
+    <Compile Include="EntityId.cs" />
+    <Compile Include="EntityIdConverter.cs" />
     <Compile Include="Lists\ListItemBindings.cs" />
     <Compile Include="Lists\ListSchema.cs" />
     <Compile Include="Lists\ListItems.cs" />
@@ -288,16 +291,12 @@
     <Compile Include="Work\ConcurrencyException.cs" />
     <Compile Include="Work\Items\ReportProgressHandler.cs" />
     <Compile Include="Work\Items\ReportProgressCommand.cs" />
-    <Compile Include="Work\Items\StartWorkHandler.cs" />
-    <Compile Include="Work\Items\StartWorkCommand.cs" />
     <Compile Include="Work\Items\ProgressConverter.cs" />
     <Compile Include="Work\Persistence\FieldValueConverter.cs" />
     <Compile Include="Work\Persistence\IFieldValueConverter.cs" />
     <Compile Include="Work\Items\Progress.cs" />
     <Compile Include="Work\Items\ProgressReportedEvent.cs" />
-    <Compile Include="Work\Items\ProgressStartedEvent.cs" />
     <Compile Include="Work\Items\WorkItem.cs" />
-    <Compile Include="Work\Items\WorkItemCompletedEvent.cs" />
     <Compile Include="Work\Items\WorkItemCreatedEvent.cs" />
     <Compile Include="Work\Persistence\NotionActivator.cs" />
     <Compile Include="Work\Persistence\INotionActivator.cs" />

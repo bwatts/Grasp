@@ -3,14 +3,11 @@
 
 }
 
-.work-item .description-caption
-{
-	font-weight: bold;
-}
-
 .work-item .description
 {
-
+	display: list-item;
+	margin: 0px 0px 12px 18px;
+	padding: 0px;
 }
 
 .work-item .progress-caption

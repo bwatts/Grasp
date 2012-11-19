@@ -28,14 +28,14 @@ namespace Slate.Web.Site.Presentation.Work
 			_client = client;
 		}
 
-		public async Task<WorkItemResource> GetWorkItemAsync(Guid id)
+		public async Task<WorkItemResource> GetWorkItemAsync(EntityId id)
 		{
 			return await GetWorkItemAsync(await GetWorkItemUrlAsync(id));
 		}
 
-		private Task<Uri> GetWorkItemUrlAsync(Guid id)
+		private Task<Uri> GetWorkItemUrlAsync(EntityId id)
 		{
-			return _session.GetEntityUrlAsync("work", id.ToString("N").ToUpper());
+			return _session.GetEntityUrlAsync("work", id.ToString());
 		}
 
 		private Task<WorkItemResource> GetWorkItemAsync(Uri url)

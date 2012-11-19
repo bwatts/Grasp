@@ -40,9 +40,7 @@ namespace Grasp.Hypermedia.Lists
 				uri = new Uri(_apiClient.BaseAddress, uri);
 			}
 
-			var query = pageKey.GetQuery(includeSeparator: uri.Query.Length < 2);
-
-			return new UriBuilder(uri) { Query = query }.Uri;
+			return new UriBuilder(uri) { Query = pageKey.GetQuery() }.Uri;
 		}
 	}
 }

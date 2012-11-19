@@ -26,13 +26,12 @@ namespace Grasp.Hypermedia
 
 		protected override WorkItemResource ConvertToResource(MHeader header, MCompositeContent body)
 		{
-			var id = body.Items.ReadValue<Guid>("id");
 			var whenStarted = body.Items.ReadValue<DateTime>("when-started");
 			var progress = body.Items.ReadValue<Progress>("progress");
 
 			return progress == Progress.Complete
-				? new WorkItemResource(header, id, whenStarted, body.Items.ReadLink("grasp:work-result").Hyperlink)
-				: new WorkItemResource(header, id, whenStarted, progress, body.Items.ReadValue<TimeSpan>("retry-interval"));
+				? new WorkItemResource(header, whenStarted, body.Items.ReadLink("grasp:work-result").Hyperlink)
+				: new WorkItemResource(header, whenStarted, progress, body.Items.ReadValue<TimeSpan>("retry-interval"));
 		}
 
 		protected override IEnumerable<MContent> ConvertFromResource(WorkItemResource resource)
@@ -41,7 +40,7 @@ namespace Grasp.Hypermedia
 			yield return new MValue("progress", resource.Progress);
 
 			yield return resource.RetryInterval != null
-				? new MValue("retry-interval", resource.RetryInterval)
+				? new MValue("retry-interval", resource.RetryInterval.ToString())	// Using a TimeSpan instance via .Value produced odd results
 				: new MLink(resource.ResultLink) as MContent;
 		}
 	}

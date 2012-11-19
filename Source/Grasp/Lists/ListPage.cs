@@ -37,26 +37,22 @@ namespace Grasp.Lists
 
 		public Number FirstItemNumber
 		{
-			get { return Context.ItemCount == Count.None ? Number.None : Key.GetFirstItem(); }
+			get { return IsEmpty ? Number.None : Key.FirstItem; }
 		}
 
 		public Number LastItemNumber
 		{
-			get { return Context.ItemCount == Count.None ? Number.None : Key.GetLastItem(Context.ItemCount); }
+			get { return IsEmpty ? Number.None : Key.LastItem; }
 		}
 
-		public ListItem GetFirstItem()
+		public ListItem FirstItem
 		{
-			var firstItemNumber = FirstItemNumber;
-
-			return firstItemNumber == Number.None ? null : Items[FirstItemNumber.Value];
+			get { return FirstItemNumber == Number.None ? null : Items[FirstItemNumber.Value]; }
 		}
 
-		public ListItem GetLastItem()
+		public ListItem LastItem
 		{
-			var lastItemNumber = LastItemNumber;
-
-			return lastItemNumber == Number.None ? null : Items[LastItemNumber.Value];
+			get { return LastItemNumber == Number.None ? null : Items[LastItemNumber.Value]; }
 		}
 	}
 }

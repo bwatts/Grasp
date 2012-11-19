@@ -9,6 +9,7 @@ using Cloak.Http.Media;
 using Grasp.Checks;
 using Grasp.Hypermedia.Linq;
 using Grasp.Lists;
+using Grasp.Work.Items;
 
 namespace Grasp.Hypermedia.Lists
 {
@@ -130,6 +131,10 @@ namespace Grasp.Hypermedia.Lists
 			{
 				return "datetime";
 			}
+			else if(type == typeof(EntityId))
+			{
+				return "id";
+			}
 			else
 			{
 				return "object";
@@ -230,6 +235,10 @@ namespace Grasp.Hypermedia.Lists
 			{
 				return typeof(DateTime);
 			}
+			else if(IsType(type, "id"))
+			{
+				return typeof(EntityId);
+			}
 			else
 			{
 				return typeof(object);
@@ -275,49 +284,7 @@ namespace Grasp.Hypermedia.Lists
 		{
 			var type = schema[value.Class];
 
-			if(type == typeof(string))
-			{
-				return Convert.ToString(value.Object);
-			}
-			else if(type == typeof(char))
-			{
-				return Convert.ToChar(value.Object);
-			}
-			else if(type == typeof(int))
-			{
-				return Convert.ToInt32(value.Object);
-			}
-			else if(type == typeof(double))
-			{
-				return Convert.ToDouble(value.Object);
-			}
-			else if(type == typeof(decimal))
-			{
-				return Convert.ToDecimal(value.Object);
-			}
-			else if(type == typeof(bool))
-			{
-				return Convert.ToBoolean(value.Object);
-			}
-			else if(type == typeof(Guid))
-			{
-				var text = value.Object as string;
-
-				if(Check.That(text).IsNullOrEmpty())
-				{
-					throw new FormatException(Resources.InvalidGuidValue.FormatCurrent(text));
-				}
-
-				return Guid.ParseExact(text, "N");
-			}
-			else if(type == typeof(DateTime))
-			{
-				return Convert.ToDateTime(value.Object);
-			}
-			else
-			{
-				return value.Object;
-			}
+			return Conversion.To(type, value.Object);
 		}
 		#endregion
 	}

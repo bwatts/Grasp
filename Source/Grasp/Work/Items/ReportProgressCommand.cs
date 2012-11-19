@@ -10,22 +10,22 @@ namespace Grasp.Work.Items
 {
 	public class ReportProgressCommand : Command
 	{
-		public static readonly Field<Guid> WorkItemIdField = Field.On<ReportProgressCommand>.For(x => x.WorkItemId);
+		public static readonly Field<EntityId> WorkItemIdField = Field.On<ReportProgressCommand>.For(x => x.WorkItemId);
 		public static readonly Field<Progress> ProgressField = Field.On<ReportProgressCommand>.For(x => x.Progress);
 		public static readonly Field<Uri> ResultLocationField = Field.On<ReportProgressCommand>.For(x => x.ResultLocation);
 
-		public ReportProgressCommand(Guid workItemId, Progress progress)
+		public ReportProgressCommand(EntityId workItemId, Progress progress)
 		{
-			Contract.Requires(workItemId != Guid.Empty);
+			Contract.Requires(workItemId != EntityId.Unassigned);
 			Contract.Requires(progress > Progress.Accepted && progress < Progress.Complete);
 
 			WorkItemId = workItemId;
 			Progress = progress;
 		}
 
-		public ReportProgressCommand(Guid workItemId, Uri resultLocation)
+		public ReportProgressCommand(EntityId workItemId, Uri resultLocation)
 		{
-			Contract.Requires(workItemId != Guid.Empty);
+			Contract.Requires(workItemId != EntityId.Unassigned);
 			Contract.Requires(resultLocation != null);
 
 			WorkItemId = workItemId;
@@ -34,7 +34,7 @@ namespace Grasp.Work.Items
 			Progress = Progress.Complete;
 		}
 
-		public Guid WorkItemId { get { return GetValue(WorkItemIdField); } private set { SetValue(WorkItemIdField, value); } }
+		public EntityId WorkItemId { get { return GetValue(WorkItemIdField); } private set { SetValue(WorkItemIdField, value); } }
 		public Progress Progress { get { return GetValue(ProgressField); } private set { SetValue(ProgressField, value); } }
 		public Uri ResultLocation { get { return GetValue(ResultLocationField); } private set { SetValue(ResultLocationField, value); } }
 	}

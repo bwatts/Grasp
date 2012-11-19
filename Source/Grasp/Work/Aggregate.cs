@@ -13,19 +13,19 @@ namespace Grasp.Work
 	/// <summary>
 	/// A versioned consistency boundary in which all events occur on the same timeline
 	/// </summary>
-	public abstract class Aggregate : PersistentNotion<Guid>
+	public abstract class Aggregate : Entity
 	{
-		public static readonly Field<Guid> RevisionIdField = Field.On<Aggregate>.For(x => x.RevisionId);
+		public static readonly Field<EntityId> RevisionIdField = Field.On<Aggregate>.For(x => x.RevisionId);
 		public static readonly Field<ManyInOrder<Event>> _unobservedEventsField = Field.On<Aggregate>.For(x => x._unobservedEvents);
 
 		private ManyInOrder<Event> _unobservedEvents { get { return GetValue(_unobservedEventsField); } set { SetValue(_unobservedEventsField, value); } }
 
-		protected Aggregate() : base(Guid.NewGuid())
+		protected Aggregate() : base(EntityId.Generate())
 		{
 			_unobservedEvents = new ManyInOrder<Event>();
 		}
 
-		public Guid RevisionId { get { return GetValue(RevisionIdField); } private set { SetValue(RevisionIdField, value); } }
+		public EntityId RevisionId { get { return GetValue(RevisionIdField); } private set { SetValue(RevisionIdField, value); } }
 
 		public IEnumerable<Event> ObserveEvents()
 		{
@@ -50,7 +50,7 @@ namespace Grasp.Work
 			RevisionId = version.RevisionId;
 		}
 
-		protected void SetId(Guid id)
+		protected void SetId(EntityId id)
 		{
 			SetValue(PersistentId.ValueField, id);
 		}

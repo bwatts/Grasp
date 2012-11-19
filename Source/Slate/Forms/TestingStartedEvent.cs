@@ -10,13 +10,13 @@ namespace Slate.Forms
 {
 	public class TestingStartedEvent : Event
 	{
-		public static readonly Field<Guid> FormIdField = Field.On<TestingStartedEvent>.For(x => x.FormId);
+		public static readonly Field<EntityId> FormIdField = Field.On<TestingStartedEvent>.For(x => x.FormId);
 
-		public TestingStartedEvent(Guid formId)
+		public TestingStartedEvent(EntityId formId)
 		{
 			FormId = formId;
 		}
 
-		public Guid FormId { get { return GetValue(FormIdField); } private set { SetValue(FormIdField, value); } }
+		public EntityId FormId { get { return GetValue(FormIdField); } private set { SetValue(FormIdField, value); } }
 	}
 }

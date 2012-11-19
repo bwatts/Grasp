@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using Cloak.Time;
+using Grasp;
 using Grasp.Hypermedia;
 using Grasp.Work.Items;
 using Slate.Web.Site.Presentation.Navigation;
@@ -33,7 +34,7 @@ namespace Slate.Web.Site.Presentation.Work
 		}
 
 		[HttpGet]
-		public async Task<ActionResult> Item(Guid id)
+		public async Task<ActionResult> Item(EntityId id)
 		{
 			var workItem = await _workService.GetWorkItemAsync(id);
 
@@ -53,7 +54,7 @@ namespace Slate.Web.Site.Presentation.Work
 
 		private Task<ILayoutModel<WorkItemModel>> CreateLayoutModelAsync(WorkItemResource workItem)
 		{
-			return _layoutModelFactory.CreateLayoutModelAsync("Slate : Processing", CreateWorkItemModel(workItem));
+			return _layoutModelFactory.CreateLayoutModelAsync("Slate : Working", CreateWorkItemModel(workItem));
 		}
 
 		private WorkItemModel CreateWorkItemModel(WorkItemResource workItem)
@@ -63,7 +64,7 @@ namespace Slate.Web.Site.Presentation.Work
 				workItem.WhenStarted,
 				_timeContext.Now - workItem.WhenStarted,
 				workItem.Progress,
-				workItem.RetryInterval);
+				Convert.ToInt32(Math.Ceiling(workItem.RetryInterval.Value.TotalMilliseconds)));
 		}
 	}
 }

@@ -39,7 +39,7 @@ namespace Grasp.Raven
 			});
 		}
 
-		public Task<TAggregate> LoadAsync(Guid aggregateId)
+		public Task<TAggregate> LoadAsync(EntityId aggregateId)
 		{
 			return ExecuteReadAsync(session =>
 			{
@@ -58,7 +58,7 @@ namespace Grasp.Raven
 			return new EventStorage(aggregate, session).StoreEvents();
 		}
 
-		private static AggregateVersion LoadHeadVersion(Guid aggregateId, IDocumentSession session)
+		private static AggregateVersion LoadHeadVersion(EntityId aggregateId, IDocumentSession session)
 		{
 			var aggregateDocumentId = GetAggregateDocumentId(aggregateId);
 
@@ -88,10 +88,10 @@ namespace Grasp.Raven
 				select revision;
 		}
 
-		private static string GetAggregateDocumentId(Guid aggregateId)
+		private static string GetAggregateDocumentId(EntityId aggregateId)
 		{
 			// TODO: Is there a more preferred way to find the aggregate document ID?
-			return DocumentConvention.DefaultTypeTagName(typeof(TAggregate)) + "/" + aggregateId.ToString("N").ToUpper();
+			return DocumentConvention.DefaultTypeTagName(typeof(TAggregate)) + "/" + aggregateId.ToString();
 		}
 
 		private sealed class EventStorage
@@ -155,7 +155,7 @@ namespace Grasp.Raven
 			{
 				_newRevision = new Revision(
 					_aggregateDocumentId,
-					baseRevisionId: _currentRevision == null ? null : (Guid?) _currentRevision.Id,
+					baseRevisionId: _currentRevision == null ? null : (EntityId?) _currentRevision.Id,
 					number: 1 + (_currentRevision == null ? 0 : _currentRevision.Number),
 					events: _aggregate.ObserveEvents());
 

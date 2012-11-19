@@ -21,7 +21,7 @@ namespace Grasp.Hypermedia.Linq
 
 		public MClass Class { get { return GetValue(ClassField); } private set { SetValue(ClassField, value); } }
 
-		internal object GetHtml()
+		internal virtual object GetHtml()
 		{
 			return Class.ItemsFromHere().Any(item => item != MClass.Empty)
 				? GetHtmlWithClass(Class.ToString())

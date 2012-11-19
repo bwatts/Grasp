@@ -66,7 +66,7 @@ namespace Grasp.Hypermedia
 
 		[Fact] public void GetMLinkHtmlWithClass()
 		{
-			var link = new MLink(new Hyperlink(""), new MClass("c"));
+			var link = new MLink(new Hyperlink("", @class: "c"));
 
 			var html = link.GetHtml();
 

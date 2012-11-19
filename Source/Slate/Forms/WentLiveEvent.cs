@@ -10,13 +10,13 @@ namespace Slate.Forms
 {
 	public class WentLiveEvent : Event
 	{
-		public static readonly Field<Guid> FormIdField = Field.On<WentLiveEvent>.For(x => x.FormId);
+		public static readonly Field<EntityId> FormIdField = Field.On<WentLiveEvent>.For(x => x.FormId);
 
-		public WentLiveEvent(Guid formId)
+		public WentLiveEvent(EntityId formId)
 		{
 			FormId = formId;
 		}
 
-		public Guid FormId { get { return GetValue(FormIdField); } private set { SetValue(FormIdField, value); } }
+		public EntityId FormId { get { return GetValue(FormIdField); } private set { SetValue(FormIdField, value); } }
 	}
 }

@@ -11,13 +11,13 @@ namespace Slate
 {
 	public class IssueOpenedEvent : Event
 	{
-		public static readonly Field<Guid> IssueIdField = Field.On<IssueOpenedEvent>.For(x => x.IssueId);
+		public static readonly Field<EntityId> IssueIdField = Field.On<IssueOpenedEvent>.For(x => x.IssueId);
 		public static readonly Field<int> NumberField = Field.On<IssueOpenedEvent>.For(x => x.Number);
 		public static readonly Field<string> TitleField = Field.On<IssueOpenedEvent>.For(x => x.Title);
 
-		public IssueOpenedEvent(Guid issueId, int number, string title)
+		public IssueOpenedEvent(EntityId issueId, int number, string title)
 		{
-			Contract.Requires(issueId != Guid.Empty);
+			Contract.Requires(issueId != EntityId.Unassigned);
 			Contract.Requires(number >= 1);
 			Contract.Requires(title != null);
 
@@ -26,7 +26,7 @@ namespace Slate
 			Title = title;
 		}
 
-		public Guid IssueId { get { return GetValue(IssueIdField); } private set { SetValue(IssueIdField, value); } }
+		public EntityId IssueId { get { return GetValue(IssueIdField); } private set { SetValue(IssueIdField, value); } }
 		public int Number { get { return GetValue(NumberField); } private set { SetValue(NumberField, value); } }
 		public string Title { get { return GetValue(TitleField); } private set { SetValue(TitleField, value); } }
 	}

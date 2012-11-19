@@ -5,34 +5,35 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Grasp.Messaging;
+using Grasp.Work;
 using Grasp.Work.Items;
 
 namespace Grasp.Hypermedia.Server
 {
 	public sealed class StartWorkService : Publisher, IStartWorkService
 	{
-		public static readonly Field<IHttpResourceContext> _resourceContextField = Field.On<StartWorkService>.For(x => x._resourceContext);
+		public static readonly Field<IRepository<WorkItem>> _workItemRepositoryField = Field.On<StartWorkService>.For(x => x._workItemRepository);
 
-		private IHttpResourceContext _resourceContext { get { return GetValue(_resourceContextField); } set { SetValue(_resourceContextField, value); } }
+		private IRepository<WorkItem> _workItemRepository { get { return GetValue(_workItemRepositoryField); } set { SetValue(_workItemRepositoryField, value); } }
 
-		public StartWorkService(IHttpResourceContext resourceContext)
+		public StartWorkService(IRepository<WorkItem> workItemRepository)
 		{
-			Contract.Requires(resourceContext != null);
+			Contract.Requires(workItemRepository != null);
 
-			_resourceContext = resourceContext;
+			_workItemRepository = workItemRepository;
 		}
 
-		public async Task<Uri> StartWorkAsync(string description, TimeSpan retryInterval, Func<Guid, IMessageChannel, Task> issueWorkCommandAsync)
+		public async Task<EntityId> StartWorkAsync(string description, TimeSpan retryInterval, Func<EntityId, IMessageChannel, Task> issueCommandAsync)
 		{
-			var workItemId = Guid.NewGuid();
+			var id = EntityId.Generate();
 
-			var messageChannel = GetMessageChannel();
+			var workItem = new WorkItem(id, description, retryInterval);
 
-			await messageChannel.IssueAsync(new StartWorkCommand(workItemId, description, retryInterval));
+			await _workItemRepository.SaveAsync(workItem);
 
-			await issueWorkCommandAsync(workItemId, messageChannel);
+			await issueCommandAsync(id, GetMessageChannel());
 
-			return _resourceContext.GetAbsoluteUrl("work/" + workItemId.ToString("N").ToUpper());
+			return id;
 		}
 	}
 }

@@ -15,9 +15,7 @@ namespace Grasp.Hypermedia.Server
 	{
 		Task<Hyperlist> GetListAsync(ListPageKey pageKey = null);
 
-		Task<WorkItemResource> GetWorkItemAsync(Guid id);
-
-		Uri GetLocation(Guid id);
+		Task<WorkItemResource> GetWorkItemAsync(EntityId id);
 	}
 
 	[ContractClassFor(typeof(IWorkItemStore))]
@@ -31,17 +29,9 @@ namespace Grasp.Hypermedia.Server
 			return null;
 		}
 
-		Task<WorkItemResource> IWorkItemStore.GetWorkItemAsync(Guid id)
+		Task<WorkItemResource> IWorkItemStore.GetWorkItemAsync(EntityId id)
 		{
-			Contract.Requires(id != Guid.Empty);
-
-			return null;
-		}
-
-		Uri IWorkItemStore.GetLocation(Guid id)
-		{
-			Contract.Requires(id != Guid.Empty);
-			Contract.Ensures(Contract.Result<Uri>() != null);
+			Contract.Requires(id != EntityId.Unassigned);
 
 			return null;
 		}

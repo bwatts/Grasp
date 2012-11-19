@@ -48,7 +48,7 @@ namespace Grasp.Raven
 
 		private IEnumerable<ListItem> SelectListItems(ListPageContext context, IEnumerable<T> items)
 		{
-			var firstItem = context.PageKey.GetFirstItem();
+			var firstItem = context.PageKey.FirstItem;
 
 			return items.Select((item, index) => new ListItem(firstItem + new Number(index), SelectBindings(context, item)));
 		}

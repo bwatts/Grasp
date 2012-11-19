@@ -16,19 +16,17 @@ namespace Grasp.Hypermedia
 	{
 		public static readonly Field<ApiClient> _clientField = Field.On<ApiSession>.For(x => x._client);
 		public static readonly Field<ApiResource> _apiField = Field.On<ApiSession>.For(x => x._api);
-		public static readonly Field<object> _loadRootSyncField = Field.On<ApiSession>.For(x => x._loadRootSync);
 
 		private ApiClient _client { get { return GetValue(_clientField); } set { SetValue(_clientField, value); } }
 		private ApiResource _api { get { return GetValue(_apiField); } set { SetValue(_apiField, value); } }
-		private object _loadRootSync { get { return GetValue(_loadRootSyncField); } set { SetValue(_loadRootSyncField, value); } }
+
+		private volatile bool _loading;
 
 		public ApiSession(ApiClient client)
 		{
 			Contract.Requires(client != null);
 
 			_client = client;
-
-			_loadRootSync = new object();
 		}
 
 		public async Task<Uri> GetEntitySetUrlAsync(MClass @class, bool throwIfEntityUnsupported)
@@ -63,15 +61,13 @@ namespace Grasp.Hypermedia
 		{
 			if(_api == null)
 			{
-				var lockTaken = false;
+				_loading = true;
 
-				Monitor.Enter(_loadRootSync, ref lockTaken);
-
-				if(lockTaken)
+				if(_loading)
 				{
 					_api = await LoadAsync();
 
-					Monitor.Exit(_loadRootSync);
+					_loading = false;
 				}
 			}
 		}

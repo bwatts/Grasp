@@ -151,6 +151,15 @@ namespace Grasp.Hypermedia {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Stream is invalid XML:{0}{1}.
+        /// </summary>
+        internal static string StreamIsInvalidXml {
+            get {
+                return ResourceManager.GetString("StreamIsInvalidXml", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Term &quot;{0}&quot; does not have a definition.
         /// </summary>
         internal static string TermHasNoDefinition {

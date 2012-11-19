@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using Cloak;
 using Cloak.Reflection;
 using Cloak.Time;
 using Grasp.Checks;
@@ -89,21 +90,27 @@ namespace Grasp.Raven
 
 			// TODO: Externalize
 
+			string text;
+
 			if(value is Notion)
 			{
 				return GetNotionObject((Notion) value);
 			}
-			else if(!(value is string) && value is IEnumerable)
+			else if(value is string)
+			{
+				return value;
+			}
+			else if(value is IEnumerable)
 			{
 				return GetSequenceArray((IEnumerable) value);
 			}
-			else if(value is Guid)
+			else if(value is DateTime)
 			{
-				return ((Guid) value).ToString("N").ToUpper();
+				return ((DateTime) value).ToUniversalTime().ToString("o");
 			}
-			else if(value is Progress)
+			else if(Conversion.Try<string>(value, out text))
 			{
-				return ((Progress) value).Value;
+				return text;
 			}
 			else
 			{

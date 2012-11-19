@@ -11,15 +11,15 @@ namespace Grasp.Hypermedia.Server
 	[ContractClass(typeof(IWorkItemByIdQueryContract))]
 	public interface IWorkItemByIdQuery
 	{
-		Task<WorkItem> GetWorkItemAsync(Guid id);
+		Task<WorkItem> GetWorkItemAsync(EntityId id);
 	}
 
 	[ContractClassFor(typeof(IWorkItemByIdQuery))]
 	internal abstract class IWorkItemByIdQueryContract : IWorkItemByIdQuery
 	{
-		Task<WorkItem> IWorkItemByIdQuery.GetWorkItemAsync(Guid id)
+		Task<WorkItem> IWorkItemByIdQuery.GetWorkItemAsync(EntityId id)
 		{
-			Contract.Requires(id != Guid.Empty);
+			Contract.Requires(id != EntityId.Unassigned);
 			Contract.Ensures(Contract.Result<Task<WorkItem>>() != null);
 
 			return null;

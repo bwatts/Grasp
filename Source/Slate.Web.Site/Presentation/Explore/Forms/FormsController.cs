@@ -5,7 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using Grasp.Hypermedia;
+using Grasp.Work.Items;
 using Slate.Web.Site.Presentation.Navigation;
+using Slate.Web.Site.Presentation.Work;
 
 namespace Slate.Web.Site.Presentation.Explore.Forms
 {
@@ -13,14 +16,17 @@ namespace Slate.Web.Site.Presentation.Explore.Forms
 	{
 		private readonly ILayoutModelFactory _layoutModelFactory;
 		private readonly IFormService _formService;
+		private readonly IWorkMesh _workMesh;
 
-		public FormsController(ILayoutModelFactory layoutModelFactory, IFormService formService)
+		public FormsController(ILayoutModelFactory layoutModelFactory, IFormService formService, IWorkMesh workMesh)
 		{
 			Contract.Requires(layoutModelFactory != null);
 			Contract.Requires(formService != null);
+			Contract.Requires(workMesh != null);
 
 			_layoutModelFactory = layoutModelFactory;
 			_formService = formService;
+			_workMesh = workMesh;
 		}
 
 		[HttpGet]
@@ -42,11 +48,18 @@ namespace Slate.Web.Site.Presentation.Explore.Forms
 		}
 
 		[HttpPost]
-		public async Task<RedirectToRouteResult> Start(string name)
+		public async Task<ActionResult> Start(string name)
 		{
 			var workItem = await _formService.StartFormAsync(name);
 
-			return RedirectToAction("Item", "Work", new { id = workItem.Id.ToString("N").ToUpper() });
+			// Instead of redirecting to a generic handler when the work is not complete, we could return the page in a polling state. This would
+			// maintain UX context and allow us to portray it in a manner specific to the work, such as a progress bar or explict set of steps.
+
+			var redirectUri = workItem.Progress == Progress.Complete
+				? _workMesh.GetResultUrl(workItem)
+				: _workMesh.GetItemUri(workItem);
+
+			return Redirect(redirectUri.ToString());
 		}
 	}
 }

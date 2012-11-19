@@ -11,16 +11,16 @@ namespace Grasp.Hypermedia.Linq
 {
 	public sealed class MRepresentation : Notion
 	{
-		public static MRepresentation Load(Stream xmlStream)
-		{
-			return Load(XDocument.Load(xmlStream));
-		}
-
 		public static MRepresentation Load(XDocument xml)
 		{
 			Contract.Requires(xml != null);
 
 			return MRepresentationReader.Read(xml);
+		}
+
+		public static MRepresentation Load(Stream xmlStream)
+		{
+			return Load(XDocument.Load(xmlStream));
 		}
 
 		public static readonly Field<MHeader> HeaderField = Field.On<MRepresentation>.For(x => x.Header);

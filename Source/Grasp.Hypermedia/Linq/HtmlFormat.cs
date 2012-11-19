@@ -8,6 +8,7 @@ using System.Net.Http.Formatting;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
+using Cloak;
 using Cloak.Http.Media;
 
 namespace Grasp.Hypermedia.Linq
@@ -74,9 +75,23 @@ namespace Grasp.Hypermedia.Linq
 			}
 			catch(XmlException xmlException)
 			{
-				formatterLogger.LogError("", xmlException);
+				if(formatterLogger != null)
+				{
+					formatterLogger.LogError("", xmlException);
+				}
 
-				throw new FormatException(Resources.StreamIsInvalidHtmlRepresentation, xmlException);
+				if(stream.CanSeek)
+				{
+					stream.Seek(0, SeekOrigin.Begin);
+
+					var xml = new StreamReader(stream).ReadToEnd();
+
+					throw new FormatException(Resources.StreamIsInvalidXml.FormatInvariant(Environment.NewLine, xml), xmlException);
+				}
+				else
+				{
+					throw new FormatException(Resources.StreamIsInvalidHtmlRepresentation, xmlException);
+				}
 			}
 			catch(FormatException formatException)
 			{

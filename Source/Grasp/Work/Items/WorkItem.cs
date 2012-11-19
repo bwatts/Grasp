@@ -15,7 +15,7 @@ namespace Grasp.Work.Items
 		public static readonly Field<TimeSpan> RetryIntervalField = Field.On<WorkItem>.For(x => x.RetryInterval);
 		public static readonly Field<Uri> ResultLocationField = Field.On<WorkItem>.For(x => x.ResultLocation);
 
-		public WorkItem(Guid id, string description, TimeSpan retryInterval)
+		public WorkItem(EntityId id, string description, TimeSpan retryInterval)
 		{
 			Announce(new WorkItemCreatedEvent(id, description, retryInterval));
 		}
@@ -30,17 +30,9 @@ namespace Grasp.Work.Items
 			Contract.Requires(command != null);
 			Contract.Requires(command.Progress >= Progress);
 
-			if(Progress == Progress.Accepted && command.Progress > Progress.Accepted)
-			{
-				Announce(new ProgressStartedEvent(command.WorkItemId));
-			}
-
-			Announce(new ProgressReportedEvent(command.WorkItemId, Progress, command.Progress));
-
-			if(command.Progress == Progress.Complete)
-			{
-				Announce(new WorkItemCompletedEvent(command.WorkItemId, command.ResultLocation));
-			}
+			Announce(command.Progress == Progress.Complete
+				? new ProgressReportedEvent(command.WorkItemId, Progress, command.ResultLocation)
+				: new ProgressReportedEvent(command.WorkItemId, Progress, command.Progress));
 		}
 
 		private void Observe(WorkItemCreatedEvent e)
@@ -59,12 +51,6 @@ namespace Grasp.Work.Items
 		private void Observe(ProgressReportedEvent e)
 		{
 			Progress = e.NewProgress;
-
-			SetWhenModified(e.When);
-		}
-
-		private void Observe(WorkItemCompletedEvent e)
-		{
 			ResultLocation = e.ResultLocation;
 
 			SetWhenModified(e.When);

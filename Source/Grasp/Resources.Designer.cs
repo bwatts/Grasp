@@ -151,6 +151,15 @@ namespace Grasp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invalid entity identifier: &quot;{0}&quot;.
+        /// </summary>
+        internal static string InvalidEntityId {
+            get {
+                return ResourceManager.GetString("InvalidEntityId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid href URI: {0}.
         /// </summary>
         internal static string InvalidHrefUri {

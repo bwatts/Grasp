@@ -44,41 +44,31 @@ namespace Grasp.Hypermedia.Server
 				page,
 				item =>
 				{
-					var id = (Guid) item["Id"];
+					var id = (EntityId) item["Id"];
 					var description = (string) item["Description"];
 
-					var link = new Hyperlink("work/" + id.ToString("N").ToUpper(), description, @class: "grasp:list-item");
+					var link = new Hyperlink("work/" + id.ToString(), description, @class: "grasp:list-item");
 
 					return new HyperlistItem(link, item);
 				});
 		}
 
-		public async Task<WorkItemResource> GetWorkItemAsync(Guid id)
+		public async Task<WorkItemResource> GetWorkItemAsync(EntityId id)
 		{
 			var item = await _byIdQuery.GetWorkItemAsync(id);
 
 			return item == null ? null : CreateResource(item);
 		}
 
-		public Uri GetLocation(Guid id)
-		{
-			return _resourceContext.GetAbsoluteUrl(GetUrl(id));
-		}
-
-		private static string GetUrl(Guid id)
-		{
-			return "work/" + id.ToString("N").ToUpper();
-		}
-
 		private WorkItemResource CreateResource(WorkItem item)
 		{
-			var header = _resourceContext.CreateHeader(item.Description, GetUrl(item.Id));
+			var header = _resourceContext.CreateHeader(item.Description, "work/" + item.Id.ToString());
 
 			var whenStarted = Lifetime.WhenCreatedField.Get(item);
 
 			return item.Progress < Progress.Complete
-				? new WorkItemResource(header, item.Id, whenStarted, Progress.Accepted, item.RetryInterval)
-				: new WorkItemResource(header, item.Id, whenStarted, new Hyperlink(item.ResultLocation, relationship: "grasp:work-result"));
+				? new WorkItemResource(header, whenStarted, Progress.Accepted, item.RetryInterval)
+				: new WorkItemResource(header, whenStarted, new Hyperlink(item.ResultLocation, relationship: "grasp:work-result"));
 		}
 	}
 }

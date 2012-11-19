@@ -26,7 +26,6 @@ namespace Slate.Http.Server.Composition
 
 			RegisterModule<AmbientMessageChannelModule>();
 
-			RegisterType<StartWorkHandler>().As<IHandler<StartWorkCommand>>().InstancePerDependency();
 			RegisterType<StartFormHandler>().As<IHandler<StartFormCommand>>().InstancePerDependency();
 			RegisterType<ReportProgressHandler>().As<IHandler<ReportProgressCommand>>().InstancePerDependency();
 
@@ -50,7 +49,6 @@ namespace Slate.Http.Server.Composition
 			private IEnumerable<KeyValuePair<Type, IMessageChannel>> CreateChannels()
 			{
 				// Grasp
-				yield return Handle<StartWorkCommand>();
 				yield return Handle<ReportProgressCommand>();
 
 				// Slate
