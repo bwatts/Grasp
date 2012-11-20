@@ -72,7 +72,7 @@ namespace Grasp.Hypermedia
 
 			var baseUriStub = new Uri("http://x");
 
-			var boundUri = Uri.BindByName(baseUriStub, bindings.ToDictionary());
+			var boundUri = BindUriVariables(baseUriStub, bindings);
 
 			return baseUriStub.MakeRelativeUri(boundUri);
 		}
@@ -169,6 +169,19 @@ namespace Grasp.Hypermedia
 			}
 
 			return header.ToString();
+		}
+
+		private Uri BindUriVariables(Uri baseUriStub, IEnumerable<KeyValuePair<string, string>> bindings)
+		{
+			var variables = Uri.PathSegmentVariableNames.Concat(Uri.QueryValueVariableNames);
+
+			var effectiveBindings =
+				from variable in variables
+				from binding in bindings
+				where binding.Key.Equals(variable, StringComparison.InvariantCultureIgnoreCase)
+				select binding;
+
+			return Uri.BindByName(baseUriStub, effectiveBindings.ToDictionary());
 		}
 
 		private static string BindTemplateVariables(string template, IEnumerable<KeyValuePair<string, string>> bindings)

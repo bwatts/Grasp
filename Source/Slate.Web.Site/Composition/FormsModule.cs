@@ -23,9 +23,10 @@ namespace Slate.Web.Site.Composition
 			Register(c => new ListMesh(
 				itemCountTemplate: new Hyperlink("explore/forms", "{total-items}", "Explore the forms in your system"),
 				pageTemplate: new Hyperlink("explore/forms", "{page}", "Page {page} of {page-count}"),
-				itemTemplate: new Hyperlink("explore/forms/{id-escaped}", "{id}", "{id}"),
-				itemNumberTemplate: new Hyperlink("explore/forms/{id-escaped}", "{item}", "{id}"),
-				itemIdSelector: item => item["Name"]))
+				itemTemplate: new Hyperlink("explore/forms/{id}", "{text}", "{text}"),
+				itemNumberTemplate: new Hyperlink("explore/forms/{id}", "{number}", "{text}"),
+				itemIdSelector: item => item["Id"],
+				itemTextSelector: item => item["Name"]))
 			.Named<IListMesh>("Forms")
 			.SingleInstance();
 
