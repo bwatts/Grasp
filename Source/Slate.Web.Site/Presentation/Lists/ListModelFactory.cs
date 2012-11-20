@@ -4,6 +4,7 @@ using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Cloak;
 using Grasp;
 using Grasp.Hypermedia;
 using Grasp.Hypermedia.Lists;
@@ -32,58 +33,64 @@ namespace Slate.Web.Site.Presentation.Lists
 			_emptyMessage = emptyMessage;
 		}
 
-		public async Task<ListModel> CreateListModelAsync(Uri uri, ListPageKey pageKey)
+		public async Task<ListModel> CreateListModelAsync(Uri uri, ListViewKey pageKey)
 		{
 			var list = await _listClient.GetListAsync(uri, pageKey);
 
 			var numbers = Enumerable
-				.Range(1, list.Context.PageCount.Value)
-				.Select(number => new Number(number))
-				.Select(number => new NumberModel(number, _mesh.GetPageLink(list, number)))
+				.Range(1, list.Pages.Count.Value)
+				.Select(number => new Count(number))
+				.Select(number => new CountModel(number, _mesh.GetPageLink(list, number)))
 				.ToList();
 
-			return numbers.Count == 0 ? CreateEmptyListModel(list) : CreateListModel(list, numbers);
+			return numbers.Count == 0 ? CreateEmptyListModel() : CreateListModel(list, numbers);
 		}
 
-		private ListModel CreateEmptyListModel(Hyperlist list)
+		private ListModel CreateEmptyListModel()
 		{
-			return new ListModel(new PageContextModel(_mesh.GetCountLink(list)), _emptyMessage);
+			return new ListModel(_emptyMessage);
 		}
 
-		private ListModel CreateListModel(Hyperlist list, List<NumberModel> numbers)
+		private ListModel CreateListModel(Hyperlist list, List<CountModel> numbers)
 		{
-			return new ListModel(CreatePageContextModel(list, numbers), CreatePageModel(list));
+			return new ListModel(CreatePagesModel(list, numbers), CreateItemsModel(list));
 		}
 
-		private PageContextModel CreatePageContextModel(Hyperlist list, List<NumberModel> numbers)
+		private PagesModel CreatePagesModel(Hyperlist list, List<CountModel> numbers)
 		{
-			return new PageContextModel(
-				new NumberModel(list.Context.ItemCount, _mesh.GetCountLink(list)),
-				numbers.First(),
-				numbers.Last(),
-				numbers[list.Context.PreviousPage.Value - 1],
-				numbers[list.Context.NextPage.Value - 1],
-				numbers);
+			var currentPage = numbers.FirstOrDefault(number => number.Value == list.Pages.Current);
+
+			var count = new CountModel(list.Pages.Count, _mesh.GetPageLink(list, list.Pages.Count));
+
+			return currentPage == null
+				? new PagesModel(count)
+				: new PagesModel(
+						count,
+						currentPage,
+						numbers.First(),
+						numbers.Last(),
+						currentPage.Value == 1 ? null : numbers[currentPage.Value.Value - 2],
+						currentPage.Value == list.Pages.Count ? null : numbers[currentPage.Value.Value + 2],
+						numbers);
 		}
 
-		private PageModel CreatePageModel(Hyperlist list)
+		private ItemsModel CreateItemsModel(Hyperlist list)
 		{
-			var firstItem = list.Page.GetFirstItem();
-			var lastItem = list.Page.GetLastItem();
+			var firstItem = list.Items.First();
+			var lastItem = list.Items.Last();
 
-			return new PageModel(
-				new NumberModel(list.Page.Number, _mesh.GetPageLink(list, list.Page.Number)),
-				list.Page.Size,
-				new NumberModel(list.Page.FirstItemNumber, firstItem == null ? null : _mesh.GetItemLink(list, firstItem)),
-				new NumberModel(list.Page.LastItemNumber, lastItem == null ? null : _mesh.GetItemLink(list, lastItem)),
-				list.Page.Items.Schema,
+			return new ItemsModel(
+				new CountModel(list.Items.Total, _mesh.GetItemCountLink(list)),
+				new CountModel(firstItem.ListItem.Number, firstItem == null ? null : _mesh.GetItemNumberLink(list, firstItem)),
+				new CountModel(lastItem.ListItem.Number, lastItem == null ? null : _mesh.GetItemNumberLink(list, lastItem)),
+				list.Items.Schema,
 				CreateItemModels(list));
 		}
 
 		private IEnumerable<ItemModel> CreateItemModels(Hyperlist list)
 		{
-			return list.Page.Items.Select(item => new ItemModel(
-				new NumberModel(item.ListItem.Number, _mesh.GetItemLink(list, item)),
+			return list.Items.Select(item => new ItemModel(
+				new CountModel(item.ListItem.Number, _mesh.GetItemLink(list, item)),
 				item.ListItem.Bindings));
 		}
 	}

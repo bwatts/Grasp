@@ -38,7 +38,7 @@ namespace Slate.Http.Api
 		}
 
 		[HttpGet]
-		public Task<Hyperlist> GetListPageAsync(ListPageKey key)
+		public Task<Hyperlist> GetListPageAsync(ListViewKey key)
 		{
 			return _formStore.GetListAsync(key);
 		}

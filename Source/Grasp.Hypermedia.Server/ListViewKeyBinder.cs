@@ -11,30 +11,30 @@ using Grasp.Lists;
 
 namespace Grasp.Hypermedia.Server
 {
-	public sealed class ListPageKeyBinder : IModelBinder
+	public sealed class ListViewKeyBinder : IModelBinder
 	{
 		public bool BindModel(HttpActionContext actionContext, ModelBindingContext bindingContext)
 		{
-			var pageKey = new ListPageKey(GetPage(bindingContext), GetPageSize(bindingContext), GetSort(bindingContext));
+			var key = new ListViewKey(GetStart(bindingContext), GetSize(bindingContext), GetSort(bindingContext));
 
-			if(pageKey == ListPageKey.Empty)
+			if(key == ListViewKey.Empty)
 			{
-				pageKey = ListPageKey.Default;
+				key = ListViewKey.Default;
 			}
 
-			bindingContext.Model = pageKey;
+			bindingContext.Model = key;
 
 			return true;
 		}
 
-		private Number GetPage(ModelBindingContext bindingContext)
+		private Count GetStart(ModelBindingContext bindingContext)
 		{
-			return GetValue(bindingContext, "page", Number.None, value => new Number(Int32.Parse(value)));
+			return GetValue(bindingContext, "start", Count.None, value => new Count(Int32.Parse(value)));
 		}
 
-		private Count GetPageSize(ModelBindingContext bindingContext)
+		private Count GetSize(ModelBindingContext bindingContext)
 		{
-			return GetValue(bindingContext, "pageSize", Count.None, value => new Count(Int32.Parse(value)));
+			return GetValue(bindingContext, "size", Count.None, value => new Count(Int32.Parse(value)));
 		}
 
 		private Sort GetSort(ModelBindingContext bindingContext)

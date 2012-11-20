@@ -268,8 +268,8 @@
     <Compile Include="EntityIdConverter.cs" />
     <Compile Include="Lists\ListItemBindings.cs" />
     <Compile Include="Lists\ListSchema.cs" />
-    <Compile Include="Lists\ListItems.cs" />
-    <Compile Include="Lists\Number.cs" />
+    <Compile Include="Lists\ListViewItems.cs" />
+    <Compile Include="Lists\ListViewPages.cs" />
     <Compile Include="ManyConversion.cs" />
     <Compile Include="ManyInOrder.cs" />
     <Compile Include="EquatableValue.cs" />
@@ -302,11 +302,10 @@
     <Compile Include="Work\Persistence\INotionActivator.cs" />
     <Compile Include="Work\IRepository.cs" />
     <Compile Include="Lists\ListItem.cs" />
-    <Compile Include="Lists\ListPageContext.cs" />
     <Compile Include="Lists\Sort.cs" />
     <Compile Include="Lists\IListService.cs" />
-    <Compile Include="Lists\ListPage.cs" />
-    <Compile Include="Lists\ListPageKey.cs" />
+    <Compile Include="Lists\ListView.cs" />
+    <Compile Include="Lists\ListViewKey.cs" />
     <Compile Include="Work\Persistence\INotionState.cs" />
     <Compile Include="Work\Persistence\PersistentNotion.cs" />
     <Compile Include="Work\Aggregate.cs" />

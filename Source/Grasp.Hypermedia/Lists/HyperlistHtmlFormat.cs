@@ -10,6 +10,7 @@ using Grasp.Checks;
 using Grasp.Hypermedia.Linq;
 using Grasp.Lists;
 using Grasp.Work.Items;
+using Grasp.Work.Persistence;
 
 namespace Grasp.Hypermedia.Lists
 {
@@ -36,50 +37,44 @@ namespace Grasp.Hypermedia.Lists
 
 		protected override Hyperlist ConvertToResource(MHeader header, MCompositeContent body)
 		{
-			var query = ReadQuery(body);
-			var page = ReadPage(body);
-
-			var pageKey = new ListPageKey(page.Number, page.Size, query.Sort);
-
-			return new Hyperlist(header, ReadPageLink(body), query, ReadContext(body, pageKey), page);
+			return new Hyperlist(header, ReadPageLink(body), ReadQuery(body), ReadPages(body), ReadItems(body));
 		}
 
-		#region Serialization
+		#region From Resource
 
 		private static IEnumerable<MContent> GetBodyContent(Hyperlist list)
 		{
 			yield return new MDivision(
 				"query",
-				new MValue("page", list.Query.Number),
-				new MValue("page-size", list.Query.Size),
+				new MValue("start", list.Query.Start),
+				new MValue("size", list.Query.Size),
 				new MValue("sort", list.Query.Sort));
 
 			yield return new MDivision(
-				"context",
-				new MValue("page-count", list.Context.PageCount),
-				new MValue("item-count", list.Context.ItemCount),
-				new MValue("previous-page", list.Context.PreviousPage),
-				new MValue("next-page", list.Context.NextPage));
+				"pages",
+				new MValue("count", list.Pages.Count),
+				new MValue("current", list.Pages.Current),
+				new MValue("previous", list.Pages.Previous),
+				new MValue("next", list.Pages.Next));
 
-			yield return new MDivision(
-				"page",
-				new MValue("number", list.Page.Number),
-				new MValue("size", list.Page.Size),
-				new MValue("first-item", list.Page.FirstItemNumber),
-				new MValue("last-item", list.Page.LastItemNumber),
-				new MDivision("items", GetItemSchema(list), GetItems(list)));
+			yield return new MDivision("items", GetTotal(list), GetSchema(list), GetItemList(list));
 		}
 
-		private static MDefinitionList GetItemSchema(Hyperlist list)
+		private static MValue GetTotal(Hyperlist list)
+		{
+			return new MValue("total", list.Items.Total);
+		}
+
+		private static MDefinitionList GetSchema(Hyperlist list)
 		{
 			return new MDefinitionList(
 				"schema",
-				list.Page.Items.Schema.ToDictionary(
+				list.Items.Schema.ToDictionary(
 					field => new MValue(field.Key),
 					field => new MValue(GetTypeString(field.Value)) as MContent));
 		}
 
-		private static MList GetItems(Hyperlist list)
+		private static MList GetItemList(Hyperlist list)
 		{
 			return new MList(MClass.Empty, GetItemsContent(list));
 		}
@@ -87,7 +82,7 @@ namespace Grasp.Hypermedia.Lists
 		private static IEnumerable<MContent> GetItemsContent(Hyperlist list)
 		{
 			return
-				from item in list.Page.Items
+				from item in list.Items
 				let link = new MLink(item.Link.Override(relationship: "grasp:list-item"))
 				let bindings = item.ListItem.Bindings.Select(binding => new MValue(binding.Key, binding.Value))
 				select new MCompositeContent(new MContent[] { link }.Concat(bindings));
@@ -95,7 +90,7 @@ namespace Grasp.Hypermedia.Lists
 
 		private static string GetTypeString(Type type)
 		{
-			// TODO: Does this need to be more complex? Custom types?
+			// TODO: Does this need to be more robust? Custom types?
 			//
 			// This could evolve to something nice with forms.
 
@@ -142,47 +137,47 @@ namespace Grasp.Hypermedia.Lists
 		}
 		#endregion
 
-		#region Deserialization
+		#region To Resource
 
 		private static Hyperlink ReadPageLink(MCompositeContent body)
 		{
 			return body.Items.ReadLink("grasp:list-template").Hyperlink;
 		}
 
-		private static ListPageKey ReadQuery(MCompositeContent body)
+		private static ListViewKey ReadQuery(MCompositeContent body)
 		{
 			var query = body.Items.ReadContent<MDivision>("query");
 
-			return new ListPageKey(
-				new Number(query.Children.ReadValue<int>("page")),
-				new Count(query.Children.ReadValue<int>("page-size")),
+			return new ListViewKey(
+				new Count(query.Children.ReadValue<int>("start")),
+				new Count(query.Children.ReadValue<int>("size")),
 				Sort.Parse(query.Children.ReadValue<string>("sort")));
 		}
 
-		private static ListPageContext ReadContext(MCompositeContent body, ListPageKey pageKey)
+		private static ListViewPages ReadPages(MCompositeContent body)
 		{
-			var context = body.Items.ReadContent<MDivision>("context");
+			var pagesDiv = body.Items.ReadContent<MDivision>("pages");
 
-			return new ListPageContext(
-				pageKey,
-				new Count(context.Children.ReadValue<int>("page-count")),
-				new Count(context.Children.ReadValue<int>("item-count")));
+			var pages = NotionActivator.GetUninitialized<ListViewPages>();
+
+			ListViewPages.CountField.Set(pages, new Count(pagesDiv.Children.ReadValue<int>("count")));
+			ListViewPages.CurrentField.Set(pages, new Count(pagesDiv.Children.ReadValue<int>("current")));
+			ListViewPages.PreviousField.Set(pages, new Count(pagesDiv.Children.ReadValue<int>("previous")));
+			ListViewPages.NextField.Set(pages, new Count(pagesDiv.Children.ReadValue<int>("next")));
+
+			return pages;
 		}
 
-		private static HyperlistPage ReadPage(MCompositeContent body)
+		private static HyperlistItems ReadItems(MCompositeContent body)
 		{
-			var page = body.Items.ReadContent<MDivision>("page");
-
-			var items = page.Children.ReadContent<MDivision>("items");
+			var items = body.Items.ReadContent<MDivision>("items");
 
 			var schema = ReadSchema(items);
 
-			return new HyperlistPage(
-				new Number(page.Children.ReadValue<int>("number")),
-				new Count(page.Children.ReadValue<int>("size")),
-				new Number(page.Children.ReadValue<int>("first-item")),
-				new Number(page.Children.ReadValue<int>("last-item")),
-				new HyperlistItems(schema, ReadItems(schema, items)));
+			return new HyperlistItems(
+				new Count(items.Children.ReadValue<int>("total")),
+				ReadSchema(items),
+				ReadItems(schema, items));
 		}
 
 		private static ListSchema ReadSchema(MDivision items)
@@ -269,7 +264,7 @@ namespace Grasp.Hypermedia.Lists
 			var link = content.Items.ReadLink("grasp:list-item");
 
 			var listItem = new ListItem(
-				new Number(Convert.ToInt32(link.Hyperlink.Content)),
+				new Count(Convert.ToInt32(link.Hyperlink.Content)),
 				new ListItemBindings(ReadItemBindings(schema, content.Items.OfType<MValue>())));
 
 			return new HyperlistItem(link.Hyperlink, listItem);

@@ -26,14 +26,14 @@ namespace Grasp.Hypermedia.Lists
 			_apiClient = apiClient;
 		}
 
-		public Task<Hyperlist> GetListAsync(Uri uri, ListPageKey pageKey = null)
+		public Task<Hyperlist> GetListAsync(Uri uri, ListViewKey viewKey = null)
 		{
 			return _apiClient.SendWithResultAsync<Hyperlist>(
-				http => http.GetAsync(GetApiUri(uri, pageKey)),
+				http => http.GetAsync(GetApiUri(uri, viewKey)),
 				(content, formats) => content.ReadAsAsync<Hyperlist>(formats));
 		}
 
-		private Uri GetApiUri(Uri uri, ListPageKey pageKey)
+		private Uri GetApiUri(Uri uri, ListViewKey pageKey)
 		{
 			if(!uri.IsAbsoluteUri)
 			{

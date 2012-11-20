@@ -12,30 +12,20 @@ namespace Grasp.Hypermedia
 {
 	public abstract class HttpResourceStore : Notion
 	{
-		protected static Hyperlist GetList(
-			MHeader header,
-			Hyperlink pageLink,
-			ListPageKey query,
-			ListPage page,
-			Func<ListItem, HyperlistItem> hyperlistItemSelector)
+		protected static Hyperlist GetHyperlist(MHeader header, Hyperlink pageLink, ListViewKey query, ListView list, Func<ListItem, HyperlistItem> itemSelector)
 		{
 			Contract.Requires(header != null);
 			Contract.Requires(pageLink != null);
 			Contract.Requires(query != null);
-			Contract.Requires(page != null);
-			Contract.Requires(hyperlistItemSelector != null);
+			Contract.Requires(list != null);
+			Contract.Requires(itemSelector != null);
 
-			return new Hyperlist(header, pageLink, query, page.Context, CreatePage(page, hyperlistItemSelector));
+			return new Hyperlist(header, pageLink, query, list.Pages, CreateItems(list, itemSelector));
 		}
 
-		private static HyperlistPage CreatePage(ListPage page, Func<ListItem, HyperlistItem> hyperlistItemSelector)
+		private static HyperlistItems CreateItems(ListView list, Func<ListItem, HyperlistItem> itemSelector)
 		{
-			return new HyperlistPage(
-				page.Key.Number,
-				page.Key.Size,
-				page.FirstItemNumber,
-				page.LastItemNumber,
-				new HyperlistItems(page.Items.Schema, page.Items.Select(hyperlistItemSelector)));
+			return new HyperlistItems(list.Items.Total, list.Items.Schema, list.Items.Select(itemSelector));
 		}
 	}
 }

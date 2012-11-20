@@ -4,6 +4,7 @@ using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Cloak;
 using Cloak.Reflection;
 using Grasp;
 using Grasp.Hypermedia;
@@ -42,7 +43,7 @@ namespace Slate.Web.Site.Presentation.Home
 			_issueListFactory = issuesListFactory;
 		}
 
-		public async Task<IndexModel> CreateIndexModelAsync(ListPageKey formPageKey, ListPageKey issuePageKey)
+		public async Task<IndexModel> CreateIndexModelAsync(ListViewKey formPageKey, ListViewKey issuePageKey)
 		{
 			var createSnapshotTask = _snapshotModelFactory.CreateSnapshotModelAsync();
 			var createFormListTask = CreateFormListAsync(formPageKey);
@@ -53,19 +54,19 @@ namespace Slate.Web.Site.Presentation.Home
 			return new IndexModel(createSnapshotTask.Result, createFormListTask.Result, createIssueListTask.Result);
 		}
 
-		private async Task<IndexListModel> CreateFormListAsync(ListPageKey formPageKey)
+		private async Task<IndexListModel> CreateFormListAsync(ListViewKey formPageKey)
 		{
 			return new IndexListModel(
 				newLink: new Hyperlink("explore/forms/start", "Start a form..."),
-				exploreItem: new HyperlistItem(new Hyperlink("explore/forms", "Explore forms..."), new ListItem(Number.None, GetFormExploreValues())),
+				exploreItem: new HyperlistItem(new Hyperlink("explore/forms", "Explore forms..."), new ListItem(Count.None, GetFormExploreValues())),
 				list: await _formListFactory.CreateListModelAsync(_formListUri, formPageKey));
 		}
 
-		private async Task<IndexListModel> CreateIssueListAsync(ListPageKey issuePageKey)
+		private async Task<IndexListModel> CreateIssueListAsync(ListViewKey issuePageKey)
 		{
 			return new IndexListModel(
 				newLink: new Hyperlink("issues/open", "Open an issue...", "Open an issue"),
-				exploreItem: new HyperlistItem(new Hyperlink("issues", "Manage issues..."), new ListItem(Number.None, GetIssueExploreValues())),
+				exploreItem: new HyperlistItem(new Hyperlink("issues", "Manage issues..."), new ListItem(Count.None, GetIssueExploreValues())),
 				list: await _issueListFactory.CreateListModelAsync(_issueListUri, issuePageKey));
 		}
 

@@ -150,7 +150,6 @@
     <Compile Include="Lists\IListClient.cs" />
     <Compile Include="Lists\ListClient.cs" />
     <Compile Include="Lists\HyperlistHtmlFormat.cs" />
-    <Compile Include="Lists\HyperlistPage.cs" />
     <Compile Include="Lists\Hyperlist.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Relationship.cs" />

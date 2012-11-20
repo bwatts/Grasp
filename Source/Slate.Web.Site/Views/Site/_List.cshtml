@@ -1,13 +1,13 @@
 ﻿@model ListModel
 
 <div class="list">
-	@if(!Model.IsEmpty && Model.Page.Items.Any())
+	@if(!Model.IsEmpty && Model.Items.Any())
 	{
 		<ul>
-			@foreach(var item in Model.Page.Items)
+			@foreach(var item in Model.Items)
 			{
 				<li class="item">
-					@Html.RenderNumber(item.Number)
+					@Html.RenderCount(item.Number)
 					<div class="subtitle">[TODO]</div>
 				</li>
 			}
@@ -22,38 +22,38 @@
 			}
 			else
 			{
-				if(Model.Page.Number.Value.Value == 1)
+				if(Model.Pages.Current.Value.Value == 1)
 				{
 					<div class="page jump unavailable">&lt;-</div>
 					<div class="page jump unavailable">&lt;</div>
 				}
 				else
 				{
-					<div class="page jump">@Html.RenderNumber(Model.PageContext.First, "|<")</div>
-					<div class="page jump">@Html.RenderNumber(Model.PageContext.Previous, "<")</div>
+					<div class="page jump">@Html.RenderCount(Model.Pages.First, "|<")</div>
+					<div class="page jump">@Html.RenderCount(Model.Pages.Previous, "<")</div>
 				}
 
-				foreach(var page in Model.PageContext.Pages)
+				foreach(var page in Model.Pages.All)
 				{
-					if(page.Value == Model.Page.Number.Value)
+					if(page.Value == Model.Pages.Current.Value)
 					{
-						<div class="page current">@Html.RenderNumber(page)</div>
+						<div class="page current">@Html.RenderCount(page)</div>
 					}
 					else
 					{
-						<div class="page">@Html.RenderNumber(page)</div>
+						<div class="page">@Html.RenderCount(page)</div>
 					}
 				}
 
-				if(Model.Page.Number.Value == Model.PageContext.Last.Value)
+				if(Model.Pages.Current.Value == Model.Pages.Last.Value)
 				{
 					<div class="page jump unavailable">-&gt;</div>
 					<div class="page jump unavailable">&gt;</div>
 				}
 				else
 				{
-					<div class="page jump">@Html.RenderNumber(Model.PageContext.Next, ">")</div>
-					<div class="page jump">@Html.RenderNumber(Model.PageContext.Last, ">|")</div>
+					<div class="page jump">@Html.RenderCount(Model.Pages.Next, ">")</div>
+					<div class="page jump">@Html.RenderCount(Model.Pages.Last, ">|")</div>
 				}
 			}
 		</div>
@@ -62,11 +62,11 @@
 		{
 			<div class="view">
 				<div class="separator">items</div>
-				<div class="number">@Html.RenderNumber(Model.Page.FirstItem)</div>
+				<div class="number">@Html.RenderCount(Model.Items.First)</div>
 				<div class="separator">to</div>
-				<div class="number">@Html.RenderNumber(Model.Page.LastItem)</div>
+				<div class="number">@Html.RenderCount(Model.Items.Last)</div>
 				<div class="separator">of</div>
-				<div class="number">@Html.RenderNumber(Model.PageContext.ItemCount)</div>
+				<div class="number">@Html.RenderCount(Model.Items.Total)</div>
 			</div>
 		}
 	</div>

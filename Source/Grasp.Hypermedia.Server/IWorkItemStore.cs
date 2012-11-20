@@ -13,7 +13,7 @@ namespace Grasp.Hypermedia.Server
 	[ContractClass(typeof(IWorkItemStoreContract))]
 	public interface IWorkItemStore
 	{
-		Task<Hyperlist> GetListAsync(ListPageKey pageKey = null);
+		Task<Hyperlist> GetListAsync(ListViewKey viewKey = null);
 
 		Task<WorkItemResource> GetWorkItemAsync(EntityId id);
 	}
@@ -21,9 +21,9 @@ namespace Grasp.Hypermedia.Server
 	[ContractClassFor(typeof(IWorkItemStore))]
 	internal abstract class IWorkItemStoreContract : IWorkItemStore
 	{
-		Task<Hyperlist> IWorkItemStore.GetListAsync(ListPageKey pageKey)
+		Task<Hyperlist> IWorkItemStore.GetListAsync(ListViewKey viewKey)
 		{
-			Contract.Requires(pageKey != null);
+			Contract.Requires(viewKey != null);
 			Contract.Ensures(Contract.Result<Task<Hyperlist>>() != null);
 
 			return null;

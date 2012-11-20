@@ -60,7 +60,7 @@
     <Compile Include="IStartWorkService.cs" />
     <Compile Include="IWorkItemByIdQuery.cs" />
     <Compile Include="IWorkItemStore.cs" />
-    <Compile Include="ListPageKeyBinder.cs" />
+    <Compile Include="ListViewKeyBinder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources.Designer.cs">
       <AutoGen>True</AutoGen>

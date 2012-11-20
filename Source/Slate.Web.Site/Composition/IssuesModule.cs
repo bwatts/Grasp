@@ -15,9 +15,10 @@ namespace Slate.Web.Site.Composition
 		public IssuesModule(string emptyListMessage)
 		{
 			Register(c => new ListMesh(
-				countTemplate: new Hyperlink("issues", "{item-count}", "Manage the issues in your system"),
+				itemCountTemplate: new Hyperlink("issues", "{total-items}", "Manage the issues in your system"),
 				pageTemplate: new Hyperlink("issues", "{page}", "Page {page} of {page-count}"),
 				itemTemplate: new Hyperlink("issues/{id-escaped}", "{id}", "{id}"),
+				itemNumberTemplate: new Hyperlink("issues/{id-escaped}", "{item}", "{id}"),
 				itemIdSelector: item => item["Number"]))
 			.Named<IListMesh>("Issues")
 			.SingleInstance();

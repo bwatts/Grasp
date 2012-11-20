@@ -26,7 +26,7 @@ namespace Slate.Http.Server.Composition
 
 			RegisterInstance(listFormat).As<MediaFormat>();
 
-			httpSettings.ParameterBindingRules.Add(typeof(ListPageKey), parameter => parameter.BindWithModelBinding(new ListPageKeyBinder()));
+			httpSettings.ParameterBindingRules.Add(typeof(ListViewKey), parameter => parameter.BindWithModelBinding(new ListViewKeyBinder()));
 		}
 	}
 }

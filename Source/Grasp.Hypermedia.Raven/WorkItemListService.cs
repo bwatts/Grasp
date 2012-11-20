@@ -33,7 +33,7 @@ namespace Grasp.Hypermedia.Raven
 			}));
 		}
 
-		protected override ListItemBindings SelectBindings(ListPageContext context, WorkItem item)
+		protected override ListItemBindings SelectBindings(WorkItem item)
 		{
 			return new ListItemBindings(AnonymousDictionary.Read(new
 			{

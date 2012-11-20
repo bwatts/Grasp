@@ -30,26 +30,21 @@ namespace Slate.Http.Api
 			_listService = listService;
 		}
 
-		public async Task<Hyperlist> GetListPageAsync(ListPageKey key)
+		public async Task<Hyperlist> GetListPageAsync(ListViewKey key)
 		{
-			var page = await _listService.GetPageAsync(key);
+			var list = await _listService.GetViewAsync(key);
 
 			return new Hyperlist(
 				_resourceContext.CreateHeader("Issues", "issues" + key.GetQuery(includeSeparator: true)),
 				new Hyperlink("issues?page={page}&pageSize={page-size}&sort={sort}", relationship: "grasp:list-page"),
 				key,
-				page.Context,
-				CreatePage(page));
+				list.Pages,
+				CreateItems(list));
 		}
 
-		private static HyperlistPage CreatePage(ListPage page)
+		private static HyperlistItems CreateItems(ListView list)
 		{
-			return new HyperlistPage(page.Key.Number, page.Key.Size, page.FirstItemNumber, page.LastItemNumber, CreateItems(page));
-		}
-
-		private static HyperlistItems CreateItems(ListPage page)
-		{
-			return new HyperlistItems(page.Items.Schema, page.Items.Select(CreateItem));
+			return new HyperlistItems(list.Items.Total, list.Items.Schema, list.Items.Select(CreateItem));
 		}
 
 		private static HyperlistItem CreateItem(ListItem listItem)

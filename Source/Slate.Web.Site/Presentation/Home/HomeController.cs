@@ -25,15 +25,15 @@ namespace Slate.Web.Site.Presentation.Home
 			_indexModelFactory = indexModelFactory;
 		}
 
-		public async Task<ActionResult> Index(ListPageKey formPageKey, ListPageKey issuePageKey)
+		public async Task<ActionResult> Index(ListViewKey formPageKey, ListViewKey issuePageKey)
 		{
 			return View(await CreateIndexModelAsync(formPageKey, issuePageKey));
 		}
 
-		private async Task<object> CreateIndexModelAsync(ListPageKey formPageKey, ListPageKey issuePageKey)
+		private async Task<object> CreateIndexModelAsync(ListViewKey formPageKey, ListViewKey issuePageKey)
 		{
 			// TODO: Determine how to set this convention at a  more fundamental level
-			formPageKey = new ListPageKey(new Number(1), new Count(3), formPageKey.Sort);
+			formPageKey = new ListViewKey(new Count(1), new Count(3), formPageKey.Sort);
 
 			var indexModel = await _indexModelFactory.CreateIndexModelAsync(formPageKey, issuePageKey);
 

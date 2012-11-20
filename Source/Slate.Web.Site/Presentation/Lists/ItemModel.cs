@@ -13,10 +13,10 @@ namespace Slate.Web.Site.Presentation.Lists
 {
 	public class ItemModel : ViewModel
 	{
-		public static readonly Field<NumberModel> NumberField = Field.On<ItemModel>.For(x => x.Number);
+		public static readonly Field<CountModel> NumberField = Field.On<ItemModel>.For(x => x.Number);
 		public static readonly Field<ListItemBindings> BindingsField = Field.On<ItemModel>.For(x => x.Bindings);
 
-		public ItemModel(NumberModel number, ListItemBindings bindings)
+		public ItemModel(CountModel number, ListItemBindings bindings)
 		{
 			Contract.Requires(number != null);
 			Contract.Requires(bindings != null);
@@ -25,7 +25,7 @@ namespace Slate.Web.Site.Presentation.Lists
 			Bindings = bindings;
 		}
 
-		public NumberModel Number { get { return GetValue(NumberField); } private set { SetValue(NumberField, value); } }
+		public CountModel Number { get { return GetValue(NumberField); } private set { SetValue(NumberField, value); } }
 		public ListItemBindings Bindings { get { return GetValue(BindingsField); } private set { SetValue(BindingsField, value); } }
 	}
 }

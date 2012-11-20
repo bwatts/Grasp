@@ -146,6 +146,8 @@
     <Compile Include="Analysis\Variables\Names.cs" />
     <Compile Include="Analysis\Variables\Variables.cs" />
     <Compile Include="Checks\ThatChecks.cs" />
+    <Compile Include="Lists\Pages.cs" />
+    <Compile Include="Lists\Keys.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

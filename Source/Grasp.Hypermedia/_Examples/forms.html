@@ -2,66 +2,61 @@
 	<head>
 		<title>Forms</title>
 		<base href="http://localhost:12345" />
-		<link rel="grasp:media-type" href="media/application%2Fvnd.grasp.list%2Bhtml" />
+		<link rel="grasp:media-type" class="list" href="media/application%2Fvnd.grasp.list%2Bhtml" />
 	</head>
 	<body>
-		<a rel="grasp:list-template" href="forms?page={page}&pageSize={page-size}&sort={sort}" />
+		<a rel="grasp:list-template" class="form" href="forms?page={page}&pageSize={page-size}&sort={sort}" />
 		<div class="query">
-			<span class="page">3</span>
-			<span class="page-size">2</span>
+			<span class="start">11</span>
+			<span class="size">10</span>
 			<span class="sort">IssueCount desc,Name</span>
 		</div>
-		<div class="context">
-			<span class="page-count">5</span>
-			<span class="item-count">10</span>
-			<span class="previous-page">2</span>
-			<span class="next-page">4</span>
+		<div class="pages">
+			<span class="count">3</span>
+			<span class="current">2</span>
+			<span class="previous">1</span>
+			<span class="next">3</span>
 		</div>
-		<div class="page">
-			<span class="number">3</span>
-			<span class="size">2</span>
-			<span class="first-item">5</span>
-			<span class="last-item">6</span>
-			<div class="items">
-				<dl class="schema">
-					<dt>Id</dt>
-					<dd>guid</dd>
-					<dt>Name</dt>
-					<dd>string</dd>
-					<dt>Phase</dt>
-					<dd>string</dd>
-					<dt>ResponseCount</dt>
-					<dd>int</dd>
-					<dt>IssueCount</dt>
-					<dd>int</dd>
-					<dt>WhenCreated</dt>
-					<dd>datetime</dd>
-					<dt>WhenModified</dt>
-					<dd>datetime</dd>
-				</dl>
-				<ul>
-					<li>
-						<a rel="grasp:list-item" class="form" href="forms/Test" title="Test">5</a>
-						<span class="Id">BB5191B07E4F4F61BE0F9A373E8D0132</span>
-						<span class="Name">Test</span>
-						<span class="Phase">Draft</span>
-						<span class="ResponseCount">0</span>
-						<span class="IssueCount">1</span>
-						<span class="WhenCreated">2012-11-2T02:46:00Z</span>
-						<span class="WhenModified">2012-11-2T018:37:52Z</span>
-					</li>
-					<li>
-						<a rel="grasp:list-item" class="form" href="forms/Hello%20World" title="Hello World">6</a>
-						<span class="Id">15CA25492AFB4650850946C79F77FEA7</span>
-						<span class="Name">Hello World</span>
-						<span class="Phase">Published</span>
-						<span class="ResponseCount">3</span>
-						<span class="IssueCount">3</span>
-						<span class="WhenCreated">2012-11-2T02:46:00Z</span>
-						<span class="WhenModified">2012-11-2T018:37:52Z</span>
-					</li>
-				</ul>
-			</div>
+		<div class="items">
+			<span class="total">30</span>
+			<dl class="schema">
+				<dt>Id</dt>
+				<dd>id</dd>
+				<dt>Name</dt>
+				<dd>string</dd>
+				<dt>Phase</dt>
+				<dd>string</dd>
+				<dt>ResponseCount</dt>
+				<dd>int</dd>
+				<dt>IssueCount</dt>
+				<dd>int</dd>
+				<dt>WhenCreated</dt>
+				<dd>datetime</dd>
+				<dt>WhenModified</dt>
+				<dd>datetime</dd>
+			</dl>
+			<ul>
+				<li>
+					<a rel="grasp:list-item" class="form" href="forms/Test" title="Test">5</a>
+					<span class="Id">BB5191B07E4F4F61BE0F9A373E8D0132</span>
+					<span class="Name">Test</span>
+					<span class="Phase">Draft</span>
+					<span class="ResponseCount">0</span>
+					<span class="IssueCount">1</span>
+					<span class="WhenCreated">2012-11-2T02:46:00Z</span>
+					<span class="WhenModified">2012-11-2T018:37:52Z</span>
+				</li>
+				<li>
+					<a rel="grasp:list-item" class="form" href="forms/Hello%20World" title="Hello World">6</a>
+					<span class="Id">15CA25492AFB4650850946C79F77FEA7</span>
+					<span class="Name">Hello World</span>
+					<span class="Phase">Published</span>
+					<span class="ResponseCount">3</span>
+					<span class="IssueCount">3</span>
+					<span class="WhenCreated">2012-11-2T02:46:00Z</span>
+					<span class="WhenModified">2012-11-2T018:37:52Z</span>
+				</li>
+			</ul>
 		</div>
 	</body>
 </html>

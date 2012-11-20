@@ -12,6 +12,22 @@ namespace Grasp.Work.Persistence
 {
 	public sealed class NotionActivator : INotionActivator
 	{
+		public static Notion GetUninitialized(Type type)
+		{
+			Contract.Requires(type != null);
+
+			var notion = (Notion) FormatterServices.GetUninitializedObject(type);
+
+			notion.SetIsolatedContext();
+
+			return notion;
+		}
+
+		public static T GetUninitialized<T>() where T : Notion
+		{
+			return (T) GetUninitialized(typeof(T));
+		}
+
 		private readonly ITimeContext _timeContext;
 		private readonly DomainModel _domainModel;
 		private readonly Func<INotionContext> _contextFactory;
@@ -62,7 +78,7 @@ namespace Grasp.Work.Persistence
 
 		private Notion ActivateInstance(Type type)
 		{
-			var notion = (Notion) FormatterServices.GetUninitializedObject(type);
+			var notion = GetUninitialized(type);
 
 			notion.Context = _contextFactory();
 

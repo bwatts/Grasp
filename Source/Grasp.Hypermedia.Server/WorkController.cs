@@ -23,7 +23,7 @@ namespace Grasp.Hypermedia.Server
 		}
 
 		[HttpGet]
-		public Task<Hyperlist> GetListPageAsync(ListPageKey key)
+		public Task<Hyperlist> GetListPageAsync(ListViewKey key)
 		{
 			return _workItemStore.GetListAsync(key);
 		}

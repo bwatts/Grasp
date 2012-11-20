@@ -9,35 +9,33 @@ namespace Slate.Web.Site.Presentation.Lists
 {
 	public class ListModel : ViewModel
 	{
-		public static readonly Field<PageContextModel> PageContextField = Field.On<ListModel>.For(x => x.PageContext);
-		public static readonly Field<PageModel> PageField = Field.On<ListModel>.For(x => x.Page);
+		public static readonly Field<PagesModel> PagesField = Field.On<ListModel>.For(x => x.Pages);
+		public static readonly Field<ItemsModel> ItemsField = Field.On<ListModel>.For(x => x.Items);
 		public static readonly Field<string> EmptyMessageField = Field.On<ListModel>.For(x => x.EmptyMessage);
 
-		public ListModel(PageContextModel pageContext, PageModel page)
+		public ListModel(PagesModel pages, ItemsModel items)
 		{
-			Contract.Requires(pageContext != null);
-			Contract.Requires(page != null);
+			Contract.Requires(pages != null);
+			Contract.Requires(items != null);
 
-			PageContext = pageContext;
-			Page = page;
+			Pages = pages;
+			Items = items;
 		}
 
-		public ListModel(PageContextModel pageContext, string emptyMessage)
+		public ListModel(string emptyMessage)
 		{
-			Contract.Requires(pageContext != null);
 			Contract.Requires(emptyMessage != null);
 
-			PageContext = pageContext;
 			EmptyMessage = emptyMessage;
 		}
 
-		public PageContextModel PageContext { get { return GetValue(PageContextField); } private set { SetValue(PageContextField, value); } }
-		public PageModel Page { get { return GetValue(PageField); } private set { SetValue(PageField, value); } }
+		public PagesModel Pages { get { return GetValue(PagesField); } private set { SetValue(PagesField, value); } }
+		public ItemsModel Items { get { return GetValue(ItemsField); } private set { SetValue(ItemsField, value); } }
 		public string EmptyMessage { get { return GetValue(EmptyMessageField); } private set { SetValue(EmptyMessageField, value); } }
 
 		public bool IsEmpty
 		{
-			get { return Page == null; }
+			get { return Pages == null; }
 		}
 	}
 }

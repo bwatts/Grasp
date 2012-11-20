@@ -14,19 +14,19 @@ namespace Grasp.Lists
 	public interface IListService
 	{
 		/// <summary>
-		/// Gets the page of the list identified by the specified key
+		/// Gets the view of the list identified by the specified key
 		/// </summary>
-		/// <param name="key">Identifies the page of the list to get, or the default if none is specified</param>
-		/// <returns>The work of calculating the list page</returns>
-		Task<ListPage> GetPageAsync(ListPageKey key = null);
+		/// <param name="key">Identifies the view of the list to get, or the default if none is specified</param>
+		/// <returns>The work of calculating the list view</returns>
+		Task<ListView> GetViewAsync(ListViewKey key = null);
 	}
 
 	[ContractClassFor(typeof(IListService))]
 	internal abstract class IListServiceContract : IListService
 	{
-		Task<ListPage> IListService.GetPageAsync(ListPageKey key)
+		Task<ListView> IListService.GetViewAsync(ListViewKey key)
 		{
-			Contract.Ensures(Contract.Result<Task<ListPage>>() != null);
+			Contract.Ensures(Contract.Result<Task<ListView>>() != null);
 
 			return null;
 		}

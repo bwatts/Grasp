@@ -10,21 +10,21 @@ using Grasp.Lists;
 
 namespace Slate.Web.Site.Presentation.Lists
 {
-	public sealed class ListPageKeyBinder : IModelBinder
+	public sealed class ListViewKeyBinder : IModelBinder
 	{
 		public object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
 		{
-			return new ListPageKey(GetPage(bindingContext), GetPageSize(bindingContext), GetSort(bindingContext));
+			return new ListViewKey(GetStart(bindingContext), GetSize(bindingContext), GetSort(bindingContext));
 		}
 
-		private Number GetPage(ModelBindingContext bindingContext)
+		private Count GetStart(ModelBindingContext bindingContext)
 		{
-			return GetValue(bindingContext, "page", Number.None, value => new Number(Int32.Parse(value)));
+			return GetValue(bindingContext, "start", Count.None, value => new Count(Int32.Parse(value)));
 		}
 
-		private Count GetPageSize(ModelBindingContext bindingContext)
+		private Count GetSize(ModelBindingContext bindingContext)
 		{
-			return GetValue(bindingContext, "pageSize", Count.None, value => new Count(Int32.Parse(value)));
+			return GetValue(bindingContext, "size", Count.None, value => new Count(Int32.Parse(value)));
 		}
 
 		private Sort GetSort(ModelBindingContext bindingContext)

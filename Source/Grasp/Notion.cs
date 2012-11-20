@@ -16,10 +16,15 @@ namespace Grasp
 		/// </summary>
 		protected Notion()
 		{
-			Context = new IsolatedContext();
+			SetIsolatedContext();
 		}
 
 		internal INotionContext Context { get; set; }
+
+		internal void SetIsolatedContext()
+		{
+			Context = new IsolatedContext();
+		}
 
 		IEnumerable<FieldBinding> IFieldContext.GetBindings()
 		{

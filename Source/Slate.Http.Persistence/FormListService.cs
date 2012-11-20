@@ -38,7 +38,7 @@ namespace Slate.Http.Persistence
 			}));
 		}
 
-		protected override ListItemBindings SelectBindings(ListPageContext context, Form item)
+		protected override ListItemBindings SelectBindings(Form item)
 		{
 			return new ListItemBindings(AnonymousDictionary.Read(new
 			{

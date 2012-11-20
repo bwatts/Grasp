@@ -14,26 +14,26 @@ namespace Grasp.Hypermedia.Lists
 	public class Hyperlist : HttpResource
 	{
 		public static readonly Field<Hyperlink> PageLinkField = Field.On<Hyperlist>.For(x => x.PageLink);
-		public static readonly Field<ListPageKey> QueryField = Field.On<Hyperlist>.For(x => x.Query);
-		public static readonly Field<ListPageContext> ContextField = Field.On<Hyperlist>.For(x => x.Context);
-		public static readonly Field<HyperlistPage> PageField = Field.On<Hyperlist>.For(x => x.Page);
+		public static readonly Field<ListViewKey> QueryField = Field.On<Hyperlist>.For(x => x.Query);
+		public static readonly Field<ListViewPages> PagesField = Field.On<Hyperlist>.For(x => x.Pages);
+		public static readonly Field<HyperlistItems> ItemsField = Field.On<Hyperlist>.For(x => x.Items);
 
-		public Hyperlist(MHeader header, Hyperlink pageLink, ListPageKey query, ListPageContext context, HyperlistPage page) : base(header)
+		public Hyperlist(MHeader header, Hyperlink pageLink, ListViewKey query, ListViewPages pages, HyperlistItems items) : base(header)
 		{
 			Contract.Requires(pageLink != null);
 			Contract.Requires(query != null);
-			Contract.Requires(context != null);
-			Contract.Requires(page != null);
+			Contract.Requires(pages != null);
+			Contract.Requires(items != null);
 
 			PageLink = pageLink;
 			Query = query;
-			Context = context;
-			Page = page;
+			Pages = pages;
+			Items = items;
 		}
 
 		public Hyperlink PageLink { get { return GetValue(PageLinkField); } private set { SetValue(PageLinkField, value); } }
-		public ListPageKey Query { get { return GetValue(QueryField); } private set { SetValue(QueryField, value); } }
-		public ListPageContext Context { get { return GetValue(ContextField); } private set { SetValue(ContextField, value); } }
-		public HyperlistPage Page { get { return GetValue(PageField); } private set { SetValue(PageField, value); } }
+		public ListViewKey Query { get { return GetValue(QueryField); } private set { SetValue(QueryField, value); } }
+		public ListViewPages Pages { get { return GetValue(PagesField); } private set { SetValue(PagesField, value); } }
+		public HyperlistItems Items { get { return GetValue(ItemsField); } private set { SetValue(ItemsField, value); } }
 	}
 }

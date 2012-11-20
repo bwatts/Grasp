@@ -14,47 +14,45 @@ using Raven.Client.Linq;
 
 namespace Grasp.Raven
 {
-	public abstract class RavenListService<T> : RavenContext, IListService where T : Notion
+	public abstract class RavenListService<TItem> : RavenContext, IListService where TItem : Notion
 	{
 		protected RavenListService(IDocumentStore documentStore) : base(documentStore)
 		{}
 
-		public Task<ListPage> GetPageAsync(ListPageKey key = null)
+		public Task<ListView> GetViewAsync(ListViewKey key = null)
 		{
 			return ExecuteReadAsync(session =>
 			{
-				key = key ?? ListPageKey.Default;
+				key = key ?? ListViewKey.Default;
 
-				var itemCount = Count.None;
+				var totalItems = Count.None;
 
-				var items = Query(session).TakePage(key, out itemCount).ToList();
+				var items = Query(session).TakePage(key, out totalItems).ToList();
 
-				return GetPage(key, itemCount, items);
+				return GetView(key, totalItems, items);
 			});
 		}
 
-		protected abstract IRavenQueryable<T> Query(IDocumentSession session);
+		protected abstract IRavenQueryable<TItem> Query(IDocumentSession session);
 
-		private ListPage GetPage(ListPageKey key, Count itemCount, List<T> items)
+		private ListView GetView(ListViewKey key, Count totalItems, List<TItem> items)
 		{
-			var pageCount = items.Count == 0 ? 0 : (itemCount.Value / key.Size.Value + 1);
+			var pageCount = items.Count == 0 ? 0 : (totalItems.Value / key.Size.Value + 1);
 
-			var resultKey = new ListPageKey(pageCount == 0 ? Number.None : key.Number, new Count(items.Count), key.Sort);
+			var resultKey = new ListViewKey(pageCount == 0 ? Count.None : key.Start, new Count(items.Count), key.Sort);
 
-			var context = new ListPageContext(resultKey, new Count(pageCount), itemCount);
-
-			return new ListPage(resultKey, context, new ListItems(GetSchema(), SelectListItems(context, items)));
+			return new ListView(resultKey, new ListViewItems(totalItems, GetSchema(), SelectListItems(resultKey, items)));
 		}
 
-		private IEnumerable<ListItem> SelectListItems(ListPageContext context, IEnumerable<T> items)
+		private IEnumerable<ListItem> SelectListItems(ListViewKey key, IEnumerable<TItem> items)
 		{
-			var firstItem = context.PageKey.FirstItem;
+			var start = key.Start;
 
-			return items.Select((item, index) => new ListItem(firstItem + new Number(index), SelectBindings(context, item)));
+			return items.Select((item, index) => new ListItem(start + new Count(index), SelectBindings(item)));
 		}
 
 		protected abstract ListSchema GetSchema();
 
-		protected abstract ListItemBindings SelectBindings(ListPageContext context, T item);
+		protected abstract ListItemBindings SelectBindings(TItem item);
 	}
 }

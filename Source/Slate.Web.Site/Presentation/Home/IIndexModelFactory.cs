@@ -11,13 +11,13 @@ namespace Slate.Web.Site.Presentation.Home
 	[ContractClass(typeof(IIndexFactoryContract))]
 	public interface IIndexModelFactory
 	{
-		Task<IndexModel> CreateIndexModelAsync(ListPageKey formPageKey, ListPageKey issuePageKey);
+		Task<IndexModel> CreateIndexModelAsync(ListViewKey formPageKey, ListViewKey issuePageKey);
 	}
 
 	[ContractClassFor(typeof(IIndexModelFactory))]
 	internal abstract class IIndexFactoryContract : IIndexModelFactory
 	{
-		Task<IndexModel> IIndexModelFactory.CreateIndexModelAsync(ListPageKey formPageKey, ListPageKey issuePageKey)
+		Task<IndexModel> IIndexModelFactory.CreateIndexModelAsync(ListViewKey formPageKey, ListViewKey issuePageKey)
 		{
 			Contract.Requires(formPageKey != null);
 			Contract.Requires(issuePageKey != null);

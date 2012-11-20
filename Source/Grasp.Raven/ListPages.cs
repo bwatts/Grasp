@@ -15,7 +15,7 @@ namespace Grasp.Raven
 	[EditorBrowsable(EditorBrowsableState.Never)]
 	public static class ListPages
 	{
-		public static IQueryable<T> TakePage<T>(this IRavenQueryable<T> ravenQuery, ListPageKey key, out Count totalItems)
+		public static IQueryable<T> TakePage<T>(this IRavenQueryable<T> ravenQuery, ListViewKey key, out Count totalItems)
 		{
 			Contract.Requires(ravenQuery != null);
 			Contract.Requires(key != null);
@@ -26,7 +26,7 @@ namespace Grasp.Raven
 
 			var query = ravenQuery
 				.Statistics(out statistics)
-				.Skip((key.Number.Value - 1) * key.Size.Value)
+				.Skip((key.Start.Value - 1) * key.Size.Value)
 				.Take(key.Size.Value)
 				.ToList()
 				.AsQueryable();

@@ -14,7 +14,7 @@ namespace Slate.Http.Api
 	[ContractClass(typeof(IFormStoreContract))]
 	public interface IFormStore
 	{
-		Task<Hyperlist> GetListAsync(ListPageKey pageKey = null);
+		Task<Hyperlist> GetListAsync(ListViewKey viewKey = null);
 
 		Task<FormResource> GetFormAsync(EntityId id);
 	}
@@ -22,9 +22,9 @@ namespace Slate.Http.Api
 	[ContractClassFor(typeof(IFormStore))]
 	internal abstract class IFormStoreContract : IFormStore
 	{
-		Task<Hyperlist> IFormStore.GetListAsync(ListPageKey pageKey)
+		Task<Hyperlist> IFormStore.GetListAsync(ListViewKey viewKey)
 		{
-			Contract.Requires(pageKey != null);
+			Contract.Requires(viewKey != null);
 			Contract.Ensures(Contract.Result<Task<Hyperlist>>() != null);
 
 			return null;

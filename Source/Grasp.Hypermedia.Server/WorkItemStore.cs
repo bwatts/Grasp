@@ -33,15 +33,15 @@ namespace Grasp.Hypermedia.Server
 			_byIdQuery = byIdQuery;
 		}
 
-		public async Task<Hyperlist> GetListAsync(ListPageKey pageKey)
+		public async Task<Hyperlist> GetListAsync(ListViewKey viewKey)
 		{
-			var page = await _listService.GetPageAsync(pageKey);
+			var list = await _listService.GetViewAsync(viewKey);
 
-			return GetList(
-				_resourceContext.CreateHeader("Work", "work" + pageKey.GetQuery(includeSeparator: true)),
+			return GetHyperlist(
+				_resourceContext.CreateHeader("Work", "work" + viewKey.GetQuery(includeSeparator: true)),
 				new Hyperlink("work?page={page}&pageSize={page-size}&sort={sort}", relationship: "grasp:list-page"),
-				pageKey,
-				page,
+				viewKey,
+				list,
 				item =>
 				{
 					var id = (EntityId) item["Id"];

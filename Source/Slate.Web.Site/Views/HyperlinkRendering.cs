@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using Grasp.Checks;
 using Grasp.Hypermedia;
 using Grasp.Hypermedia.Linq;
+using Slate.Web.Site.Presentation;
 using Slate.Web.Site.Presentation.Lists;
 using Slate.Web.Site.Presentation.Navigation;
 
@@ -30,12 +31,12 @@ namespace Slate.Web.Site.Views
 			return html.Raw(link.ToHtml("a").ToString());
 		}
 
-		public static IHtmlString RenderNumber(this HtmlHelper html, NumberModel number, object content = null, string title = null, Relationship relationship = null, MClass @class = null)
+		public static IHtmlString RenderCount(this HtmlHelper html, CountModel count, object content = null, string title = null, Relationship relationship = null, MClass @class = null)
 		{
 			Contract.Requires(html != null);
-			Contract.Requires(number != null);
+			Contract.Requires(count != null);
 
-			return html.RenderLink(number.Link.Override(content ?? number.Link.Content ?? number.Value, title, relationship, @class));
+			return html.RenderLink(count.Link.Override(content ?? count.Link.Content ?? count.Value, title, relationship, @class));
 		}
 
 		public static IHtmlString RenderNavigationAreaLink(this HtmlHelper html, NavigationArea area, bool isCurrent, string currentClass)
