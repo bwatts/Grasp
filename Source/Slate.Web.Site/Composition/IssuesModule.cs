@@ -19,7 +19,8 @@ namespace Slate.Web.Site.Composition
 				pageTemplate: new Hyperlink("issues", "{page}", "Page {page} of {page-count}"),
 				itemTemplate: new Hyperlink("issues/{id-escaped}", "{id}", "{id}"),
 				itemNumberTemplate: new Hyperlink("issues/{id-escaped}", "{item}", "{id}"),
-				itemIdSelector: item => item["Number"]))
+				itemIdSelector: item => item["Number"],
+				itemTextSelector: item => item["Description"]))
 			.Named<IListMesh>("Issues")
 			.SingleInstance();
 
