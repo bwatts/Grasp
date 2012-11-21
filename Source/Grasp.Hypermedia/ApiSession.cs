@@ -54,7 +54,7 @@ namespace Grasp.Hypermedia
 				throw new HypermediaException("API does not support entities corresponding to class '{0}'".FormatInvariant(@class));
 			}
 
-			return entityLink == null ? null : entityLink.BindUriVariable("id", id);
+			return entityLink == null ? null : entityLink.BindHrefVariable("id", id);
 		}
 
 		private async Task EnsureLoadedAsync()

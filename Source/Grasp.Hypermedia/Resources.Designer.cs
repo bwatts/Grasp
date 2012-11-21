@@ -106,6 +106,15 @@ namespace Grasp.Hypermedia {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This link&apos;s href does not allow variables: {0}.
+        /// </summary>
+        internal static string HrefDoesNotAllowVariables {
+            get {
+                return ResourceManager.GetString("HrefDoesNotAllowVariables", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Hyperlink is a template and cannot be converted to a URI without replacing variables.
         /// </summary>
         internal static string HyperlinkIsTemplate {
@@ -120,15 +129,6 @@ namespace Grasp.Hypermedia {
         internal static string InvalidGuidValue {
             get {
                 return ResourceManager.GetString("InvalidGuidValue", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to This link URI does not allow variables: {0}.
-        /// </summary>
-        internal static string LinkUriDoesNotAllowVariables {
-            get {
-                return ResourceManager.GetString("LinkUriDoesNotAllowVariables", resourceCulture);
             }
         }
         

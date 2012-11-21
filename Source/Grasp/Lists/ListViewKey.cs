@@ -47,6 +47,11 @@ namespace Grasp.Lists
 			get { return Start == Count.None ? Count.None : new Count(Start.Value + Size.Value - 1); }
 		}
 
+		public Count GetPageStart(Count number)
+		{
+			return new Count((number.Value - 1) * Size.Value + 1);
+		}
+
 		public string GetQuery(string startParameter = "start", string sizeParameter = "size", string sortParameter = "sort", bool includeSeparator = false)
 		{
 			Contract.Requires(!String.IsNullOrEmpty(startParameter));

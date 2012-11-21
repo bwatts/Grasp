@@ -39,7 +39,7 @@ namespace Slate.Http.Api
 			var list = await _listService.GetViewAsync(query.Key);
 
 			return GetHyperlist(
-				_resourceContext.CreateHeader("Forms", "forms" + query.GetQueryString(includeSeparator: true)),
+				_resourceContext.CreateHeader("Forms", "forms" + query.GetString(includeSeparator: true)),
 				query,
 				list,
 				item =>

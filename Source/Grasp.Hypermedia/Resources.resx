@@ -132,14 +132,14 @@
   <data name="FoundTermsWithoutDescription" xml:space="preserve">
     <value>Found terms without description</value>
   </data>
+  <data name="HrefDoesNotAllowVariables" xml:space="preserve">
+    <value>This link's href does not allow variables: {0}</value>
+  </data>
   <data name="HyperlinkIsTemplate" xml:space="preserve">
     <value>Hyperlink is a template and cannot be converted to a URI without replacing variables</value>
   </data>
   <data name="InvalidGuidValue" xml:space="preserve">
     <value>Invalid GUID value: "{0}"</value>
-  </data>
-  <data name="LinkUriDoesNotAllowVariables" xml:space="preserve">
-    <value>This link URI does not allow variables: {0}</value>
   </data>
   <data name="MissingSelfLink" xml:space="preserve">
     <value>Missing header link with relationship "{0}"</value>

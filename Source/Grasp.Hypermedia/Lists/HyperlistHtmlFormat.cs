@@ -156,9 +156,9 @@ namespace Grasp.Hypermedia.Lists
 					new Count(startItem.Description.Read<int>()),
 					new Count(sizeItem.Description.Read<int>()),
 					Sort.Parse(sortItem.Description.Read<string>())),
-				startItem.Term.Class,
-				sizeItem.Term.Class,
-				sortItem.Term.Class);
+				startItem.Term.Read<string>(),
+				sizeItem.Term.Read<string>(),
+				sortItem.Term.Read<string>());
 		}
 
 		private static ListViewPages ReadPages(MCompositeContent body)

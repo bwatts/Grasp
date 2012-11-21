@@ -18,7 +18,7 @@ namespace Grasp.Hypermedia
 		public static readonly XName RelAttributeName = "rel";
 		public static readonly XName HrefAttributeName = "href";
 
-		public static readonly Field<UriTemplate> UriField = Field.On<Hyperlink>.For(x => x.Uri);
+		public static readonly Field<UriTemplate> HrefField = Field.On<Hyperlink>.For(x => x.Href);
 		public static readonly Field<object> ContentField = Field.On<Hyperlink>.For(x => x.Content);
 		public static readonly Field<string> TitleField = Field.On<Hyperlink>.For(x => x.Title);
 		public static readonly Field<Relationship> RelationshipField = Field.On<Hyperlink>.For(x => x.Relationship);
@@ -26,26 +26,26 @@ namespace Grasp.Hypermedia
 
 		public static readonly Hyperlink Empty = new Hyperlink("");
 
-		public Hyperlink(UriTemplate uri, object content = null, string title = null, Relationship relationship = null, MClass @class = null)
+		public Hyperlink(UriTemplate href, object content = null, string title = null, Relationship relationship = null, MClass @class = null)
 		{
-			Contract.Requires(uri != null);
+			Contract.Requires(href != null);
 
-			Uri = uri;
+			Href = href;
 			Content = content;
 			Relationship = relationship ?? Relationship.Empty;
 			Title = title ?? "";
 			Class = @class ?? MClass.Empty;
 		}
 
-		public Hyperlink(Uri uri, object content = null, string title = "", Relationship relationship = null, MClass @class = null)
-			: this(new UriTemplate(uri.ToString()), content, title, relationship, @class)
+		public Hyperlink(Uri href, object content = null, string title = "", Relationship relationship = null, MClass @class = null)
+			: this(new UriTemplate(href.ToString()), content, title, relationship, @class)
 		{}
 
-		public Hyperlink(string uri, object content = null, string title = "", Relationship relationship = null, MClass @class = null)
-			: this(new UriTemplate(uri), content, title, relationship, @class)
+		public Hyperlink(string href, object content = null, string title = "", Relationship relationship = null, MClass @class = null)
+			: this(new UriTemplate(href), content, title, relationship, @class)
 		{}
 
-		public UriTemplate Uri { get { return GetValue(UriField); } private set { SetValue(UriField, value); } }
+		public UriTemplate Href { get { return GetValue(HrefField); } private set { SetValue(HrefField, value); } }
 		public object Content { get { return GetValue(ContentField); } private set { SetValue(ContentField, value); } }
 		public string Title { get { return GetValue(TitleField); } private set { SetValue(TitleField, value); } }
 		public Relationship Relationship { get { return GetValue(RelationshipField); } private set { SetValue(RelationshipField, value); } }
@@ -53,51 +53,51 @@ namespace Grasp.Hypermedia
 
 		public bool IsTemplate
 		{
-			get { return Check.That(Uri).HasVariables(); }
+			get { return Check.That(Href).HasVariables(); }
 		}
 
 		public Hyperlink WithClass(MClass @class)
 		{
-			return new Hyperlink(Uri, Content, Title, Relationship, @class);
+			return new Hyperlink(Href, Content, Title, Relationship, @class);
 		}
 
 		public Hyperlink Override(object content = null, string title = null, Relationship relationship = null, MClass @class = null)
 		{
-			return new Hyperlink(Uri, content ?? Content, title ?? Title, relationship ?? Relationship, @class ?? Class);
+			return new Hyperlink(Href, content ?? Content, title ?? Title, relationship ?? Relationship, @class ?? Class);
 		}
 
-		public Uri BindUriVariables(IEnumerable<KeyValuePair<string, string>> bindings)
+		public Uri BindHrefVariables(IEnumerable<KeyValuePair<string, string>> bindings)
 		{
 			Contract.Requires(bindings != null);
 
 			var baseUriStub = new Uri("http://x");
 
-			var boundUri = BindUriVariables(baseUriStub, bindings);
+			var boundUri = BindHrefVariables(baseUriStub, bindings);
 
 			return baseUriStub.MakeRelativeUri(boundUri);
 		}
 
-		public Uri BindUriVariables(IEnumerable<KeyValuePair<string, object>> bindings)
+		public Uri BindHrefVariables(IEnumerable<KeyValuePair<string, object>> bindings)
 		{
 			Contract.Requires(bindings != null);
 
-			return BindUriVariables(bindings.ToDictionary(
+			return BindHrefVariables(bindings.ToDictionary(
 				binding => binding.Key,
 				binding => binding.Value == null ? "" : binding.Value.ToString()));
 		}
 
-		public Uri BindUriVariable(string name, string value)
+		public Uri BindHrefVariable(string name, string value)
 		{
 			Contract.Requires(!String.IsNullOrEmpty(name));
 
-			return BindUriVariables(new Dictionary<string, string> { { name, value } });
+			return BindHrefVariables(new Dictionary<string, string> { { name, value } });
 		}
 
-		public Uri BindUriVariable(string name, object value)
+		public Uri BindHrefVariable(string name, object value)
 		{
 			Contract.Requires(!String.IsNullOrEmpty(name));
 
-			return BindUriVariables(new Dictionary<string, object> { { name, value } });
+			return BindHrefVariables(new Dictionary<string, object> { { name, value } });
 		}
 
 		public Hyperlink BindVariables(IEnumerable<KeyValuePair<string, string>> bindings)
@@ -107,7 +107,7 @@ namespace Grasp.Hypermedia
 			bindings = bindings.ToReadOnlyDictionary();
 
 			return new Hyperlink(
-				BindUriVariables(bindings),
+				BindHrefVariables(bindings),
 				Content is string ? BindTemplateVariables((string) Content, bindings) : Content,
 				BindTemplateVariables(Title, bindings),
 				BindTemplateVariables(Relationship, bindings),
@@ -137,6 +137,20 @@ namespace Grasp.Hypermedia
 			return BindVariables(new Dictionary<string, object> { { name, value } });
 		}
 
+		public Hyperlink AppendQuery(string query)
+		{
+			Contract.Requires(query != null);
+
+			var href = Href.ToString();
+
+			if(Check.That(query).IsNotNullOrEmpty())
+			{
+				href += (href.Contains('?') ? "&" : "?") + query;
+			}
+
+			return new Hyperlink(href, Content, Title, Relationship, Class);
+		}
+
 		public Uri ToUri()
 		{
 			if(IsTemplate)
@@ -144,7 +158,7 @@ namespace Grasp.Hypermedia
 				throw new InvalidOperationException(Resources.HyperlinkIsTemplate);
 			}
 
-			return BindUriVariables(new Dictionary<string, string>());
+			return BindHrefVariables(new Dictionary<string, string>());
 		}
 
 		public override string ToString()
@@ -161,7 +175,7 @@ namespace Grasp.Hypermedia
 		{
 			var header = new StringBuilder();
 
-			header.Append(Uri);
+			header.Append(Href);
 
 			if(Relationship != null && Relationship != Relationship.Empty)
 			{
@@ -171,9 +185,9 @@ namespace Grasp.Hypermedia
 			return header.ToString();
 		}
 
-		private Uri BindUriVariables(Uri baseUriStub, IEnumerable<KeyValuePair<string, string>> bindings)
+		private Uri BindHrefVariables(Uri baseHrefStub, IEnumerable<KeyValuePair<string, string>> bindings)
 		{
-			var variables = Uri.PathSegmentVariableNames.Concat(Uri.QueryValueVariableNames);
+			var variables = Href.PathSegmentVariableNames.Concat(Href.QueryValueVariableNames);
 
 			var effectiveBindings =
 				from variable in variables
@@ -181,7 +195,7 @@ namespace Grasp.Hypermedia
 				where binding.Key.Equals(variable, StringComparison.InvariantCultureIgnoreCase)
 				select binding;
 
-			return Uri.BindByName(baseUriStub, effectiveBindings.ToDictionary());
+			return Href.BindByName(baseHrefStub, effectiveBindings.ToDictionary());
 		}
 
 		private static string BindTemplateVariables(string template, IEnumerable<KeyValuePair<string, string>> bindings)
@@ -198,7 +212,7 @@ namespace Grasp.Hypermedia
 		{
 			if(!allowTemplate && IsTemplate)
 			{
-				throw new HypermediaException(Resources.LinkUriDoesNotAllowVariables.FormatCurrent(Uri));
+				throw new HypermediaException(Resources.HrefDoesNotAllowVariables.FormatCurrent(Href));
 			}
 
 			if(Relationship != null && Relationship != Relationship.Empty)
@@ -216,7 +230,7 @@ namespace Grasp.Hypermedia
 				yield return new XAttribute(ClassAttributeName, Class.ToStackString());
 			}
 
-			yield return new XAttribute(HrefAttributeName, Uri);
+			yield return new XAttribute(HrefAttributeName, Href);
 
 			if(Content != null)
 			{

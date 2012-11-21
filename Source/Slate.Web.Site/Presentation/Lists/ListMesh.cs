@@ -75,13 +75,15 @@ namespace Slate.Web.Site.Presentation.Lists
 
 		private static Hyperlink GetPageLink(Hyperlist list, Count number, Hyperlink template)
 		{
-			return template.BindVariables(new Dictionary<string, object>
+			var boundLink = template.BindVariables(new Dictionary<string, object>
 			{
 				{ "page", number },
 				{ "page-count", list.Pages.Count },
 				{ "item", number },
 				{ "total-items", list.Items.Total }
 			});
+
+			return boundLink.AppendQuery(list.Query.GetString(number));
 		}
 
 		private Hyperlink GetItemLink(Hyperlist list, HyperlistItem item, Hyperlink template)

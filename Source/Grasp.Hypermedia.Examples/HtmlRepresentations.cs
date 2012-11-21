@@ -113,11 +113,11 @@ namespace Grasp.Hypermedia
 			element.Name.Should().Be((XName) "head");
 			element.Element("title").Value.Should().Be("Title");
 			element.Element("base").Should().NotBeNull();
-			element.Element("base").Value.Should().Be(baseLink.Uri.ToString());
+			element.Element("base").Value.Should().Be(baseLink.Href.ToString());
 			element.Elements("link").Count().Should().Be(3);
-			element.Elements("link").ElementAt(0).Value.Should().Be(selfLink.Uri.ToString());
-			element.Elements("link").ElementAt(1).Value.Should().Be(link1.Uri.ToString());
-			element.Elements("link").ElementAt(2).Value.Should().Be(link2.Uri.ToString());
+			element.Elements("link").ElementAt(0).Value.Should().Be(selfLink.Href.ToString());
+			element.Elements("link").ElementAt(1).Value.Should().Be(link1.Href.ToString());
+			element.Elements("link").ElementAt(2).Value.Should().Be(link2.Href.ToString());
 		}
 	}
 }

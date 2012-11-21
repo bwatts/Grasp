@@ -38,9 +38,13 @@ namespace Grasp.Hypermedia.Lists
 		public string SizeParameter { get { return GetValue(SizeParameterField); } private set { SetValue(SizeParameterField, value); } }
 		public string SortParameter { get { return GetValue(SortParameterField); } private set { SetValue(SortParameterField, value); } }
 
-		public string GetQueryString(bool includeSeparator = false)
+		public string GetString(Count? pageNumber = null, bool includeSeparator = false)
 		{
-			return Key.GetQuery(StartParameter, SizeParameter, SortParameter, includeSeparator);
+			var start = pageNumber == null ? Key.Start : Key.GetPageStart(pageNumber.Value);
+
+			var key = new ListViewKey(start, Key.Size, Key.Sort);
+
+			return key.GetQuery(StartParameter, SizeParameter, SortParameter, includeSeparator);
 		}
 	}
 }

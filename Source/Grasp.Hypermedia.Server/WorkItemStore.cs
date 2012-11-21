@@ -38,7 +38,7 @@ namespace Grasp.Hypermedia.Server
 			var list = await _listService.GetViewAsync(query.Key);
 
 			return GetHyperlist(
-				_resourceContext.CreateHeader("Work", "work" + query.GetQueryString(includeSeparator: true)),
+				_resourceContext.CreateHeader("Work", "work" + query.GetString(includeSeparator: true)),
 				query,
 				list,
 				item =>
