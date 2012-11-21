@@ -12,33 +12,43 @@ namespace Grasp.Hypermedia.Linq
 	[EditorBrowsable(EditorBrowsableState.Never)]
 	public static class ContentReading
 	{
-		public static T ReadContent<T>(this IEnumerable<MContent> contents, MClass @class) where T : MContent
+		public static T ReadContent<T>(this IEnumerable<MContent> contents, MClass @class = null) where T : MContent
 		{
 			Contract.Requires(contents != null);
 
-			return contents.OfType<T>().First(content => content.Class.ContainsItem(@class));
+			return @class == null
+				? contents.OfType<T>().First()
+				: contents.OfType<T>().First(content => content.Class.ContainsItem(@class));
 		}
 
-		public static T ReadValue<T>(this IEnumerable<MContent> contents, MClass @class)
+		public static T ReadValue<T>(this IEnumerable<MContent> contents, MClass @class = null)
 		{
 			Contract.Requires(contents != null);
 
-			return contents.ReadContent<MValue>(@class).ReadValue<T>();
+			return contents.ReadContent<MValue>(@class).Read<T>();
 		}
 
-		public static T ReadValue<T>(this MValue value)
+		public static T Read<T>(this MContent content)
+		{
+			Contract.Requires(content != null);
+
+			return ((MValue) content).Read<T>();
+		}
+
+		public static T Read<T>(this MValue value)
 		{
 			Contract.Requires(value != null);
 
 			return Conversion.To<T>(value.Object);
 		}
 
-		public static MLink ReadLink(this IEnumerable<MContent> contents, Relationship relationship)
+		public static MLink ReadLink(this IEnumerable<MContent> contents, Relationship relationship = null)
 		{
 			Contract.Requires(contents != null);
-			Contract.Requires(relationship != null);
 
-			return contents.OfType<MLink>().First(content => content.Hyperlink.Relationship.ContainsItem(relationship));
+			return relationship == null
+				? contents.OfType<MLink>().First()
+				: contents.OfType<MLink>().First(content => content.Hyperlink.Relationship.ContainsItem(relationship));
 		}		
 	}
 }

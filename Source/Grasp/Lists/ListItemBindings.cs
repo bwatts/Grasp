@@ -11,28 +11,25 @@ namespace Grasp.Lists
 {
 	public sealed class ListItemBindings : Notion, IReadOnlyDictionary<string, object>
 	{
-		public static readonly Field<IReadOnlyDictionary<string, object>> _bindingsField = Field.On<ListItemBindings>.For(x => x._bindings);
+		public static readonly Field<ManyKeyed<string, object>> _bindingsField = Field.On<ListItemBindings>.For(x => x._bindings);
 
-		private IReadOnlyDictionary<string, object> _bindings { get { return GetValue(_bindingsField); } set { SetValue(_bindingsField, value); } }
+		private ManyKeyed<string, object> _bindings { get { return GetValue(_bindingsField); } set { SetValue(_bindingsField, value); } }
 
-		public ListItemBindings(IReadOnlyDictionary<string, object> bindings)
+		public ListItemBindings(IEnumerable<KeyValuePair<string, object>> bindings)
 		{
 			Contract.Requires(bindings != null);
 
-			_bindings = bindings;
+			_bindings = bindings.ToManyKeyed();
 		}
-
-		public ListItemBindings(IEnumerable<KeyValuePair<string, object>> bindings) : this(bindings.ToReadOnlyDictionary())
-		{}
 
 		public IEnumerable<string> Fields
 		{
-			get { return _bindings.Keys; }
+			get { return ((IReadOnlyDictionary<string, object>)_bindings).Keys; }
 		}
 
 		public IEnumerable<object> Values
 		{
-			get { return _bindings.Values; }
+			get { return ((IReadOnlyDictionary<string, object>) _bindings).Values; }
 		}
 
 		public object this[string field]

@@ -9,15 +9,15 @@ namespace Grasp.Messaging
 {
 	public sealed class TypeDispatchChannel : Notion, IMessageChannel
 	{
-		public static readonly Field<IReadOnlyDictionary<Type, IMessageChannel>> _channelsByTypeField = Field.On<TypeDispatchChannel>.For(x => x._channelsByType);
+		public static readonly Field<ManyKeyed<Type, IMessageChannel>> _channelsByTypeField = Field.On<TypeDispatchChannel>.For(x => x._channelsByType);
 
-		private IReadOnlyDictionary<Type, IMessageChannel> _channelsByType { get { return GetValue(_channelsByTypeField); } set { SetValue(_channelsByTypeField, value); } }
+		private ManyKeyed<Type, IMessageChannel> _channelsByType { get { return GetValue(_channelsByTypeField); } set { SetValue(_channelsByTypeField, value); } }
 
-		public TypeDispatchChannel(IReadOnlyDictionary<Type, IMessageChannel> channelsByType)
+		public TypeDispatchChannel(IEnumerable<KeyValuePair<Type, IMessageChannel>> channelsByType)
 		{
 			Contract.Requires(channelsByType != null);
 
-			_channelsByType = channelsByType;
+			_channelsByType = channelsByType.ToManyKeyed();
 		}
 
 		public async Task PublishAsync(Message message)

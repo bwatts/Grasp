@@ -21,6 +21,12 @@ namespace Grasp.Hypermedia.Linq
 		public MDivision(MClass @class, params MContent[] children) : this(@class, children as IEnumerable<MContent>)
 		{}
 
+		public MDivision(IEnumerable<MContent> children) : this(MClass.Empty, children)
+		{}
+
+		public MDivision(params MContent[] children) : this(children as IEnumerable<MContent>)
+		{}
+
 		public Many<MContent> Children { get { return GetValue(ChildrenField); } private set { SetValue(ChildrenField, value); } }
 
 		protected override object GetHtmlWithoutClass()

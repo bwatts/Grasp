@@ -13,7 +13,7 @@ namespace Grasp.Hypermedia.Linq
 
 		public static readonly MCompositeContent Empty = new MCompositeContent();
 
-		public MCompositeContent(IEnumerable<MContent> items) : base(MClass.Empty)
+		public MCompositeContent(IEnumerable<MContent> items)
 		{
 			Items = items.ToManyInOrder();
 		}
@@ -30,7 +30,9 @@ namespace Grasp.Hypermedia.Linq
 
 		protected override object GetHtmlWithClass(string classStack)
 		{
-			return Items.Select(item => item.GetHtml());
+			// Composite content does not directly correspond to an HTML element - item classes take effect instead
+
+			return GetHtmlWithoutClass();
 		}
 	}
 }

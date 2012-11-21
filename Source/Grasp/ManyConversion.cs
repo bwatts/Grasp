@@ -8,7 +8,8 @@ using System.Threading.Tasks;
 namespace Grasp
 {
 	/// <summary>
-	/// Extends sequences with the ability to initialize instances of <see cref="Many{T}"/> and <see cref="ManyInOrder{T}"/>
+	/// Extends sequences with the ability to initialize instances of <see cref="Many{T}"/>, <see cref="ManyInOrder{T}"/>, and
+	/// <see cref="ManyKeyed{TKey, TValue}"/>
 	/// </summary>
 	[EditorBrowsable(EditorBrowsableState.Never)]
 	public static class ManyConversion
@@ -33,6 +34,18 @@ namespace Grasp
 		public static ManyInOrder<T> ToManyInOrder<T>(this IEnumerable<T> source)
 		{
 			return new ManyInOrder<T>(source);
+		}
+
+		/// <summary>
+		/// Creates a <see cref="ManyKeyed{TKey, TValue}"/> with the pairs in the specified sequence
+		/// </summary>
+		/// <typeparam name="TKey">The type of keys of pairs in the sequence</typeparam>
+		/// <typeparam name="TValue">The type of values of pairs in the sequence</typeparam>
+		/// <param name="source">The initial pairs in the <see cref="ManyKeyed{TKey, TValue}"/></param>
+		/// <returns>A <see cref="ManyKeyed{TKey, TValue}"/> with the pairs from specified sequence</returns>
+		public static ManyKeyed<TKey, TValue> ToManyKeyed<TKey, TValue>(this IEnumerable<KeyValuePair<TKey, TValue>> source)
+		{
+			return new ManyKeyed<TKey, TValue>(source);
 		}
 	}
 }

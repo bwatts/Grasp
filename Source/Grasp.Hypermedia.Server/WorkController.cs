@@ -25,7 +25,14 @@ namespace Grasp.Hypermedia.Server
 		[HttpGet]
 		public Task<Hyperlist> GetListPageAsync(ListViewKey key)
 		{
-			return _workItemStore.GetListAsync(key);
+			// TODO: Where do the start/size/sort parameter names originate?
+
+			return _workItemStore.GetListAsync(new HyperlistQuery(
+				new Hyperlink("work", relationship: "grasp:list", @class: "work"),
+				key,
+				"start",
+				"size",
+				"sort"));
 		}
 
 		[HttpGet]

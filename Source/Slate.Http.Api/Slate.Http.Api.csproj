@@ -128,10 +128,12 @@
     </Compile>
     <Compile Include="HomeController.cs" />
     <Compile Include="FormMesh.cs" />
+    <Compile Include="IIssueStore.cs" />
     <Compile Include="IssuesController.cs" />
     <Compile Include="FormsController.cs" />
     <Compile Include="IFormStore.cs" />
     <Compile Include="IFormByIdQuery.cs" />
+    <Compile Include="IssueStore.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="FormResource.cs" />
     <Compile Include="FormStore.cs" />

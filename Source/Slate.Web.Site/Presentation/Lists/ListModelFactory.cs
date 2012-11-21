@@ -69,8 +69,8 @@ namespace Slate.Web.Site.Presentation.Lists
 						currentPage,
 						numbers.First(),
 						numbers.Last(),
-						currentPage.Value == 1 ? null : numbers[currentPage.Value.Value - 2],
-						currentPage.Value == list.Pages.Count ? null : numbers[currentPage.Value.Value + 2],
+						currentPage.Value == 1 ? null : numbers[currentPage.Value.Value - 1],
+						currentPage.Value == list.Pages.Count ? null : numbers[currentPage.Value.Value],
 						numbers);
 		}
 

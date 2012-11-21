@@ -137,7 +137,8 @@
     <Compile Include="Linq\MCompositeContent.cs" />
     <Compile Include="Linq\MClass.cs" />
     <Compile Include="Linq\MContent.cs" />
-    <Compile Include="Linq\MDefinitionList.cs" />
+    <Compile Include="Linq\MDescriptionItem.cs" />
+    <Compile Include="Linq\MDescriptionList.cs" />
     <Compile Include="Linq\MDivision.cs" />
     <Compile Include="Linq\MHeader.cs" />
     <Compile Include="Linq\MLink.cs" />
@@ -147,6 +148,7 @@
     <Compile Include="Linq\MValue.cs" />
     <Compile Include="Lists\HyperlistItem.cs" />
     <Compile Include="Lists\HyperlistItems.cs" />
+    <Compile Include="Lists\HyperlistQuery.cs" />
     <Compile Include="Lists\IListClient.cs" />
     <Compile Include="Lists\ListClient.cs" />
     <Compile Include="Lists\HyperlistHtmlFormat.cs" />

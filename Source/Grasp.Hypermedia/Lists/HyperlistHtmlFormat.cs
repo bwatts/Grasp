@@ -28,36 +28,37 @@ namespace Grasp.Hypermedia.Lists
 
 		protected override IEnumerable<MContent> ConvertFromResource(Hyperlist resource)
 		{
-			var content = GetBodyContent(resource).ToList();
-
-			content.Insert(0, new MLink(resource.PageLink.Override(relationship: "grasp:list-template")));
-
-			return content;
+			yield return new MDivision("query", GetListLink(resource), GetQueryDescription(resource.Query));
+			yield return new MDivision("pages", GetPagesValues(resource));
+			yield return new MDivision("items", GetTotal(resource), GetSchema(resource), GetItemList(resource));
 		}
 
 		protected override Hyperlist ConvertToResource(MHeader header, MCompositeContent body)
 		{
-			return new Hyperlist(header, ReadPageLink(body), ReadQuery(body), ReadPages(body), ReadItems(body));
+			return new Hyperlist(header, ReadQuery(body), ReadPages(body), ReadItems(body));
 		}
 
 		#region From Resource
 
-		private static IEnumerable<MContent> GetBodyContent(Hyperlist list)
+		private static MLink GetListLink(Hyperlist list)
 		{
-			yield return new MDivision(
-				"query",
-				new MValue("start", list.Query.Start),
-				new MValue("size", list.Query.Size),
-				new MValue("sort", list.Query.Sort));
+			return new MLink(list.Query.ListLink.Override(relationship: "grasp:list"));
+		}
 
-			yield return new MDivision(
-				"pages",
-				new MValue("count", list.Pages.Count),
-				new MValue("current", list.Pages.Current),
-				new MValue("previous", list.Pages.Previous),
-				new MValue("next", list.Pages.Next));
+		private static MDescriptionList GetQueryDescription(HyperlistQuery query)
+		{
+			return new MDescriptionList(
+				new MDescriptionItem(new MValue("start-parameter", query.StartParameter), new MValue(query.Key.Start)),
+				new MDescriptionItem(new MValue("size-parameter", query.SizeParameter), new MValue(query.Key.Size)),
+				new MDescriptionItem(new MValue("sort-parameter", query.SortParameter), new MValue(query.Key.Sort)));
+		}
 
-			yield return new MDivision("items", GetTotal(list), GetSchema(list), GetItemList(list));
+		private static IEnumerable<MValue> GetPagesValues(Hyperlist list)
+		{
+			yield return new MValue("count", list.Pages.Count);
+			yield return new MValue("current", list.Pages.Current);
+			yield return new MValue("previous", list.Pages.Previous);
+			yield return new MValue("next", list.Pages.Next);
 		}
 
 		private static MValue GetTotal(Hyperlist list)
@@ -65,13 +66,13 @@ namespace Grasp.Hypermedia.Lists
 			return new MValue("total", list.Items.Total);
 		}
 
-		private static MDefinitionList GetSchema(Hyperlist list)
+		private static MDescriptionList GetSchema(Hyperlist list)
 		{
-			return new MDefinitionList(
-				"schema",
-				list.Items.Schema.ToDictionary(
-					field => new MValue(field.Key),
-					field => new MValue(GetTypeString(field.Value)) as MContent));
+			return new MDescriptionList(
+				from item in list.Items.Schema
+				select new MDescriptionItem(
+					new MValue(item.Key),
+					new MValue(GetTypeString(item.Value))));
 		}
 
 		private static MList GetItemList(Hyperlist list)
@@ -139,19 +140,25 @@ namespace Grasp.Hypermedia.Lists
 
 		#region To Resource
 
-		private static Hyperlink ReadPageLink(MCompositeContent body)
-		{
-			return body.Items.ReadLink("grasp:list-template").Hyperlink;
-		}
-
-		private static ListViewKey ReadQuery(MCompositeContent body)
+		private static HyperlistQuery ReadQuery(MCompositeContent body)
 		{
 			var query = body.Items.ReadContent<MDivision>("query");
 
-			return new ListViewKey(
-				new Count(query.Children.ReadValue<int>("start")),
-				new Count(query.Children.ReadValue<int>("size")),
-				Sort.Parse(query.Children.ReadValue<string>("sort")));
+			var description = query.Children.ReadContent<MDescriptionList>();
+
+			var startItem = description.Items.First(item => item.Term.Class == "start-parameter");
+			var sizeItem = description.Items.First(item => item.Term.Class == "size-parameter");
+			var sortItem = description.Items.First(item => item.Term.Class == "sort-parameter");
+
+			return new HyperlistQuery(
+				query.Children.ReadLink("grasp:list").Hyperlink,
+				new ListViewKey(
+					new Count(startItem.Description.Read<int>()),
+					new Count(sizeItem.Description.Read<int>()),
+					Sort.Parse(sortItem.Description.Read<string>())),
+				startItem.Term.Class,
+				sizeItem.Term.Class,
+				sortItem.Term.Class);
 		}
 
 		private static ListViewPages ReadPages(MCompositeContent body)
@@ -182,21 +189,23 @@ namespace Grasp.Hypermedia.Lists
 
 		private static ListSchema ReadSchema(MDivision items)
 		{
-			var schema = items.Children.ReadContent<MDefinitionList>("schema");
+			var schema = items.Children.ReadContent<MDescriptionList>();
 
-			return new ListSchema(schema.Definitions.Select(definition => new KeyValuePair<string, Type>(definition.Key.ReadValue<string>(), ReadType(definition.Value))));
+			return new ListSchema(
+				from item in schema.Items
+				select new KeyValuePair<string, Type>(item.Term.Read<string>(), ReadType(item.Description)));
 		}
 
-		private static Type ReadType(MContent definitionValue)
+		private static Type ReadType(MContent description)
 		{
-			var typeValue = definitionValue as MValue;
+			var typeValue = description as MValue;
 
 			if(typeValue == null)
 			{
-				throw new FormatException(Resources.ExpectingValue.FormatInvariant(typeof(MValue), definitionValue.GetType()));
+				throw new FormatException(Resources.ExpectingValue.FormatInvariant(typeof(MValue), description.GetType()));
 			}
 
-			var type = typeValue.ReadValue<string>();
+			var type = typeValue.Read<string>();
 
 			if(IsType(type, "string"))
 			{

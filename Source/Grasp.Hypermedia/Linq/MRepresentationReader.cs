@@ -60,23 +60,23 @@ namespace Grasp.Hypermedia.Linq
 
 		private static MContent ReadMContent(this XElement element)
 		{
-			if(element.NameIs("a"))
+			if(element.Name == "a")
 			{
 				return element.ReadMLink();
 			}
-			else if(element.NameIs("span"))
+			else if(element.Name == "span")
 			{
 				return element.ReadMValue();
 			}
-			else if(element.NameIs("div"))
+			else if(element.Name == "div")
 			{
 				return element.ReadMDivision();
 			}
-			else if(element.NameIs("dl"))
+			else if(element.Name == "dl")
 			{
-				return element.ReadMDefinitionList();
+				return element.ReadMDescriptionList();
 			}
-			else if(element.NameIs("ul") || element.NameIs("ol"))
+			else if(element.Name == "ul" || element.Name == "ol")
 			{
 				return element.ReadMList();
 			}
@@ -118,14 +118,14 @@ namespace Grasp.Hypermedia.Linq
 			return new MDivision(element.ReadMClass(), element.Elements().ReadMContents());
 		}
 
-		private static MDefinitionList ReadMDefinitionList(this XElement element)
+		private static MDescriptionList ReadMDescriptionList(this XElement element)
 		{
-			return new MDefinitionList(element.ReadMClass(), element.ReadDefinitions());
+			return new MDescriptionList(element.ReadMClass(), element.ReadDescriptions());
 		}
 
 		private static MList ReadMList(this XElement element)
 		{
-			return new MList(element.ReadMClass(), ReadMListItems(element.Elements("li")));
+			return new MList(ReadMListItems(element.Elements("li")));
 		}
 
 		private static IEnumerable<MContent> ReadMListItems(IEnumerable<XElement> itemElements)
@@ -133,46 +133,56 @@ namespace Grasp.Hypermedia.Linq
 			return itemElements.Select(itemElement => itemElement.Elements().ReadMContent());
 		}
 
-		private static IEnumerable<KeyValuePair<MValue, MContent>> ReadDefinitions(this XElement element)
+		private static IEnumerable<MDescriptionItem> ReadDescriptions(this XElement element)
 		{
-			MValue term = null;
+			var terms = new List<MValue>();
+			var descriptions = new List<MContent>();
+
+			var foundTerm = false;
+			var priorWasDescription = false;
 
 			foreach(var childElement in element.Elements())
 			{
-				if(term == null && childElement.NameIsNot("dt"))
+				if(childElement.Name == "dt")
 				{
-					throw new FormatException(Resources.ExpectingTerm.FormatInvariant(element.GetPath()));
-				}
-				else if(term != null && childElement.NameIsNot("dd"))
-				{
-					throw new FormatException(Resources.ExpectingDefinition.FormatInvariant(element.GetPath()));
-				}
-				else if(term == null)
-				{
-					term = new MValue(element.ReadMClass(), childElement.Value);
+					if(priorWasDescription)
+					{
+						yield return new MDescriptionItem(terms, descriptions);
+
+						terms = new List<MValue>();
+						descriptions = new List<MContent>();
+					}
+
+					terms.Add(childElement.ReadMValue());
+
+					foundTerm = true;
+					priorWasDescription = false;
 				}
 				else
 				{
-					yield return new KeyValuePair<MValue, MContent>(term, childElement.ReadMContent());
+					if(childElement.Name == "dd")
+					{
+						if(!foundTerm)
+						{
+							throw new FormatException(Resources.FoundDescriptionBeforeTerms);
+						}
 
-					term = null;
+						descriptions.Add(childElement.ReadMContent());
+
+						priorWasDescription = true;
+					}
 				}
 			}
 
-			if(term != null)
+			if(terms.Any())
 			{
-				throw new FormatException(Resources.TermHasNoDefinition.FormatInvariant(term));
+				if(!descriptions.Any())
+				{
+					throw new FormatException(Resources.FoundTermsWithoutDescription);
+				}
+
+				yield return new MDescriptionItem(terms, descriptions);
 			}
-		}
-
-		private static bool NameIs(this XElement element, string name)
-		{
-			return element.Name.ToString().Equals(name, StringComparison.InvariantCultureIgnoreCase);
-		}
-
-		private static bool NameIsNot(this XElement element, string name)
-		{
-			return !element.NameIs(name);
 		}
 	}
 }

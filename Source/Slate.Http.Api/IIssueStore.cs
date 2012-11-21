@@ -11,28 +11,19 @@ using Grasp.Lists;
 
 namespace Slate.Http.Api
 {
-	[ContractClass(typeof(IFormStoreContract))]
-	public interface IFormStore
+	[ContractClass(typeof(IIssueStoreContract))]
+	public interface IIssueStore
 	{
 		Task<Hyperlist> GetListAsync(HyperlistQuery query);
-
-		Task<FormResource> GetFormAsync(EntityId id);
 	}
 
-	[ContractClassFor(typeof(IFormStore))]
-	internal abstract class IFormStoreContract : IFormStore
+	[ContractClassFor(typeof(IIssueStore))]
+	internal abstract class IIssueStoreContract : IIssueStore
 	{
-		Task<Hyperlist> IFormStore.GetListAsync(HyperlistQuery query)
+		Task<Hyperlist> IIssueStore.GetListAsync(HyperlistQuery query)
 		{
 			Contract.Requires(query != null);
 			Contract.Ensures(Contract.Result<Task<Hyperlist>>() != null);
-
-			return null;
-		}
-
-		Task<FormResource> IFormStore.GetFormAsync(EntityId id)
-		{
-			Contract.Requires(id != EntityId.Unassigned);
 
 			return null;
 		}

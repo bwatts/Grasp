@@ -34,14 +34,13 @@ namespace Slate.Http.Api
 			_byIdQuery = byIdQuery;
 		}
 
-		public async Task<Hyperlist> GetListAsync(ListViewKey viewKey)
+		public async Task<Hyperlist> GetListAsync(HyperlistQuery query)
 		{
-			var list = await _listService.GetViewAsync(viewKey);
+			var list = await _listService.GetViewAsync(query.Key);
 
 			return GetHyperlist(
-				_resourceContext.CreateHeader("Forms", "forms" + viewKey.GetQuery(includeSeparator: true)),
-				new Hyperlink("forms?page={page}&pageSize={page-size}&sort={sort}", relationship: "grasp:list-page"),
-				viewKey,
+				_resourceContext.CreateHeader("Forms", "forms" + query.GetQueryString(includeSeparator: true)),
+				query,
 				list,
 				item =>
 				{

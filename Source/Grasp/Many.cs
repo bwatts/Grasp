@@ -24,19 +24,6 @@ namespace Grasp
 		public Many(params T[] items) : this(items as IEnumerable<T>)
 		{}
 
-		public Many(IEqualityComparer<T> comparer)
-		{
-			_items = new HashSet<T>(comparer);
-		}
-
-		public Many(IEqualityComparer<T> comparer, IEnumerable<T> items)
-		{
-			_items = new HashSet<T>(items, comparer);
-		}
-
-		public Many(IEqualityComparer<T> comparer, params T[] items) : this(comparer, items as IEnumerable<T>)
-		{}
-
 		public IEnumerator<T> GetEnumerator()
 		{
 			return _items.GetEnumerator();

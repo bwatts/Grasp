@@ -275,6 +275,7 @@
     <Compile Include="EquatableValue.cs" />
     <Compile Include="EquatableWithExactType.cs" />
     <Compile Include="FieldBinding.cs" />
+    <Compile Include="ManyKeyed.cs" />
     <Compile Include="Messaging\AmbientMessageChannel.cs" />
     <Compile Include="Messaging\IHandler.cs" />
     <Compile Include="Messaging\TypeDispatchChannel.cs" />

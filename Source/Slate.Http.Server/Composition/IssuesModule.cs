@@ -22,9 +22,13 @@ namespace Slate.Http.Server.Composition
 
 			RegisterType<IssueListService>().Named<IListService>("Issues").InstancePerDependency();
 
-			Register(c => new IssuesController(c.Resolve<IHttpResourceContext>(), c.ResolveNamed<IListService>("Issues"))).InstancePerDependency();
+			Register(c => new IssueStore(c.Resolve<IHttpResourceContext>(), c.ResolveNamed<IListService>("Issues")))
+			.As<IIssueStore>()
+			.InstancePerDependency();
 
-			httpSettings.Routes.MapHttpRoute("issues", "issues", new { controller = "Issues", action = "GetListPageAsync" });
+			RegisterType<IssuesController>().InstancePerDependency();
+
+			httpSettings.Routes.MapHttpRoute("issues", "issues", new { controller = "Issues" });
 		}
 	}
 }

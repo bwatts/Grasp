@@ -19,6 +19,15 @@ namespace Grasp.Hypermedia.Linq
 			Items = items.ToMany();
 		}
 
+		public MList(MClass @class, params MContent[] items) : this(@class, items as IEnumerable<MContent>)
+		{}
+
+		public MList(IEnumerable<MContent> items) : this(MClass.Empty, items)
+		{}
+
+		public MList(params MContent[] items) : this(items as IEnumerable<MContent>)
+		{}
+
 		public Many<MContent> Items { get { return GetValue(ItemsField); } private set { SetValue(ItemsField, value); } }
 
 		protected override object GetHtmlWithoutClass()

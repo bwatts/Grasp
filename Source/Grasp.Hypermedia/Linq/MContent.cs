@@ -12,11 +12,9 @@ namespace Grasp.Hypermedia.Linq
 	{
 		public static readonly Field<MClass> ClassField = Field.On<MContent>.For(x => x.Class);
 
-		protected MContent(MClass @class)
+		protected MContent(MClass @class = null)
 		{
-			Contract.Requires(@class != null);
-
-			Class = @class;
+			Class = @class ?? MClass.Empty;
 		}
 
 		public MClass Class { get { return GetValue(ClassField); } private set { SetValue(ClassField, value); } }

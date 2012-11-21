@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using Cloak;
 using Grasp;
+using Grasp.Hypermedia;
 using Grasp.Hypermedia.Lists;
 using Grasp.Hypermedia.Server;
 using Grasp.Lists;
@@ -40,7 +41,14 @@ namespace Slate.Http.Api
 		[HttpGet]
 		public Task<Hyperlist> GetListPageAsync(ListViewKey key)
 		{
-			return _formStore.GetListAsync(key);
+			// TODO: Where do the start/size/sort parameter names originate?
+
+			return _formStore.GetListAsync(new HyperlistQuery(
+				new Hyperlink("forms", relationship: "grasp:list", @class: "forms"),
+				key,
+				"start",
+				"size",
+				"sort"));
 		}
 
 		[HttpGet]

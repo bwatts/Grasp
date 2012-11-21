@@ -61,6 +61,15 @@ namespace Grasp.Hypermedia {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Description lists require at least one term and one description.
+        /// </summary>
+        internal static string DescriptionListsRequireTermAndDescription {
+            get {
+                return ResourceManager.GetString("DescriptionListsRequireTermAndDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Expecting composite list item content.
         /// </summary>
         internal static string ExpectingCompositeListItemContent {
@@ -70,29 +79,29 @@ namespace Grasp.Hypermedia {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Expecting definition element &apos;dd&apos; [at: {0}].
-        /// </summary>
-        internal static string ExpectingDefinition {
-            get {
-                return ResourceManager.GetString("ExpectingDefinition", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Expecting term element &apos;dt&apos; [at: {0}].
-        /// </summary>
-        internal static string ExpectingTerm {
-            get {
-                return ResourceManager.GetString("ExpectingTerm", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Expecting {0} for definition, received {1}.
         /// </summary>
         internal static string ExpectingValue {
             get {
                 return ResourceManager.GetString("ExpectingValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Found a description before any terms.
+        /// </summary>
+        internal static string FoundDescriptionBeforeTerms {
+            get {
+                return ResourceManager.GetString("FoundDescriptionBeforeTerms", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Found terms without description.
+        /// </summary>
+        internal static string FoundTermsWithoutDescription {
+            get {
+                return ResourceManager.GetString("FoundTermsWithoutDescription", resourceCulture);
             }
         }
         
@@ -156,15 +165,6 @@ namespace Grasp.Hypermedia {
         internal static string StreamIsInvalidXml {
             get {
                 return ResourceManager.GetString("StreamIsInvalidXml", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Term &quot;{0}&quot; does not have a definition.
-        /// </summary>
-        internal static string TermHasNoDefinition {
-            get {
-                return ResourceManager.GetString("TermHasNoDefinition", resourceCulture);
             }
         }
     }

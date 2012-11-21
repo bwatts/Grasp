@@ -47,11 +47,11 @@ namespace Grasp.Lists
 			get { return Start == Count.None ? Count.None : new Count(Start.Value + Size.Value - 1); }
 		}
 
-		public string GetQuery(string startKey = "start", string sizeKey = "size", string sortKey = "sort", bool includeSeparator = false)
+		public string GetQuery(string startParameter = "start", string sizeParameter = "size", string sortParameter = "sort", bool includeSeparator = false)
 		{
-			Contract.Requires(!String.IsNullOrEmpty(startKey));
-			Contract.Requires(!String.IsNullOrEmpty(sizeKey));
-			Contract.Requires(!String.IsNullOrEmpty(sortKey));
+			Contract.Requires(!String.IsNullOrEmpty(startParameter));
+			Contract.Requires(!String.IsNullOrEmpty(sizeParameter));
+			Contract.Requires(!String.IsNullOrEmpty(sortParameter));
 
 			var query = new StringBuilder();
 
@@ -62,16 +62,16 @@ namespace Grasp.Lists
 					query.Append("?");
 				}
 
-				query.Append(startKey).Append("=").Append(Start);
+				query.Append(startParameter).Append("=").Append(Start);
 
 				if(Size != Count.None)
 				{
-					query.Append("&").Append(sizeKey).Append("=").Append(Size);
+					query.Append("&").Append(sizeParameter).Append("=").Append(Size);
 				}
 
 				if(Sort != Sort.Empty)
 				{
-					query.Append("&").Append(sortKey).Append("=").Append(Sort);
+					query.Append("&").Append(sortParameter).Append("=").Append(Sort);
 				}
 			}
 

@@ -2,14 +2,20 @@
 	<head>
 		<title>Forms</title>
 		<base href="http://localhost:12345" />
+		<link rel="self" href="forms?start=11&size=10&sort=IssueCount%20desc,Name" />
 		<link rel="grasp:media-type" class="list" href="media/application%2Fvnd.grasp.list%2Bhtml" />
 	</head>
 	<body>
-		<a rel="grasp:list-template" class="form" href="forms?page={page}&pageSize={page-size}&sort={sort}" />
 		<div class="query">
-			<span class="start">11</span>
-			<span class="size">10</span>
-			<span class="sort">IssueCount desc,Name</span>
+			<a rel="grasp:list" class="forms" href="forms" />
+			<dl>
+				<dt class="start-parameter">start</dt>
+				<dd>11</dd>
+				<dt class="size-parameter">size</dt>
+				<dd>10</dd>
+				<dt class="sort-parameter">sort</dt>
+				<dd>IssueCount desc,Name</dd>
+			</dl>
 		</div>
 		<div class="pages">
 			<span class="count">3</span>
@@ -19,7 +25,7 @@
 		</div>
 		<div class="items">
 			<span class="total">30</span>
-			<dl class="schema">
+			<dl>
 				<dt>Id</dt>
 				<dd>id</dd>
 				<dt>Name</dt>

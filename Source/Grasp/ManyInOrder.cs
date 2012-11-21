@@ -10,12 +10,10 @@ namespace Grasp
 {
 	public sealed class ManyInOrder<T> : IList<T>, IReadOnlyList<T>
 	{
-		private readonly IEqualityComparer<T> _comparer;
 		private readonly OrderedDictionary _items;
 
 		public ManyInOrder()
 		{
-			_comparer = EqualityComparer<T>.Default;
 			_items = new OrderedDictionary();
 		}
 
@@ -23,7 +21,6 @@ namespace Grasp
 		{
 			Contract.Requires(items != null);
 
-			_comparer = EqualityComparer<T>.Default;
 			_items = new OrderedDictionary();
 
 			foreach(var item in items)
@@ -33,27 +30,6 @@ namespace Grasp
 		}
 
 		public ManyInOrder(params T[] items) : this(items as IEnumerable<T>)
-		{}
-
-		public ManyInOrder(IEqualityComparer<T> comparer)
-		{
-			Contract.Requires(comparer != null);
-
-			_comparer = comparer;
-			_items = new OrderedDictionary(new UntypedEqualityComparer(comparer));
-		}
-
-		public ManyInOrder(IEqualityComparer<T> comparer, IEnumerable<T> items) : this(comparer)
-		{
-			Contract.Requires(items != null);
-
-			foreach(var item in items)
-			{
-				_items.Add(item, null);
-			}
-		}
-
-		public ManyInOrder(IEqualityComparer<T> comparer, params T[] items) : this(comparer, items as IEnumerable<T>)
 		{}
 
 		public IEnumerator<T> GetEnumerator()
@@ -99,7 +75,7 @@ namespace Grasp
 			{
 				var currentItem = (T) _items[index];
 
-				if(_comparer.Equals(currentItem, item))
+				if(EqualityComparer<T>.Default.Equals(currentItem, item))
 				{
 					return index;
 				}
@@ -137,26 +113,6 @@ namespace Grasp
 		public int Count
 		{
 			get { return _items.Count; }
-		}
-
-		private sealed class UntypedEqualityComparer : IEqualityComparer
-		{
-			private readonly IEqualityComparer<T> _typedComparer;
-
-			internal UntypedEqualityComparer(IEqualityComparer<T> typedComparer)
-			{
-				_typedComparer = typedComparer;
-			}
-
-			public new bool Equals(object x, object y)
-			{
-				return _typedComparer.Equals((T) x, (T) y);
-			}
-
-			public int GetHashCode(object obj)
-			{
-				return _typedComparer.GetHashCode((T) obj);
-			}
 		}
 	}
 }

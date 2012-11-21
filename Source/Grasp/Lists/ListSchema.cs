@@ -11,28 +11,25 @@ namespace Grasp.Lists
 {
 	public sealed class ListSchema : Notion, IReadOnlyDictionary<string, Type>
 	{
-		public static readonly Field<IReadOnlyDictionary<string, Type>> _fieldsField = Field.On<ListSchema>.For(x => x._fields);
+		public static readonly Field<ManyKeyed<string, Type>> _fieldsField = Field.On<ListSchema>.For(x => x._fields);
 
-		private IReadOnlyDictionary<string, Type> _fields { get { return GetValue(_fieldsField); } set { SetValue(_fieldsField, value); } }
+		private ManyKeyed<string, Type> _fields { get { return GetValue(_fieldsField); } set { SetValue(_fieldsField, value); } }
 
-		public ListSchema(IReadOnlyDictionary<string, Type> fields)
+		public ListSchema(IEnumerable<KeyValuePair<string, Type>> fields)
 		{
 			Contract.Requires(fields != null);
 
-			_fields = fields;
+			_fields = fields.ToManyKeyed();
 		}
-
-		public ListSchema(IEnumerable<KeyValuePair<string, Type>> fields) : this(fields.ToReadOnlyDictionary())
-		{}
 
 		public IEnumerable<string> FieldNames
 		{
-			get { return _fields.Keys; }
+			get { return ((IReadOnlyDictionary<string, Type>) _fields).Keys; }
 		}
 
 		public IEnumerable<Type> Types
 		{
-			get { return _fields.Values; }
+			get { return ((IReadOnlyDictionary<string, Type>) _fields).Values; }
 		}
 
 		public Type this[string fieldName]

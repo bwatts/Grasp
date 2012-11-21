@@ -117,17 +117,20 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="DescriptionListsRequireTermAndDescription" xml:space="preserve">
+    <value>Description lists require at least one term and one description</value>
+  </data>
   <data name="ExpectingCompositeListItemContent" xml:space="preserve">
     <value>Expecting composite list item content</value>
   </data>
-  <data name="ExpectingDefinition" xml:space="preserve">
-    <value>Expecting definition element 'dd' [at: {0}]</value>
-  </data>
-  <data name="ExpectingTerm" xml:space="preserve">
-    <value>Expecting term element 'dt' [at: {0}]</value>
-  </data>
   <data name="ExpectingValue" xml:space="preserve">
     <value>Expecting {0} for definition, received {1}</value>
+  </data>
+  <data name="FoundDescriptionBeforeTerms" xml:space="preserve">
+    <value>Found a description before any terms</value>
+  </data>
+  <data name="FoundTermsWithoutDescription" xml:space="preserve">
+    <value>Found terms without description</value>
   </data>
   <data name="HyperlinkIsTemplate" xml:space="preserve">
     <value>Hyperlink is a template and cannot be converted to a URI without replacing variables</value>
@@ -149,8 +152,5 @@
   </data>
   <data name="StreamIsInvalidXml" xml:space="preserve">
     <value>Stream is invalid XML:{0}{1}</value>
-  </data>
-  <data name="TermHasNoDefinition" xml:space="preserve">
-    <value>Term "{0}" does not have a definition</value>
   </data>
 </root>
