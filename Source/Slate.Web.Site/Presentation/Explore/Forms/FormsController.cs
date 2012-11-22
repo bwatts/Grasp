@@ -5,8 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using Grasp;
 using Grasp.Hypermedia;
 using Grasp.Work.Items;
+using Slate.Http;
 using Slate.Web.Site.Presentation.Navigation;
 using Slate.Web.Site.Presentation.Work;
 
@@ -36,9 +38,13 @@ namespace Slate.Web.Site.Presentation.Explore.Forms
 		}
 
 		[HttpGet]
-		public async Task<ActionResult> Details(Guid id)
+		public async Task<ActionResult> Details(EntityId id)
 		{
-			return View(await _layoutModelFactory.CreateLayoutModelAsync("Slate : Explore : Form : Details", new FormDetailsModel(), "explore", "forms"));
+			var form = await _formService.GetFormAsync(id);
+
+			return form == null
+				? new HttpNotFoundResult()
+				: View(await CreateLayoutModelAsync(form)) as ActionResult;
 		}
 
 		[HttpGet]
@@ -60,6 +66,11 @@ namespace Slate.Web.Site.Presentation.Explore.Forms
 				: _workMesh.GetItemUri(workItem);
 
 			return Redirect(redirectUri.ToString());
+		}
+
+		private Task<ILayoutModel<FormDetailsModel>> CreateLayoutModelAsync(FormResource form)
+		{
+			return _layoutModelFactory.CreateLayoutModelAsync("Slate : Explore : Form : Details", new FormDetailsModel(form.Header.Title), "explore", "forms");
 		}
 	}
 }

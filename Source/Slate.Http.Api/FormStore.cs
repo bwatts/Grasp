@@ -72,7 +72,7 @@ namespace Slate.Http.Api
 
 		private FormResource CreateResource(Form form)
 		{
-			return new FormResource(_resourceContext.CreateHeader(form.Name, GetUrl(form.Id)), form.Id, form.Name);
+			return new FormResource(_resourceContext.CreateHeader(form.Name, GetUrl(form.Id)));
 		}
 	}
 }

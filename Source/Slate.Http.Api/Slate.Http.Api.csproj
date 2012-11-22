@@ -135,7 +135,6 @@
     <Compile Include="IFormByIdQuery.cs" />
     <Compile Include="IssueStore.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="FormResource.cs" />
     <Compile Include="FormStore.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -158,6 +157,10 @@
     <ProjectReference Include="..\Grasp\Grasp.csproj">
       <Project>{0a728107-2d52-4e6b-b651-793048876837}</Project>
       <Name>Grasp</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Slate.Http\Slate.Http.csproj">
+      <Project>{0887a198-2019-4e17-8e5b-6de73224dcc6}</Project>
+      <Name>Slate.Http</Name>
     </ProjectReference>
     <ProjectReference Include="..\Slate.Services\Slate.Services.csproj">
       <Project>{c4827516-e172-4890-9b95-b26d59b46553}</Project>

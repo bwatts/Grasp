@@ -9,6 +9,7 @@ using Autofac;
 using Cloak.Autofac;
 using Cloak.Http;
 using Cloak.Http.Media;
+using Cloak.Web.Http.Autofac;
 using Grasp.Hypermedia;
 using Slate.Web.Site.Configuration;
 
@@ -21,14 +22,8 @@ namespace Slate.Web.Site.Composition.Infrastructure
 			Contract.Requires(httpSettings != null);
 			Contract.Requires(siteSettings != null);
 
-			var apiFormat = new ApiHtmlFormat();
-			var errorFormat = new ApiErrorHtmlFormat();
-
-			RegisterInstance(apiFormat).As<MediaFormat>();
-			RegisterInstance(errorFormat).As<MediaFormat>();
-
-			httpSettings.Formatters.Add(apiFormat);
-			httpSettings.Formatters.Add(errorFormat);
+			httpSettings.RegisterMediaFormat<ApiHtmlFormat>(this);
+			httpSettings.RegisterMediaFormat<ApiErrorHtmlFormat>(this);
 
 			// There is an implicit contract between ApiClient and its factory for HttpClient. The container uses .ExternallyOwned to indicate
 			// HttpClient instances are not tracked by the container for disposal. However, ApiClient has to make the assumption that it can

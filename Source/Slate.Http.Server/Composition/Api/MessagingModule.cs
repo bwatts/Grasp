@@ -14,7 +14,7 @@ using Grasp.Work.Items;
 using Slate.Forms;
 using Slate.Services;
 
-namespace Slate.Http.Server.Composition
+namespace Slate.Http.Server.Composition.Api
 {
 	public class MessagingModule : BuilderModule
 	{

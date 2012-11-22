@@ -180,6 +180,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="_Examples\api.html" />
+    <Content Include="_Examples\form.html" />
     <Content Include="_Examples\error.html" />
     <Content Include="_Examples\work-item_in-progress.html" />
     <Content Include="_Examples\work-item_complete.html" />

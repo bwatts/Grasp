@@ -7,13 +7,14 @@ using System.Web.Http;
 using Autofac;
 using Cloak.Autofac;
 using Cloak.Http.Media;
+using Cloak.Web.Http.Autofac;
 using Grasp.Hypermedia;
 using Grasp.Hypermedia.Raven;
 using Grasp.Hypermedia.Server;
 using Grasp.Lists;
 using Grasp.Work.Items;
 
-namespace Slate.Http.Server.Composition
+namespace Slate.Http.Server.Composition.Api
 {
 	public class WorkModule : BuilderModule
 	{
@@ -21,11 +22,7 @@ namespace Slate.Http.Server.Composition
 		{
 			Contract.Requires(httpSettings != null);
 
-			var workItemFormat = new WorkItemHtmlFormat();
-
-			httpSettings.Formatters.Add(workItemFormat);
-
-			RegisterInstance(workItemFormat).As<MediaFormat>();
+			httpSettings.RegisterMediaFormat<WorkItemHtmlFormat>(this);
 
 			RegisterType<StartWorkService>().As<IStartWorkService>().InstancePerDependency();
 

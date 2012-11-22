@@ -9,7 +9,7 @@ using Grasp.Hypermedia;
 using Grasp.Hypermedia.Server;
 using Slate.Http.Server.Configuration;
 
-namespace Slate.Http.Server.Composition
+namespace Slate.Http.Server.Composition.Api
 {
 	public class ErrorModule : BuilderModule
 	{

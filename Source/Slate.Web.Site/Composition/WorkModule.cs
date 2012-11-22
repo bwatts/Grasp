@@ -8,6 +8,7 @@ using System.Web.Routing;
 using Autofac;
 using Cloak.Autofac;
 using Cloak.Http.Media;
+using Cloak.Web.Http.Autofac;
 using Grasp.Hypermedia;
 using Slate.Web.Site.Presentation.Work;
 
@@ -20,11 +21,7 @@ namespace Slate.Web.Site.Composition
 			Contract.Requires(routes != null);
 			Contract.Requires(httpSettings != null);
 
-			var workItemFormat = new WorkItemHtmlFormat();
-
-			RegisterInstance(workItemFormat).As<MediaFormat>();
-
-			httpSettings.Formatters.Add(workItemFormat);
+			httpSettings.RegisterMediaFormat<WorkItemHtmlFormat>(this);
 
 			RegisterType<WorkService>().As<IWorkService>().InstancePerDependency();
 

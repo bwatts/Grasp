@@ -9,6 +9,7 @@ using Grasp.Hypermedia.Raven;
 using Grasp.Raven;
 using Slate.Forms;
 using Slate.Http.Persistence;
+using Slate.Http.Server.Composition.Api;
 using Slate.Http.Server.Configuration;
 
 namespace Slate.Http.Server.Composition

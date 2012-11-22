@@ -55,6 +55,7 @@
       <Link>Properties\GraspAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="ApiExceptionFilterAttribute.cs" />
+    <Compile Include="EntityIdBinder.cs" />
     <Compile Include="ExceptionCodeMap.cs" />
     <Compile Include="IExceptionCodeMap.cs" />
     <Compile Include="IStartWorkService.cs" />

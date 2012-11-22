@@ -12,7 +12,7 @@ using Grasp.Lists;
 using Slate.Http.Api;
 using Slate.Http.Persistence;
 
-namespace Slate.Http.Server.Composition
+namespace Slate.Http.Server.Composition.Api
 {
 	public class IssuesModule : BuilderModule
 	{

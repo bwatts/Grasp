@@ -7,6 +7,8 @@ using System.Web.Http;
 using System.Web.Mvc;
 using Cloak.Autofac;
 using Cloak.Http.Media;
+using Cloak.Web.Http.Autofac;
+using Grasp;
 using Grasp.Hypermedia;
 using Grasp.Hypermedia.Lists;
 using Grasp.Lists;
@@ -20,13 +22,10 @@ namespace Slate.Web.Site.Composition.Infrastructure
 			Contract.Requires(binders != null);
 			Contract.Requires(httpSettings != null);
 
+			binders.Add(typeof(EntityId), new Slate.Web.Site.Presentation.EntityIdBinder());
 			binders.Add(typeof(ListViewKey), new Slate.Web.Site.Presentation.Lists.ListViewKeyBinder());
 
-			var listFormat = new HyperlistHtmlFormat();
-
-			RegisterInstance(listFormat).As<MediaFormat>();
-
-			httpSettings.Formatters.Add(listFormat);
+			httpSettings.RegisterMediaFormat<HyperlistHtmlFormat>(this);
 
 			RegisterType<ListClient>().As<IListClient>().InstancePerDependency();
 		}

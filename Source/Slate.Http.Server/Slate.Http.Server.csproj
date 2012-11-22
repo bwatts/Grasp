@@ -191,14 +191,17 @@
     <Compile Include="..\SlateAssemblyInfo.cs">
       <Link>Properties\SlateAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Composition\ApiModule.cs" />
-    <Compile Include="Composition\ErrorModule.cs" />
-    <Compile Include="Composition\MessagingModule.cs" />
-    <Compile Include="Composition\WorkModule.cs" />
+    <Compile Include="Composition\Api\ApiModule.cs" />
+    <Compile Include="Composition\Api\ContentNegotiationModule.cs" />
+    <Compile Include="Composition\Api\ResourceModule.cs" />
+    <Compile Include="Composition\Api\HomeModule.cs" />
+    <Compile Include="Composition\Api\ErrorModule.cs" />
+    <Compile Include="Composition\Api\MessagingModule.cs" />
+    <Compile Include="Composition\Api\WorkModule.cs" />
     <Compile Include="Composition\DomainModule.cs" />
-    <Compile Include="Composition\IssuesModule.cs" />
-    <Compile Include="Composition\ListModule.cs" />
-    <Compile Include="Composition\FormsModule.cs" />
+    <Compile Include="Composition\Api\IssuesModule.cs" />
+    <Compile Include="Composition\Api\ListModule.cs" />
+    <Compile Include="Composition\Api\FormsModule.cs" />
     <Compile Include="Composition\RavenModule.cs" />
     <Compile Include="Composition\TimeModule.cs" />
     <Compile Include="Configuration\ServerSection.cs" />
@@ -235,6 +238,10 @@
       <Project>{3689db83-f70b-4df6-ab11-60dc438d3ec6}</Project>
       <Name>Cloak.NaturalText</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\.submodules\Cloak\Source\Cloak.Web.Http.Autofac\Cloak.Web.Http.Autofac.csproj">
+      <Project>{24377703-7195-4dab-b323-1a8d263d7b12}</Project>
+      <Name>Cloak.Web.Http.Autofac</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\.submodules\Cloak\Source\Cloak\Cloak.csproj">
       <Project>{a931092c-2916-4d20-a26d-d131d98e3069}</Project>
       <Name>Cloak</Name>
@@ -266,6 +273,10 @@
     <ProjectReference Include="..\Slate.Http.Persistence\Slate.Http.Persistence.csproj">
       <Project>{36a85537-e068-415d-aa67-614eed7fbff2}</Project>
       <Name>Slate.Http.Persistence</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Slate.Http\Slate.Http.csproj">
+      <Project>{0887a198-2019-4e17-8e5b-6de73224dcc6}</Project>
+      <Name>Slate.Http</Name>
     </ProjectReference>
     <ProjectReference Include="..\Slate.Services\Slate.Services.csproj">
       <Project>{c4827516-e172-4890-9b95-b26d59b46553}</Project>

@@ -199,6 +199,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Presentation\EntityIdBinder.cs" />
     <Compile Include="Views\IssueItemDescriptions.cs" />
     <Compile Include="Views\FormItemDescriptions.cs" />
     <Compile Include="Presentation\Explore\Forms\FormListModel.cs" />
@@ -390,6 +391,10 @@
     <ProjectReference Include="..\..\.submodules\Cloak\Source\Cloak.NaturalText\Cloak.NaturalText.csproj">
       <Project>{3689db83-f70b-4df6-ab11-60dc438d3ec6}</Project>
       <Name>Cloak.NaturalText</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\.submodules\Cloak\Source\Cloak.Web.Http.Autofac\Cloak.Web.Http.Autofac.csproj">
+      <Project>{24377703-7195-4dab-b323-1a8d263d7b12}</Project>
+      <Name>Cloak.Web.Http.Autofac</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\.submodules\Cloak\Source\Cloak.Web.Mvc.Autofac\Cloak.Web.Mvc.Autofac.csproj">
       <Project>{4ce0d89f-89ac-448f-a716-b90c8e4f3c50}</Project>

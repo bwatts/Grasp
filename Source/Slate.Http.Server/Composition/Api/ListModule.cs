@@ -7,12 +7,14 @@ using System.Web.Http;
 using System.Web.Http.Controllers;
 using Cloak.Autofac;
 using Cloak.Http.Media;
+using Cloak.Web.Http.Autofac;
+using Grasp;
 using Grasp.Hypermedia;
 using Grasp.Hypermedia.Lists;
 using Grasp.Hypermedia.Server;
 using Grasp.Lists;
 
-namespace Slate.Http.Server.Composition
+namespace Slate.Http.Server.Composition.Api
 {
 	public class ListModule : BuilderModule
 	{
@@ -20,12 +22,9 @@ namespace Slate.Http.Server.Composition
 		{
 			Contract.Requires(httpSettings != null);
 
-			var listFormat = new HyperlistHtmlFormat();
+			httpSettings.RegisterMediaFormat<HyperlistHtmlFormat>(this);
 
-			httpSettings.Formatters.Add(listFormat);
-
-			RegisterInstance(listFormat).As<MediaFormat>();
-
+			httpSettings.ParameterBindingRules.Add(typeof(EntityId), parameter => parameter.BindWithModelBinding(new EntityIdBinder()));
 			httpSettings.ParameterBindingRules.Add(typeof(ListViewKey), parameter => parameter.BindWithModelBinding(new ListViewKeyBinder()));
 		}
 	}

@@ -5,12 +5,13 @@ using System.Linq;
 using System.Web.Http;
 using Cloak.Autofac;
 using Cloak.Http.Media;
+using Cloak.Web.Http.Autofac;
 using Grasp.Hypermedia;
 using Slate.Http.Api;
 using Slate.Http.Persistence;
 using Slate.Http.Server.Configuration;
 
-namespace Slate.Http.Server.Composition
+namespace Slate.Http.Server.Composition.Api
 {
 	public class ApiModule : BuilderModule
 	{
@@ -19,28 +20,17 @@ namespace Slate.Http.Server.Composition
 			Contract.Requires(httpSettings != null);
 			Contract.Requires(serverSettings != null);
 
-			var apiFormat = new ApiHtmlFormat();
+			httpSettings.RegisterMediaFormat<ApiHtmlFormat>(this);
 
-			RegisterInstance(apiFormat).As<MediaFormat>();
-
-			httpSettings.Formatters.Add(apiFormat);
-
+			RegisterModule(new ContentNegotiationModule(httpSettings));
 			RegisterModule(new ErrorModule(httpSettings, serverSettings));
-
-			RegisterModule<MessagingModule>();
-
-			RegisterModule(new ListModule(httpSettings));
-
 			RegisterModule(new FormsModule(httpSettings, serverSettings));
+			RegisterModule(new HomeModule(httpSettings));
 			RegisterModule(new IssuesModule(httpSettings));
-
+			RegisterModule(new ListModule(httpSettings));
+			RegisterModule<MessagingModule>();
+			RegisterModule(new ResourceModule(serverSettings));
 			RegisterModule(new WorkModule(httpSettings));
-
-			Register(c => new HttpResourceContext(serverSettings.BaseUrl)).As<IHttpResourceContext>().SingleInstance();
-
-			RegisterType<HomeController>().InstancePerDependency();
-
-			httpSettings.Routes.MapHttpRoute("home", "", new { controller = "Home" });
 		}
 	}
 }
