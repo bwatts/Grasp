@@ -10,26 +10,10 @@
 </div>
 
 <div class="issues">
-	@{Html.RenderList(Model.List);}
+	@{Html.RenderDescriptionList(Model.List, item => item.GetIssueDescription());}
 </div>
 
 <div class="explore">
 	@Html.RenderLink(Model.ExploreItem.Link)
-	<div class="subtitle">
-		@{
-			var total = (int) Model.ExploreItem.ListItem["Total"];
-			var forms = (int) Model.ExploreItem.ListItem["Forms"];
-			var calculations = (int) Model.ExploreItem.ListItem["Calculations"];
-			var variables = (int) Model.ExploreItem.ListItem["Variables"];
-
-			@GlobalizedFormatting.FormatInvariant(
-				"{0} total, {1} form{2}, {3} calculation{4}, {5} variable{6}",
-				total,
-				forms,
-				forms == 1 ? "" : "s",
-				calculations,
-				calculations == 1 ? "" : "s",
-				variables,
-				variables == 1 ? "" : "s");
-		}
+	<div class="subtitle">@Model.ExploreItem.GetIssueExploreDescription()</div>
 </div>

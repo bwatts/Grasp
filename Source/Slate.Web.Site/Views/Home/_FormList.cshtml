@@ -9,28 +9,9 @@
 	<h2>@Html.RenderLink(Model.NewLink)</h2>
 </div>
 
-@{Html.RenderList(Model.List);}
+@{Html.RenderDescriptionList(Model.List, item => item.GetFormDescription());}
 
 <div class="explore">
 	@Html.RenderLink(Model.ExploreItem.Link)
-	<div class="subtitle">
-		@{
-			var total = (int) Model.ExploreItem.ListItem["Total"];
-			var drafts = (int) Model.ExploreItem.ListItem["Drafts"];
-			var published = (int) Model.ExploreItem.ListItem["Published"];
-			var responseCount = (int) Model.ExploreItem.ListItem["ResponseCount"];
-			var issueCount = (int) Model.ExploreItem.ListItem["IssueCount"];
-			
-			@GlobalizedFormatting.FormatInvariant(
-				"{0} total, {1} draft{2}, {3} published, {4} response{5} ({6} issue{7})",
-				total,
-				drafts,
-				drafts == 1 ? "" : "s",
-				published,
-				responseCount,
-				responseCount == 1 ? "" : "s",
-				issueCount,
-				issueCount == 1 ? "" : "s");
-		}
-	</div>
+	<div class="subtitle">@Model.ExploreItem.GetFormExploreDescription()</div>
 </div>

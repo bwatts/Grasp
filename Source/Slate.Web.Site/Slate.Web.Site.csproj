@@ -199,6 +199,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Views\IssueItemDescriptions.cs" />
+    <Compile Include="Views\FormItemDescriptions.cs" />
     <Compile Include="Presentation\Explore\Forms\FormListModel.cs" />
     <Compile Include="Presentation\Explore\Forms\FormDetailsModel.cs" />
     <Compile Include="Presentation\Explore\Forms\FormsController.cs" />
@@ -235,6 +237,7 @@
     <Compile Include="Presentation\Lists\ListModelFactory.cs" />
     <Compile Include="Presentation\Lists\ListViewKeyBinder.cs" />
     <Compile Include="Presentation\CountModel.cs" />
+    <Compile Include="Presentation\Lists\ListWithItemDescriptionsModel.cs" />
     <Compile Include="Presentation\Lists\PagesModel.cs" />
     <Compile Include="Presentation\Navigation\NavigationArea.cs" />
     <Compile Include="Presentation\Navigation\NavigationModel.cs" />
@@ -359,7 +362,7 @@
     <Content Include="Views\Home\_FormList.cshtml" />
     <Content Include="Views\Home\_Welcome.cshtml" />
     <Content Include="Views\Site\_Navigation.cshtml" />
-    <Content Include="Views\Site\_List.cshtml" />
+    <Content Include="Views\Site\_DescriptionList.cshtml" />
     <Content Include="Views\Site\_User.cshtml" />
     <Content Include="Views\Explore\Index.cshtml" />
     <Content Include="Views\Explore\Forms\List.cshtml" />

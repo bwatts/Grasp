@@ -13,12 +13,13 @@ namespace Slate.Web.Site.Views
 	[EditorBrowsable(EditorBrowsableState.Never)]
 	public static class ModelRendering
 	{
-		public static void RenderList(this HtmlHelper html, ListModel list)
+		public static void RenderDescriptionList(this HtmlHelper html, ListModel list, Func<ItemModel, string> descriptionSelector)
 		{
 			Contract.Requires(html != null);
 			Contract.Requires(list != null);
+			Contract.Requires(descriptionSelector != null);
 
-			html.RenderPartial("_List", list);
+			html.RenderPartial("_DescriptionList", new ListWithItemDescriptionsModel(list, descriptionSelector));
 		}
 	}
 }

@@ -5,6 +5,7 @@ using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Cloak;
 using Cloak.Linq;
 
 namespace Grasp.Lists
@@ -80,6 +81,11 @@ namespace Grasp.Lists
 		IEnumerator<KeyValuePair<string, object>> IEnumerable<KeyValuePair<string, object>>.GetEnumerator()
 		{
 			return GetEnumerator();
+		}
+
+		public T Read<T>(string key)
+		{
+			return Conversion.To<T>(this[key]);
 		}
 	}
 }
