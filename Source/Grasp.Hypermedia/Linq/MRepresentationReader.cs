@@ -62,23 +62,23 @@ namespace Grasp.Hypermedia.Linq
 		{
 			if(element.Name == "a")
 			{
-				return element.ReadMLink();
+				return element.ReadLink();
 			}
 			else if(element.Name == "span")
 			{
-				return element.ReadMValue();
+				return element.ReadValue();
 			}
-			else if(element.Name == "div")
+			else if(element.Name == "section")
 			{
-				return element.ReadMDivision();
+				return element.ReadSection();
 			}
 			else if(element.Name == "dl")
 			{
-				return element.ReadMDescriptionList();
+				return element.ReadDescriptionList();
 			}
 			else if(element.Name == "ul" || element.Name == "ol")
 			{
-				return element.ReadMList();
+				return element.ReadList();
 			}
 			else
 			{
@@ -93,42 +93,42 @@ namespace Grasp.Hypermedia.Linq
 			var title = ((string) element.Attribute(Hyperlink.TitleAttributeName)) ?? "";
 			var rel = ((string) element.Attribute(Hyperlink.RelAttributeName) ?? "");
 			var href = element.RequiredAttribute(Hyperlink.HrefAttributeName).RequiredString();
-			var @class = element.ReadMClass();
+			var @class = element.ReadClass();
 
 			return new Hyperlink(href, element.Value, title, rel, @class);
 		}
 
-		private static MLink ReadMLink(this XElement element)
+		private static MLink ReadLink(this XElement element)
 		{
 			return new MLink(element.ReadHyperlink());
 		}
 
-		private static MClass ReadMClass(this XElement element)
+		private static MClass ReadClass(this XElement element)
 		{
 			return new MClass(((string) element.Attribute("class")) ?? "");
 		}
 
-		private static MValue ReadMValue(this XElement element)
+		private static MValue ReadValue(this XElement element)
 		{
-			return new MValue(element.ReadMClass(), element.Value);
+			return new MValue(element.ReadClass(), element.Value);
 		}
 
-		private static MDivision ReadMDivision(this XElement element)
+		private static MSection ReadSection(this XElement element)
 		{
-			return new MDivision(element.ReadMClass(), element.Elements().ReadMContents());
+			return new MSection(element.ReadClass(), element.Elements().ReadMContents());
 		}
 
-		private static MDescriptionList ReadMDescriptionList(this XElement element)
+		private static MDescriptionList ReadDescriptionList(this XElement element)
 		{
-			return new MDescriptionList(element.ReadMClass(), element.ReadDescriptions());
+			return new MDescriptionList(element.ReadClass(), element.ReadDescriptions());
 		}
 
-		private static MList ReadMList(this XElement element)
+		private static MList ReadList(this XElement element)
 		{
-			return new MList(ReadMListItems(element.Elements("li")));
+			return new MList(ReadListItems(element.Elements("li")));
 		}
 
-		private static IEnumerable<MContent> ReadMListItems(IEnumerable<XElement> itemElements)
+		private static IEnumerable<MContent> ReadListItems(IEnumerable<XElement> itemElements)
 		{
 			return itemElements.Select(itemElement => itemElement.Elements().ReadMContent());
 		}
@@ -153,7 +153,7 @@ namespace Grasp.Hypermedia.Linq
 						descriptions = new List<MContent>();
 					}
 
-					terms.Add(childElement.ReadMValue());
+					terms.Add(childElement.ReadValue());
 
 					foundTerm = true;
 					priorWasDescription = false;

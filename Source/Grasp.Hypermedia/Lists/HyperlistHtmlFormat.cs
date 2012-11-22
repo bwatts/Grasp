@@ -28,9 +28,9 @@ namespace Grasp.Hypermedia.Lists
 
 		protected override IEnumerable<MContent> ConvertFromResource(Hyperlist resource)
 		{
-			yield return new MDivision("query", GetListLink(resource), GetQueryDescription(resource.Query));
-			yield return new MDivision("pages", GetPagesValues(resource));
-			yield return new MDivision("items", GetTotal(resource), GetSchema(resource), GetItemList(resource));
+			yield return new MSection("query", GetListLink(resource), GetQueryDescription(resource.Query));
+			yield return new MSection("pages", GetPagesValues(resource));
+			yield return new MSection("items", GetTotal(resource), GetSchema(resource), GetItemList(resource));
 		}
 
 		protected override Hyperlist ConvertToResource(MHeader header, MCompositeContent body)
@@ -142,16 +142,16 @@ namespace Grasp.Hypermedia.Lists
 
 		private static HyperlistQuery ReadQuery(MCompositeContent body)
 		{
-			var query = body.Items.ReadContent<MDivision>("query");
+			var query = body.Items.ReadContent<MSection>("query");
 
-			var description = query.Children.ReadContent<MDescriptionList>();
+			var description = query.Items.ReadContent<MDescriptionList>();
 
 			var startItem = description.Items.First(item => item.Term.Class == "start-parameter");
 			var sizeItem = description.Items.First(item => item.Term.Class == "size-parameter");
 			var sortItem = description.Items.First(item => item.Term.Class == "sort-parameter");
 
 			return new HyperlistQuery(
-				query.Children.ReadLink("grasp:list").Hyperlink,
+				query.Items.ReadLink("grasp:list").Hyperlink,
 				new ListViewKey(
 					new Count(startItem.Description.Read<int>()),
 					new Count(sizeItem.Description.Read<int>()),
@@ -163,33 +163,33 @@ namespace Grasp.Hypermedia.Lists
 
 		private static ListViewPages ReadPages(MCompositeContent body)
 		{
-			var pagesDiv = body.Items.ReadContent<MDivision>("pages");
+			var section = body.Items.ReadContent<MSection>("pages");
 
 			var pages = NotionActivator.GetUninitialized<ListViewPages>();
 
-			ListViewPages.CountField.Set(pages, new Count(pagesDiv.Children.ReadValue<int>("count")));
-			ListViewPages.CurrentField.Set(pages, new Count(pagesDiv.Children.ReadValue<int>("current")));
-			ListViewPages.PreviousField.Set(pages, new Count(pagesDiv.Children.ReadValue<int>("previous")));
-			ListViewPages.NextField.Set(pages, new Count(pagesDiv.Children.ReadValue<int>("next")));
+			ListViewPages.CountField.Set(pages, new Count(section.Items.ReadValue<int>("count")));
+			ListViewPages.CurrentField.Set(pages, new Count(section.Items.ReadValue<int>("current")));
+			ListViewPages.PreviousField.Set(pages, new Count(section.Items.ReadValue<int>("previous")));
+			ListViewPages.NextField.Set(pages, new Count(section.Items.ReadValue<int>("next")));
 
 			return pages;
 		}
 
 		private static HyperlistItems ReadItems(MCompositeContent body)
 		{
-			var items = body.Items.ReadContent<MDivision>("items");
+			var items = body.Items.ReadContent<MSection>("items");
 
 			var schema = ReadSchema(items);
 
 			return new HyperlistItems(
-				new Count(items.Children.ReadValue<int>("total")),
+				new Count(items.Items.ReadValue<int>("total")),
 				ReadSchema(items),
 				ReadItems(schema, items));
 		}
 
-		private static ListSchema ReadSchema(MDivision items)
+		private static ListSchema ReadSchema(MSection section)
 		{
-			var schema = items.Children.ReadContent<MDescriptionList>();
+			var schema = section.Items.ReadContent<MDescriptionList>();
 
 			return new ListSchema(
 				from item in schema.Items
@@ -254,9 +254,9 @@ namespace Grasp.Hypermedia.Lists
 			return type.Equals(expectedType, StringComparison.InvariantCultureIgnoreCase);
 		}
 
-		private static IEnumerable<HyperlistItem> ReadItems(ListSchema schema, MDivision items)
+		private static IEnumerable<HyperlistItem> ReadItems(ListSchema schema, MSection section)
 		{
-			var list = items.Children.ReadContent<MList>(MClass.Empty);
+			var list = section.Items.ReadContent<MList>(MClass.Empty);
 
 			return list.Items.Select(item => ReadItem(schema, item));
 		}

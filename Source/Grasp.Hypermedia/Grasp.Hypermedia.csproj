@@ -139,7 +139,7 @@
     <Compile Include="Linq\MContent.cs" />
     <Compile Include="Linq\MDescriptionItem.cs" />
     <Compile Include="Linq\MDescriptionList.cs" />
-    <Compile Include="Linq\MDivision.cs" />
+    <Compile Include="Linq\MSection.cs" />
     <Compile Include="Linq\MHeader.cs" />
     <Compile Include="Linq\MLink.cs" />
     <Compile Include="Linq\MList.cs" />

@@ -285,6 +285,8 @@ namespace Grasp
 			{
 				_field = field;
 
+				// TODO: Add supported for ManyKeyed<,>
+
 				IsMany = _field.ValueType.HasGenericDefinition(typeof(Many<>)) || _field.ValueType.HasGenericDefinition(typeof(ManyInOrder<>));
 
 				ElementType = !IsMany ? null : _field.ValueType.GetGenericArguments().Single();
