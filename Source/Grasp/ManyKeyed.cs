@@ -123,5 +123,10 @@ namespace Grasp
 		{
 			get { return _pairs[key]; }
 		}
+
+		public IDictionary<TKey, TValue> AsDictionary()
+		{
+			return _pairs;
+		}
 	}
 }

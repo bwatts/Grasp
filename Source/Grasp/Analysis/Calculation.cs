@@ -11,8 +11,11 @@ namespace Grasp.Analysis
 	/// <summary>
 	/// The unit of logic in a schema
 	/// </summary>
-	public class Calculation
+	public class Calculation : Notion
 	{
+		public static readonly Field<Variable> OutputVariableField = Field.On<Calculation>.For(x => x.OutputVariable);
+		public static readonly Field<Expression> ExpressionField = Field.On<Calculation>.For(x => x.Expression);
+
 		/// <summary>
 		/// Initializes a calculation with the specified output variable and expression
 		/// </summary>
@@ -30,12 +33,12 @@ namespace Grasp.Analysis
 		/// <summary>
 		/// Gets the variable to which the output of this calculation is assigned
 		/// </summary>
-		public Variable OutputVariable { get; private set; }
+		public Variable OutputVariable { get { return GetValue(OutputVariableField); } private set { SetValue(OutputVariableField, value); } }
 
 		/// <summary>
 		/// Gets the expression tree which defines the body of this calculation
 		/// </summary>
-		public Expression Expression { get; private set; }
+		public Expression Expression { get { return GetValue(ExpressionField); } private set { SetValue(ExpressionField, value); } }
 
 		/// <summary>
 		/// Gets a textual representation of this calculation

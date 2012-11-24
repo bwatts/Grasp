@@ -14,7 +14,9 @@ namespace Grasp.Checks.Annotation
 	/// </summary>
 	public class AnnotatedConditionSource : MemberConditionSource
 	{
-		private readonly Type _targetType;
+		public static readonly Field<Type> _targetTypeField = Field.On<AnnotatedConditionSource>.For(x => x._targetType);
+
+		private Type _targetType { get { return GetValue(_targetTypeField); } set { SetValue(_targetTypeField, value); } }
 
 		/// <summary>
 		/// Initializes a source with the specified target type

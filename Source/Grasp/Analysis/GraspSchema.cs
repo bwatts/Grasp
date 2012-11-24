@@ -10,8 +10,11 @@ namespace Grasp.Analysis
 	/// <summary>
 	/// A context in which a set of variables and a set of calculations are in effect
 	/// </summary>
-	public class GraspSchema
+	public class GraspSchema : Notion
 	{
+		public static readonly Field<Many<Variable>> VariablesField = Field.On<GraspSchema>.For(x => x.Variables);
+		public static readonly Field<Many<Calculation>> CalculationsField = Field.On<GraspSchema>.For(x => x.Calculations);
+
 		/// <summary>
 		/// Initializes a schema with the specified variables and calculations
 		/// </summary>
@@ -19,19 +22,19 @@ namespace Grasp.Analysis
 		/// <param name="calculations">The calculations in effect for this schema</param>
 		public GraspSchema(IEnumerable<Variable> variables = null, IEnumerable<Calculation> calculations = null)
 		{
-			Variables = (variables ?? Enumerable.Empty<Variable>()).ToList().AsReadOnly();
-			Calculations = (calculations ?? Enumerable.Empty<Calculation>()).ToList().AsReadOnly();
+			Variables = (variables ?? Enumerable.Empty<Variable>()).ToMany();
+			Calculations = (calculations ?? Enumerable.Empty<Calculation>()).ToMany();
 		}
 
 		/// <summary>
 		/// Gets the variables in effect for this schema
 		/// </summary>
-		public IReadOnlyList<Variable> Variables { get; private set; }
+		public Many<Variable> Variables { get { return GetValue(VariablesField); } private set { SetValue(VariablesField, value); } }
 
 		/// <summary>
 		/// Gets the calculations in effect for this schema
 		/// </summary>
-		public IReadOnlyList<Calculation> Calculations { get; private set; }
+		public Many<Calculation> Calculations { get { return GetValue(CalculationsField); } private set { SetValue(CalculationsField, value); } }
 
 		/// <summary>
 		/// Gets an executable version of this schema which applies its calculations

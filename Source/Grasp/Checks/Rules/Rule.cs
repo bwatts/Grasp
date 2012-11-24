@@ -27,7 +27,7 @@ namespace Grasp.Checks.Rules
 			Contract.Requires(method != null);
 			Contract.Requires(checkArguments != null);
 
-			return new CheckRule(method, checkArguments.ToList().AsReadOnly());
+			return new CheckRule(method, checkArguments);
 		}
 
 		/// <summary>

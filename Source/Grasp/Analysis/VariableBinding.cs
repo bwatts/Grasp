@@ -10,8 +10,11 @@ namespace Grasp.Analysis
 	/// <summary>
 	/// A binding between a variable and its value in a particular context
 	/// </summary>
-	public class VariableBinding
+	public class VariableBinding : Notion
 	{
+		public static readonly Field<Variable> VariableField = Field.On<VariableBinding>.For(x => x.Variable);
+		public static readonly Field<object> ValueField = Field.On<VariableBinding>.For(x => x.Value);
+
 		/// <summary>
 		/// Initializes a binding with the specified variable and value
 		/// </summary>
@@ -30,12 +33,12 @@ namespace Grasp.Analysis
 		/// <summary>
 		/// Gets the bound variable
 		/// </summary>
-		public Variable Variable { get; private set; }
+		public Variable Variable { get { return GetValue(VariableField); } private set { SetValue(VariableField, value); } }
 
 		/// <summary>
 		/// Gets the value to which <see cref="Variable"/> is bound
 		/// </summary>
-		public object Value { get; set; }
+		public object Value { get { return GetValue(ValueField); } set { SetValue(ValueField, value); } }
 
 		/// <summary>
 		/// Gets a textual representation of this binding

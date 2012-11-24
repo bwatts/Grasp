@@ -12,7 +12,9 @@ namespace Grasp.Checks.Methods
 	/// </summary>
 	public sealed class IsLessThanOrEqualToMethod : ComparisonMethod
 	{
-		private readonly object _value;
+		public static readonly Field<object> _valueField = Field.On<IsLessThanOrEqualToMethod>.For(x => x._value);
+
+		private object _value { get { return GetValue(_valueField); } set { SetValue(_valueField, value); } }
 
 		/// <summary>
 		/// Initializes a method with the specified value

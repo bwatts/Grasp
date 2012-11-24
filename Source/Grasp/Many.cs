@@ -66,7 +66,12 @@ namespace Grasp
 
 		bool ICollection<T>.IsReadOnly
 		{
-			get { return ((ICollection<T>) _items).IsReadOnly; }
+			get { return AsCollection().IsReadOnly; }
+		}
+
+		public ICollection<T> AsCollection()
+		{
+			return (ICollection<T>) _items;
 		}
 	}
 }

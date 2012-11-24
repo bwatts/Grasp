@@ -28,7 +28,7 @@ namespace Slate.Forms
 		public string Name { get { return GetValue(NameField); } private set { SetValue(NameField, value); } }
 		public FormPhase Phase { get { return GetValue(PhaseField); } private set { SetValue(PhaseField, value); } }
 
-		public void Handle(StartTestingCommand command)
+		public void PerformWork(StartTestingCommand command)
 		{
 			Contract.Requires(command != null);
 			Contract.Requires(command.FormId == Id);
@@ -46,7 +46,7 @@ namespace Slate.Forms
 			Announce(new TestingStartedEvent(Id));
 		}
 
-		public void Handle(ResumeDraftCommand command)
+		public void PerformWork(ResumeDraftCommand command)
 		{
 			Contract.Requires(command != null);
 			Contract.Requires(command.FormId == Id);
@@ -64,7 +64,7 @@ namespace Slate.Forms
 			Announce(new DraftResumedEvent(Id));
 		}
 
-		public void Handle(GoLiveCommand command)
+		public void PerformWork(GoLiveCommand command)
 		{
 			Contract.Requires(command != null);
 			Contract.Requires(command.FormId == Id);
@@ -79,35 +79,31 @@ namespace Slate.Forms
 
 		private void Observe(FormStartedEvent e)
 		{
-			SetId(e.FormId);
+			OnCreated(e.FormId, e.When);
 
 			Name = e.Name;
-
 			Phase = FormPhase.Draft;
-
-			SetWhenCreated(e.When);
-			SetWhenModified(e.When);
 		}
 
 		private void Observe(TestingStartedEvent e)
 		{
-			Phase = FormPhase.Testing;
+			OnModified(e.When);
 
-			SetWhenModified(e.When);
+			Phase = FormPhase.Testing;
 		}
 
 		private void Observe(DraftResumedEvent e)
 		{
-			Phase = FormPhase.Draft;
+			OnModified(e.When);
 
-			SetWhenModified(e.When);
+			Phase = FormPhase.Draft;
 		}
 
 		private void Observe(WentLiveEvent e)
 		{
-			Phase = FormPhase.Live;
+			OnModified(e.When);
 
-			SetWhenModified(e.When);
+			Phase = FormPhase.Live;
 		}
 	}
 }

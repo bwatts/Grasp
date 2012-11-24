@@ -13,9 +13,8 @@ namespace Grasp.Checks.Methods
 	/// Base implementation of a method that produces check rules when applied to a target type
 	/// </summary>
 	[ContractClass(typeof(CheckMethodContract))]
-	public abstract class CheckMethod : ICheckMethod
+	public abstract class CheckMethod : Notion, ICheckMethod
 	{
-		#region ICheckMethod
 		/// <summary>
 		/// Gets the check rule that represents this method as applied to the specified type
 		/// </summary>
@@ -34,7 +33,6 @@ namespace Grasp.Checks.Methods
 
 			return Rule.Check(GetMethod(targetType, checkType), GetCheckArguments(targetType));
 		}
-		#endregion
 
 		/// <summary>
 		/// When implemented by a derived class, determines whether the specified target type is supported by this check method

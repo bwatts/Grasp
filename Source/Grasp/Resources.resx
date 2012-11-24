@@ -148,9 +148,6 @@
   <data name="GetterDoesNotAccessField" xml:space="preserve">
     <value>Getter {0} does not access a field</value>
   </data>
-  <data name="InvalidAggregateId" xml:space="preserve">
-    <value>Invalid aggregate ID {0} for type {1}</value>
-  </data>
   <data name="InvalidEntityId" xml:space="preserve">
     <value>Invalid entity identifier: "{0}"</value>
   </data>
@@ -183,6 +180,9 @@
   </data>
   <data name="MemberTypeNotSupported" xml:space="preserve">
     <value>Member type {0} is not supported</value>
+  </data>
+  <data name="NoAggregateWithId" xml:space="preserve">
+    <value>There is no aggregate of type {0} with identifier {1}</value>
   </data>
   <data name="NonAttachedFieldOnNonNotionType" xml:space="preserve">
     <value>Non-attached field "{0}" is not allowed on the non-Notion type {1}</value>

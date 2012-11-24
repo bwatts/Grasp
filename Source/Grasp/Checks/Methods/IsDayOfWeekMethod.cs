@@ -12,7 +12,9 @@ namespace Grasp.Checks.Methods
 	/// </summary>
 	public sealed class IsDayOfWeekMethod : SingleTypeCheckMethod
 	{
-		private readonly DayOfWeek _dayOfWeek;
+		public static readonly Field<DayOfWeek> _dayOfWeekField = Field.On<IsDayOfWeekMethod>.For(x => x._dayOfWeek);
+
+		private DayOfWeek _dayOfWeek { get { return GetValue(_dayOfWeekField); } set { SetValue(_dayOfWeekField, value); } }
 
 		/// <summary>
 		/// Initializes a method with the specified day of the week

@@ -13,7 +13,7 @@ namespace Grasp.Analysis.Variables
 		{
 			var variable = new Variable<int>("X");
 
-			var expression = Variable.Expression(variable);
+			var expression = variable.ToExpression();
 
 			expression.NodeType.Should().Be(VariableExpression.ExpressionType);
 			expression.Variable.Should().Be(variable);
@@ -23,7 +23,7 @@ namespace Grasp.Analysis.Variables
 		[Fact] public void GetText()
 		{
 			var variable = new Variable<int>("X");
-			var expression = Variable.Expression(variable);
+			var expression = variable.ToExpression();
 
 			var text = expression.ToString();
 

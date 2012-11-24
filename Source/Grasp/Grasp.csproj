@@ -294,7 +294,6 @@
     <Compile Include="Work\WorkHandler.cs" />
     <Compile Include="Work\ConcurrencyException.cs" />
     <Compile Include="Work\CreateHandler.cs" />
-    <Compile Include="Work\Items\ReportProgressHandler.cs" />
     <Compile Include="Work\Items\ReportProgressCommand.cs" />
     <Compile Include="Work\Items\ProgressConverter.cs" />
     <Compile Include="Work\Persistence\FieldValueConverter.cs" />

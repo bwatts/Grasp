@@ -10,7 +10,7 @@ namespace Grasp.Checks.Conditions
 	/// <summary>
 	/// Uniquely identifies a rule that applies to a particular type
 	/// </summary>
-	public sealed class ConditionKey : IEquatable<ConditionKey>
+	public sealed class ConditionKey : Notion, IEquatable<ConditionKey>
 	{
 		/// <summary>
 		/// Determines if the specified condition keys are equal
@@ -66,6 +66,9 @@ namespace Grasp.Checks.Conditions
 		/// The comparer used to determine equality of names
 		/// </summary>
 		public static readonly IEqualityComparer<string> NameEqualityComparer = StringComparer.InvariantCulture;
+
+		public static readonly Field<Type> TargetTypeField = Field.On<ConditionKey>.For(x => x.TargetType);
+		public static readonly Field<string> NameField = Field.On<ConditionKey>.For(x => x.Name);
 
 		/// <summary>
 		/// Initializes a condition key with the specified target type and name
@@ -133,12 +136,12 @@ namespace Grasp.Checks.Conditions
 		/// <summary>
 		/// Gets the type to which the condition applies
 		/// </summary>
-		public Type TargetType { get; private set; }
+		public Type TargetType { get { return GetValue(TargetTypeField); } private set { SetValue(TargetTypeField, value); } }
 
 		/// <summary>
 		/// Gets the name which uniquely identifies the condition among all those for the target type
 		/// </summary>
-		public string Name { get; private set; }
+		public string Name { get { return GetValue(NameField); } private set { SetValue(NameField, value); } }
 
 		/// <summary>
 		/// Gets whether this condition key has a name of <see cref="DefaultName"/>

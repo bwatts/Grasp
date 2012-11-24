@@ -17,9 +17,9 @@ namespace Grasp.Analysis.Compilation
 			var variableA = new Variable<int>("A");
 			var variableB = new Variable<int>("B");
 			var variableC = new Variable<int>("C");
-			var calculationA = new Calculation(variableA, Variable.Expression(variableB));
-			var calculationB = new Calculation(variableB, Variable.Expression(variableC));
-			var calculationC = new Calculation(variableC, Variable.Expression(variableA));
+			var calculationA = new Calculation(variableA, variableB.ToExpression());
+			var calculationB = new Calculation(variableB, variableC.ToExpression());
+			var calculationC = new Calculation(variableC, variableA.ToExpression());
 			var schema = new GraspSchema(calculations: Params.Of(calculationA, calculationB, calculationC));
 
 			var exception = Assert.Throws<CompilationException>(() => schema.Compile());
@@ -52,12 +52,12 @@ namespace Grasp.Analysis.Compilation
 			var variableD = new Variable<int>("D");
 			var variableE = new Variable<int>("E");
 			var variableF = new Variable<int>("F");
-			var calculationA = new Calculation(variableA, Expression.Add(Variable.Expression(variableB), Variable.Expression(variableC)));
-			var calculationB = new Calculation(variableB, Expression.Add(Variable.Expression(variableD), Variable.Expression(variableE)));
-			var calculationC = new Calculation(variableC, Expression.Subtract(Variable.Expression(variableF), Expression.Constant(1)));
+			var calculationA = new Calculation(variableA, Expression.Add(variableB.ToExpression(), variableC.ToExpression()));
+			var calculationB = new Calculation(variableB, Expression.Add(variableD.ToExpression(), variableE.ToExpression()));
+			var calculationC = new Calculation(variableC, Expression.Subtract(variableF.ToExpression(), Expression.Constant(1)));
 			var calculationD = new Calculation(variableD, Expression.Constant(2));
-			var calculationE = new Calculation(variableE, Expression.Add(Variable.Expression(variableC), Expression.Constant(1)));
-			var calculationF = new Calculation(variableF, Expression.Multiply(Variable.Expression(variableE), Expression.Constant(2)));
+			var calculationE = new Calculation(variableE, Expression.Add(variableC.ToExpression(), Expression.Constant(1)));
+			var calculationF = new Calculation(variableF, Expression.Multiply(variableE.ToExpression(), Expression.Constant(2)));
 			var schema = new GraspSchema(calculations: Params.Of(calculationA, calculationB, calculationC, calculationD, calculationE, calculationF));
 
 			var exception = Assert.Throws<CompilationException>(() => schema.Compile());

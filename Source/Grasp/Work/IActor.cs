@@ -19,13 +19,13 @@ namespace Grasp.Work
 		/// Performs work in response to the specified command
 		/// </summary>
 		/// <param name="command">The command in response to which the actor performs work</param>
-		void Handle(TCommand command);
+		void PerformWork(TCommand command);
 	}
 
 	[ContractClassFor(typeof(IActor<>))]
 	internal abstract class IActorContract<TCommand> : IActor<TCommand> where TCommand : Command
 	{
-		void IActor<TCommand>.Handle(TCommand command)
+		void IActor<TCommand>.PerformWork(TCommand command)
 		{
 			Contract.Requires(command != null);
 		}

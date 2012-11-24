@@ -36,10 +36,10 @@ namespace Grasp.Work
 
 			if(aggregate == null)
 			{
-				throw new WorkException(Resources.InvalidAggregateId.FormatInvariant(id, typeof(TAggregate)));
+				throw new WorkException(Resources.NoAggregateWithId.FormatInvariant(typeof(TAggregate), id));
 			}
 
-			aggregate.Handle(c);
+			aggregate.PerformWork(c);
 
 			await _repository.SaveAsync(aggregate);
 		}

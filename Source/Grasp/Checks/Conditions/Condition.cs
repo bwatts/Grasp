@@ -10,8 +10,11 @@ namespace Grasp.Checks.Conditions
 	/// <summary>
 	/// A rule which applies to a particular target type and is uniquely identified by a key
 	/// </summary>
-	public class Condition
+	public class Condition : Notion
 	{
+		public static readonly Field<Rule> RuleField = Field.On<Condition>.For(x => x.Rule);
+		public static readonly Field<ConditionKey> KeyField = Field.On<Condition>.For(x => x.Key);
+
 		/// <summary>
 		/// Initializes a condition with the specified rule and key
 		/// </summary>
@@ -46,12 +49,12 @@ namespace Grasp.Checks.Conditions
 		/// <summary>
 		/// Gets the rule which applies to the target type
 		/// </summary>
-		public Rule Rule { get; private set; }
+		public Rule Rule { get { return GetValue(RuleField); } private set { SetValue(RuleField, value); } }
 
 		/// <summary>
 		/// Gets the key which uniquely identifies this condition among those for all types
 		/// </summary>
-		public ConditionKey Key { get; private set; }
+		public ConditionKey Key { get { return GetValue(KeyField); } private set { SetValue(KeyField, value); } }
 	}
 
 	/// <summary>

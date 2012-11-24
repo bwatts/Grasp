@@ -14,10 +14,15 @@ namespace Grasp.Checks.Methods
 	/// </summary>
 	public sealed class StartsWithMethod : SingleTypeCheckMethod
 	{
-		private readonly string _value;
-		private readonly StringComparison? _comparisonType;
-		private readonly bool? _ignoreCase;
-		private readonly CultureInfo _culture;
+		public static readonly Field<string> _valueField = Field.On<StartsWithMethod>.For(x => x._value);
+		public static readonly Field<StringComparison?> _comparisonTypeField = Field.On<StartsWithMethod>.For(x => x._comparisonType);
+		public static readonly Field<bool?> _ignoreCaseField = Field.On<StartsWithMethod>.For(x => x._ignoreCase);
+		public static readonly Field<CultureInfo> _cultureField = Field.On<StartsWithMethod>.For(x => x._culture);
+
+		private string _value { get { return GetValue(_valueField); } set { SetValue(_valueField, value); } }
+		private StringComparison? _comparisonType { get { return GetValue(_comparisonTypeField); } set { SetValue(_comparisonTypeField, value); } }
+		private bool? _ignoreCase { get { return GetValue(_ignoreCaseField); } set { SetValue(_ignoreCaseField, value); } }
+		private CultureInfo _culture { get { return GetValue(_cultureField); } set { SetValue(_cultureField, value); } }
 
 		/// <summary>
 		/// Initializes a method with the specified value

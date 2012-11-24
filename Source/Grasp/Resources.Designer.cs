@@ -151,15 +151,6 @@ namespace Grasp {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invalid aggregate ID {0} for type {1}.
-        /// </summary>
-        internal static string InvalidAggregateId {
-            get {
-                return ResourceManager.GetString("InvalidAggregateId", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Invalid entity identifier: &quot;{0}&quot;.
         /// </summary>
         internal static string InvalidEntityId {
@@ -255,6 +246,15 @@ namespace Grasp {
         internal static string MemberTypeNotSupported {
             get {
                 return ResourceManager.GetString("MemberTypeNotSupported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There is no aggregate of type {0} with identifier {1}.
+        /// </summary>
+        internal static string NoAggregateWithId {
+            get {
+                return ResourceManager.GetString("NoAggregateWithId", resourceCulture);
             }
         }
         

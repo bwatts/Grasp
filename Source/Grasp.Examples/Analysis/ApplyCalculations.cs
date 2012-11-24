@@ -45,7 +45,7 @@ namespace Grasp.Analysis
 			var outputVariable = new Variable<int>("Y");
 			var schema = new GraspSchema(
 				Params.Of<Variable>(leftVariable),
-				Params.Of(new Calculation(outputVariable, Expression.Add(Variable.Expression(leftVariable), Expression.Constant(right)))));
+				Params.Of(new Calculation(outputVariable, Expression.Add(leftVariable.ToExpression(), Expression.Constant(right)))));
 			var initialState = new TestSnapshot { XValue = left };
 			var runtime = schema.Compile().GetRuntime(initialState);
 
@@ -63,7 +63,7 @@ namespace Grasp.Analysis
 			var outputVariable = new Variable<int>("Z");
 			var schema = new GraspSchema(
 				Params.Of<Variable>(leftVariable, rightVariable),
-				Params.Of(new Calculation(outputVariable, Expression.Add(Variable.Expression(leftVariable), Variable.Expression(rightVariable)))));
+				Params.Of(new Calculation(outputVariable, Expression.Add(leftVariable.ToExpression(), rightVariable.ToExpression()))));
 			var initialState = new TestSnapshot { XValue = left, YValue = right };
 			var runtime = schema.Compile().GetRuntime(initialState);
 
@@ -100,7 +100,7 @@ namespace Grasp.Analysis
 			var outputVariable2 = new Variable<int>("Y");
 			var schema = new GraspSchema(calculations: Params.Of(
 				new Calculation(outputVariable1, Expression.Add(Expression.Constant(left1), Expression.Constant(right1))),
-				new Calculation(outputVariable2, Expression.Add(Expression.Constant(left2), Variable.Expression(outputVariable1)))));
+				new Calculation(outputVariable2, Expression.Add(Expression.Constant(left2), outputVariable1.ToExpression()))));
 			var runtime = schema.Compile().GetRuntime(new TestSnapshot());
 
 			runtime.ApplyCalculations();

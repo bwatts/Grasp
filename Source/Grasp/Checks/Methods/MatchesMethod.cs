@@ -15,9 +15,13 @@ namespace Grasp.Checks.Methods
 	/// </summary>
 	public sealed class MatchesMethod : SingleTypeCheckMethod
 	{
-		private readonly Regex _regex;
-		private readonly string _pattern;
-		private readonly RegexOptions? _options;
+		public static readonly Field<Regex> _regexField = Field.On<MatchesMethod>.For(x => x._regex);
+		public static readonly Field<string> _patternField = Field.On<MatchesMethod>.For(x => x._pattern);
+		public static readonly Field<RegexOptions?> _optionsField = Field.On<MatchesMethod>.For(x => x._options);
+
+		private Regex _regex { get { return GetValue(_regexField); } set { SetValue(_regexField, value); } }
+		private string _pattern { get { return GetValue(_patternField); } set { SetValue(_patternField, value); } }
+		private RegexOptions? _options { get { return GetValue(_optionsField); } set { SetValue(_optionsField, value); } }
 
 		/// <summary>
 		/// Initializes a method with the specified regular expression

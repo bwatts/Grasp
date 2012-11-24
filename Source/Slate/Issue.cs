@@ -25,13 +25,10 @@ namespace Slate
 
 		private void Observe(IssueOpenedEvent e)
 		{
-			SetId(e.IssueId);
+			OnCreated(e.IssueId, e.When);
 
 			Number = e.Number;
 			Title = e.Title;
-
-			SetWhenCreated(e.When);
-			SetWhenModified(e.When);
 		}
 	}
 }

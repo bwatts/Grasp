@@ -10,11 +10,15 @@ namespace Grasp.Checks.Conditions
 	/// <summary>
 	/// A set of conditions indexed and cached by key
 	/// </summary>
-	public sealed class ConditionRepository : IConditionRepository
+	public sealed class ConditionRepository : Notion, IConditionRepository
 	{
-		private readonly IDictionary<ConditionKey, Condition> _conditions = new Dictionary<ConditionKey, Condition>();
-		private readonly IConditionSource _source;
-		private bool _conditionsLoaded;
+		public static readonly Field<ManyKeyed<ConditionKey, Condition>> _conditionsField = Field.On<ConditionRepository>.For(x => x._conditions);
+		public static readonly Field<IConditionSource> _sourceField = Field.On<ConditionRepository>.For(x => x._source);
+		public static readonly Field<bool> _conditionsLoadedField = Field.On<ConditionRepository>.For(x => x._conditionsLoaded);
+
+		private ManyKeyed<ConditionKey, Condition> _conditions { get { return GetValue(_conditionsField); } set { SetValue(_conditionsField, value); } }
+		private IConditionSource _source { get { return GetValue(_sourceField); } set { SetValue(_sourceField, value); } }
+		private bool _conditionsLoaded { get { return GetValue(_conditionsLoadedField); } set { SetValue(_conditionsLoadedField, value); } }
 
 		/// <summary>
 		/// Initializes a repository with the specified condition source
@@ -25,9 +29,10 @@ namespace Grasp.Checks.Conditions
 			Contract.Requires(source != null);
 
 			_source = source;
+
+			_conditions = new ManyKeyed<ConditionKey,Condition>();
 		}
 
-		#region IConditionRepository
 		/// <summary>
 		/// Gets the condition with the specified key, or null if there is no condition with a matching key
 		/// </summary>
@@ -43,7 +48,6 @@ namespace Grasp.Checks.Conditions
 
 			return condition;
 		}
-		#endregion
 
 		private void EnsureConditionsLoaded()
 		{
@@ -65,7 +69,7 @@ namespace Grasp.Checks.Conditions
 		{
 			foreach(var conditionGroup in _source.GetConditions().GroupBy(condition => condition.Key))
 			{
-				_conditions[conditionGroup.Key] = MergeConditionGroup(conditionGroup.Key, conditionGroup.ToList());
+				_conditions.AsDictionary()[conditionGroup.Key] = MergeConditionGroup(conditionGroup.Key, conditionGroup.ToList());
 			}
 		}
 

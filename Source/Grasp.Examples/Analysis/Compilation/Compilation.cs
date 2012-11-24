@@ -17,7 +17,7 @@ namespace Grasp.Analysis.Compilation
 			var variable = new Variable<int>("X");
 			var schema = new GraspSchema(calculations: Params.Of(
 				new Calculation(variable, Expression.Constant(1)),
-				new Calculation(new Variable<int>("Grasp.B"), Variable.Expression(variable))));
+				new Calculation(new Variable<int>("Grasp.B"), variable.ToExpression())));
 
 			var executable = schema.Compile();
 
@@ -27,7 +27,7 @@ namespace Grasp.Analysis.Compilation
 		[Fact] public void UnknownVariable()
 		{
 			var variable = new Variable<int>("X");
-			var schema = new GraspSchema(calculations: Params.Of(new Calculation(new Variable<int>("A"), Variable.Expression(variable))));
+			var schema = new GraspSchema(calculations: Params.Of(new Calculation(new Variable<int>("A"), variable.ToExpression())));
 
 			Assert.Throws<CompilationException>(() => schema.Compile());
 		}

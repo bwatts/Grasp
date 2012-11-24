@@ -9,8 +9,11 @@ namespace Grasp.Analysis
 	/// <summary>
 	/// A function-based calculation which applies to <see cref="GraspRuntime"/>s
 	/// </summary>
-	public sealed class FunctionCalculator : ICalculator
+	public sealed class FunctionCalculator : Notion, ICalculator
 	{
+		public static readonly Field<Variable> OutputVariableField = Field.On<FunctionCalculator>.For(x => x.OutputVariable);
+		public static readonly Field<Func<GraspRuntime, object>> FunctionField = Field.On<FunctionCalculator>.For(x => x.Function);
+
 		/// <summary>
 		/// Initializes a function calculator with the specified output variable and function
 		/// </summary>
@@ -28,12 +31,12 @@ namespace Grasp.Analysis
 		/// <summary>
 		/// Gets the variable to which the output of <see cref="Function"/> is assigned
 		/// </summary>
-		public Variable OutputVariable { get; private set; }
+		public Variable OutputVariable { get { return GetValue(OutputVariableField); } private set { SetValue(OutputVariableField, value); } }
 
 		/// <summary>
 		/// Gets the function which calculates the value to be assigned to <see cref="OutputVariable"/>
 		/// </summary>
-		public Func<GraspRuntime, object> Function { get; private set; }
+		public Func<GraspRuntime, object> Function { get { return GetValue(FunctionField); } private set { SetValue(FunctionField, value); } }
 
 		/// <summary>
 		/// Applies the function to the specified runtime

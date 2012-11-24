@@ -11,10 +11,13 @@ namespace Grasp.Checks.Conditions
 	/// <summary>
 	/// A context in which a set of conditions are in effect
 	/// </summary>
-	public sealed class ConditionSchema : IConditionSchema
+	public sealed class ConditionSchema : Notion, IConditionSchema
 	{
-		private readonly ISpecificationProvider _specificationProvider = new ConditionSchemaSpecificationProvider();
-		private readonly IConditionRepository _conditionRepository;
+		public static readonly Field<ISpecificationProvider> _specificationProviderField = Field.On<ConditionSchema>.For(x => x._specificationProvider);
+		public static readonly Field<IConditionRepository> _conditionRepositoryField = Field.On<ConditionSchema>.For(x => x._conditionRepository);
+
+		private ISpecificationProvider _specificationProvider { get { return GetValue(_specificationProviderField); } set { SetValue(_specificationProviderField, value); } }
+		private IConditionRepository _conditionRepository { get { return GetValue(_conditionRepositoryField); } set { SetValue(_conditionRepositoryField, value); } }
 
 		/// <summary>
 		/// Initializes a schema with the specified condition repository
@@ -25,9 +28,10 @@ namespace Grasp.Checks.Conditions
 			Contract.Requires(conditionRepository != null);
 
 			_conditionRepository = conditionRepository;
+
+			_specificationProvider = new ConditionSchemaSpecificationProvider();
 		}
 
-		#region IConditionSchema
 		/// <summary>
 		/// Gets a specification that applies the condition with the specified name to the specified target object
 		/// </summary>
@@ -39,7 +43,6 @@ namespace Grasp.Checks.Conditions
 		{
 			return GetSpecification(target, new ConditionKey(typeof(T), conditionName));
 		}
-		#endregion
 
 		private Specification<T> GetSpecification<T>(T target, ConditionKey conditionKey)
 		{

@@ -10,8 +10,10 @@ namespace Grasp.Analysis
 	/// <summary>
 	/// A series of calculators which applies to <see cref="GraspRuntime"/>s
 	/// </summary>
-	public sealed class CompositeCalculator : ICalculator
+	public sealed class CompositeCalculator : Notion, ICalculator
 	{
+		public static readonly Field<ManyInOrder<ICalculator>> CalculatorsField = Field.On<CompositeCalculator>.For(x => x.Calculators);
+
 		/// <summary>
 		/// Initializes a composite calculator with the specified calculators
 		/// </summary>
@@ -20,7 +22,7 @@ namespace Grasp.Analysis
 		{
 			Contract.Requires(calculators != null);
 
-			Calculators = calculators.ToList().AsReadOnly();
+			Calculators = calculators.ToManyInOrder();
 		}
 
 		/// <summary>
@@ -33,7 +35,7 @@ namespace Grasp.Analysis
 		/// <summary>
 		/// Gets the series of calculators to be applied to runtimes
 		/// </summary>
-		public ReadOnlyCollection<ICalculator> Calculators { get; private set; }
+		public ManyInOrder<ICalculator> Calculators { get { return GetValue(CalculatorsField); } private set { SetValue(CalculatorsField, value); } }
 
 		/// <summary>
 		/// Applies the series of calculators to the specified runtime

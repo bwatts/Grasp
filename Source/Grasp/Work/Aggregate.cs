@@ -50,20 +50,21 @@ namespace Grasp.Work
 			RevisionId = version.RevisionId;
 		}
 
-		protected void SetId(EntityId id)
+		protected void OnCreated(EntityId id, DateTime when)
 		{
 			SetValue(PersistentId.ValueField, id);
-		}
 
-		// TODO: Set WhenCreated and WhenModified automatically by detecting field changes?
-
-		protected void SetWhenCreated(DateTime when)
-		{
 			SetValue(Lifetime.WhenCreatedField, when);
+
+			OnModified(when);
 		}
 
-		protected void SetWhenModified(DateTime when)
+		protected void OnModified(DateTime when)
 		{
+			// We have the option of detecting field changes and setting this value automagically.
+			//
+			// However, it seems safer and more consistent to treat events as authoritative.
+
 			SetValue(Lifetime.WhenModifiedField, when);
 		}
 

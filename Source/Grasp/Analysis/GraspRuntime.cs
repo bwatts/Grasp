@@ -11,9 +11,13 @@ namespace Grasp.Analysis
 	/// <summary>
 	/// A context in which a set of variables are bound to values
 	/// </summary>
-	public class GraspRuntime
+	public class GraspRuntime : Notion
 	{
-		private readonly Dictionary<Variable, VariableBinding> _bindingsByVariable;
+		public static readonly Field<GraspSchema> SchemaField = Field.On<GraspRuntime>.For(x => x.Schema);
+		public static readonly Field<ICalculator> CalculatorField = Field.On<GraspRuntime>.For(x => x.Calculator);
+		public static readonly Field<ManyKeyed<Variable, VariableBinding>> _bindingsByVariableField = Field.On<GraspRuntime>.For(x => x._bindingsByVariable);
+
+		private ManyKeyed<Variable, VariableBinding> _bindingsByVariable { get { return GetValue(_bindingsByVariableField); } set { SetValue(_bindingsByVariableField, value); } }
 
 		/// <summary>
 		/// Initializes a runtime with the specified schema, calculator, and bindings
@@ -32,7 +36,7 @@ namespace Grasp.Analysis
 			Schema = schema;
 			Calculator = calculator;
 
-			_bindingsByVariable = bindings.ToDictionary(binding => binding.Variable);
+			_bindingsByVariable = bindings.ToDictionary(binding => binding.Variable).ToManyKeyed();
 		}
 
 		/// <summary>
@@ -47,12 +51,12 @@ namespace Grasp.Analysis
 		/// <summary>
 		/// Gets the schema which defines the variables and calculations in effect for this runtime
 		/// </summary>
-		public GraspSchema Schema { get; private set; }
+		public GraspSchema Schema { get { return GetValue(SchemaField); } private set { SetValue(SchemaField, value); } }
 
 		/// <summary>
 		/// Gets the calculator which applies the schema's calculations to this runtime
 		/// </summary>
-		public ICalculator Calculator { get; private set; }
+		public ICalculator Calculator { get { return GetValue(CalculatorField); } private set { SetValue(CalculatorField, value); } }
 
 		/// <summary>
 		/// Applies the calculations defined by <see cref="Schema"/> to this runtime
@@ -101,7 +105,7 @@ namespace Grasp.Analysis
 			{
 				binding = new VariableBinding(variable, value);
 
-				_bindingsByVariable[variable] = binding;
+				_bindingsByVariable.AsDictionary()[variable] = binding;
 			}
 		}
 

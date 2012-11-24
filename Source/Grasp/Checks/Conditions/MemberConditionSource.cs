@@ -12,9 +12,8 @@ namespace Grasp.Checks.Conditions
 	/// Base implementation of a source which provides conditions for members of a type
 	/// </summary>
 	[ContractClass(typeof(MemberConditionSourceContract))]
-	public abstract class MemberConditionSource : IConditionSource
+	public abstract class MemberConditionSource : Notion, IConditionSource
 	{
-		#region IConditionSource
 		/// <summary>
 		/// Gets conditions for the members of <see cref="TargetType"/>
 		/// </summary>
@@ -23,7 +22,6 @@ namespace Grasp.Checks.Conditions
 		{
 			return GetPropertyConditions().Concat(GetFieldConditions()).Concat(GetMethodConditions());
 		}
-		#endregion
 
 		/// <summary>
 		/// When implemented by a derived class, gets the target type for which conditions are declared

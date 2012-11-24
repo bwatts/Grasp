@@ -12,9 +12,13 @@ namespace Grasp.Checks.Methods
 	/// </summary>
 	public sealed class IsBetweenMethod : ComparisonMethod
 	{
-		private readonly object _minimum;
-		private readonly object _maximum;
-		private readonly BoundaryType? _boundaryType;
+		public static readonly Field<object> _minimumField = Field.On<IsBetweenMethod>.For(x => x._minimum);
+		public static readonly Field<object> _maximumField = Field.On<IsBetweenMethod>.For(x => x._maximum);
+		public static readonly Field<BoundaryType?> _boundaryTypeField = Field.On<IsBetweenMethod>.For(x => x._boundaryType);
+
+		private object _minimum { get { return GetValue(_minimumField); } set { SetValue(_minimumField, value); } }
+		private object _maximum { get { return GetValue(_maximumField); } set { SetValue(_maximumField, value); } }
+		private BoundaryType? _boundaryType { get { return GetValue(_boundaryTypeField); } set { SetValue(_boundaryTypeField, value); } }
 
 		/// <summary>
 		/// Initializes a method with the specified minimum and maximum

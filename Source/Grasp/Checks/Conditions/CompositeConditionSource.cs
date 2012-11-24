@@ -9,9 +9,11 @@ namespace Grasp.Checks.Conditions
 	/// <summary>
 	/// A source which aggregates the conditions specified by multiple sources
 	/// </summary>
-	public sealed class CompositeConditionSource : IConditionSource
+	public sealed class CompositeConditionSource : Notion, IConditionSource
 	{
-		private readonly IEnumerable<IConditionSource> _sources;
+		public static readonly Field<IEnumerable<IConditionSource>> _sourcesField = Field.On<CompositeConditionSource>.For(x => x._sources);
+
+		private IEnumerable<IConditionSource> _sources { get { return GetValue(_sourcesField); } set { SetValue(_sourcesField, value); } }
 
 		/// <summary>
 		/// Initializes a composite source with the specified sources

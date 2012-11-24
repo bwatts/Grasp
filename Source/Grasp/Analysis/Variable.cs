@@ -5,15 +5,16 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using Cloak;
+using Grasp.Checks;
 
 namespace Grasp.Analysis
 {
 	/// <summary>
 	/// The unit of data in a schema
 	/// </summary>
-	public class Variable
+	public class Variable : Notion
 	{
-		#region Static
+		#region Naming
 		/// <summary>
 		/// Determines if the specified text is a valid namespace consisting of at least one identifier separated by "."
 		/// </summary>
@@ -80,20 +81,11 @@ namespace Grasp.Analysis
 
 			return hasFormat;
 		}
-
-		/// <summary>
-		/// Creates an expression tree node which represents the specified variable
-		/// </summary>
-		/// <param name="variable">The variable for which to create a node</param>
-		/// <returns>An expression tree node which represents the specified variable</returns>
-		[Pure]
-		public static VariableExpression Expression(Variable variable)
-		{
-			Contract.Requires(variable != null);
-
-			return new VariableExpression(variable);
-		}
 		#endregion
+
+		public static readonly Field<Type> TypeField = Field.On<Variable>.For(x => x.Type);
+		public static readonly Field<string> NamespaceField = Field.On<Variable>.For(x => x.Namespace);
+		public static readonly Field<string> NameField = Field.On<Variable>.For(x => x.Name);
 
 		/// <summary>
 		/// Initializes a variable with the specified type, namespace, and name
@@ -132,7 +124,6 @@ namespace Grasp.Analysis
 				throw new FormatException(Resources.NotQualifiedVariableName.FormatInvariant(fullName));
 			}
 
-			
 			Namespace = @namespace;
 			Name = name;
 		}
@@ -140,17 +131,17 @@ namespace Grasp.Analysis
 		/// <summary>
 		/// Gets the type of value represented by this variable
 		/// </summary>
-		public Type Type { get; private set; }
+		public Type Type { get { return GetValue(TypeField); } private set { SetValue(TypeField, value); } }
 
 		/// <summary>
 		/// Gets the namespace which contains this variable
 		/// </summary>
-		public string Namespace { get; private set; }
+		public string Namespace { get { return GetValue(NamespaceField); } private set { SetValue(NamespaceField, value); } }
 
 		/// <summary>
 		/// Gets the name of this variable
 		/// </summary>
-		public string Name { get; private set; }
+		public string Name { get { return GetValue(NameField); } private set { SetValue(NameField, value); } }
 
 		/// <summary>
 		/// Gets the fully-qualified name of this variable
@@ -158,7 +149,16 @@ namespace Grasp.Analysis
 		/// <returns>The fully-qualified name of this variable</returns>
 		public override string ToString()
 		{
-			return String.IsNullOrEmpty(Namespace) ? Name : Resources.QualifiedVariable.FormatInvariant(Namespace, Name);
+			return Check.That(Namespace).IsNullOrEmpty() ? Name : Resources.QualifiedVariable.FormatInvariant(Namespace, Name);
+		}
+
+		/// <summary>
+		/// Creates an expression tree node which represents the specified variable
+		/// </summary>
+		/// <returns>An expression tree node which represents the specified variable</returns>
+		public VariableExpression ToExpression()
+		{
+			return new VariableExpression(this);
 		}
 	}
 
