@@ -10,22 +10,16 @@ namespace Grasp.Checks.Rules
 	/// </summary>
 	public sealed class NotRule : Rule
 	{
-		internal NotRule(Rule rule)
+		public static readonly Field<Rule> RuleField = Grasp.Field.On<NotRule>.For(x => x.Rule);
+
+		internal NotRule(Rule rule) : base(RuleType.Not)
 		{
 			Rule = rule;
 		}
 
 		/// <summary>
-		/// Gets <see cref="RuleType.Not"/>
-		/// </summary>
-		public override RuleType Type
-		{
-			get { return RuleType.Not; }
-		}
-
-		/// <summary>
 		/// Gets the negated rule
 		/// </summary>
-		public Rule Rule { get; private set; }
+		public Rule Rule { get { return GetValue(RuleField); } private set { SetValue(RuleField, value); } }
 	}
 }

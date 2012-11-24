@@ -12,28 +12,23 @@ namespace Grasp.Checks.Rules
 	/// </summary>
 	public sealed class CheckRule : Rule
 	{
-		internal CheckRule(MethodInfo method, ReadOnlyCollection<object> checkArguments)
+		public static readonly Field<MethodInfo> MethodField = Grasp.Field.On<CheckRule>.For(x => x.Method);
+		public static readonly Field<IReadOnlyCollection<object>> CheckArgumentsField = Grasp.Field.On<CheckRule>.For(x => x.CheckArguments);
+
+		internal CheckRule(MethodInfo method, IReadOnlyCollection<object> checkArguments) : base(RuleType.Check)
 		{
 			Method = method;
 			CheckArguments = checkArguments;
 		}
 
 		/// <summary>
-		/// Gets <see cref="RuleType.Check"/>
-		/// </summary>
-		public override RuleType Type
-		{
-			get { return RuleType.Check; }
-		}
-
-		/// <summary>
 		/// Gets the check method
 		/// </summary>
-		public new MethodInfo Method { get; private set; }
+		public new MethodInfo Method { get { return GetValue(MethodField); } private set { SetValue(MethodField, value); } }
 
 		/// <summary>
 		/// Gets the arguments to the check method (without the base check)
 		/// </summary>
-		public ReadOnlyCollection<object> CheckArguments { get; private set; }
+		public IReadOnlyCollection<object> CheckArguments { get { return GetValue(CheckArgumentsField); } private set { SetValue(CheckArgumentsField, value); } }
 	}
 }

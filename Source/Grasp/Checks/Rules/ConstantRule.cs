@@ -6,26 +6,20 @@ using System.Text;
 namespace Grasp.Checks.Rules
 {
 	/// <summary>
-	/// Represents a constant value
+	/// Represents a constant result
 	/// </summary>
 	public sealed class ConstantRule : Rule
 	{
-		internal ConstantRule(bool passes)
+		public static readonly Field<bool> IsTrueField = Grasp.Field.On<ConstantRule>.For(x => x.IsTrue);
+
+		internal ConstantRule(bool isTrue) : base(RuleType.Constant)
 		{
-			Passes = passes;
+			IsTrue = isTrue;
 		}
 
 		/// <summary>
-		/// Gets <see cref="RuleType.Constant"/>
+		/// Gets whether the result of this rule is true
 		/// </summary>
-		public override RuleType Type
-		{
-			get { return RuleType.Constant; }
-		}
-
-		/// <summary>
-		/// Gets whether this rule passes
-		/// </summary>
-		public bool Passes { get; private set; }
+		public bool IsTrue { get { return GetValue(IsTrueField); } private set { SetValue(IsTrueField, value); } }
 	}
 }

@@ -50,7 +50,7 @@ namespace Grasp.Checks.Rules
 
 		protected override Rule VisitConstant(ConstantRule node)
 		{
-			_builder.Append(node.Passes.ToString().ToLower());
+			_builder.Append(node.IsTrue.ToString().ToLower());
 
 			return node;
 		}

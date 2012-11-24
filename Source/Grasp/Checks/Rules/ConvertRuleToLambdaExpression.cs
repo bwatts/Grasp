@@ -37,7 +37,7 @@ namespace Grasp.Checks.Rules
 
 		protected override Rule VisitConstant(ConstantRule node)
 		{
-			_body = Expression.Constant(node.Passes);
+			_body = Expression.Constant(node.IsTrue);
 
 			return node;
 		}

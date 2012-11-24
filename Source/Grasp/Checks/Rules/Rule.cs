@@ -13,7 +13,7 @@ namespace Grasp.Checks.Rules
 	/// <summary>
 	/// Base class for nodes in trees which represent boolean-valued inquiries on target data
 	/// </summary>
-	public abstract class Rule
+	public abstract class Rule : Notion
 	{
 		#region Check
 		/// <summary>
@@ -47,13 +47,13 @@ namespace Grasp.Checks.Rules
 
 		#region Constant
 		/// <summary>
-		/// Creates a <see cref="Grasp.Checks.Rules.ConstantRule"/> that represents a constant value
+		/// Creates a <see cref="Grasp.Checks.Rules.ConstantRule"/> that represents a constant result
 		/// </summary>
-		/// <param name="passes">Whether the check passes or fails</param>
+		/// <param name="isTrue">Whether the result of the check is true</param>
 		/// <returns>A <see cref="Grasp.Checks.Rules.ConstantRule"/> with the specified value</returns>
-		public static ConstantRule Constant(bool passes)
+		public static ConstantRule Constant(bool isTrue)
 		{
-			return new ConstantRule(passes);
+			return new ConstantRule(isTrue);
 		}
 		#endregion
 
@@ -231,10 +231,21 @@ namespace Grasp.Checks.Rules
 		}
 		#endregion
 
+		public static readonly Field<RuleType> TypeField = Grasp.Field.On<Rule>.For(x => x.Type);
+
 		/// <summary>
-		/// When implemented by a derived class, gets the type of this node in the tree
+		/// Intiailizes a rule with the specified type
 		/// </summary>
-		public abstract RuleType Type { get; }
+		/// <param name="type">The type of this node in the tree</param>
+		protected Rule(RuleType type)
+		{
+			Type = type;
+		}
+
+		/// <summary>
+		/// Gets the type of this node in the tree
+		/// </summary>
+		public RuleType Type { get { return GetValue(TypeField); } private set { SetValue(TypeField, value); } }
 
 		/// <summary>
 		/// Gets a textual representation of this rule

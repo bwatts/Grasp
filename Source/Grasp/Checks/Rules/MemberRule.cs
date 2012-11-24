@@ -11,37 +11,30 @@ namespace Grasp.Checks.Rules
 	/// </summary>
 	public sealed class MemberRule : Rule
 	{
-		private readonly RuleType _type;
+		public static readonly Field<MemberInfo> MemberField = Grasp.Field.On<MemberRule>.For(x => x.Member);
+		public static readonly Field<Type> MemberTypeField = Grasp.Field.On<MemberRule>.For(x => x.MemberType);
+		public static readonly Field<Rule> RuleField = Grasp.Field.On<MemberRule>.For(x => x.Rule);
 
-		internal MemberRule(RuleType type, MemberInfo member, Type memberType, Rule rule)
+		internal MemberRule(RuleType type, MemberInfo member, Type memberType, Rule rule) : base(type)
 		{
-			_type = type;
 			Member = member;
 			MemberType = memberType;
 			Rule = rule;
 		}
 
 		/// <summary>
-		/// Gets the type of this member rule
-		/// </summary>
-		public override RuleType Type
-		{
-			get { return _type; }
-		}
-
-		/// <summary>
 		/// Gets the member to which the rule is applied
 		/// </summary>
-		public MemberInfo Member { get; private set; }
+		public MemberInfo Member { get { return GetValue(MemberField); } private set { SetValue(MemberField, value); } }
 
 		/// <summary>
 		/// Gets the type of the member's value
 		/// </summary>
-		public Type MemberType { get; private set; }
+		public Type MemberType { get { return GetValue(MemberTypeField); } private set { SetValue(MemberTypeField, value); } }
 
 		/// <summary>
 		/// Gets the rule applied to the value of the member
 		/// </summary>
-		public Rule Rule { get; private set; }
+		public Rule Rule { get { return GetValue(RuleField); } private set { SetValue(RuleField, value); } }
 	}
 }

@@ -11,22 +11,16 @@ namespace Grasp.Checks.Rules
 	/// </summary>
 	public sealed class LambdaRule : Rule
 	{
-		internal LambdaRule(LambdaExpression lambda)
+		public static readonly Field<LambdaExpression> LambdaField = Grasp.Field.On<LambdaRule>.For(x => x.Lambda);
+
+		internal LambdaRule(LambdaExpression lambda) : base(RuleType.Lambda)
 		{
 			Lambda = lambda;
 		}
 
 		/// <summary>
-		/// Gets <see cref="RuleType.Lambda"/>
-		/// </summary>
-		public override RuleType Type
-		{
-			get { return RuleType.Lambda; }
-		}
-
-		/// <summary>
 		/// Gets the lambda expression applied to the target data
 		/// </summary>
-		public new LambdaExpression Lambda { get; private set; }
+		public new LambdaExpression Lambda { get { return GetValue(LambdaField); } private set { SetValue(LambdaField, value); } }
 	}
 }

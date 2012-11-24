@@ -10,31 +10,23 @@ namespace Grasp.Checks.Rules
 	/// </summary>
 	public sealed class BinaryRule : Rule
 	{
-		private readonly RuleType _type;
+		public static readonly Field<Rule> LeftField = Grasp.Field.On<BinaryRule>.For(x => x.Left);
+		public static readonly Field<Rule> RightField = Grasp.Field.On<BinaryRule>.For(x => x.Right);
 
-		internal BinaryRule(RuleType type, Rule left, Rule right)
+		internal BinaryRule(RuleType type, Rule left, Rule right) : base(type)
 		{
-			_type = type;
 			Left = left;
 			Right = right;
 		}
 
 		/// <summary>
-		/// Gets the type of this binary rule
-		/// </summary>
-		public override RuleType Type
-		{
-			get { return _type; }
-		}
-
-		/// <summary>
 		/// Gets the left operand of the binary operation
 		/// </summary>
-		public Rule Left { get; private set; }
+		public Rule Left { get { return GetValue(LeftField); } private set { SetValue(LeftField, value); } }
 
 		/// <summary>
 		/// Gets the right operand of the binary operation
 		/// </summary>
-		public Rule Right { get; private set; }
+		public Rule Right { get { return GetValue(RightField); } private set { SetValue(RightField, value); } }
 	}
 }
