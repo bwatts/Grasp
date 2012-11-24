@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>Notion Field</Title>
+			<Author>Bryan Watts</Author>
+			<Description>Declares a field and backing property</Description>
+			<Shortcut>nf</Shortcut>
+		</Header>
+		<Snippet>
+			<Declarations>
+				<Literal>
+					<ID>type</ID>
+					<Default>string</Default>
+					<ToolTip>The type of the field and the property backing it</ToolTip>
+				</Literal>
+				<Literal>
+					<ID>name</ID>
+					<Default>Name</Default>
+					<ToolTip>The name of the field and the property backing it</ToolTip>
+				</Literal>
+				<Literal Editable="false">
+					<ID>class</ID>
+					<ToolTip>The class declaring the field and the property backing it</ToolTip>
+					<Function>ClassName()</Function>
+				</Literal>
+			</Declarations>
+			<Code Language="CSharp">
+				<![CDATA[public static readonly Field<$type$> $name$Field = Field.On<$class$>.For(x => x.$name$);
+
+public $type$ $name$ { get { return GetValue($name$Field); } private set { SetValue($name$Field, value); } }]]>
+			</Code>
+		</Snippet>
+	</CodeSnippet>
+</CodeSnippets>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>Notion Field - Attached</Title>
+			<Author>Bryan Watts</Author>
+			<Description>Declares an attached field</Description>
+			<Shortcut>nfa</Shortcut>
+		</Header>
+		<Snippet>
+			<Declarations>
+				<Literal>
+					<ID>type</ID>
+					<Default>string</Default>
+					<ToolTip>The type of the attached field</ToolTip>
+				</Literal>
+				<Literal>
+					<ID>name</ID>
+					<Default>Name</Default>
+					<ToolTip>The name of the attached field</ToolTip>
+				</Literal>
+				<Literal>
+					<ID>targetType</ID>
+					<Default>Target</Default>
+					<ToolTip>The type to which the field is attached</ToolTip>
+				</Literal>
+				<Literal Editable="false">
+					<ID>class</ID>
+					<ToolTip>The class declaring the attached field</ToolTip>
+					<Function>ClassName()</Function>
+				</Literal>
+			</Declarations>
+			<Code Language="CSharp">
+				<![CDATA[public static readonly Field<$type$> $name$Field = Field.AttachedTo<$targetType$>.By<$class$>.For(() => $name$Field);]]>
+			</Code>
+		</Snippet>
+	</CodeSnippet>
+</CodeSnippets>
