@@ -5,19 +5,13 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Web.Http;
-using System.Web.Http.Routing;
+using System.Web.Routing;
 using Autofac;
 using Cloak.Autofac;
-using Cloak.Http.Media;
 using Cloak.Web.Http.Autofac;
 using Grasp.Hypermedia;
-using Grasp.Hypermedia.Lists;
 using Grasp.Hypermedia.Server;
 using Grasp.Lists;
-using Grasp.Messaging;
-using Grasp.Work;
-using Grasp.Work.Items;
-using Slate.Forms;
 using Slate.Http.Api;
 using Slate.Http.Persistence;
 using Slate.Http.Server.Configuration;
@@ -46,9 +40,9 @@ namespace Slate.Http.Server.Composition.Api
 			Register(c => new FormsController(c.Resolve<IFormStore>(), c.Resolve<IStartWorkService>(), serverSettings.WorkRetryInterval, c.Resolve<IWorkItemStore>()))
 			.InstancePerDependency();
 
-			httpSettings.Routes.MapHttpRoute("form-list", "forms", new { controller = "Forms", action = "GetListPageAsync" }, new { httpMethod = new HttpMethodConstraint(HttpMethod.Get) });
+			httpSettings.Routes.MapHttpRoute("form-list", "forms", new { controller = "Forms", action = "GetListPageAsync" }, new { httpMethod = new HttpMethodConstraint(HttpMethod.Get.Method) });
 			httpSettings.Routes.MapHttpRoute("form-details", "forms/{id}", new { controller = "Forms", action = "GetItemAsync" });
-			httpSettings.Routes.MapHttpRoute("form-start", "forms", new { controller = "Forms", action = "StartAsync" }, new { httpMethod = new HttpMethodConstraint(HttpMethod.Post) });
+			httpSettings.Routes.MapHttpRoute("form-start", "forms", new { controller = "Forms", action = "StartAsync" }, new { httpMethod = new HttpMethodConstraint(HttpMethod.Post.Method) });
 		}
 	}
 }

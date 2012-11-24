@@ -12,7 +12,10 @@ using Grasp.Work.Persistence;
 
 namespace Slate.Forms
 {
-	public class Form : Aggregate
+	public class Form : Aggregate,
+		IActor<StartTestingCommand>,
+		IActor<ResumeDraftCommand>,
+		IActor<GoLiveCommand>
 	{
 		public static readonly Field<string> NameField = Field.On<Form>.For(x => x.Name);
 		public static readonly Field<FormPhase> PhaseField = Field.On<Form>.For(x => x.Phase);
@@ -47,6 +50,11 @@ namespace Slate.Forms
 		{
 			Contract.Requires(command != null);
 			Contract.Requires(command.FormId == Id);
+
+			if(Phase == FormPhase.Draft)
+			{
+				throw new InvalidOperationException(Resources.FormAlreadyDraft.FormatInvariant(Name));
+			}
 
 			if(Phase == FormPhase.Live)
 			{

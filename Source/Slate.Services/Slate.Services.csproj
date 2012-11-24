@@ -43,12 +43,8 @@
       <Link>Properties\SlateAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="FormStartedSubscriber.cs" />
-    <Compile Include="GoLiveHandler.cs" />
     <Compile Include="IFormMesh.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ResumeDraftHandler.cs" />
-    <Compile Include="StartFormHandler.cs" />
-    <Compile Include="StartTestingHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\.submodules\Cloak\Source\Cloak\Cloak.csproj">

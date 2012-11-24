@@ -10,6 +10,7 @@ using Cloak.Autofac;
 using Cloak.Linq;
 using Grasp.Hypermedia.Server;
 using Grasp.Messaging;
+using Grasp.Work;
 using Grasp.Work.Items;
 using Slate.Forms;
 using Slate.Services;
@@ -26,8 +27,13 @@ namespace Slate.Http.Server.Composition.Api
 
 			RegisterModule<AmbientMessageChannelModule>();
 
-			RegisterType<StartFormHandler>().As<IHandler<StartFormCommand>>().InstancePerDependency();
-			RegisterType<ReportProgressHandler>().As<IHandler<ReportProgressCommand>>().InstancePerDependency();
+			Register(c => new CreateHandler<StartFormCommand, Form>(c.Resolve<IRepository<Form>>(), command => new Form(command.WorkItemId, command.FormId, command.Name)))
+			.As<IHandler<StartFormCommand>>()
+			.InstancePerDependency();
+
+			Register(c => new WorkHandler<ReportProgressCommand, WorkItem>(c.Resolve<IRepository<WorkItem>>(), command => command.WorkItemId))
+			.As<IHandler<ReportProgressCommand>>()
+			.InstancePerDependency();
 
 			RegisterType<FormStartedSubscriber>().As<ISubscriber<FormStartedEvent>>().InstancePerDependency();
 		}
@@ -82,16 +88,13 @@ namespace Slate.Http.Server.Composition.Api
 
 			public async Task PublishAsync(Message message)
 			{
-				var @event = message as TEvent;
+				var @event = (TEvent) message;
 
-				if(@event != null)
+				using(var publishScope = _rootScope.BeginLifetimeScope())
 				{
-					using(var publishScope = _rootScope.BeginLifetimeScope())
-					{
-						var subscribers = publishScope.Resolve<IEnumerable<ISubscriber<TEvent>>>();
+					var subscribers = publishScope.Resolve<IEnumerable<ISubscriber<TEvent>>>();
 
-						await Task.WhenAll(subscribers.Select(subscriber => subscriber.ObserveAsync(@event)));
-					}
+					await Task.WhenAll(subscribers.Select(subscriber => subscriber.ObserveAsync(@event)));
 				}
 			}
 		}
@@ -107,16 +110,13 @@ namespace Slate.Http.Server.Composition.Api
 
 			public async Task PublishAsync(Message message)
 			{
-				var command = message as TCommand;
+				var command = (TCommand) message;
 
-				if(command != null)
+				using(var handleScope = _rootScope.BeginLifetimeScope())
 				{
-					using(var handleScope = _rootScope.BeginLifetimeScope())
-					{
-						var handler = handleScope.Resolve<IHandler<TCommand>>();
+					var handler = handleScope.Resolve<IHandler<TCommand>>();
 
-						await handler.HandleAsync(command);
-					}
+					await handler.HandleAsync(command);
 				}
 			}
 		}

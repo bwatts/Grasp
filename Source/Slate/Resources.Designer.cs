@@ -79,6 +79,15 @@ namespace Slate {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Form &quot;{0}&quot; is already a draft.
+        /// </summary>
+        internal static string FormAlreadyDraft {
+            get {
+                return ResourceManager.GetString("FormAlreadyDraft", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Form &quot;{0}&quot; is already live.
         /// </summary>
         internal static string FormAlreadyLive {

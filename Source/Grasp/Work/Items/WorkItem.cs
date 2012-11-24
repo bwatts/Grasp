@@ -8,7 +8,7 @@ using Grasp.Work.Persistence;
 
 namespace Grasp.Work.Items
 {
-	public class WorkItem : Aggregate
+	public class WorkItem : Aggregate, IActor<ReportProgressCommand>
 	{
 		public static readonly Field<string> DescriptionField = Field.On<WorkItem>.For(x => x.Description);
 		public static readonly Field<Progress> ProgressField = Field.On<WorkItem>.For(x => x.Progress);

@@ -12,7 +12,7 @@ using Slate.Forms;
 
 namespace Slate.Services
 {
-	public class FormStartedSubscriber : Publisher, ISubscriber<FormStartedEvent>
+	public sealed class FormStartedSubscriber : Publisher, ISubscriber<FormStartedEvent>
 	{
 		public static readonly Field<IFormMesh> _meshField = Field.On<FormStartedSubscriber>.For(x => x._mesh);
 

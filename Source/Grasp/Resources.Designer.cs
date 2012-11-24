@@ -151,6 +151,15 @@ namespace Grasp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invalid aggregate ID {0} for type {1}.
+        /// </summary>
+        internal static string InvalidAggregateId {
+            get {
+                return ResourceManager.GetString("InvalidAggregateId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid entity identifier: &quot;{0}&quot;.
         /// </summary>
         internal static string InvalidEntityId {

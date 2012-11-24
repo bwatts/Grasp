@@ -148,6 +148,9 @@
   <data name="GetterDoesNotAccessField" xml:space="preserve">
     <value>Getter {0} does not access a field</value>
   </data>
+  <data name="InvalidAggregateId" xml:space="preserve">
+    <value>Invalid aggregate ID {0} for type {1}</value>
+  </data>
   <data name="InvalidEntityId" xml:space="preserve">
     <value>Invalid entity identifier: "{0}"</value>
   </data>

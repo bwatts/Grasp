@@ -70,7 +70,7 @@ namespace Slate.Web.Site.Presentation.Explore.Forms
 
 		private Task<ILayoutModel<FormDetailsModel>> CreateLayoutModelAsync(FormResource form)
 		{
-			return _layoutModelFactory.CreateLayoutModelAsync("Slate : Explore : Form : Details", new FormDetailsModel(form.Header.Title), "explore", "forms");
+			return _layoutModelFactory.CreateLayoutModelAsync("Slate : Explore : Forms : " + form.Header.Title, new FormDetailsModel(form.Header.Title), "explore", "forms");
 		}
 	}
 }

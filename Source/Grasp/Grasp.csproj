@@ -289,7 +289,11 @@
     <Compile Include="Semantics\AggregateModel.cs" />
     <Compile Include="Semantics\FieldAttacherModel.cs" />
     <Compile Include="Semantics\Discovery\Reflection\FieldAttacherBinding.cs" />
+    <Compile Include="Work\IActor.cs" />
+    <Compile Include="Work\WorkException.cs" />
+    <Compile Include="Work\WorkHandler.cs" />
     <Compile Include="Work\ConcurrencyException.cs" />
+    <Compile Include="Work\CreateHandler.cs" />
     <Compile Include="Work\Items\ReportProgressHandler.cs" />
     <Compile Include="Work\Items\ReportProgressCommand.cs" />
     <Compile Include="Work\Items\ProgressConverter.cs" />

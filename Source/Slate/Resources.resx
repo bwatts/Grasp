@@ -123,6 +123,9 @@
   <data name="CannotTestLiveForm" xml:space="preserve">
     <value>Cannot start testing on live form "{0}"</value>
   </data>
+  <data name="FormAlreadyDraft" xml:space="preserve">
+    <value>Form "{0}" is already a draft</value>
+  </data>
   <data name="FormAlreadyLive" xml:space="preserve">
     <value>Form "{0}" is already live</value>
   </data>
