@@ -48,6 +48,16 @@
     <DocumentationFile>
     </DocumentationFile>
     <Prefer32Bit>false</Prefer32Bit>
+    <CodeContractsRuntimeSkipQuantifiers>False</CodeContractsRuntimeSkipQuantifiers>
+    <CodeContractsEnumObligations>False</CodeContractsEnumObligations>
+    <CodeContractsInferRequires>False</CodeContractsInferRequires>
+    <CodeContractsInferEnsures>False</CodeContractsInferEnsures>
+    <CodeContractsInferObjectInvariants>False</CodeContractsInferObjectInvariants>
+    <CodeContractsSuggestAssumptions>False</CodeContractsSuggestAssumptions>
+    <CodeContractsSuggestRequires>True</CodeContractsSuggestRequires>
+    <CodeContractsSuggestEnsures>False</CodeContractsSuggestEnsures>
+    <CodeContractsSuggestObjectInvariants>False</CodeContractsSuggestObjectInvariants>
+    <CodeContractsAnalysisWarningLevel>0</CodeContractsAnalysisWarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -94,31 +104,26 @@
     <Compile Include="..\GraspAssemblyInfo.cs">
       <Link>Properties\GraspAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Analysis\Calculation.cs" />
-    <Compile Include="Analysis\Compilation\CompilationException.cs" />
-    <Compile Include="Analysis\Compilation\CalculationCompiler.cs" />
-    <Compile Include="Analysis\Compilation\CalculationCycleException.cs" />
-    <Compile Include="Analysis\Compilation\CalculationExpressionVisitor.cs" />
-    <Compile Include="Analysis\Compilation\CalculationSchema.cs" />
-    <Compile Include="Analysis\Compilation\DependencyAnalyzer.cs" />
-    <Compile Include="Analysis\Compilation\DependencyGraph.cs" />
-    <Compile Include="Analysis\Compilation\DependencyNode.cs" />
-    <Compile Include="Analysis\Compilation\GraspCompiler.cs" />
-    <Compile Include="Analysis\Compilation\GraspExecutable.cs" />
-    <Compile Include="Analysis\Compilation\InvalidCalculationResultTypeException.cs" />
-    <Compile Include="Analysis\Compilation\InvalidCalculationVariableException.cs" />
-    <Compile Include="Analysis\Compilation\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Analysis\Compilation\VariableSearch.cs" />
-    <Compile Include="Analysis\CompositeCalculator.cs" />
-    <Compile Include="Analysis\FunctionCalculator.cs" />
-    <Compile Include="Analysis\GraspRuntime.cs" />
-    <Compile Include="Analysis\GraspSchema.cs" />
-    <Compile Include="Analysis\ICalculator.cs" />
-    <Compile Include="Analysis\IRuntimeSnapshot.cs" />
+    <Compile Include="Knowledge\Calculation.cs" />
+    <Compile Include="Knowledge\Runtime\Compilation\CompilationException.cs" />
+    <Compile Include="Knowledge\Runtime\Compilation\CalculationCompiler.cs" />
+    <Compile Include="Knowledge\Runtime\Compilation\CalculationCycleException.cs" />
+    <Compile Include="Knowledge\Runtime\Compilation\CalculationExpressionVisitor.cs" />
+    <Compile Include="Knowledge\Runtime\Compilation\CalculationSchema.cs" />
+    <Compile Include="Knowledge\Runtime\Compilation\DependencyAnalyzer.cs" />
+    <Compile Include="Knowledge\Runtime\Compilation\DependencyGraph.cs" />
+    <Compile Include="Knowledge\Runtime\Compilation\DependencyNode.cs" />
+    <Compile Include="Knowledge\Runtime\Compilation\GraspCompiler.cs" />
+    <Compile Include="Knowledge\Runtime\Compilation\Executable.cs" />
+    <Compile Include="Knowledge\Runtime\Compilation\InvalidCalculationResultTypeException.cs" />
+    <Compile Include="Knowledge\Runtime\Compilation\InvalidCalculationVariableException.cs" />
+    <Compile Include="Knowledge\Runtime\Compilation\VariableSearch.cs" />
+    <Compile Include="Knowledge\Runtime\CompositeCalculator.cs" />
+    <Compile Include="Knowledge\Runtime\FunctionCalculator.cs" />
+    <Compile Include="Knowledge\Runtime\SchemaBinding.cs" />
+    <Compile Include="Knowledge\Schema.cs" />
+    <Compile Include="Knowledge\Runtime\ICalculator.cs" />
+    <Compile Include="Knowledge\Runtime\Compilation\ISnapshot.cs" />
     <Compile Include="Checks\Annotation\AnnotatedConditionSource.cs" />
     <Compile Include="Checks\Annotation\AnnotationException.cs" />
     <Compile Include="Checks\Annotation\CheckAttribute.cs" />
@@ -266,6 +271,10 @@
     <Compile Include="Entity.cs" />
     <Compile Include="EntityId.cs" />
     <Compile Include="EntityIdConverter.cs" />
+    <Compile Include="Knowledge\FullName.cs" />
+    <Compile Include="Knowledge\Identifier.cs" />
+    <Compile Include="Knowledge\Namespace.cs" />
+    <Compile Include="Knowledge\Variable.cs" />
     <Compile Include="Lists\ListItemBindings.cs" />
     <Compile Include="Lists\ListSchema.cs" />
     <Compile Include="Lists\ListViewItems.cs" />
@@ -336,15 +345,9 @@
     <Compile Include="Lists\SortDirection.cs" />
     <Compile Include="Lists\SortField.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Analysis\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Analysis\UnboundVariableException.cs" />
-    <Compile Include="Analysis\Variable.cs" />
-    <Compile Include="Analysis\VariableBinding.cs" />
-    <Compile Include="Analysis\VariableExpression.cs" />
+    <Compile Include="Knowledge\Runtime\UnboundVariableException.cs" />
+    <Compile Include="Knowledge\Runtime\VariableBinding.cs" />
+    <Compile Include="Knowledge\VariableExpression.cs" />
     <Compile Include="Semantics\Discovery\IDomainModelBinding.cs" />
     <Compile Include="Semantics\Discovery\IDomainModelSource.cs" />
     <Compile Include="Semantics\Discovery\Reflection\AssemblyBinder.cs" />
@@ -370,14 +373,6 @@
     <Compile Include="Work\AggregateVersion.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Analysis\Compilation\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Analysis\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
     <EmbeddedResource Include="Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

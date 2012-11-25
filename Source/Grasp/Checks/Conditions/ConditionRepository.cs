@@ -69,7 +69,7 @@ namespace Grasp.Checks.Conditions
 		{
 			foreach(var conditionGroup in _source.GetConditions().GroupBy(condition => condition.Key))
 			{
-				_conditions.AsDictionary()[conditionGroup.Key] = MergeConditionGroup(conditionGroup.Key, conditionGroup.ToList());
+				_conditions.AsWriteable()[conditionGroup.Key] = MergeConditionGroup(conditionGroup.Key, conditionGroup.ToList());
 			}
 		}
 

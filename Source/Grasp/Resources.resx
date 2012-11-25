@@ -120,8 +120,23 @@
   <data name="AmbientChannelNotConfigured" xml:space="preserve">
     <value>Ambient channel has not been configured in the current context</value>
   </data>
+  <data name="Calculation" xml:space="preserve">
+    <value>{0} = {1}</value>
+  </data>
+  <data name="CalculationCycleReference" xml:space="preserve">
+    <value>|&gt; {0}</value>
+  </data>
+  <data name="CalculationCycleRepeatedReference" xml:space="preserve">
+    <value>|&gt; {0} (Repeated)</value>
+  </data>
+  <data name="CalculationHasCycle" xml:space="preserve">
+    <value>Calculation has a cycle: {0}</value>
+  </data>
   <data name="CardinalityFormat" xml:space="preserve">
     <value>{0}..{1}</value>
+  </data>
+  <data name="CompilationError" xml:space="preserve">
+    <value>An exception occurred while compiling a schema</value>
   </data>
   <data name="ConditionKey" xml:space="preserve">
     <value>"{0}" ({1})</value>
@@ -145,14 +160,29 @@
   <data name="FieldSuffix" xml:space="preserve">
     <value>Field</value>
   </data>
+  <data name="FullName" xml:space="preserve">
+    <value>{0}.{1}</value>
+  </data>
   <data name="GetterDoesNotAccessField" xml:space="preserve">
     <value>Getter {0} does not access a field</value>
+  </data>
+  <data name="InvalidCalculationResultType" xml:space="preserve">
+    <value>Result type {0} of calculation "{1}" is not assignable to type {2} of variable {3}</value>
+  </data>
+  <data name="InvalidCalculationVariable" xml:space="preserve">
+    <value>Variable {0} in calculation "{1}" is not specified by the schema</value>
   </data>
   <data name="InvalidEntityId" xml:space="preserve">
     <value>Invalid entity identifier: "{0}"</value>
   </data>
   <data name="InvalidHrefUri" xml:space="preserve">
     <value>Invalid href URI: {0}</value>
+  </data>
+  <data name="InvalidIdentifier" xml:space="preserve">
+    <value>Invalid identifier: {0}</value>
+  </data>
+  <data name="InvalidNamespace" xml:space="preserve">
+    <value>Invalid namespace: {0}</value>
   </data>
   <data name="InvalidQueryPair" xml:space="preserve">
     <value>Invalid query pair: "{0}"</value>
@@ -190,6 +220,9 @@
   <data name="NotBinaryType" xml:space="preserve">
     <value>Rule type {0} is not a binary type</value>
   </data>
+  <data name="NotFullName" xml:space="preserve">
+    <value>"{0}" is not a full name. Full names consist of either a single identifier or a namespace-qualified identifier.</value>
+  </data>
   <data name="PhoneNumberPattern" xml:space="preserve">
     <value>^(?:\([2-9]\d{2}\)\ ?|[2-9]\d{2}(?:\-?|\ ?))[2-9]\d{2}[- ]?\d{4}$</value>
     <comment>regexlib.com</comment>
@@ -218,6 +251,18 @@
   </data>
   <data name="UnsupportedTargetType" xml:space="preserve">
     <value>Target type {0} is not supported by check method {1}</value>
+  </data>
+  <data name="Variable" xml:space="preserve">
+    <value>{0} ({1})</value>
+  </data>
+  <data name="VariableBindingNonNullValue" xml:space="preserve">
+    <value>{0} = {1}</value>
+  </data>
+  <data name="VariableBindingNullValue" xml:space="preserve">
+    <value>{0} = (null)</value>
+  </data>
+  <data name="VariableNotBound" xml:space="preserve">
+    <value>Variable "{0}" is not bound</value>
   </data>
   <data name="ZipCodePattern" xml:space="preserve">
     <value>^\d{5}$|^\d{5}-\d{4}$</value>

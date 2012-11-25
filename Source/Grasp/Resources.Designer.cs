@@ -70,11 +70,56 @@ namespace Grasp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} = {1}.
+        /// </summary>
+        internal static string Calculation {
+            get {
+                return ResourceManager.GetString("Calculation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to |&gt; {0}.
+        /// </summary>
+        internal static string CalculationCycleReference {
+            get {
+                return ResourceManager.GetString("CalculationCycleReference", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to |&gt; {0} (Repeated).
+        /// </summary>
+        internal static string CalculationCycleRepeatedReference {
+            get {
+                return ResourceManager.GetString("CalculationCycleRepeatedReference", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Calculation has a cycle: {0}.
+        /// </summary>
+        internal static string CalculationHasCycle {
+            get {
+                return ResourceManager.GetString("CalculationHasCycle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0}..{1}.
         /// </summary>
         internal static string CardinalityFormat {
             get {
                 return ResourceManager.GetString("CardinalityFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An exception occurred while compiling a schema.
+        /// </summary>
+        internal static string CompilationError {
+            get {
+                return ResourceManager.GetString("CompilationError", resourceCulture);
             }
         }
         
@@ -142,11 +187,38 @@ namespace Grasp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0}.{1}.
+        /// </summary>
+        internal static string FullName {
+            get {
+                return ResourceManager.GetString("FullName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Getter {0} does not access a field.
         /// </summary>
         internal static string GetterDoesNotAccessField {
             get {
                 return ResourceManager.GetString("GetterDoesNotAccessField", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Result type {0} of calculation &quot;{1}&quot; is not assignable to type {2} of variable {3}.
+        /// </summary>
+        internal static string InvalidCalculationResultType {
+            get {
+                return ResourceManager.GetString("InvalidCalculationResultType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Variable {0} in calculation &quot;{1}&quot; is not specified by the schema.
+        /// </summary>
+        internal static string InvalidCalculationVariable {
+            get {
+                return ResourceManager.GetString("InvalidCalculationVariable", resourceCulture);
             }
         }
         
@@ -165,6 +237,24 @@ namespace Grasp {
         internal static string InvalidHrefUri {
             get {
                 return ResourceManager.GetString("InvalidHrefUri", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid identifier: {0}.
+        /// </summary>
+        internal static string InvalidIdentifier {
+            get {
+                return ResourceManager.GetString("InvalidIdentifier", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid namespace: {0}.
+        /// </summary>
+        internal static string InvalidNamespace {
+            get {
+                return ResourceManager.GetString("InvalidNamespace", resourceCulture);
             }
         }
         
@@ -277,6 +367,15 @@ namespace Grasp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &quot;{0}&quot; is not a full name. Full names consist of either a single identifier or a namespace-qualified identifier..
+        /// </summary>
+        internal static string NotFullName {
+            get {
+                return ResourceManager.GetString("NotFullName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ^(?:\([2-9]\d{2}\)\ ?|[2-9]\d{2}(?:\-?|\ ?))[2-9]\d{2}[- ]?\d{4}$.
         /// </summary>
         internal static string PhoneNumberPattern {
@@ -354,6 +453,42 @@ namespace Grasp {
         internal static string UnsupportedTargetType {
             get {
                 return ResourceManager.GetString("UnsupportedTargetType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} ({1}).
+        /// </summary>
+        internal static string Variable {
+            get {
+                return ResourceManager.GetString("Variable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} = {1}.
+        /// </summary>
+        internal static string VariableBindingNonNullValue {
+            get {
+                return ResourceManager.GetString("VariableBindingNonNullValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} = (null).
+        /// </summary>
+        internal static string VariableBindingNullValue {
+            get {
+                return ResourceManager.GetString("VariableBindingNullValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Variable &quot;{0}&quot; is not bound.
+        /// </summary>
+        internal static string VariableNotBound {
+            get {
+                return ResourceManager.GetString("VariableNotBound", resourceCulture);
             }
         }
         

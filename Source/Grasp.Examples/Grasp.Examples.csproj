@@ -131,21 +131,38 @@
     <Compile Include="..\GraspAssemblyInfo.cs">
       <Link>Properties\GraspAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Analysis\Calculators.cs" />
-    <Compile Include="Analysis\ApplyCalculations.cs" />
-    <Compile Include="Analysis\Compilation\Compilation.cs" />
-    <Compile Include="Analysis\Compilation\CompilationCycles.cs" />
-    <Compile Include="Analysis\Compilation\Executables.cs" />
-    <Compile Include="Analysis\Runtimes.cs" />
-    <Compile Include="Analysis\Schemas.cs" />
-    <Compile Include="Analysis\Variables\Bindings.cs" />
-    <Compile Include="Analysis\Calculations.cs" />
-    <Compile Include="Analysis\Variables\Expressions.cs" />
-    <Compile Include="Analysis\Variables\MultiPartNamespaces.cs" />
-    <Compile Include="Analysis\Variables\SinglePartNamespaces.cs" />
-    <Compile Include="Analysis\Variables\Names.cs" />
-    <Compile Include="Analysis\Variables\Variables.cs" />
     <Compile Include="Checks\ThatChecks.cs" />
+    <Compile Include="Knowledge\Runtime\ApplyCalculations.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Knowledge\Runtime\Compilation\Compilation.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Knowledge\Runtime\Compilation\CompilationCycles.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Knowledge\Runtime\Compilation\Executables.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Knowledge\Runtime\SchemaBindings.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Knowledge\Runtime\VariableBindings.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Knowledge\Calculations.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Knowledge\Calculators.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Knowledge\Schemas.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Knowledge\Variables.cs" />
+    <Compile Include="Knowledge\FullNames.cs" />
+    <Compile Include="Knowledge\Namespaces.cs" />
+    <Compile Include="Knowledge\Identifiers.cs" />
     <Compile Include="Lists\Pages.cs" />
     <Compile Include="Lists\Keys.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
