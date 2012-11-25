@@ -71,7 +71,7 @@ namespace Grasp
 
 		public ICollection<T> AsWriteable()
 		{
-			return (ICollection<T>) _items;
+			return this;
 		}
 	}
 }

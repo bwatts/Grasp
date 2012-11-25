@@ -19,7 +19,7 @@ namespace Grasp.Raven
 		public static readonly Field<int> NumberField = Field.On<Revision>.For(x => x.Number);
 		public static readonly Field<ManyInOrder<Event>> EventsField = Field.On<Revision>.For(x => x.Events);
 
-		public Revision(string aggregateId, EntityId? baseRevisionId, int number, IEnumerable<Event> events) : base(EntityId.Generate())
+		public Revision(string aggregateId, EntityId? baseRevisionId, int number, IEnumerable<Event> events)
 		{
 			Contract.Requires(!String.IsNullOrEmpty(aggregateId));
 			Contract.Requires(baseRevisionId != EntityId.Unassigned);

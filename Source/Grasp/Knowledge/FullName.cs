@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace Grasp.Knowledge
 	/// <summary>
 	/// A unique concept qualified with its position in a namespace hierarchy
 	/// </summary>
-	public sealed class FullName : ComparableValue<FullName, string>
+	public sealed class FullName : ComparableValue<FullName, string>, IEnumerable<Identifier>
 	{
 		#region Naming
 		/// <summary>
@@ -122,5 +123,23 @@ namespace Grasp.Knowledge
 		/// Gets the identifier of this full name
 		/// </summary>
 		public Identifier Identifier { get { return GetValue(IdentifierField); } private set { SetValue(IdentifierField, value); } }
+
+		/// <summary>
+		/// Gets an enumerator for the identifiers in this full name
+		/// </summary>
+		public IEnumerator<Identifier> GetEnumerator()
+		{
+			foreach(var namespaceIdentifier in Namespace)
+			{
+				yield return namespaceIdentifier;
+			}
+
+			yield return Identifier;
+		}
+
+		IEnumerator IEnumerable.GetEnumerator()
+		{
+			return GetEnumerator();
+		}
 	}
 }

@@ -61,6 +61,15 @@ namespace Slate {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cannot modify live form &quot;{0}&quot;.
+        /// </summary>
+        internal static string CannotModifyLiveForm {
+            get {
+                return ResourceManager.GetString("CannotModifyLiveForm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cannot resume draft status on live form &quot;{0}&quot;.
         /// </summary>
         internal static string CannotResumeDraftOnLiveForm {
@@ -102,6 +111,15 @@ namespace Slate {
         internal static string FormAlreadyTesting {
             get {
                 return ResourceManager.GetString("FormAlreadyTesting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unknown section {0} in form &quot;{0}&quot;.
+        /// </summary>
+        internal static string UnknownSection {
+            get {
+                return ResourceManager.GetString("UnknownSection", resourceCulture);
             }
         }
     }

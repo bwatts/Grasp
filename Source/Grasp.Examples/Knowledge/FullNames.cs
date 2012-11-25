@@ -59,6 +59,13 @@ namespace Grasp.Knowledge
 			Assert.Throws<FormatException>(() => new FullName("Grasp.Knowledge.0"));
 		}
 
+		[Fact] public void GetIdentifiers()
+		{
+			var fullName = new Namespace("X.Y.Z");
+
+			((IEnumerable<Identifier>) fullName).Should().Equal(new Identifier("X"), new Identifier("Y"), new Identifier("Z"));
+		}
+
 		[Theory]
 		[InlineData("A")]
 		[InlineData("A0")]

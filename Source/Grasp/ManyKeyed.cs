@@ -126,7 +126,7 @@ namespace Grasp
 
 		public IDictionary<TKey, TValue> AsWriteable()
 		{
-			return _pairs;
+			return this;
 		}
 	}
 }

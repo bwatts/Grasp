@@ -115,9 +115,9 @@ namespace Grasp
 			get { return _items.Count; }
 		}
 
-		//public IList<T> AsList()
-		//{
-		//	TODO
-		//}
+		public IList<T> AsWriteable()
+		{
+			return this;
+		}
 	}
 }

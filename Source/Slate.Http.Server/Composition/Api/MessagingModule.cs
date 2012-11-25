@@ -13,6 +13,7 @@ using Grasp.Messaging;
 using Grasp.Work;
 using Grasp.Work.Items;
 using Slate.Forms;
+using Slate.Forms.Structure;
 using Slate.Services;
 
 namespace Slate.Http.Server.Composition.Api
@@ -33,6 +34,10 @@ namespace Slate.Http.Server.Composition.Api
 
 			Register(c => new WorkHandler<ReportProgressCommand, WorkItem>(c.Resolve<IRepository<WorkItem>>(), command => command.WorkItemId))
 			.As<IHandler<ReportProgressCommand>>()
+			.InstancePerDependency();
+
+			Register(c => new WorkHandler<AddSectionCommand, Form>(c.Resolve<IRepository<Form>>(), command => command.FormId))
+			.As<IHandler<AddSectionCommand>>()
 			.InstancePerDependency();
 
 			RegisterType<FormStartedSubscriber>().As<ISubscriber<FormStartedEvent>>().InstancePerDependency();
@@ -62,6 +67,7 @@ namespace Slate.Http.Server.Composition.Api
 				yield return Handle<StartTestingCommand>();
 				yield return Handle<ResumeDraftCommand>();
 				yield return Handle<GoLiveCommand>();
+				yield return Handle<AddSectionCommand>();
 
 				yield return Subscribe<FormStartedEvent>();
 			}
@@ -142,9 +148,16 @@ namespace Slate.Http.Server.Composition.Api
 				// This relies on IMessageChannel being SingleInstance. If it had any more specific lifetime, we would have to more
 				// carefully manage the instances we use to configure the ambient message channel.
 
-				var channel = e.Context.Resolve<IMessageChannel>();
+				if(!AmbientMessageChannel.IsConfigured)
+				{
+					var channel = e.Context.Resolve<IMessageChannel>();
 
-				AmbientMessageChannel.Configure(() => channel);
+					AmbientMessageChannel.Configure(() => channel);
+				}
+
+				// No matter what, there is no need to keep calling this handler after activating the first controller
+
+				e.Component.Activated -= OnApiControllerActivated;
 			}
 		}
 	}

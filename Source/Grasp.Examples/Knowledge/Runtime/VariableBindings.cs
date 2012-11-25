@@ -17,7 +17,7 @@ namespace Grasp.Knowledge.Runtime
 
 			var binding = new VariableBinding(name, value);
 
-			binding.Name.Should().Be(name);
+			((object) binding.Name).Should().Be(name);
 			binding.Value.Should().Be(value);
 		}
 

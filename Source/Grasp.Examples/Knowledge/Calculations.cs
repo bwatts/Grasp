@@ -21,6 +21,18 @@ namespace Grasp.Knowledge
 			calculation.Expression.Should().Be(expression);
 		}
 
+		[Fact] public void CreateGeneric()
+		{
+			var outputVariable = new Variable<int>("X");
+			var expression = Expression.Constant(0);
+
+			var calculation = new Calculation<int>(outputVariable, expression);
+
+			((Calculation) calculation).OutputVariable.Should().Be(outputVariable);
+			calculation.OutputVariable.Should().Be(outputVariable);
+			calculation.Expression.Should().Be(expression);
+		}
+
 		[Fact] public void GetText()
 		{
 			var calculation = new Calculation(new Variable<int>("X"), Expression.Constant(0));

@@ -17,7 +17,7 @@ namespace Grasp.Knowledge
 			var variable = new Variable(type, name);
 
 			variable.Type.Should().Be(type);
-			variable.Name.Should().Be(name);
+			((object) variable.Name).Should().Be(name);
 		}
 
 		[Fact] public void CreateGeneric()
@@ -27,7 +27,7 @@ namespace Grasp.Knowledge
 			var variable = new Variable<int>(name);
 
 			variable.Type.Should().Be(typeof(int));
-			variable.Name.Should().Be(name);
+			((object) variable.Name).Should().Be(name);
 		}
 
 		[Fact] public void GetText()

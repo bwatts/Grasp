@@ -20,7 +20,7 @@ namespace Grasp.Work
 
 		private ManyInOrder<Event> _unobservedEvents { get { return GetValue(_unobservedEventsField); } set { SetValue(_unobservedEventsField, value); } }
 
-		protected Aggregate() : base(EntityId.Generate())
+		protected Aggregate()
 		{
 			_unobservedEvents = new ManyInOrder<Event>();
 		}

@@ -9,7 +9,7 @@ using Cloak;
 namespace Grasp.Knowledge
 {
 	/// <summary>
-	/// The unit of logic in a schema
+	/// The unit of logic in a schema - maps an input expression to an output variable
 	/// </summary>
 	public class Calculation : Notion
 	{
@@ -48,5 +48,29 @@ namespace Grasp.Knowledge
 		{
 			return Resources.Calculation.FormatInvariant(OutputVariable.Name, Expression);
 		}
+	}
+
+	/// <summary>
+	/// The unit of logic in a schema - maps an input expression to an output variable
+	/// </summary>
+	/// <typeparam name="TOutput">The type of the calculation's output variable</typeparam>
+	public class Calculation<TOutput> : Calculation
+	{
+		public new static readonly Field<Variable<TOutput>> OutputVariableField = Field.On<Calculation<TOutput>>.For(x => x.OutputVariable);
+
+		/// <summary>
+		/// Initializes a calculation with the specified output variable and expression
+		/// </summary>
+		/// <param name="outputVariable">The variable to which the output of this calculation is assigned</param>
+		/// <param name="expression">The expression tree which defines the body of this calculation</param>
+		public Calculation(Variable<TOutput> outputVariable, Expression expression) : base(outputVariable, expression)
+		{
+			OutputVariable = outputVariable;
+		}
+
+		/// <summary>
+		/// Gets the variable to which the output of this calculation is assigned
+		/// </summary>
+		public new Variable<TOutput> OutputVariable { get { return GetValue(OutputVariableField); } private set { SetValue(OutputVariableField, value); } }
 	}
 }

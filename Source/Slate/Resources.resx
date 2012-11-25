@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="CannotModifyLiveForm" xml:space="preserve">
+    <value>Cannot modify live form "{0}"</value>
+  </data>
   <data name="CannotResumeDraftOnLiveForm" xml:space="preserve">
     <value>Cannot resume draft status on live form "{0}"</value>
   </data>
@@ -131,5 +134,8 @@
   </data>
   <data name="FormAlreadyTesting" xml:space="preserve">
     <value>Form "{0}" is already testing</value>
+  </data>
+  <data name="UnknownSection" xml:space="preserve">
+    <value>Unknown section {0} in form "{0}"</value>
   </data>
 </root>

@@ -112,6 +112,11 @@
     <Compile Include="Forms\StartTestingCommand.cs" />
     <Compile Include="Forms\GoLiveCommand.cs" />
     <Compile Include="Forms\StartFormCommand.cs" />
+    <Compile Include="Forms\Structure\AddSectionCommand.cs" />
+    <Compile Include="Forms\Structure\FormElement.cs" />
+    <Compile Include="Forms\Structure\Input.cs" />
+    <Compile Include="Forms\Structure\Section.cs" />
+    <Compile Include="Forms\Structure\SectionAddedEvent.cs" />
     <Compile Include="IssueOpenedEvent.cs" />
     <Compile Include="Forms\TestingStartedEvent.cs" />
     <Compile Include="Forms\WentLiveEvent.cs" />

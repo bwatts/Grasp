@@ -24,6 +24,13 @@ namespace Grasp.Knowledge
 			Assert.Throws<FormatException>(() => new Identifier("0"));
 		}
 
+		[Fact] public void GetIdentifiers()
+		{
+			var @namespace = new Namespace("X.Y");
+
+			((IEnumerable<Identifier>) @namespace).Should().Equal(new Identifier("X"), new Identifier("Y"));
+		}
+
 		[Theory]
 		[InlineData("A")]
 		[InlineData("A0")]

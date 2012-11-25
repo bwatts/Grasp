@@ -13,10 +13,10 @@ namespace Grasp
 	public abstract class Entity : PersistentNotion<EntityId>
 	{
 		/// <summary>
-		/// Initializes an entity with the specified identifier
+		/// Initializes an entity with the specified identifier or a default identifier if not specified
 		/// </summary>
-		/// <param name="id">The identifier of the new entity</param>
-		protected Entity(EntityId id = default(EntityId)) : base(id)
+		/// <param name="id">The identifier of the new entity, or null to generate a new identifier</param>
+		protected Entity(EntityId? id = null) : base(id ?? EntityId.Generate())
 		{}
 	}
 }

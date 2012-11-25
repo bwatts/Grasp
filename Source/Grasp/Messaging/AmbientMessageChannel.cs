@@ -10,6 +10,11 @@ namespace Grasp.Messaging
 	{
 		private static Func<IMessageChannel> _resolveChannel;
 
+		public static bool IsConfigured
+		{
+			get { return _resolveChannel != null; }
+		}
+
 		public static void Configure(Func<IMessageChannel> resolveChannel)
 		{
 			Contract.Requires(resolveChannel != null);

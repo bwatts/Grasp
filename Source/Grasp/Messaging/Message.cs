@@ -23,7 +23,7 @@ namespace Grasp.Messaging
 			return ChannelField.Get(publisher) ?? AmbientMessageChannel.Resolve();
 		}
 
-		protected Message() : base(EntityId.Generate())
+		protected Message()
 		{}
 	}
 }
