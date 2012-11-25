@@ -113,7 +113,7 @@
     <Compile Include="Knowledge\Runtime\Compilation\DependencyAnalyzer.cs" />
     <Compile Include="Knowledge\Runtime\Compilation\DependencyGraph.cs" />
     <Compile Include="Knowledge\Runtime\Compilation\DependencyNode.cs" />
-    <Compile Include="Knowledge\Runtime\Compilation\GraspCompiler.cs" />
+    <Compile Include="Knowledge\Runtime\Compilation\SchemaCompiler.cs" />
     <Compile Include="Knowledge\Runtime\Compilation\Executable.cs" />
     <Compile Include="Knowledge\Runtime\Compilation\InvalidCalculationResultTypeException.cs" />
     <Compile Include="Knowledge\Runtime\Compilation\InvalidCalculationVariableException.cs" />

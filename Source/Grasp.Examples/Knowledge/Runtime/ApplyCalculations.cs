@@ -34,7 +34,7 @@ namespace Grasp.Knowledge.Runtime
 
 			binding.ApplyCalculations();
 
-			binding.GetVariableValue(outputVariable).Should().Be(left + right);
+			binding.GetVariableValue(outputVariable.Name).Should().Be(left + right);
 		}
 
 		[Fact] public void ApplySingleWithVariable()
@@ -51,7 +51,7 @@ namespace Grasp.Knowledge.Runtime
 
 			binding.ApplyCalculations();
 
-			binding.GetVariableValue(outputVariable).Should().Be(left + right);
+			binding.GetVariableValue(outputVariable.Name).Should().Be(left + right);
 		}
 
 		[Fact] public void ApplySingleWithTwoVariables()
@@ -69,7 +69,7 @@ namespace Grasp.Knowledge.Runtime
 
 			binding.ApplyCalculations();
 
-			binding.GetVariableValue(outputVariable).Should().Be(left + right);
+			binding.GetVariableValue(outputVariable.Name).Should().Be(left + right);
 		}
 
 		[Fact] public void ApplyMultiple()
@@ -87,8 +87,8 @@ namespace Grasp.Knowledge.Runtime
 
 			binding.ApplyCalculations();
 
-			binding.GetVariableValue(outputVariable1).Should().Be(left1 + right1);
-			binding.GetVariableValue(outputVariable2).Should().Be(left2 + right2);
+			binding.GetVariableValue(outputVariable1.Name).Should().Be(left1 + right1);
+			binding.GetVariableValue(outputVariable2.Name).Should().Be(left2 + right2);
 		}
 
 		[Fact] public void ApplyDependent()
@@ -105,11 +105,11 @@ namespace Grasp.Knowledge.Runtime
 
 			binding.ApplyCalculations();
 
-			binding.GetVariableValue(outputVariable1).Should().Be(left1 + right1);
-			
-			var outputVariable1Value = (int) binding.GetVariableValue(outputVariable1);
+			binding.GetVariableValue(outputVariable1.Name).Should().Be(left1 + right1);
 
-			binding.GetVariableValue(outputVariable2).Should().Be(left2 + outputVariable1Value);
+			var outputVariable1Value = (int) binding.GetVariableValue(outputVariable1.Name);
+
+			binding.GetVariableValue(outputVariable2.Name).Should().Be(left2 + outputVariable1Value);
 		}
 
 		private sealed class TestSnapshot : ISnapshot
@@ -117,9 +117,9 @@ namespace Grasp.Knowledge.Runtime
 			internal int XValue { get; set; }
 			internal int YValue { get; set; }
 
-			public object GetValue(Variable variable)
+			public object GetValue(FullName name)
 			{
-				return variable.Name.Value == "X" ? XValue : YValue;
+				return name.Value == "X" ? XValue : YValue;
 			}
 		}
 	}

@@ -15,17 +15,17 @@ namespace Grasp.Knowledge.Runtime.Compilation
 		/// <summary>
 		/// Gets the value of the specified variable
 		/// </summary>
-		/// <param name="variable">The variable for which to retrieve the value</param>
+		/// <param name="name">The variable for which to retrieve the value</param>
 		/// <returns>The value associated with the variable</returns>
-		object GetValue(Variable variable);
+		object GetValue(FullName name);
 	}
 
 	[ContractClassFor(typeof(ISnapshot))]
 	internal abstract class IRuntimeSnapshotContract : ISnapshot
 	{
-		object ISnapshot.GetValue(Variable variable)
+		object ISnapshot.GetValue(FullName name)
 		{
-			Contract.Requires(variable != null);
+			Contract.Requires(name != null);
 
 			return null;
 		}

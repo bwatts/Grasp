@@ -12,19 +12,18 @@ namespace Grasp.Knowledge.Runtime
 	{
 		[Fact] public void Create()
 		{
-			var variable = new Variable<int>("X");
+			var name = new FullName("X");
 			var value = 1;
 
-			var binding = new VariableBinding(variable, value);
+			var binding = new VariableBinding(name, value);
 
-			binding.Variable.Should().Be(variable);
+			binding.Name.Should().Be(name);
 			binding.Value.Should().Be(value);
 		}
 
 		[Fact] public void Set()
 		{
-			var variable = new Variable<int>("X");
-			var binding = new VariableBinding(variable, 1);
+			var binding = new VariableBinding("X", 1);
 			var newValue = 2;
 
 			binding.Value = newValue;

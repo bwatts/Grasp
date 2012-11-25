@@ -8,7 +8,7 @@ using System.Text;
 namespace Grasp.Knowledge.Runtime.Compilation
 {
 	/// <summary>
-	/// Indicates an error during compilation of a <see cref="GraspSchema"/>
+	/// Indicates an error during compilation of a schema
 	/// </summary>
 	public class CompilationException : Exception
 	{

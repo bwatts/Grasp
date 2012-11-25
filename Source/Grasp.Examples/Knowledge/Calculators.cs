@@ -37,13 +37,13 @@ namespace Grasp.Knowledge
 		{
 			var outputVariable = new Variable<int>("X");
 			var value = 1;
-			var calculator = new FunctionCalculator(outputVariable, runtime2 => value);
+			var calculator = new FunctionCalculator(outputVariable, binding => value);
 			var schema = new Schema();
 			var schemaBinding = new SchemaBinding(schema, calculator);
 
 			calculator.ApplyCalculation(schemaBinding);
 
-			schemaBinding.GetVariableValue(outputVariable).Should().Be(value);
+			schemaBinding.GetVariableValue(outputVariable.Name).Should().Be(value);
 		}
 
 		[Fact] public void ApplyCompositeCalculator()
@@ -52,15 +52,15 @@ namespace Grasp.Knowledge
 			var value2 = 2;
 			var outputVariable1 = new Variable<int>("X");
 			var outputVariable2 = new Variable<int>("Y");
-			var calculator1 = new FunctionCalculator(outputVariable1, runtime1 => value1);
-			var calculator2 = new FunctionCalculator(outputVariable2, runtime2 => value2);
+			var calculator1 = new FunctionCalculator(outputVariable1, binding1 => value1);
+			var calculator2 = new FunctionCalculator(outputVariable2, binding2 => value2);
 			var compositeCalculator = new CompositeCalculator(calculator1, calculator2);
 			var schemaBinding = new SchemaBinding(new Schema(), compositeCalculator);
 
 			compositeCalculator.ApplyCalculation(schemaBinding);
 
-			schemaBinding.GetVariableValue(outputVariable1).Should().Be(value1);
-			schemaBinding.GetVariableValue(outputVariable2).Should().Be(value2);
+			schemaBinding.GetVariableValue(outputVariable1.Name).Should().Be(value1);
+			schemaBinding.GetVariableValue(outputVariable2.Name).Should().Be(value2);
 		}
 	}
 }

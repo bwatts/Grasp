@@ -7,13 +7,13 @@ using Cloak;
 
 namespace Grasp.Knowledge.Runtime.Compilation
 {
-	internal sealed class GraspCompiler
+	internal sealed class SchemaCompiler
 	{
 		private readonly Schema _schema;
 		private readonly ISet<Variable> _variables;
 		private readonly IList<CalculationSchema> _calculations;
 
-		internal GraspCompiler(Schema schema)
+		internal SchemaCompiler(Schema schema)
 		{
 			_schema = schema;
 

@@ -31,11 +31,11 @@ namespace Grasp.Knowledge.Runtime.Compilation
 			var initialValue = 1;
 			var executable = schema.Compile();
 
-			A.CallTo(() => initialState.GetValue(variable)).Returns(initialValue);
+			A.CallTo(() => initialState.GetValue(variable.Name)).Returns(initialValue);
 
 			var binding = executable.Bind(initialState);
 
-			binding.GetVariableValue(variable).Should().Be(initialValue);
+			binding.GetVariableValue(variable.Name).Should().Be(initialValue);
 		}
 	}
 }

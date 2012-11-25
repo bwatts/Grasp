@@ -28,9 +28,9 @@ namespace Grasp.Knowledge.Runtime
 			var variable = new Variable<int>("X");
 			var schema = new Schema(Params.Of(variable));
 			var value = 1;
-			var binding = new SchemaBinding(schema, A.Fake<ICalculator>(), new VariableBinding(variable, value));
+			var binding = new SchemaBinding(schema, A.Fake<ICalculator>(), new VariableBinding(variable.Name, value));
 
-			var boundValue = binding.GetVariableValue(variable);
+			var boundValue = binding.GetVariableValue(variable.Name);
 
 			boundValue.Should().Be(value);
 		}
@@ -41,18 +41,18 @@ namespace Grasp.Knowledge.Runtime
 			var schema = new Schema(Params.Of(variable));
 			var binding = new SchemaBinding(schema, A.Fake<ICalculator>());
 
-			Assert.Throws<UnboundVariableException>(() => binding.GetVariableValue(variable));
+			Assert.Throws<UnboundVariableException>(() => binding.GetVariableValue(variable.Name));
 		}
 
 		[Fact] public void SetBoundVariableValue()
 		{
 			var variable = new Variable<int>("X");
 			var schema = new Schema(Params.Of(variable));
-			var variableBinding = new VariableBinding(variable, 1);
+			var variableBinding = new VariableBinding(variable.Name, 1);
 			var binding = new SchemaBinding(schema, A.Fake<ICalculator>(), variableBinding);
 			var newValue = 2;
 
-			binding.SetVariableValue(variable, newValue);
+			binding.SetVariableValue(variable.Name, newValue);
 
 			variableBinding.Value.Should().Be(newValue);
 		}
@@ -64,9 +64,9 @@ namespace Grasp.Knowledge.Runtime
 			var binding = new SchemaBinding(schema, A.Fake<ICalculator>());
 			var newValue = 1;
 
-			binding.SetVariableValue(variable, newValue);
+			binding.SetVariableValue(variable.Name, newValue);
 
-			binding.GetVariableValue(variable).Should().Be(newValue);
+			binding.GetVariableValue(variable.Name).Should().Be(newValue);
 		}
 	}
 }

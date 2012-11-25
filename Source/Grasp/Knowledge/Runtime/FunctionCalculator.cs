@@ -37,7 +37,7 @@ namespace Grasp.Knowledge.Runtime
 		/// <param name="schemaBinding">The bound schema to which to apply the function</param>
 		public void ApplyCalculation(SchemaBinding schemaBinding)
 		{
-			schemaBinding.SetVariableValue(_outputVariable, _function(schemaBinding));
+			schemaBinding.SetVariableValue(_outputVariable.Name, _function(schemaBinding));
 		}
 	}
 }

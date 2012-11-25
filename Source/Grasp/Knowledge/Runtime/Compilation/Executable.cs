@@ -45,7 +45,7 @@ namespace Grasp.Knowledge.Runtime.Compilation
 
 		private IEnumerable<VariableBinding> GetBindings(ISnapshot initialState)
 		{
-			return _schema.Variables.Select(variable => new VariableBinding(variable, initialState.GetValue(variable)));
+			return _schema.Variables.Select(variable => new VariableBinding(variable.Name, initialState.GetValue(variable.Name)));
 		}
 	}
 }

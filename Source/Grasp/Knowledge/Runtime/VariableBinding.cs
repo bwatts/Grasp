@@ -12,31 +12,37 @@ namespace Grasp.Knowledge.Runtime
 	/// </summary>
 	public class VariableBinding : Notion
 	{
-		public static readonly Field<Variable> VariableField = Field.On<VariableBinding>.For(x => x.Variable);
+		public static readonly Field<FullName> NameField = Field.On<VariableBinding>.For(x => x.Name);
 		public static readonly Field<object> ValueField = Field.On<VariableBinding>.For(x => x.Value);
 
 		/// <summary>
 		/// Initializes a binding with the specified variable and value
 		/// </summary>
-		/// <param name="variable">The bound variable</param>
+		/// <param name="name">The name of the bound variable</param>
 		/// <param name="value">The value to which the specified variable is bound</param>
-		public VariableBinding(Variable variable, object value)
+		public VariableBinding(FullName name, object value)
 		{
-			Contract.Requires(variable != null);
+			Contract.Requires(name != null);
 
-			// TODO: Ensure that the value is assignable to the variable type
-
-			Variable = variable;
+			Name = name;
 			Value = value;
 		}
 
 		/// <summary>
-		/// Gets the bound variable
+		/// Initializes a binding with the specified variable and value
 		/// </summary>
-		public Variable Variable { get { return GetValue(VariableField); } private set { SetValue(VariableField, value); } }
+		/// <param name="name">The name of the bound variable</param>
+		/// <param name="value">The value to which the specified variable is bound</param>
+		public VariableBinding(string name, object value) : this(new FullName(name), value)
+		{}
 
 		/// <summary>
-		/// Gets the value to which <see cref="Variable"/> is bound
+		/// Gets the bound variable
+		/// </summary>
+		public FullName Name { get { return GetValue(NameField); } private set { SetValue(NameField, value); } }
+
+		/// <summary>
+		/// Gets the value to which the variable is bound
 		/// </summary>
 		public object Value { get { return GetValue(ValueField); } set { SetValue(ValueField, value); } }
 
@@ -47,8 +53,8 @@ namespace Grasp.Knowledge.Runtime
 		public override string ToString()
 		{
 			return Value == null
-				? Resources.VariableBindingNullValue.FormatInvariant(Variable)
-				: Resources.VariableBindingNonNullValue.FormatInvariant(Variable, Value);
+				? Resources.VariableBindingNullValue.FormatInvariant(Name)
+				: Resources.VariableBindingNonNullValue.FormatInvariant(Name, Value);
 		}
 	}
 }

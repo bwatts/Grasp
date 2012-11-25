@@ -9,16 +9,16 @@ using Cloak;
 namespace Grasp.Knowledge.Runtime
 {
 	/// <summary>
-	/// A context in which a schema is bound to a calculation runtime and a set of values
+	/// A context in which a schema is bound to a calculation function and a set of values
 	/// </summary>
 	public class SchemaBinding : Notion
 	{
 		public static readonly Field<Schema> SchemaField = Field.On<SchemaBinding>.For(x => x.Schema);
 		public static readonly Field<ICalculator> _calculatorField = Field.On<SchemaBinding>.For(x => x._calculator);
-		public static readonly Field<ManyKeyed<Variable, VariableBinding>> _bindingsByVariableField = Field.On<SchemaBinding>.For(x => x._bindingsByVariable);
+		public static readonly Field<ManyKeyed<FullName, VariableBinding>> _bindingsByVariableField = Field.On<SchemaBinding>.For(x => x._bindingsByVariable);
 
 		private ICalculator _calculator { get { return GetValue(_calculatorField); } set { SetValue(_calculatorField, value); } }
-		private ManyKeyed<Variable, VariableBinding> _bindingsByVariable { get { return GetValue(_bindingsByVariableField); } set { SetValue(_bindingsByVariableField, value); } }
+		private ManyKeyed<FullName, VariableBinding> _bindingsByVariable { get { return GetValue(_bindingsByVariableField); } set { SetValue(_bindingsByVariableField, value); } }
 
 		/// <summary>
 		/// Initializes a binding with the specified schema, calculator, and variable bindings
@@ -32,12 +32,12 @@ namespace Grasp.Knowledge.Runtime
 			Contract.Requires(calculator != null);
 			Contract.Requires(bindings != null);
 
-			// TODO: Ensure that all bound variables exist in schema
+			// TODO: Ensure that all bound variables exist in schema (perform same check when setting a previously-unbound variable)
 
 			Schema = schema;
 			_calculator = calculator;
 
-			_bindingsByVariable = bindings.ToDictionary(binding => binding.Variable).ToManyKeyed();
+			_bindingsByVariable = bindings.ToDictionary(binding => binding.Name).ToManyKeyed();
 		}
 
 		/// <summary>
@@ -65,18 +65,18 @@ namespace Grasp.Knowledge.Runtime
 		/// <summary>
 		/// Gets the value of the specified variable
 		/// </summary>
-		/// <param name="variable">The variable for which to get the value</param>
+		/// <param name="name">The variable for which to get the value</param>
 		/// <returns>The value of the specified variable</returns>
 		/// <exception cref="UnboundVariableException">Thrown if the specified variable is not bound</exception>
-		public object GetVariableValue(Variable variable)
+		public object GetVariableValue(FullName name)
 		{
-			Contract.Requires(variable != null);
+			Contract.Requires(name != null);
 
-			var binding = TryGetBinding(variable);
+			var binding = TryGetBinding(name);
 
 			if(binding == null)
 			{
-				throw new UnboundVariableException(variable, Resources.VariableNotBound.FormatInvariant(variable));
+				throw new UnboundVariableException(name, Resources.VariableNotBound.FormatInvariant(name));
 			}
 
 			return binding.Value;
@@ -85,13 +85,13 @@ namespace Grasp.Knowledge.Runtime
 		/// <summary>
 		/// Sets the value of the specified variable
 		/// </summary>
-		/// <param name="variable">The variable for which to set the specified value</param>
+		/// <param name="name">The variable to set to the specified value</param>
 		/// <param name="value">The new value of the specified variable</param>
-		public void SetVariableValue(Variable variable, object value)
+		public void SetVariableValue(FullName name, object value)
 		{
-			Contract.Requires(variable != null);
+			Contract.Requires(name != null);
 
-			var binding = TryGetBinding(variable);
+			var binding = TryGetBinding(name);
 
 			if(binding != null)
 			{
@@ -99,17 +99,17 @@ namespace Grasp.Knowledge.Runtime
 			}
 			else
 			{
-				binding = new VariableBinding(variable, value);
+				binding = new VariableBinding(name, value);
 
-				_bindingsByVariable.AsWriteable()[variable] = binding;
+				_bindingsByVariable.AsWriteable()[name] = binding;
 			}
 		}
 
-		private VariableBinding TryGetBinding(Variable variable)
+		private VariableBinding TryGetBinding(FullName name)
 		{
 			VariableBinding binding;
 
-			_bindingsByVariable.TryGetValue(variable, out binding);
+			_bindingsByVariable.TryGetValue(name, out binding);
 
 			return binding;
 		}

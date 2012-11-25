@@ -10,11 +10,11 @@ namespace Grasp.Knowledge.Runtime.Compilation
 	internal sealed class CalculationCompiler : CalculationExpressionVisitor
 	{
 		private static readonly MethodInfo _getVariableValueMethod = typeof(SchemaBinding).GetMethod("GetVariableValue", BindingFlags.Public | BindingFlags.Instance);
-		private ParameterExpression _runtimeParameter;
+		private ParameterExpression _bindingParameter;
 
 		internal FunctionCalculator CompileCalculation(CalculationSchema schema)
 		{
-			_runtimeParameter = Expression.Parameter(typeof(SchemaBinding), "runtime");
+			_bindingParameter = Expression.Parameter(typeof(SchemaBinding), "binding");
 
 			var lambdaBody = Visit(schema.Expression);
 
@@ -33,14 +33,14 @@ namespace Grasp.Knowledge.Runtime.Compilation
 				lambdaBody = Expression.Convert(lambdaBody, typeof(object));
 			}
 
-			var lambda = Expression.Lambda<Func<SchemaBinding, object>>(lambdaBody, _runtimeParameter);
+			var lambda = Expression.Lambda<Func<SchemaBinding, object>>(lambdaBody, _bindingParameter);
 
 			return lambda.Compile();
 		}
 
 		private Expression GetGetVariableValueCall(VariableExpression variableNode)
 		{
-			return Expression.Call(_runtimeParameter, _getVariableValueMethod, Expression.Constant(variableNode.Variable));
+			return Expression.Call(_bindingParameter, _getVariableValueMethod, Expression.Constant(variableNode.Variable.Name));
 		}
 	}
 }

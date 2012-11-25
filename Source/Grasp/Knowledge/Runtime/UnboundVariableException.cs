@@ -14,42 +14,42 @@ namespace Grasp.Knowledge.Runtime
 		/// <summary>
 		/// Initializes an exception with the specified variable
 		/// </summary>
-		/// <param name="variable">The unbound variable</param>
-		public UnboundVariableException(Variable variable)
+		/// <param name="name">The name of the unbound variable</param>
+		public UnboundVariableException(FullName name)
 		{
-			Contract.Requires(variable != null);
+			Contract.Requires(name != null);
 
-			Variable = variable;
+			Name = name;
 		}
 
 		/// <summary>
 		/// Initializes an exception with the specified variable and message
 		/// </summary>
-		/// <param name="variable">The unbound variable</param>
+		/// <param name="name">The name of the unbound variable</param>
 		/// <param name="message">The message that describes the error</param>
-		public UnboundVariableException(Variable variable, string message) : base(message)
+		public UnboundVariableException(FullName name, string message) : base(message)
 		{
-			Contract.Requires(variable != null);
+			Contract.Requires(name != null);
 
-			Variable = variable;
+			Name = name;
 		}
 
 		/// <summary>
 		/// Initializes an exception with the specified variable, message, and inner exception
 		/// </summary>
-		/// <param name="variable">The unbound variable</param>
+		/// <param name="name">The name of the unbound variable</param>
 		/// <param name="message">The message that describes the error</param>
 		/// <param name="inner">The exception that is the cause of this exception</param>
-		public UnboundVariableException(Variable variable, string message, Exception inner) : base(message, inner)
+		public UnboundVariableException(FullName name, string message, Exception inner) : base(message, inner)
 		{
-			Contract.Requires(variable != null);
+			Contract.Requires(name != null);
 
-			Variable = variable;
+			Name = name;
 		}
 
 		/// <summary>
-		/// Gets the unbound variable
+		/// Gets name of the unbound variable
 		/// </summary>
-		public Variable Variable { get; private set; }
+		public FullName Name { get; private set; }
 	}
 }

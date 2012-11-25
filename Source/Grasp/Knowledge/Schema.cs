@@ -49,7 +49,7 @@ namespace Grasp.Knowledge
 		{
 			try
 			{
-				return new GraspCompiler(this).Compile();
+				return new SchemaCompiler(this).Compile();
 			}
 			catch(Exception ex)
 			{

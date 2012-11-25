@@ -19,7 +19,7 @@ namespace Grasp.Knowledge.Runtime
 		/// <summary>
 		/// Initializes a composite calculator with the specified calculators
 		/// </summary>
-		/// <param name="calculators">The series of calculators to be applied to runtimes</param>
+		/// <param name="calculators">The series of applied calculators</param>
 		public CompositeCalculator(IEnumerable<ICalculator> calculators)
 		{
 			Contract.Requires(calculators != null);
@@ -30,7 +30,7 @@ namespace Grasp.Knowledge.Runtime
 		/// <summary>
 		/// Initializes a composite calculator with the specified calculators
 		/// </summary>
-		/// <param name="calculators">The series of calculators to be applied to runtimes</param>
+		/// <param name="calculators">The series of applied calculators</param>
 		public CompositeCalculator(params ICalculator[] calculators) : this(calculators as IEnumerable<ICalculator>)
 		{}
 
