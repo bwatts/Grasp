@@ -105,6 +105,10 @@
       <Link>Properties\GraspAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Knowledge\Calculation.cs" />
+    <Compile Include="Knowledge\Definition\Question.cs" />
+    <Compile Include="Knowledge\Definition\QuestionLibrary.cs" />
+    <Compile Include="Knowledge\Definition\RangeQuestion.cs" />
+    <Compile Include="Knowledge\Definition\ScalarQuestion.cs" />
     <Compile Include="Knowledge\Runtime\Compilation\CompilationException.cs" />
     <Compile Include="Knowledge\Runtime\Compilation\CalculationCompiler.cs" />
     <Compile Include="Knowledge\Runtime\Compilation\CalculationCycleException.cs" />
@@ -274,6 +278,7 @@
     <Compile Include="Knowledge\FullName.cs" />
     <Compile Include="Knowledge\Identifier.cs" />
     <Compile Include="Knowledge\Namespace.cs" />
+    <Compile Include="Knowledge\SchemaMergeRule.cs" />
     <Compile Include="Knowledge\Variable.cs" />
     <Compile Include="Lists\ListItemBindings.cs" />
     <Compile Include="Lists\ListSchema.cs" />

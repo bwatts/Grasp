@@ -15,6 +15,16 @@ namespace Grasp.Knowledge
 	/// </summary>
 	public sealed class Namespace : ComparableValue<Namespace, string>, IEnumerable<Identifier>
 	{
+		public static Namespace operator +(Namespace @namespace, Namespace otherNamespace)
+		{
+			return @namespace.Append(otherNamespace);
+		}
+
+		public static FullName operator +(Namespace @namespace, Identifier identifier)
+		{
+			return @namespace.Append(identifier);
+		}
+
 		private static readonly Regex _regex = new Regex(@"^([_A-Za-z]+\w*)+(\.[_A-Za-z]+\w*)*$", RegexOptions.Compiled);
 
 		/// <summary>
@@ -59,6 +69,26 @@ namespace Grasp.Knowledge
 		IEnumerator IEnumerable.GetEnumerator()
 		{
 			return GetEnumerator();
+		}
+
+		/// <summary>
+		/// Gets a namespace consisting of this and the specified namespace
+		/// </summary>
+		/// <param name="otherNamespace">The namespace to append to this namespace</param>
+		/// <returns>A namespace consisting of this and the specified namespace</returns>
+		public Namespace Append(Namespace otherNamespace)
+		{
+			return new Namespace("{0}.{1}".FormatInvariant(this, otherNamespace));
+		}
+
+		/// <summary>
+		/// Gets a full name with this namespace and the specified identifier
+		/// </summary>
+		/// <param name="identifier">The identifier to to qualify with this namespace</param>
+		/// <returns>A full name with this namespace and the specified identifier</returns>
+		public FullName Append(Identifier identifier)
+		{
+			return new FullName(this, identifier);
 		}
 	}
 }

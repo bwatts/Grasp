@@ -69,6 +69,22 @@ namespace Grasp.Knowledge
 		}
 
 		/// <summary>
+		/// Initializes a calculation with the specified output variable and expression
+		/// </summary>
+		/// <param name="outputVariableName">The name of the variable to which the output of this calculation is assigned</param>
+		/// <param name="expression">The expression tree which defines the body of this calculation</param>
+		public Calculation(FullName outputVariableName, Expression expression) : base(new Variable<TOutput>(outputVariableName), expression)
+		{}
+
+		/// <summary>
+		/// Initializes a calculation with the specified output variable and expression
+		/// </summary>
+		/// <param name="outputVariableName">The name of the variable to which the output of this calculation is assigned</param>
+		/// <param name="expression">The expression tree which defines the body of this calculation</param>
+		public Calculation(string outputVariableName, Expression expression) : base(new Variable<TOutput>(outputVariableName), expression)
+		{}
+
+		/// <summary>
 		/// Gets the variable to which the output of this calculation is assigned
 		/// </summary>
 		public new Variable<TOutput> OutputVariable { get { return GetValue(OutputVariableField); } private set { SetValue(OutputVariableField, value); } }

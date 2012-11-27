@@ -56,5 +56,97 @@ namespace Grasp.Knowledge
 				throw new CompilationException(this, Resources.CompilationError, ex);
 			}
 		}
+
+		/// <summary>
+		/// Merges the variables and calculations of this and the specified schemas, using the specified rules to resolve conflicts
+		/// </summary>
+		/// <param name="other">The schema to merge</param>
+		/// <param name="variableRule">Determines how to resolve conflicts between variables</param>
+		/// <param name="calculationRule">Determines how to resolve conflicts between calculations</param>
+		/// <returns>A schema containing the variables and calculations of this and the specified schemas</returns>
+		public Schema Merge(Schema other, SchemaMergeRule variableRule = default(SchemaMergeRule), SchemaMergeRule calculationRule = default(SchemaMergeRule))
+		{
+			Contract.Requires(other != null);
+
+			return new Schema(MergeVariables(other, variableRule), MergeCalculations(other, calculationRule));
+		}
+
+		private IEnumerable<Variable> MergeVariables(Schema other, SchemaMergeRule rule)
+		{
+			var variableSets =
+				from variable in Variables.Union(other.Variables)
+				group variable by variable.Name into variablesByName
+				select variablesByName.ToList();
+
+			foreach(var variableSet in variableSets)
+			{
+				if(variableSet.Count == 1)
+				{
+					yield return variableSet[0];
+				}
+				else if(variableSet.Count == 2)
+				{
+					yield return MergeVariable(rule, variableSet[0], variableSet[1]);
+				}
+				else
+				{
+					throw new ArgumentException();	// TODO
+				}
+			}
+		}
+
+		private static Variable MergeVariable(SchemaMergeRule rule, Variable left, Variable right)
+		{
+			switch(rule)
+			{
+				case SchemaMergeRule.ErrorOnConflict:
+					throw new ArgumentException();	// TODO
+				case SchemaMergeRule.PreferLeft:
+					return left;
+				case SchemaMergeRule.PreferRight:
+					return right;
+				default:
+					throw new NotSupportedException();	// TODO
+			}
+		}
+
+		private IEnumerable<Calculation> MergeCalculations(Schema other, SchemaMergeRule rule)
+		{
+			var calculationSets =
+				from calculation in Calculations.Union(other.Calculations)
+				group calculation by calculation.OutputVariable.Name into calculationsByOutputName
+				select calculationsByOutputName.ToList();
+
+			foreach(var calculationSet in calculationSets)
+			{
+				if(calculationSet.Count == 1)
+				{
+					yield return calculationSet[0];
+				}
+				else if(calculationSet.Count == 2)
+				{
+					yield return MergeCalculation(rule, calculationSet[0], calculationSet[1]);
+				}
+				else
+				{
+					throw new ArgumentException();	// TODO
+				}
+			}
+		}
+
+		private static Calculation MergeCalculation(SchemaMergeRule rule, Calculation left, Calculation right)
+		{
+			switch(rule)
+			{
+				case SchemaMergeRule.ErrorOnConflict:
+					throw new ArgumentException();	// TODO
+				case SchemaMergeRule.PreferLeft:
+					return left;
+				case SchemaMergeRule.PreferRight:
+					return right;
+				default:
+					throw new NotSupportedException();	// TODO
+			}
+		}
 	}
 }

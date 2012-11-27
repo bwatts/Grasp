@@ -10,7 +10,7 @@ using Cloak;
 namespace Grasp.Knowledge
 {
 	/// <summary>
-	/// A unique concept qualified with its position in a namespace hierarchy
+	/// An identifier qualified with its position in a namespace hierarchy
 	/// </summary>
 	public sealed class FullName : ComparableValue<FullName, string>, IEnumerable<Identifier>
 	{

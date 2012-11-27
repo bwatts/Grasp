@@ -102,12 +102,12 @@ namespace Grasp.Work
 
 		private void RecordUnobservedEvent(Event @event)
 		{
-			((IList<Event>) _unobservedEvents).Add(@event);
+			_unobservedEvents.AsWriteable().Add(@event);
 		}
 
 		private void ClearUnobservedEvents()
 		{
-			((ICollection<Event>) _unobservedEvents).Clear();
+			_unobservedEvents.AsWriteable().Clear();
 		}
 	}
 }
