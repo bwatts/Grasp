@@ -457,6 +457,15 @@ namespace Grasp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to __validation.
+        /// </summary>
+        internal static string ValidationNamespace {
+            get {
+                return ResourceManager.GetString("ValidationNamespace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} ({1}).
         /// </summary>
         internal static string Variable {

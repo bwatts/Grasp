@@ -6,16 +6,17 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using Cloak;
+using Grasp.Work.Items;
 
 namespace Grasp.Knowledge.Definition
 {
 	public class RangeQuestion : Question
 	{
-		public static readonly Field<ScalarQuestion> MinimumField = Field.On<RangeQuestion>.For(x => x.Minimum);
-		public static readonly Field<ScalarQuestion> MaximumField = Field.On<RangeQuestion>.For(x => x.Maximum);
+		public static readonly Field<ValueQuestion> MinimumField = Field.On<RangeQuestion>.For(x => x.Minimum);
+		public static readonly Field<ValueQuestion> MaximumField = Field.On<RangeQuestion>.For(x => x.Maximum);
 		public static readonly Field<Identifier> LowerLessThanUpperVariableNameField = Field.On<RangeQuestion>.For(x => x.LowerLessThanUpperVariableName);
 
-		public RangeQuestion(FullName name, ScalarQuestion minimum, ScalarQuestion maximum, Identifier lowerLessThanUpperVariableName) : base(name)
+		public RangeQuestion(FullName name, ValueQuestion minimum, ValueQuestion maximum, Identifier lowerLessThanUpperVariableName) : base(name)
 		{
 			Contract.Requires(minimum != null);
 			Contract.Requires(maximum != null);
@@ -26,8 +27,8 @@ namespace Grasp.Knowledge.Definition
 			LowerLessThanUpperVariableName = lowerLessThanUpperVariableName;
 		}
 
-		public ScalarQuestion Minimum { get { return GetValue(MinimumField); } private set { SetValue(MinimumField, value); } }
-		public ScalarQuestion Maximum { get { return GetValue(MaximumField); } private set { SetValue(MaximumField, value); } }
+		public ValueQuestion Minimum { get { return GetValue(MinimumField); } private set { SetValue(MinimumField, value); } }
+		public ValueQuestion Maximum { get { return GetValue(MaximumField); } private set { SetValue(MaximumField, value); } }
 		public Identifier LowerLessThanUpperVariableName { get { return GetValue(LowerLessThanUpperVariableNameField); } private set { SetValue(LowerLessThanUpperVariableNameField, value); } }
 
 		public override Schema GetSchema(Namespace rootNamespace)

@@ -132,6 +132,8 @@
       <Link>Properties\GraspAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Checks\ThatChecks.cs" />
+    <Compile Include="Knowledge\Definition\ValueQuestions.cs" />
+    <Compile Include="Knowledge\Definition\ValidationRules.cs" />
     <Compile Include="Knowledge\Runtime\ApplyCalculations.cs">
       <SubType>Code</SubType>
     </Compile>

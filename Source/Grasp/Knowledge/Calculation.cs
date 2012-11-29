@@ -73,7 +73,7 @@ namespace Grasp.Knowledge
 		/// </summary>
 		/// <param name="outputVariableName">The name of the variable to which the output of this calculation is assigned</param>
 		/// <param name="expression">The expression tree which defines the body of this calculation</param>
-		public Calculation(FullName outputVariableName, Expression expression) : base(new Variable<TOutput>(outputVariableName), expression)
+		public Calculation(FullName outputVariableName, Expression expression) : this(new Variable<TOutput>(outputVariableName), expression)
 		{}
 
 		/// <summary>
@@ -81,7 +81,7 @@ namespace Grasp.Knowledge
 		/// </summary>
 		/// <param name="outputVariableName">The name of the variable to which the output of this calculation is assigned</param>
 		/// <param name="expression">The expression tree which defines the body of this calculation</param>
-		public Calculation(string outputVariableName, Expression expression) : base(new Variable<TOutput>(outputVariableName), expression)
+		public Calculation(string outputVariableName, Expression expression) : this(new Variable<TOutput>(outputVariableName), expression)
 		{}
 
 		/// <summary>
