@@ -20,6 +20,11 @@ namespace Grasp.Knowledge.Definition
 		public FullName Name { get { return GetValue(NameField); } private set { SetValue(NameField, value); } }
 
 		public abstract Schema GetSchema(Namespace rootNamespace);
+
+		public Schema GetSchema(string rootNamespace)
+		{
+			return GetSchema(new Namespace(rootNamespace));
+		}
 	}
 
 	[ContractClassFor(typeof(Question))]

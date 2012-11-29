@@ -25,7 +25,7 @@ namespace Grasp.Knowledge.Runtime
 
 		[Fact] public void GetBoundVariableValue()
 		{
-			var variable = new Variable<int>("X");
+			var variable = new Variable<int>("A");
 			var schema = new Schema(Params.Of(variable));
 			var value = 1;
 			var binding = new SchemaBinding(schema, A.Fake<ICalculator>(), new VariableBinding(variable.Name, value));
@@ -37,7 +37,7 @@ namespace Grasp.Knowledge.Runtime
 
 		[Fact] public void GetUnboundVariableValue()
 		{
-			var variable = new Variable<int>("X");
+			var variable = new Variable<int>("A");
 			var schema = new Schema(Params.Of(variable));
 			var binding = new SchemaBinding(schema, A.Fake<ICalculator>());
 
@@ -46,7 +46,7 @@ namespace Grasp.Knowledge.Runtime
 
 		[Fact] public void SetBoundVariableValue()
 		{
-			var variable = new Variable<int>("X");
+			var variable = new Variable<int>("A");
 			var schema = new Schema(Params.Of(variable));
 			var variableBinding = new VariableBinding(variable.Name, 1);
 			var binding = new SchemaBinding(schema, A.Fake<ICalculator>(), variableBinding);
@@ -59,7 +59,7 @@ namespace Grasp.Knowledge.Runtime
 
 		[Fact] public void SetUnboundVariableValue()
 		{
-			var variable = new Variable<int>("X");
+			var variable = new Variable<int>("A");
 			var schema = new Schema(Params.Of(variable));
 			var binding = new SchemaBinding(schema, A.Fake<ICalculator>());
 			var newValue = 1;

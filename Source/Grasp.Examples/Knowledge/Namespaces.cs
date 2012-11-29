@@ -12,7 +12,7 @@ namespace Grasp.Knowledge
 	{
 		[Fact] public void Create()
 		{
-			var value = "X";
+			var value = "A";
 
 			var identifier = new Identifier(value);
 
@@ -26,9 +26,9 @@ namespace Grasp.Knowledge
 
 		[Fact] public void GetIdentifiers()
 		{
-			var @namespace = new Namespace("X.Y");
+			var @namespace = new Namespace("A.B");
 
-			((IEnumerable<Identifier>) @namespace).Should().Equal(new Identifier("X"), new Identifier("Y"));
+			@namespace.Should<Identifier>().Equal(new Identifier("A"), new Identifier("B"));
 		}
 
 		[Theory]

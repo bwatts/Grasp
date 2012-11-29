@@ -25,12 +25,12 @@ namespace Grasp.Knowledge.Definition
 		[Fact] public void GetCalculation()
 		{
 			var validationRule = new ValidationRule("SomeRule", Rule.Constant(true));
-			var target = new Variable<int>("Grasp.SomeTarget");
+			var target = new Variable<int>("Acme.SomeTarget");
 
 			var calculation = validationRule.GetCalculation(target);
 
 			calculation.OutputVariable.Type.Should().Be(typeof(bool));
-			calculation.OutputVariable.Name.Value.Should().Be("Grasp.SomeTarget.__validation.SomeRule");
+			calculation.OutputVariable.Name.Value.Should().Be("Acme.SomeTarget.__validation.SomeRule");
 			calculation.Expression.Should().BeAssignableTo<InvocationExpression>();
 
 			var invocation = (InvocationExpression) calculation.Expression;

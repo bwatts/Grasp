@@ -12,31 +12,31 @@ namespace Grasp.Knowledge
 	{
 		[Fact] public void CreateWithoutNamespace()
 		{
-			var value = "X";
+			var value = "A";
 
 			var fullName = new FullName(value);
 
-			((object) fullName.Namespace).Should().Be(Namespace.Root);
-			fullName.Identifier.Should().Be(new Identifier(value));
 			fullName.Value.Should().Be(value);
+			fullName.Namespace.Should<Namespace>().Be(Namespace.Root);
+			fullName.Identifier.Value.Should().Be(value);
 		}
 
 		[Fact] public void CreateWithNamespace()
 		{
-			var fullName = new FullName("Grasp.X");
+			var fullName = new FullName("A.B");
 
-			((object) fullName.Namespace).Should().Be(new Namespace("Grasp"));
-			fullName.Identifier.Should().Be(new Identifier("X"));
-			fullName.Value.Should().Be("Grasp.X");
+			fullName.Value.Should().Be("A.B");
+			fullName.Namespace.Value.Should().Be("A");
+			fullName.Identifier.Value.Should().Be("B");
 		}
 
 		[Fact] public void CreateWithMultiPartNamespace()
 		{
-			var fullName = new FullName("Grasp.Knowledge.X");
+			var fullName = new FullName("A.B.C");
 
-			((object) fullName.Namespace).Should().Be(new Namespace("Grasp.Knowledge"));
-			fullName.Identifier.Should().Be(new Identifier("X"));
-			fullName.Value.Should().Be("Grasp.Knowledge.X");
+			fullName.Value.Should().Be("A.B.C");
+			fullName.Namespace.Value.Should().Be("A.B");
+			fullName.Identifier.Value.Should().Be("C");
 		}
 
 		[Fact] public void CreateWithNonIdentifier()
@@ -46,24 +46,24 @@ namespace Grasp.Knowledge
 
 		[Fact] public void CreateWithNonNamespace()
 		{
-			Assert.Throws<FormatException>(() => new FullName("0.X"));
+			Assert.Throws<FormatException>(() => new FullName("0.A"));
 		}
 
 		[Fact] public void CreateWithNamespaceAndNonIdentifier()
 		{
-			Assert.Throws<FormatException>(() => new FullName("Grasp.0"));
+			Assert.Throws<FormatException>(() => new FullName("A.0"));
 		}
 
 		[Fact] public void CreateWithMultiPartNamespaceAndNonIdentifier()
 		{
-			Assert.Throws<FormatException>(() => new FullName("Grasp.Knowledge.0"));
+			Assert.Throws<FormatException>(() => new FullName("A.B.0"));
 		}
 
 		[Fact] public void GetIdentifiers()
 		{
-			var fullName = new Namespace("X.Y.Z");
+			var fullName = new Namespace("A.B.C");
 
-			((IEnumerable<Identifier>) fullName).Should().Equal(new Identifier("X"), new Identifier("Y"), new Identifier("Z"));
+			fullName.Should<Identifier>().Equal(new Identifier("A"), new Identifier("B"), new Identifier("C"));
 		}
 
 		[Theory]

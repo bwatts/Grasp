@@ -37,6 +37,30 @@ namespace Grasp.Knowledge
 		public Many<Calculation> Calculations { get { return GetValue(CalculationsField); } private set { SetValue(CalculationsField, value); } }
 
 		/// <summary>
+		/// Gets the variable with the specified name, or null if not found
+		/// </summary>
+		/// <param name="name">The name of the variable to get</param>
+		/// <returns>The variable with the specified name, or null if not found</returns>
+		public Variable GetVariable(FullName name)
+		{
+			Contract.Requires(name != null);
+
+			return Variables.FirstOrDefault(variable => variable.Name == name);
+		}
+
+		/// <summary>
+		/// Gets the calculation for the variable with the specified name, or null if not found
+		/// </summary>
+		/// <param name="outputVariableName">The name of the output variable of the calculation to get</param>
+		/// <returns>The calculation for the variable with the specified name, or null if not found</returns>
+		public Calculation GetCalculation(FullName outputVariableName)
+		{
+			Contract.Requires(outputVariableName != null);
+
+			return Calculations.FirstOrDefault(calculation => calculation.OutputVariable.Name == outputVariableName);
+		}
+
+		/// <summary>
 		/// Gets an executable version of this schema which applies its calculations
 		/// </summary>
 		/// <returns>An executable version of this schema which applies its calculations</returns>

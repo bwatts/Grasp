@@ -14,47 +14,48 @@ namespace Grasp.Knowledge.Definition
 	{
 		public static readonly Field<ValueQuestion> MinimumField = Field.On<RangeQuestion>.For(x => x.Minimum);
 		public static readonly Field<ValueQuestion> MaximumField = Field.On<RangeQuestion>.For(x => x.Maximum);
-		public static readonly Field<Identifier> LowerLessThanUpperVariableNameField = Field.On<RangeQuestion>.For(x => x.LowerLessThanUpperVariableName);
+		public static readonly Field<Identifier> ValidVariableNameField = Field.On<RangeQuestion>.For(x => x.ValidVariableName);
 
-		public RangeQuestion(FullName name, ValueQuestion minimum, ValueQuestion maximum, Identifier lowerLessThanUpperVariableName) : base(name)
+		public RangeQuestion(FullName name, ValueQuestion minimum, ValueQuestion maximum, Identifier validVariableName) : base(name)
 		{
 			Contract.Requires(minimum != null);
 			Contract.Requires(maximum != null);
-			Contract.Requires(lowerLessThanUpperVariableName != null);
+			Contract.Requires(validVariableName != null);
 
 			Minimum = minimum;
 			Maximum = maximum;
-			LowerLessThanUpperVariableName = lowerLessThanUpperVariableName;
+			ValidVariableName = validVariableName;
 		}
+
+		public RangeQuestion(string name, ValueQuestion minimum, ValueQuestion maximum, Identifier validVariableName)
+			: this(new FullName(name), minimum, maximum, validVariableName)
+		{}
 
 		public ValueQuestion Minimum { get { return GetValue(MinimumField); } private set { SetValue(MinimumField, value); } }
 		public ValueQuestion Maximum { get { return GetValue(MaximumField); } private set { SetValue(MaximumField, value); } }
-		public Identifier LowerLessThanUpperVariableName { get { return GetValue(LowerLessThanUpperVariableNameField); } private set { SetValue(LowerLessThanUpperVariableNameField, value); } }
+		public Identifier ValidVariableName { get { return GetValue(ValidVariableNameField); } private set { SetValue(ValidVariableNameField, value); } }
 
 		public override Schema GetSchema(Namespace rootNamespace)
 		{
-			var minimum = GetMinimum(rootNamespace);
-			var maximum = GetMaximum(rootNamespace);
+			var minimumSchema = Minimum.GetSchema(rootNamespace);
+			var maximumSchema = Maximum.GetSchema(rootNamespace);
 
-			var lowerLessThanUpper = GetLowerLessThanUpper(rootNamespace, minimum, maximum);
+			var minimum = minimumSchema.Variables.Single();
+			var maximum = maximumSchema.Variables.Single();
 
-			return new Schema(Params.Of(minimum, maximum), Params.Of(lowerLessThanUpper));
+			var valid = GetValid(rootNamespace, minimum, maximum);
+
+			var calculations = minimumSchema.Calculations
+				.Concat(maximumSchema.Calculations)
+				.Concat(new[] { valid });
+
+			return new Schema(Params.Of(minimum, maximum), calculations);
 		}
 
-		private Variable GetMinimum(Namespace rootNamespace)
-		{
-			return Minimum.GetSchema(rootNamespace).Variables.Single();
-		}
-
-		private Variable GetMaximum(Namespace rootNamespace)
-		{
-			return Maximum.GetSchema(rootNamespace).Variables.Single();
-		}
-
-		private Calculation GetLowerLessThanUpper(Namespace rootNamespace, Variable minimum, Variable maximum)
+		private Calculation GetValid(Namespace rootNamespace, Variable minimum, Variable maximum)
 		{
 			return new Calculation<bool>(
-				rootNamespace + LowerLessThanUpperVariableName,
+				rootNamespace + ValidationRule.Namespace + ValidVariableName,
 				Expression.LessThanOrEqual(minimum.ToExpression(), maximum.ToExpression()));
 		}
 	}
