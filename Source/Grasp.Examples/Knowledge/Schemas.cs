@@ -14,10 +14,10 @@ namespace Grasp.Knowledge
 	{
 		[Fact] public void Create()
 		{
-			var variables = Params.Of(new Variable<int>("X"), new Variable<int>("Y"));
+			var variables = Params.Of(new Variable<int>("A"), new Variable<int>("B"));
 			var calculations = Params.Of(
-				new Calculation(new Variable<int>("A"), Expression.Constant(0)),
-				new Calculation(new Variable<int>("B"), Expression.Constant(1)));
+				new Calculation(new Variable<int>("X"), Expression.Constant(0)),
+				new Calculation(new Variable<int>("Y"), Expression.Constant(1)));
 
 			var schema = new Schema(variables, calculations);
 

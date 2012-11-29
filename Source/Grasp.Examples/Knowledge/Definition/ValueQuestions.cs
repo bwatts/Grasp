@@ -23,7 +23,7 @@ namespace Grasp.Knowledge.Definition
 			question.Name.Should<FullName>().Be(name);
 			question.VariableType.Should().Be(variableType);
 			question.VariableName.Should().Be(variableName);
-			question.ValidationRules.Should().BeEmpty();			
+			question.ValidationRules.Should().BeEmpty();
 		}
 
 		[Fact] public void CreateWithValidationRules()
@@ -40,15 +40,15 @@ namespace Grasp.Knowledge.Definition
 		{
 			var variableType = typeof(int);
 			var question = new ValueQuestion(new FullName("Q"), variableType, new Identifier("SomeVariable"));
-			
-			var schema = question.GetSchema(new Namespace("Grasp"));
+
+			var schema = question.GetSchema("Acme");
 
 			schema.Variables.Should().HaveCount(1);
 
 			var variable = schema.Variables.Single();
 
 			variable.Type.Should().Be(variableType);
-			variable.Name.Value.Should().Be("Grasp.SomeVariable");
+			variable.Name.Value.Should().Be("Acme.SomeVariable");
 		}
 
 		[Fact] public void GetSchemaWithValidationRule()
@@ -56,7 +56,7 @@ namespace Grasp.Knowledge.Definition
 			var rule = new ValidationRule("SomeRule", Rule.Constant(true));
 			var question = new ValueQuestion(new FullName("Q"), typeof(int), new Identifier("SomeVariable"), Params.Of(rule));
 
-			var schema = question.GetSchema(new Namespace("Grasp"));
+			var schema = question.GetSchema("Acme");
 
 			schema.Variables.Should().HaveCount(1);
 			schema.Calculations.Should().HaveCount(1);
@@ -64,7 +64,7 @@ namespace Grasp.Knowledge.Definition
 			var calculation = schema.Calculations.Single();
 
 			calculation.OutputVariable.Type.Should().Be(typeof(bool));
-			calculation.OutputVariable.Name.Value.Should().Be("Grasp.SomeVariable.__validation.SomeRule");
+			calculation.OutputVariable.Name.Value.Should().Be("Acme.SomeVariable.__validation.SomeRule");
 		}
 	}
 }

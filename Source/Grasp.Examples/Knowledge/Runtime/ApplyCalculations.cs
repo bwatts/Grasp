@@ -28,7 +28,7 @@ namespace Grasp.Knowledge.Runtime
 		{
 			var left = 1;
 			var right = 2;
-			var outputVariable = new Variable<int>("X");
+			var outputVariable = new Variable<int>("A");
 			var schema = new Schema(calculations: Params.Of(new Calculation(outputVariable, Expression.Add(Expression.Constant(left), Expression.Constant(right)))));
 			var binding = schema.Compile().Bind(new TestSnapshot());
 
@@ -41,12 +41,12 @@ namespace Grasp.Knowledge.Runtime
 		{
 			var left = 1;
 			var right = 2;
-			var leftVariable = new Variable<int>("X");
-			var outputVariable = new Variable<int>("Y");
+			var leftVariable = new Variable<int>("A");
+			var outputVariable = new Variable<int>("B");
 			var schema = new Schema(
 				Params.Of<Variable>(leftVariable),
 				Params.Of(new Calculation(outputVariable, Expression.Add(leftVariable.ToExpression(), Expression.Constant(right)))));
-			var initialState = new TestSnapshot { XValue = left };
+			var initialState = new TestSnapshot { AValue = left };
 			var binding = schema.Compile().Bind(initialState);
 
 			binding.ApplyCalculations();
@@ -58,13 +58,13 @@ namespace Grasp.Knowledge.Runtime
 		{
 			var left = 1;
 			var right = 2;
-			var leftVariable = new Variable<int>("X");
-			var rightVariable = new Variable<int>("Y");
-			var outputVariable = new Variable<int>("Z");
+			var leftVariable = new Variable<int>("A");
+			var rightVariable = new Variable<int>("B");
+			var outputVariable = new Variable<int>("C");
 			var schema = new Schema(
 				Params.Of<Variable>(leftVariable, rightVariable),
 				Params.Of(new Calculation(outputVariable, Expression.Add(leftVariable.ToExpression(), rightVariable.ToExpression()))));
-			var initialState = new TestSnapshot { XValue = left, YValue = right };
+			var initialState = new TestSnapshot { AValue = left, BValue = right };
 			var binding = schema.Compile().Bind(initialState);
 
 			binding.ApplyCalculations();
@@ -78,8 +78,8 @@ namespace Grasp.Knowledge.Runtime
 			var right1 = 2;
 			var left2 = 11;
 			var right2 = 12;
-			var outputVariable1 = new Variable<int>("X");
-			var outputVariable2 = new Variable<int>("Y");
+			var outputVariable1 = new Variable<int>("A");
+			var outputVariable2 = new Variable<int>("B");
 			var schema = new Schema(calculations: Params.Of(
 				new Calculation(outputVariable1, Expression.Add(Expression.Constant(left1), Expression.Constant(right1))),
 				new Calculation(outputVariable2, Expression.Add(Expression.Constant(left2), Expression.Constant(right2)))));
@@ -96,8 +96,8 @@ namespace Grasp.Knowledge.Runtime
 			var left1 = 1;
 			var right1 = 2;
 			var left2 = 10;
-			var outputVariable1 = new Variable<int>("X");
-			var outputVariable2 = new Variable<int>("Y");
+			var outputVariable1 = new Variable<int>("A");
+			var outputVariable2 = new Variable<int>("B");
 			var schema = new Schema(calculations: Params.Of(
 				new Calculation(outputVariable1, Expression.Add(Expression.Constant(left1), Expression.Constant(right1))),
 				new Calculation(outputVariable2, Expression.Add(Expression.Constant(left2), outputVariable1.ToExpression()))));
@@ -114,12 +114,12 @@ namespace Grasp.Knowledge.Runtime
 
 		private sealed class TestSnapshot : ISnapshot
 		{
-			internal int XValue { get; set; }
-			internal int YValue { get; set; }
+			internal int AValue { get; set; }
+			internal int BValue { get; set; }
 
 			public object GetValue(FullName name)
 			{
-				return name.Value == "X" ? XValue : YValue;
+				return name.Value == "A" ? AValue : BValue;
 			}
 		}
 	}

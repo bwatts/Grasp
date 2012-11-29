@@ -25,7 +25,7 @@ namespace Grasp.Knowledge.Runtime.Compilation
 
 		[Fact] public void Bind()
 		{
-			var variable = new Variable<int>("X");
+			var variable = new Variable<int>("A");
 			var schema = new Schema(Params.Of(variable));
 			var initialState = A.Fake<ISnapshot>();
 			var initialValue = 1;

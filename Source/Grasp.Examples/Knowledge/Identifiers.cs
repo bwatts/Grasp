@@ -49,7 +49,7 @@ namespace Grasp.Knowledge
 
 		[Fact] public void Create()
 		{
-			var value = "X";
+			var value = "A";
 
 			var identifier = new Identifier(value);
 

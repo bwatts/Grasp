@@ -14,10 +14,10 @@ namespace Grasp.Knowledge.Runtime.Compilation
 	{
 		[Fact] public void ImplicitVariable()
 		{
-			var variable = new Variable<int>("X");
+			var variable = new Variable<int>("A");
 			var schema = new Schema(calculations: Params.Of(
 				new Calculation(variable, Expression.Constant(1)),
-				new Calculation(new Variable<int>("Y"), variable.ToExpression())));
+				new Calculation(new Variable<int>("B"), variable.ToExpression())));
 
 			var executable = schema.Compile();
 
@@ -26,8 +26,8 @@ namespace Grasp.Knowledge.Runtime.Compilation
 
 		[Fact] public void UnknownVariable()
 		{
-			var variable = new Variable<int>("X");
-			var schema = new Schema(calculations: Params.Of(new Calculation(new Variable<int>("A"), variable.ToExpression())));
+			var variable = new Variable<int>("A");
+			var schema = new Schema(calculations: Params.Of(new Calculation(new Variable<int>("B"), variable.ToExpression())));
 
 			Assert.Throws<CompilationException>(() => schema.Compile());
 		}

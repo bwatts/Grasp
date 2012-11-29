@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace Grasp.Knowledge.Definition
 {
-	public class QuestionLibrary : Notion
+	public class QuestionSet : Notion
 	{
-		public static readonly Field<FullName> NameField = Field.On<QuestionLibrary>.For(x => x.Name);
-		public static readonly Field<Many<Question>> QuestionsField = Field.On<QuestionLibrary>.For(x => x.Questions);
+		public static readonly Field<FullName> NameField = Field.On<QuestionSet>.For(x => x.Name);
+		public static readonly Field<Many<Question>> QuestionsField = Field.On<QuestionSet>.For(x => x.Questions);
 
-		public QuestionLibrary(FullName name, IEnumerable<Question> questions = null)
+		public QuestionSet(FullName name, IEnumerable<Question> questions = null)
 		{
 			Contract.Requires(name != null);
 

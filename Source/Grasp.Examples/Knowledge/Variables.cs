@@ -12,7 +12,7 @@ namespace Grasp.Knowledge
 		[Fact] public void Create()
 		{
 			var type = typeof(int);
-			var name = new FullName("X");
+			var name = new FullName("A");
 
 			var variable = new Variable(type, name);
 
@@ -22,7 +22,7 @@ namespace Grasp.Knowledge
 
 		[Fact] public void CreateGeneric()
 		{
-			var name = new FullName("X");
+			var name = new FullName("A");
 
 			var variable = new Variable<int>(name);
 
@@ -32,16 +32,16 @@ namespace Grasp.Knowledge
 
 		[Fact] public void GetText()
 		{
-			var variable = new Variable<int>("Grasp.X");
+			var variable = new Variable<int>("A.B");
 
 			var text = variable.ToString();
 
-			text.Should().Be("Grasp.X (System.Int32)");
+			text.Should().Be("A.B (System.Int32)");
 		}
 
 		[Fact] public void ToExpression()
 		{
-			var variable = new Variable<int>("X");
+			var variable = new Variable<int>("A");
 
 			var expression = variable.ToExpression();
 
@@ -52,7 +52,7 @@ namespace Grasp.Knowledge
 
 		[Fact] public void GetExpressionText()
 		{
-			var variable = new Variable<int>("X");
+			var variable = new Variable<int>("A");
 			var expression = variable.ToExpression();
 
 			var text = expression.ToString();

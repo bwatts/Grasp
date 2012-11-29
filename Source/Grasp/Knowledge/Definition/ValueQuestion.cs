@@ -24,6 +24,10 @@ namespace Grasp.Knowledge.Definition
 			ValidationRules = (validationRules ?? Enumerable.Empty<IValidationRule>()).ToMany();
 		}
 
+		public ValueQuestion(string name, Type variableType, Identifier variableName, IEnumerable<IValidationRule> validationRules = null)
+			: this(new FullName(name), variableType, variableName, validationRules)
+		{}
+
 		public Type VariableType { get { return GetValue(VariableTypeField); } private set { SetValue(VariableTypeField, value); } }
 		public Identifier VariableName { get { return GetValue(VariableNameField); } private set { SetValue(VariableNameField, value); } }
 		public Many<IValidationRule> ValidationRules { get { return GetValue(ValidationRulesField); } private set { SetValue(ValidationRulesField, value); } }

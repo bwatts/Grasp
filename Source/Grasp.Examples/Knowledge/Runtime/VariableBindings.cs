@@ -12,7 +12,7 @@ namespace Grasp.Knowledge.Runtime
 	{
 		[Fact] public void Create()
 		{
-			var name = new FullName("X");
+			var name = new FullName("A");
 			var value = 1;
 
 			var binding = new VariableBinding(name, value);
@@ -23,7 +23,7 @@ namespace Grasp.Knowledge.Runtime
 
 		[Fact] public void Set()
 		{
-			var binding = new VariableBinding("X", 1);
+			var binding = new VariableBinding("A", 1);
 			var newValue = 2;
 
 			binding.Value = newValue;

@@ -15,7 +15,7 @@ namespace Grasp.Knowledge
 	{
 		[Fact] public void CreateFunctionCalculator()
 		{
-			var outputVariable = new Variable<int>("X");
+			var outputVariable = new Variable<int>("A");
 			Func<SchemaBinding, object> function = schemaBinding => 1;
 
 			var calculator = new FunctionCalculator(outputVariable, function);
@@ -35,7 +35,7 @@ namespace Grasp.Knowledge
 
 		[Fact] public void ApplyFunctionCalculator()
 		{
-			var outputVariable = new Variable<int>("X");
+			var outputVariable = new Variable<int>("A");
 			var value = 1;
 			var calculator = new FunctionCalculator(outputVariable, binding => value);
 			var schema = new Schema();
@@ -50,8 +50,8 @@ namespace Grasp.Knowledge
 		{
 			var value1 = 1;
 			var value2 = 2;
-			var outputVariable1 = new Variable<int>("X");
-			var outputVariable2 = new Variable<int>("Y");
+			var outputVariable1 = new Variable<int>("A");
+			var outputVariable2 = new Variable<int>("B");
 			var calculator1 = new FunctionCalculator(outputVariable1, binding1 => value1);
 			var calculator2 = new FunctionCalculator(outputVariable2, binding2 => value2);
 			var compositeCalculator = new CompositeCalculator(calculator1, calculator2);
