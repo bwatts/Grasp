@@ -54,6 +54,20 @@ namespace Grasp.Knowledge
 			if(!IsNamespace(value)) throw new FormatException(Resources.InvalidNamespace.FormatCurrent(value));
 		}
 
+		/// <summary>
+		/// Initializes a namespace rooted at the specified full name
+		/// </summary>
+		/// <param name="fullName">The full name in which to root the namespace</param>
+		public Namespace(FullName fullName) : this(fullName.ToString())
+		{}
+
+		/// <summary>
+		/// Initializes a namespace with the specified identifiers
+		/// </summary>
+		/// <param name="identifiers">The identifiers of the namespace</param>
+		public Namespace(IEnumerable<Identifier> identifiers) : this(String.Join(".", identifiers.Select(identifier => identifier.ToString())))
+		{}
+
 		private Namespace() : base("")
 		{}
 
@@ -80,11 +94,13 @@ namespace Grasp.Knowledge
 		/// <summary>
 		/// Gets a namespace consisting of this and the specified namespace
 		/// </summary>
-		/// <param name="otherNamespace">The namespace to append to this namespace</param>
+		/// <param name="other">The namespace to append to this namespace</param>
 		/// <returns>A namespace consisting of this and the specified namespace</returns>
-		public Namespace Append(Namespace otherNamespace)
+		public Namespace Append(Namespace other)
 		{
-			return new Namespace("{0}.{1}".FormatInvariant(this, otherNamespace));
+			Contract.Requires(other != null);
+
+			return new Namespace(String.Join(".", new[] { ToString(), other.ToString() }));
 		}
 
 		/// <summary>

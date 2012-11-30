@@ -105,11 +105,17 @@
       <Link>Properties\GraspAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Knowledge\Calculation.cs" />
+    <Compile Include="Knowledge\Definition\Choice.cs" />
+    <Compile Include="Knowledge\Definition\ChoiceQuestion.cs" />
     <Compile Include="Knowledge\Definition\GridQuestion.cs" />
     <Compile Include="Knowledge\Definition\IValidationRule.cs" />
+    <Compile Include="Knowledge\Definition\MultipleChoiceItem.cs" />
     <Compile Include="Knowledge\Definition\Question.cs" />
     <Compile Include="Knowledge\Definition\QuestionSet.cs" />
     <Compile Include="Knowledge\Definition\RangeQuestion.cs" />
+    <Compile Include="Knowledge\Definition\MultipleChoiceQuestion.cs" />
+    <Compile Include="Knowledge\Definition\SingleChoiceQuestion.cs" />
+    <Compile Include="Knowledge\Definition\SubQuestion.cs" />
     <Compile Include="Knowledge\Definition\ValidationRule.cs" />
     <Compile Include="Knowledge\Definition\ValueQuestion.cs" />
     <Compile Include="Knowledge\Runtime\Compilation\CompilationException.cs" />

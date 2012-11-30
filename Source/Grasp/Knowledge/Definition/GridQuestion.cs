@@ -36,7 +36,7 @@ namespace Grasp.Knowledge.Definition
 			var itemSchemas =
 				from itemVariableName in ItemVariableNames
 				from question in Questions
-				let itemNamespace = new Namespace((rootNamespace + itemVariableName).ToString())
+				let itemNamespace = new Namespace(rootNamespace + itemVariableName)
 				select question.GetSchema(itemNamespace);
 
 			foreach(var itemSchema in itemSchemas)

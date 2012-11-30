@@ -9,7 +9,7 @@ namespace Grasp.Knowledge
 	public enum SchemaMergeRule
 	{
 		ErrorOnConflict,
-		PreferLeft,
-		PreferRight
+		UseLeft,
+		UseRight
 	}
 }

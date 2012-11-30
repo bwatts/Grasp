@@ -95,21 +95,6 @@ namespace Grasp.Knowledge
 		public static readonly FullName Anonymous = new FullName(Namespace.Root, Identifier.Anonymous);
 
 		/// <summary>
-		/// Initializes a full name with the specified namespace and identifier
-		/// </summary>
-		/// <param name="namespace">The namespace portion of the full name</param>
-		/// <param name="identifier">The identifier portion of the full name</param>
-		public FullName(Namespace @namespace, Identifier identifier)
-			: base(@namespace == Namespace.Root ? identifier.ToString() : Resources.FullName.FormatInvariant(@namespace, identifier))
-		{
-			Contract.Requires(@namespace != null);
-			Contract.Requires(identifier != null);
-
-			Namespace = @namespace;
-			Identifier = identifier;
-		}
-
-		/// <summary>
 		/// Initializes a full name with the specified value
 		/// </summary>
 		/// <param name="value">The value of the full name</param>
@@ -126,6 +111,29 @@ namespace Grasp.Knowledge
 			Namespace = @namespace;
 			Identifier = identifier;
 		}
+
+		/// <summary>
+		/// Initializes a full name with the specified namespace and identifier
+		/// </summary>
+		/// <param name="namespace">The namespace portion of the full name</param>
+		/// <param name="identifier">The identifier portion of the full name</param>
+		public FullName(Namespace @namespace, Identifier identifier)
+			: base(@namespace == Namespace.Root ? identifier.ToString() : Resources.FullName.FormatInvariant(@namespace, identifier))
+		{
+			Contract.Requires(@namespace != null);
+			Contract.Requires(identifier != null);
+
+			Namespace = @namespace;
+			Identifier = identifier;
+		}
+
+		/// <summary>
+		/// Initializes a full name with the specified identifiers
+		/// </summary>
+		/// <param name="identifiers">The identifiers of the full name</param>
+		public FullName(IEnumerable<Identifier> identifiers)
+			: this(String.Join(".", identifiers.Select(identifier => identifier.ToString())))
+		{}
 
 		/// <summary>
 		/// Gets the namespace of this full name

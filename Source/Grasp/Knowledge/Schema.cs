@@ -88,7 +88,7 @@ namespace Grasp.Knowledge
 		/// <param name="variableRule">Determines how to resolve conflicts between variables</param>
 		/// <param name="calculationRule">Determines how to resolve conflicts between calculations</param>
 		/// <returns>A schema containing the variables and calculations of this and the specified schemas</returns>
-		public Schema Merge(Schema other, SchemaMergeRule variableRule = default(SchemaMergeRule), SchemaMergeRule calculationRule = default(SchemaMergeRule))
+		public Schema Merge(Schema other, SchemaMergeRule variableRule = SchemaMergeRule.ErrorOnConflict, SchemaMergeRule calculationRule = SchemaMergeRule.ErrorOnConflict)
 		{
 			Contract.Requires(other != null);
 
@@ -125,9 +125,9 @@ namespace Grasp.Knowledge
 			{
 				case SchemaMergeRule.ErrorOnConflict:
 					throw new ArgumentException();	// TODO
-				case SchemaMergeRule.PreferLeft:
+				case SchemaMergeRule.UseLeft:
 					return left;
-				case SchemaMergeRule.PreferRight:
+				case SchemaMergeRule.UseRight:
 					return right;
 				default:
 					throw new NotSupportedException();	// TODO
@@ -164,9 +164,9 @@ namespace Grasp.Knowledge
 			{
 				case SchemaMergeRule.ErrorOnConflict:
 					throw new ArgumentException();	// TODO
-				case SchemaMergeRule.PreferLeft:
+				case SchemaMergeRule.UseLeft:
 					return left;
-				case SchemaMergeRule.PreferRight:
+				case SchemaMergeRule.UseRight:
 					return right;
 				default:
 					throw new NotSupportedException();	// TODO
