@@ -63,7 +63,13 @@ namespace Grasp.Knowledge
 		/// <returns>The identifiers which making up this namespace</returns>
 		public IEnumerator<Identifier> GetEnumerator()
 		{
-			return Value.Split('.').Select(part => new Identifier(part)).GetEnumerator();
+			if(this != Root)
+			{
+				foreach(var part in Value.Split('.'))
+				{
+					yield return new Identifier(part);
+				}
+			}
 		}
 
 		IEnumerator IEnumerable.GetEnumerator()

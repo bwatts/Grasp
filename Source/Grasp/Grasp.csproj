@@ -105,9 +105,10 @@
       <Link>Properties\GraspAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Knowledge\Calculation.cs" />
+    <Compile Include="Knowledge\Definition\GridQuestion.cs" />
     <Compile Include="Knowledge\Definition\IValidationRule.cs" />
     <Compile Include="Knowledge\Definition\Question.cs" />
-    <Compile Include="Knowledge\Definition\QuestionLibrary.cs" />
+    <Compile Include="Knowledge\Definition\QuestionSet.cs" />
     <Compile Include="Knowledge\Definition\RangeQuestion.cs" />
     <Compile Include="Knowledge\Definition\ValidationRule.cs" />
     <Compile Include="Knowledge\Definition\ValueQuestion.cs" />

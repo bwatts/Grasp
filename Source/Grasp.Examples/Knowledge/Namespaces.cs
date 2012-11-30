@@ -31,6 +31,11 @@ namespace Grasp.Knowledge
 			@namespace.Should<Identifier>().Equal(new Identifier("A"), new Identifier("B"));
 		}
 
+		[Fact] public void GetRootIdentifiers()
+		{
+			Namespace.Root.Should<Identifier>().BeEmpty();
+		}
+
 		[Theory]
 		[InlineData("A")]
 		[InlineData("A0")]

@@ -25,18 +25,25 @@ namespace Grasp.Knowledge
 		{
 			Contract.Requires(value != null);
 
-			var separatorIndex = value.LastIndexOf('.');
-
-			if(separatorIndex == -1)
+			if(value == "")
 			{
-				return Identifier.IsIdentifier(value);
+				return true;
 			}
 			else
 			{
-				var left = value.Substring(0, separatorIndex);
-				var right = separatorIndex == value.Length - 1 ? "" : value.Substring(separatorIndex + 1);
+				var separatorIndex = value.LastIndexOf('.');
 
-				return Namespace.IsNamespace(left) && Identifier.IsIdentifier(right);
+				if(separatorIndex == -1)
+				{
+					return Identifier.IsIdentifier(value);
+				}
+				else
+				{
+					var left = value.Substring(0, separatorIndex);
+					var right = separatorIndex == value.Length - 1 ? "" : value.Substring(separatorIndex + 1);
+
+					return Namespace.IsNamespace(left) && Identifier.IsIdentifier(right);
+				}
 			}
 		}
 
@@ -83,11 +90,17 @@ namespace Grasp.Knowledge
 		public static readonly Field<Identifier> IdentifierField = Field.On<FullName>.For(x => x.Identifier);
 
 		/// <summary>
+		/// A name in the root namespace and with an anonymous identifier
+		/// </summary>
+		public static readonly FullName Anonymous = new FullName(Namespace.Root, Identifier.Anonymous);
+
+		/// <summary>
 		/// Initializes a full name with the specified namespace and identifier
 		/// </summary>
 		/// <param name="namespace">The namespace portion of the full name</param>
 		/// <param name="identifier">The identifier portion of the full name</param>
-		public FullName(Namespace @namespace, Identifier identifier) : base(Resources.FullName.FormatInvariant(@namespace, identifier))
+		public FullName(Namespace @namespace, Identifier identifier)
+			: base(@namespace == Namespace.Root ? identifier.ToString() : Resources.FullName.FormatInvariant(@namespace, identifier))
 		{
 			Contract.Requires(@namespace != null);
 			Contract.Requires(identifier != null);

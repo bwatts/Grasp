@@ -66,6 +66,19 @@ namespace Grasp.Knowledge
 			fullName.Should<Identifier>().Equal(new Identifier("A"), new Identifier("B"), new Identifier("C"));
 		}
 
+		[Fact] public void GetIdentifiersWithRootNamespace()
+		{
+			var fullName = new Namespace("A");
+
+			fullName.Should<Identifier>().Equal(new Identifier("A"));
+		}
+
+		[Fact] public void GetAnonymous()
+		{
+			FullName.Anonymous.Namespace.Should<Namespace>().Be(Namespace.Root);
+			FullName.Anonymous.Value.Should().BeEmpty();
+		}
+
 		[Theory]
 		[InlineData("A")]
 		[InlineData("A0")]

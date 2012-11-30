@@ -17,6 +17,11 @@ namespace Grasp.Knowledge
 		private static readonly Regex _regex = new Regex(@"^[_A-Za-z]+\w*$", RegexOptions.Compiled);
 
 		/// <summary>
+		/// The identifier representing a concept without a name
+		/// </summary>
+		public static readonly Identifier Anonymous = new Identifier("");
+
+		/// <summary>
 		/// Determines if the specified text is a valid identifier
 		/// </summary>
 		/// <param name="value">The text to check if it is an identifier</param>
@@ -26,7 +31,7 @@ namespace Grasp.Knowledge
 		{
 			Contract.Requires(value != null);
 
-			return _regex.IsMatch(value);
+			return value == "" || _regex.IsMatch(value);
 		}
 
 		/// <summary>

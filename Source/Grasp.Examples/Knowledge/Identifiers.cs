@@ -10,6 +10,25 @@ namespace Grasp.Knowledge
 {
 	public class Identifiers
 	{
+		[Fact] public void Create()
+		{
+			var value = "A";
+
+			var identifier = new Identifier(value);
+
+			identifier.Value.Should().Be(value);
+		}
+
+		[Fact] public void CreateInvalid()
+		{
+			Assert.Throws<FormatException>(() => new Identifier("0"));
+		}
+
+		[Fact] public void GetAnonymous()
+		{
+			Identifier.Anonymous.Value.Should().BeEmpty();
+		}
+
 		[Theory]
 		[InlineData("A")]
 		[InlineData("A0")]
@@ -45,20 +64,6 @@ namespace Grasp.Knowledge
 		public void IsNotIdentifier(string value)
 		{
 			Identifier.IsIdentifier(value).Should().BeFalse();
-		}
-
-		[Fact] public void Create()
-		{
-			var value = "A";
-
-			var identifier = new Identifier(value);
-
-			identifier.Value.Should().Be(value);
-		}
-
-		[Fact] public void CreateInvalid()
-		{
-			Assert.Throws<FormatException>(() => new Identifier("0"));
 		}
 	}
 }

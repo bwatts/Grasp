@@ -25,7 +25,7 @@ namespace Grasp
 
 			foreach(var item in items)
 			{
-				_items.Add(item, null);
+				_items.Add(item, item);
 			}
 		}
 
@@ -44,7 +44,7 @@ namespace Grasp
 
 		void ICollection<T>.Add(T item)
 		{
-			_items.Add(item, null);
+			_items.Add(item, item);
 		}
 
 		void ICollection<T>.Clear()
@@ -86,7 +86,7 @@ namespace Grasp
 
 		void IList<T>.Insert(int index, T item)
 		{
-			_items.Insert(index, item, null);
+			_items.Insert(index, item, item);
 		}
 
 		void IList<T>.RemoveAt(int index)
