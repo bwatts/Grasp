@@ -12,7 +12,7 @@ namespace Grasp.Knowledge.Definition
 		public static readonly Field<Identifier> VariableNameField = Field.On<SubQuestion>.For(x => x.VariableName);
 		public static readonly Field<Question> QuestionField = Field.On<SubQuestion>.For(x => x.Question);
 
-		public SubQuestion(FullName name, Identifier variableName, Question question) : base(name)
+		public SubQuestion(Identifier variableName, Question question, FullName name = null) : base(name)
 		{
 			Contract.Requires(variableName != null);
 			Contract.Requires(question != null);
@@ -21,7 +21,7 @@ namespace Grasp.Knowledge.Definition
 			Question = question;
 		}
 
-		public SubQuestion(string name, Identifier variableName, Question question) : this(new FullName(name), variableName, question)
+		public SubQuestion(string variableName, Question question, FullName name = null) : this(new Identifier(variableName), question, name)
 		{}
 
 		public Identifier VariableName { get { return GetValue(VariableNameField); } private set { SetValue(VariableNameField, value); } }

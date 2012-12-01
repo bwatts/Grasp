@@ -10,11 +10,9 @@ namespace Grasp.Knowledge.Definition
 	{
 		public static readonly Field<FullName> NameField = Field.On<Question>.For(x => x.Name);
 
-		protected Question(FullName name)
+		protected Question(FullName name = null)
 		{
-			Contract.Requires(name != null);
-
-			Name = name;
+			Name = name ?? FullName.Anonymous;
 		}
 
 		public FullName Name { get { return GetValue(NameField); } private set { SetValue(NameField, value); } }
@@ -30,9 +28,6 @@ namespace Grasp.Knowledge.Definition
 	[ContractClassFor(typeof(Question))]
 	internal abstract class QuestionContract : Question
 	{
-		internal QuestionContract() : base(null)
-		{}
-
 		public override Schema GetSchema(Namespace rootNamespace)
 		{
 			Contract.Requires(rootNamespace != null);

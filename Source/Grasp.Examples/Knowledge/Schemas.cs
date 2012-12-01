@@ -27,11 +27,9 @@ namespace Grasp.Knowledge
 
 		[Fact] public void Compile()
 		{
-			var schema = new Schema();
+			var executable = Schema.Empty.Compile();
 
-			var executable = schema.Compile();
-
-			Executable._schemaField.Get(executable).Should().Be(schema);
+			Executable._schemaField.Get(executable).Should().Be(Schema.Empty);
 		}
 	}
 }

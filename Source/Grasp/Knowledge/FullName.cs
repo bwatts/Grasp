@@ -37,10 +37,14 @@ namespace Grasp.Knowledge
 				{
 					return Identifier.IsIdentifier(value);
 				}
+				else if(separatorIndex == 0 || separatorIndex == value.Length - 1)
+				{
+					return false;
+				}
 				else
 				{
 					var left = value.Substring(0, separatorIndex);
-					var right = separatorIndex == value.Length - 1 ? "" : value.Substring(separatorIndex + 1);
+					var right = value.Substring(separatorIndex + 1);
 
 					return Namespace.IsNamespace(left) && Identifier.IsIdentifier(right);
 				}
@@ -92,20 +96,20 @@ namespace Grasp.Knowledge
 		/// <summary>
 		/// A name in the root namespace and with an anonymous identifier
 		/// </summary>
-		public static readonly FullName Anonymous = new FullName(Namespace.Root, Identifier.Anonymous);
+		public static readonly FullName Anonymous = new FullName("");
 
 		/// <summary>
 		/// Initializes a full name with the specified value
 		/// </summary>
 		/// <param name="value">The value of the full name</param>
-		public FullName(string value) : base(value)
+		public FullName(string value = null) : base(value ?? "")
 		{
 			Namespace @namespace;
 			Identifier identifier;
 
-			if(!TryGetNamespaceAndIdentifier(value, out @namespace, out identifier))
+			if(!TryGetNamespaceAndIdentifier(Value, out @namespace, out identifier))
 			{
-				throw new FormatException(Resources.NotFullName.FormatInvariant(value));
+				throw new FormatException(Resources.NotFullName.FormatInvariant(Value));
 			}
 
 			Namespace = @namespace;

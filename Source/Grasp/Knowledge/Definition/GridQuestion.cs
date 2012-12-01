@@ -9,10 +9,10 @@ namespace Grasp.Knowledge.Definition
 {
 	public class GridQuestion : Question
 	{
-		public static readonly Field<ManyInOrder<Question>> QuestionsField = Field.On<GridQuestion>.For(x => x.Questions);
+		public static readonly Field<ManyInOrder<SubQuestion>> QuestionsField = Field.On<GridQuestion>.For(x => x.Questions);
 		public static readonly Field<ManyInOrder<Identifier>> ItemVariableNamesField = Field.On<GridQuestion>.For(x => x.ItemVariableNames);
 
-		public GridQuestion(FullName name, IEnumerable<Question> questions, IEnumerable<Identifier> itemVariableNames) : base(name)
+		public GridQuestion(IEnumerable<SubQuestion> questions, IEnumerable<Identifier> itemVariableNames, FullName name = null) : base(name)
 		{
 			Contract.Requires(questions != null);
 			Contract.Requires(itemVariableNames != null);
@@ -21,11 +21,7 @@ namespace Grasp.Knowledge.Definition
 			ItemVariableNames = itemVariableNames.ToManyInOrder();
 		}
 
-		public GridQuestion(string name, IEnumerable<Question> questions, IEnumerable<Identifier> itemVariableNames)
-			: this(new FullName(name), questions, itemVariableNames)
-		{}
-
-		public ManyInOrder<Question> Questions { get { return GetValue(QuestionsField); } private set { SetValue(QuestionsField, value); } }
+		public ManyInOrder<SubQuestion> Questions { get { return GetValue(QuestionsField); } private set { SetValue(QuestionsField, value); } }
 		public ManyInOrder<Identifier> ItemVariableNames { get { return GetValue(ItemVariableNamesField); } private set { SetValue(ItemVariableNamesField, value); } }
 
 		public override Schema GetSchema(Namespace rootNamespace)

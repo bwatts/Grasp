@@ -132,6 +132,11 @@
       <Link>Properties\GraspAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Checks\ThatChecks.cs" />
+    <Compile Include="Knowledge\Definition\Choices.cs" />
+    <Compile Include="Knowledge\Definition\MultipleChoiceQuestions.cs" />
+    <Compile Include="Knowledge\Definition\QuestionAssertions.cs" />
+    <Compile Include="Knowledge\Definition\RangeBoundaryQuestions.cs" />
+    <Compile Include="Knowledge\Definition\SingleChoiceQuestions.cs" />
     <Compile Include="Knowledge\Definition\GridQuestions.cs" />
     <Compile Include="Knowledge\Definition\RangeQuestions.cs" />
     <Compile Include="Knowledge\Definition\ValueQuestions.cs" />

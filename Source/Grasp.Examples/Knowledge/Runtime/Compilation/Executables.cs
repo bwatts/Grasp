@@ -14,7 +14,7 @@ namespace Grasp.Knowledge.Runtime.Compilation
 	{
 		[Fact] public void Create()
 		{
-			var schema = new Schema();
+			var schema = Schema.Empty;
 			var calculator = A.Fake<ICalculator>();
 
 			var executable = new Executable(schema, calculator);

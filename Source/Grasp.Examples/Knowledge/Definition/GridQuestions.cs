@@ -14,11 +14,11 @@ namespace Grasp.Knowledge.Definition
 	{
 		[Fact] public void Create()
 		{
-			var name = new FullName("QGrid");
-			var question = new ValueQuestion("Q", typeof(int), new Identifier("SomeQuestion"));
+			var name = new FullName("Q");
+			var question = new SubQuestion("SomeQuestion", new ValueQuestion<int>());
 			var itemVariableName = new Identifier("SomeItem");
 
-			var gridQuestion = new GridQuestion(name, Params.Of(question), Params.Of(itemVariableName));
+			var gridQuestion = new GridQuestion(Params.Of(question), Params.Of(itemVariableName), name);
 
 			gridQuestion.Name.Should<FullName>().Be(name);
 			gridQuestion.Questions.Should().HaveCount(1);
@@ -30,270 +30,217 @@ namespace Grasp.Knowledge.Definition
 		[Fact] public void GetSchema()
 		{
 			var question = new GridQuestion(
-				"QGrid",
-				Params.Of(new ValueQuestion("Q", typeof(int), new Identifier("SomeQuestion"))),
+				Params.Of(new SubQuestion("SomeQuestion", new ValueQuestion<int>())),
 				Params.Of(new Identifier("SomeItem")));
 
-			var schema = question.GetSchema("Acme.SomeGrid");
+			var schema = question.GetSchema("SomeGrid");
 
-			schema.Variables.Should().HaveCount(1);
-			schema.Variables.Single().Name.Value.Should().Be("Acme.SomeGrid.SomeItem.SomeQuestion");
+			schema.ShouldHaveVariables("SomeGrid.SomeItem.SomeQuestion");
+
 			schema.Calculations.Should().BeEmpty();
 		}
 
 		[Fact] public void GetSchemaWithMultipleQuestions()
 		{
 			var question = new GridQuestion(
-				"QGrid",
 				Params.Of(
-					new ValueQuestion("Q1", typeof(int), new Identifier("SomeQuestion1")),
-					new ValueQuestion("Q2", typeof(int), new Identifier("SomeQuestion2"))),
+					new SubQuestion("SomeQuestion1", new ValueQuestion<int>()),
+					new SubQuestion("SomeQuestion2", new ValueQuestion<int>())),
 				Params.Of(new Identifier("SomeItem")));
 
-			var schema = question.GetSchema("Acme.SomeGrid");
+			var schema = question.GetSchema("SomeGrid");
 
-			schema.Variables.Should().HaveCount(2);
-			schema.Variables.Select(variable => variable.Name.Value).Should().Contain(new[]
-			{
-				"Acme.SomeGrid.SomeItem.SomeQuestion1",
-				"Acme.SomeGrid.SomeItem.SomeQuestion2"
-			});
+			schema.ShouldHaveVariables(
+				"SomeGrid.SomeItem.SomeQuestion1",
+				"SomeGrid.SomeItem.SomeQuestion2");
+
 			schema.Calculations.Should().BeEmpty();
 		}
 
 		[Fact] public void GetSchemaWithMultipleItems()
 		{
 			var question = new GridQuestion(
-				"QGrid",
-				Params.Of(new ValueQuestion("Q", typeof(int), new Identifier("SomeQuestion"))),
+				Params.Of(new SubQuestion("SomeQuestion", new ValueQuestion<int>())),
 				Params.Of(new Identifier("SomeItem1"), new Identifier("SomeItem2")));
 
-			var schema = question.GetSchema("Acme.SomeGrid");
+			var schema = question.GetSchema("SomeGrid");
 
-			schema.Variables.Should().HaveCount(2);
-			schema.Variables.Select(variable => variable.Name.Value).Should().Contain(new[]
-			{
-				"Acme.SomeGrid.SomeItem1.SomeQuestion",
-				"Acme.SomeGrid.SomeItem2.SomeQuestion"
-			});
+			schema.ShouldHaveVariables(
+				"SomeGrid.SomeItem1.SomeQuestion",
+				"SomeGrid.SomeItem2.SomeQuestion");
+
 			schema.Calculations.Should().BeEmpty();
 		}
 
 		[Fact] public void GetSchemaWithMultipleQuestionsAndItems()
 		{
 			var question = new GridQuestion(
-				"QGrid",
 				Params.Of(
-					new ValueQuestion("Q1", typeof(int), new Identifier("SomeQuestion1")),
-					new ValueQuestion("Q2", typeof(int), new Identifier("SomeQuestion2"))),
+					new SubQuestion("SomeQuestion1", new ValueQuestion<int>()),
+					new SubQuestion("SomeQuestion2", new ValueQuestion<int>())),
 				Params.Of(new Identifier("SomeItem1"), new Identifier("SomeItem2")));
 
-			var schema = question.GetSchema("Acme.SomeGrid");
+			var schema = question.GetSchema("SomeGrid");
 
-			schema.Variables.Should().HaveCount(4);
-			schema.Variables.Select(variable => variable.Name.Value).Should().Contain(new[]
-			{
-				"Acme.SomeGrid.SomeItem1.SomeQuestion1",
-				"Acme.SomeGrid.SomeItem1.SomeQuestion2",
-				"Acme.SomeGrid.SomeItem2.SomeQuestion1",
-				"Acme.SomeGrid.SomeItem2.SomeQuestion2"
-			});
+			schema.ShouldHaveVariables(
+				"SomeGrid.SomeItem1.SomeQuestion1",
+				"SomeGrid.SomeItem1.SomeQuestion2",
+				"SomeGrid.SomeItem2.SomeQuestion1",
+				"SomeGrid.SomeItem2.SomeQuestion2");
+
 			schema.Calculations.Should().BeEmpty();
 		}
 
 		[Fact] public void GetSchemaWithValidationRule()
 		{
-			var columnQuestion = new ValueQuestion(
-				"Q",
-				typeof(int),
-				new Identifier("SomeQuestion"),
-				Params.Of(new ValidationRule("SomeRule", Rule.Constant(true))));
+			var columnQuestion = new SubQuestion(
+				"SomeQuestion",
+				new ValueQuestion<int>(Params.Of(new ValidationRule("SomeRule", Rule.True))));
 
-			var question = new GridQuestion("QGrid", Params.Of(columnQuestion), Params.Of(new Identifier("SomeItem")));
+			var question = new GridQuestion(Params.Of(columnQuestion), Params.Of(new Identifier("SomeItem")));
 
-			var schema = question.GetSchema("Acme.SomeGrid");
+			var schema = question.GetSchema("SomeGrid");
 
-			schema.Variables.Should().HaveCount(1);
-			schema.Variables.Single().Name.Value.Should().Be("Acme.SomeGrid.SomeItem.SomeQuestion");
-			schema.Calculations.Should().HaveCount(1);
-			schema.Calculations.Single().OutputVariable.Name.Value.Should().Be("Acme.SomeGrid.SomeItem.SomeQuestion.__validation.SomeRule");
+			schema.ShouldHaveVariables("SomeGrid.SomeItem.SomeQuestion");
+
+			schema.ShouldCalculate("SomeGrid.SomeItem.SomeQuestion.__validation.SomeRule");
 		}
 
 		[Fact] public void GetSchemaWithValidationRuleOnMultipleQuestions()
 		{
-			var columnQuestion1 = new ValueQuestion(
-				"Q1",
-				typeof(int),
-				new Identifier("SomeQuestion1"),
-				Params.Of(new ValidationRule("SomeRule1", Rule.Constant(true))));
+			var columnQuestion1 = new SubQuestion(
+				"SomeQuestion1",
+				new ValueQuestion<int>(Params.Of(new ValidationRule("SomeRule1", Rule.True))));
 
-			var columnQuestion2 = new ValueQuestion(
-				"Q2",
-				typeof(int),
-				new Identifier("SomeQuestion2"),
-				Params.Of(new ValidationRule("SomeRule2", Rule.Constant(true))));
+			var columnQuestion2 = new SubQuestion(
+				"SomeQuestion2",
+				new ValueQuestion<int>(Params.Of(new ValidationRule("SomeRule2", Rule.True))));
 
-			var question = new GridQuestion("QGrid", Params.Of(columnQuestion1, columnQuestion2), Params.Of(new Identifier("SomeItem")));
+			var question = new GridQuestion(Params.Of(columnQuestion1, columnQuestion2), Params.Of(new Identifier("SomeItem")));
 
-			var schema = question.GetSchema("Acme.SomeGrid");
+			var schema = question.GetSchema("SomeGrid");
 
-			schema.Variables.Should().HaveCount(2);
-			schema.Variables.Select(variable => variable.Name.Value).Should().Contain(new[]
-			{
-				"Acme.SomeGrid.SomeItem.SomeQuestion1",
-				"Acme.SomeGrid.SomeItem.SomeQuestion2"
-			});
-			schema.Calculations.Should().HaveCount(2);
-			schema.Calculations.Select(calculation => calculation.OutputVariable.Name.Value).Should().Contain(new[]
-			{
-				"Acme.SomeGrid.SomeItem.SomeQuestion1.__validation.SomeRule1",
-				"Acme.SomeGrid.SomeItem.SomeQuestion2.__validation.SomeRule2"
-			});
+			schema.ShouldHaveVariables(
+				"SomeGrid.SomeItem.SomeQuestion1",
+				"SomeGrid.SomeItem.SomeQuestion2");
+			
+			schema.ShouldCalculate(
+				"SomeGrid.SomeItem.SomeQuestion1.__validation.SomeRule1",
+				"SomeGrid.SomeItem.SomeQuestion2.__validation.SomeRule2");
 		}
 
 		[Fact] public void GetSchemaWithValidationRuleOnMultipleQuestionsWithMultipleItems()
 		{
-			var columnQuestion1 = new ValueQuestion(
-				"Q1",
-				typeof(int),
-				new Identifier("SomeQuestion1"),
-				Params.Of(new ValidationRule("SomeRule1", Rule.Constant(true))));
+			var columnQuestion1 = new SubQuestion(
+				"SomeQuestion1",
+				new ValueQuestion<int>(Params.Of(new ValidationRule("SomeRule1", Rule.True))));
 
-			var columnQuestion2 = new ValueQuestion(
-				"Q2",
-				typeof(int),
-				new Identifier("SomeQuestion2"),
-				Params.Of(new ValidationRule("SomeRule2", Rule.Constant(true))));
+			var columnQuestion2 = new SubQuestion(
+				"SomeQuestion2",
+				new ValueQuestion<int>(Params.Of(new ValidationRule("SomeRule2", Rule.True))));
 
 			var question = new GridQuestion(
-				"QGrid",
 				Params.Of(columnQuestion1, columnQuestion2),
 				Params.Of(new Identifier("SomeItem1"), new Identifier("SomeItem2")));
 
-			var schema = question.GetSchema("Acme.SomeGrid");
+			var schema = question.GetSchema("SomeGrid");
 
-			schema.Variables.Should().HaveCount(4);
-			schema.Variables.Select(variable => variable.Name.Value).Should().Contain(new[]
-			{
-				"Acme.SomeGrid.SomeItem1.SomeQuestion1",
-				"Acme.SomeGrid.SomeItem1.SomeQuestion2",
-				"Acme.SomeGrid.SomeItem2.SomeQuestion1",
-				"Acme.SomeGrid.SomeItem2.SomeQuestion2"
-			});
-			schema.Calculations.Should().HaveCount(4);
-			schema.Calculations.Select(calculation => calculation.OutputVariable.Name.Value).Should().Contain(new[]
-			{
-				"Acme.SomeGrid.SomeItem1.SomeQuestion1.__validation.SomeRule1",
-				"Acme.SomeGrid.SomeItem1.SomeQuestion2.__validation.SomeRule2",
-				"Acme.SomeGrid.SomeItem2.SomeQuestion1.__validation.SomeRule1",
-				"Acme.SomeGrid.SomeItem2.SomeQuestion2.__validation.SomeRule2"
-			});
+			schema.ShouldHaveVariables(
+				"SomeGrid.SomeItem1.SomeQuestion1",
+				"SomeGrid.SomeItem1.SomeQuestion2",
+				"SomeGrid.SomeItem2.SomeQuestion1",
+				"SomeGrid.SomeItem2.SomeQuestion2");
+
+			schema.ShouldCalculate(
+				"SomeGrid.SomeItem1.SomeQuestion1.__validation.SomeRule1",
+				"SomeGrid.SomeItem1.SomeQuestion2.__validation.SomeRule2",
+				"SomeGrid.SomeItem2.SomeQuestion1.__validation.SomeRule1",
+				"SomeGrid.SomeItem2.SomeQuestion2.__validation.SomeRule2");
 		}
 
 		[Fact] public void GetSchemaWithMultipleValidationRules()
 		{
-			var columnQuestion = new ValueQuestion(
-				"Q",
-				typeof(int),
-				new Identifier("SomeQuestion"),
-				Params.Of(
-					new ValidationRule("SomeRule1", Rule.Constant(true)),
-					new ValidationRule("SomeRule2", Rule.Constant(true))));
+			var columnQuestion = new SubQuestion(
+				"SomeQuestion",
+				new ValueQuestion<int>(Params.Of(
+					new ValidationRule("SomeRule1", Rule.True),
+					new ValidationRule("SomeRule2", Rule.True))));
 
-			var question = new GridQuestion("QGrid", Params.Of(columnQuestion), Params.Of(new Identifier("SomeItem")));
+			var question = new GridQuestion(Params.Of(columnQuestion), Params.Of(new Identifier("SomeItem")));
 
-			var schema = question.GetSchema("Acme.SomeGrid");
+			var schema = question.GetSchema("SomeGrid");
 
-			schema.Variables.Should().HaveCount(1);
-			schema.Variables.Single().Name.Value.Should().Be("Acme.SomeGrid.SomeItem.SomeQuestion");
-			schema.Calculations.Should().HaveCount(2);
-			schema.Calculations.Select(calculation => calculation.OutputVariable.Name.Value).Should().Contain(new[]
-			{
-				"Acme.SomeGrid.SomeItem.SomeQuestion.__validation.SomeRule1",
-				"Acme.SomeGrid.SomeItem.SomeQuestion.__validation.SomeRule2"
-			});
+			schema.ShouldHaveVariables("SomeGrid.SomeItem.SomeQuestion");
+
+			schema.ShouldCalculate(
+				"SomeGrid.SomeItem.SomeQuestion.__validation.SomeRule1",
+				"SomeGrid.SomeItem.SomeQuestion.__validation.SomeRule2");
 		}
 
 		[Fact] public void GetSchemaWithMultipleValidationRulesAndQuestions()
 		{
-			var columnQuestion1 = new ValueQuestion(
-				"Q1",
-				typeof(int),
-				new Identifier("SomeQuestion1"),
-				Params.Of(
-					new ValidationRule("SomeRule1", Rule.Constant(true)),
-					new ValidationRule("SomeRule2", Rule.Constant(true))));
+			var columnQuestion1 = new SubQuestion(
+				"SomeQuestion1",
+				new ValueQuestion<int>(Params.Of(
+					new ValidationRule("SomeRule1", Rule.True),
+					new ValidationRule("SomeRule2", Rule.True))));
 
-			var columnQuestion2 = new ValueQuestion(
-				"Q2",
-				typeof(int),
-				new Identifier("SomeQuestion2"),
-				Params.Of(
-					new ValidationRule("SomeRule3", Rule.Constant(true)),
-					new ValidationRule("SomeRule4", Rule.Constant(true))));
+			var columnQuestion2 = new SubQuestion(
+				"SomeQuestion2",
+				new ValueQuestion<int>(Params.Of(
+					new ValidationRule("SomeRule3", Rule.True),
+					new ValidationRule("SomeRule4", Rule.True))));
 
-			var question = new GridQuestion("QGrid", Params.Of(columnQuestion1, columnQuestion2), Params.Of(new Identifier("SomeItem")));
+			var question = new GridQuestion(Params.Of(columnQuestion1, columnQuestion2), Params.Of(new Identifier("SomeItem")));
 
-			var schema = question.GetSchema("Acme.SomeGrid");
+			var schema = question.GetSchema("SomeGrid");
 
-			schema.Variables.Should().HaveCount(2);
-			schema.Variables.Select(variable => variable.Name.Value).Should().Contain(new[]
-			{
-				"Acme.SomeGrid.SomeItem.SomeQuestion1",
-				"Acme.SomeGrid.SomeItem.SomeQuestion2"
-			});
-			schema.Calculations.Should().HaveCount(4);
-			schema.Calculations.Select(calculation => calculation.OutputVariable.Name.Value).Should().Contain(new[]
-			{
-				"Acme.SomeGrid.SomeItem.SomeQuestion1.__validation.SomeRule1",
-				"Acme.SomeGrid.SomeItem.SomeQuestion1.__validation.SomeRule2",
-				"Acme.SomeGrid.SomeItem.SomeQuestion2.__validation.SomeRule3",
-				"Acme.SomeGrid.SomeItem.SomeQuestion2.__validation.SomeRule4"
-			});
+			schema.ShouldHaveVariables(
+				"SomeGrid.SomeItem.SomeQuestion1",
+				"SomeGrid.SomeItem.SomeQuestion2");
+
+			schema.ShouldCalculate(
+				"SomeGrid.SomeItem.SomeQuestion1.__validation.SomeRule1",
+				"SomeGrid.SomeItem.SomeQuestion1.__validation.SomeRule2",
+				"SomeGrid.SomeItem.SomeQuestion2.__validation.SomeRule3",
+				"SomeGrid.SomeItem.SomeQuestion2.__validation.SomeRule4");
 		}
 
 		[Fact] public void GetSchemaWithMultipleValidationRulesAndQuestionsAndItems()
 		{
-			var columnQuestion1 = new ValueQuestion(
-				"Q1",
-				typeof(int),
-				new Identifier("SomeQuestion1"),
-				Params.Of(
-					new ValidationRule("SomeRule1", Rule.Constant(true)),
-					new ValidationRule("SomeRule2", Rule.Constant(true))));
+			var columnQuestion1 = new SubQuestion(
+				"SomeQuestion1",
+				new ValueQuestion<int>(Params.Of(
+					new ValidationRule("SomeRule1", Rule.True),
+					new ValidationRule("SomeRule2", Rule.True))));
 
-			var columnQuestion2 = new ValueQuestion(
-				"Q2",
-				typeof(int),
-				new Identifier("SomeQuestion2"),
-				Params.Of(
-					new ValidationRule("SomeRule3", Rule.Constant(true)),
-					new ValidationRule("SomeRule4", Rule.Constant(true))));
+			var columnQuestion2 = new SubQuestion(
+				"SomeQuestion2",
+				new ValueQuestion<int>(Params.Of(
+					new ValidationRule("SomeRule3", Rule.True),
+					new ValidationRule("SomeRule4", Rule.True))));
 
-			var question = new GridQuestion("QGrid", Params.Of(columnQuestion1, columnQuestion2), Params.Of(new Identifier("SomeItem1"), new Identifier("SomeItem2")));
+			var question = new GridQuestion(
+				Params.Of(columnQuestion1, columnQuestion2),
+				Params.Of(new Identifier("SomeItem1"), new Identifier("SomeItem2")));
 
-			var schema = question.GetSchema("Acme.SomeGrid");
+			var schema = question.GetSchema("SomeGrid");
 
-			schema.Variables.Should().HaveCount(4);
-			schema.Variables.Select(variable => variable.Name.Value).Should().Contain(new[]
-			{
-				"Acme.SomeGrid.SomeItem1.SomeQuestion1",
-				"Acme.SomeGrid.SomeItem1.SomeQuestion2",
-				"Acme.SomeGrid.SomeItem2.SomeQuestion1",
-				"Acme.SomeGrid.SomeItem2.SomeQuestion2"
-			});
-			schema.Calculations.Should().HaveCount(8);
-			schema.Calculations.Select(calculation => calculation.OutputVariable.Name.Value).Should().Contain(new[]
-			{
-				"Acme.SomeGrid.SomeItem1.SomeQuestion1.__validation.SomeRule1",
-				"Acme.SomeGrid.SomeItem1.SomeQuestion1.__validation.SomeRule2",
-				"Acme.SomeGrid.SomeItem1.SomeQuestion2.__validation.SomeRule3",
-				"Acme.SomeGrid.SomeItem1.SomeQuestion2.__validation.SomeRule4",
-				"Acme.SomeGrid.SomeItem2.SomeQuestion1.__validation.SomeRule1",
-				"Acme.SomeGrid.SomeItem2.SomeQuestion1.__validation.SomeRule2",
-				"Acme.SomeGrid.SomeItem2.SomeQuestion2.__validation.SomeRule3",
-				"Acme.SomeGrid.SomeItem2.SomeQuestion2.__validation.SomeRule4"
-			});
+			schema.ShouldHaveVariables(
+				"SomeGrid.SomeItem1.SomeQuestion1",
+				"SomeGrid.SomeItem1.SomeQuestion2",
+				"SomeGrid.SomeItem2.SomeQuestion1",
+				"SomeGrid.SomeItem2.SomeQuestion2");
+
+			schema.ShouldCalculate(
+				"SomeGrid.SomeItem1.SomeQuestion1.__validation.SomeRule1",
+				"SomeGrid.SomeItem1.SomeQuestion1.__validation.SomeRule2",
+				"SomeGrid.SomeItem1.SomeQuestion2.__validation.SomeRule3",
+				"SomeGrid.SomeItem1.SomeQuestion2.__validation.SomeRule4",
+				"SomeGrid.SomeItem2.SomeQuestion1.__validation.SomeRule1",
+				"SomeGrid.SomeItem2.SomeQuestion1.__validation.SomeRule2",
+				"SomeGrid.SomeItem2.SomeQuestion2.__validation.SomeRule3",
+				"SomeGrid.SomeItem2.SomeQuestion2.__validation.SomeRule4");
 		}
 	}
 }

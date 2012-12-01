@@ -37,6 +37,7 @@ namespace Grasp.Knowledge
 		}
 
 		[Theory]
+		[InlineData("")]
 		[InlineData("A")]
 		[InlineData("A0")]
 		[InlineData("A0A")]
@@ -124,7 +125,6 @@ namespace Grasp.Knowledge
 		}
 
 		[Theory]
-		[InlineData("")]
 		[InlineData(" ")]
 		[InlineData(" A")]
 		[InlineData("A ")]

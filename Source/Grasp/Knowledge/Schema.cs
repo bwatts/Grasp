@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics.Contracts;
 using System.Linq;
+using Cloak;
 using Grasp.Knowledge.Runtime.Compilation;
 
 namespace Grasp.Knowledge
@@ -15,6 +16,8 @@ namespace Grasp.Knowledge
 		public static readonly Field<Many<Variable>> VariablesField = Field.On<Schema>.For(x => x.Variables);
 		public static readonly Field<Many<Calculation>> CalculationsField = Field.On<Schema>.For(x => x.Calculations);
 
+		public static readonly Schema Empty = new Schema();
+
 		/// <summary>
 		/// Initializes a schema with the specified variables and calculations
 		/// </summary>
@@ -24,6 +27,47 @@ namespace Grasp.Knowledge
 		{
 			Variables = (variables ?? Enumerable.Empty<Variable>()).ToMany();
 			Calculations = (calculations ?? Enumerable.Empty<Calculation>()).ToMany();
+		}
+
+		/// <summary>
+		/// Initializes a schema with the specified variables
+		/// </summary>
+		/// <param name="variables">The variables in effect for this schema</param>
+		public Schema(params Variable[] variables) : this(variables as IEnumerable<Variable>)
+		{}
+
+		/// <summary>
+		/// Initializes a schema with the specified calculations
+		/// </summary>
+		/// <param name="calculations">The calculations in effect for this schema</param>
+		public Schema(params Calculation[] calculations) : this(calculations: calculations as IEnumerable<Calculation>)
+		{}
+
+		/// <summary>
+		/// Initializes a schema with the specified variable and calculation
+		/// </summary>
+		/// <param name="variable">The variable in effect for this schema</param>
+		/// <param name="calculation">The calculation in effect for this schema</param>
+		public Schema(Variable variable, Calculation calculation) : this(variable)
+		{
+			Contract.Requires(calculation != null);
+
+			Calculations.AsWriteable().Add(calculation);
+		}
+
+		/// <summary>
+		/// Initializes a schema with the specified variable and calculations
+		/// </summary>
+		/// <param name="variable">The variable in effect for this schema</param>
+		/// <param name="calculations">The calculations in effect for this schema</param>
+		public Schema(Variable variable, params Calculation[] calculations) : this(Params.Of(variable))
+		{
+			Contract.Requires(calculations != null);
+
+			foreach(var calculation in calculations)
+			{
+				Calculations.AsWriteable().Add(calculation);
+			}
 		}
 
 		/// <summary>

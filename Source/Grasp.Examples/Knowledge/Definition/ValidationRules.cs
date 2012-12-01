@@ -13,7 +13,7 @@ namespace Grasp.Knowledge.Definition
 	{
 		[Fact] public void Create()
 		{
-			var rule = Rule.Constant(true);
+			var rule = Rule.True;
 			var outputVariableIdentifier = new Identifier("O");
 
 			var validationRule = new ValidationRule(outputVariableIdentifier, rule);
@@ -24,13 +24,13 @@ namespace Grasp.Knowledge.Definition
 
 		[Fact] public void GetCalculation()
 		{
-			var validationRule = new ValidationRule("SomeRule", Rule.Constant(true));
-			var target = new Variable<int>("Acme.SomeTarget");
+			var validationRule = new ValidationRule("SomeRule", Rule.True);
+			var target = new Variable<int>("SomeTarget");
 
 			var calculation = validationRule.GetCalculation(target);
 
 			calculation.OutputVariable.Type.Should().Be(typeof(bool));
-			calculation.OutputVariable.Name.Value.Should().Be("Acme.SomeTarget.__validation.SomeRule");
+			calculation.OutputVariable.Name.Value.Should().Be("SomeTarget.__validation.SomeRule");
 			calculation.Expression.Should().BeAssignableTo<InvocationExpression>();
 
 			var invocation = (InvocationExpression) calculation.Expression;

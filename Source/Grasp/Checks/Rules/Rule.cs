@@ -234,6 +234,16 @@ namespace Grasp.Checks.Rules
 		public static readonly Field<RuleType> TypeField = Grasp.Field.On<Rule>.For(x => x.Type);
 
 		/// <summary>
+		/// Gets a rule with a constant result of true
+		/// </summary>
+		public static readonly ConstantRule True = Constant(true);
+
+		/// <summary>
+		/// Gets a rule with a constant result of false
+		/// </summary>
+		public static readonly ConstantRule False = Constant(false);
+
+		/// <summary>
 		/// Intiailizes a rule with the specified type
 		/// </summary>
 		/// <param name="type">The type of this node in the tree</param>

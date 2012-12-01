@@ -15,7 +15,7 @@ namespace Grasp.Knowledge.Runtime
 	{
 		[Fact] public void Apply()
 		{
-			var schema = new Schema();
+			var schema = Schema.Empty;
 			var calculator = A.Fake<ICalculator>();
 			var binding = new SchemaBinding(schema, calculator);
 

@@ -9,25 +9,25 @@ namespace Grasp.Knowledge.Definition
 {
 	public sealed class Choice : ComparableValue<Choice, string>
 	{
-		public static readonly Field<SubQuestion> OtherQuestionField = Field.On<Choice>.For(x => x.OtherQuestion);
+		public static readonly Field<SubQuestion> SubQuestionField = Field.On<Choice>.For(x => x.SubQuestion);
 
-		public Choice(string value, SubQuestion otherQuestion = null) : base(value)
+		public Choice(string value, SubQuestion subQuestion = null) : base(value)
 		{
-			OtherQuestion = otherQuestion;
+			SubQuestion = subQuestion;
 		}
 
-		public SubQuestion OtherQuestion { get { return GetValue(OtherQuestionField); } private set { SetValue(OtherQuestionField, value); } }
+		public SubQuestion SubQuestion { get { return GetValue(SubQuestionField); } private set { SetValue(SubQuestionField, value); } }
 
-		public bool HasOtherQuestion
+		public bool HasSubQuestion
 		{
-			get { return OtherQuestion != null; }
+			get { return SubQuestion != null; }
 		}
 
 		public Schema GetSchema(Namespace rootNamespace)
 		{
 			Contract.Requires(rootNamespace != null);
 
-			return !HasOtherQuestion ? new Schema() : OtherQuestion.GetSchema(rootNamespace);
+			return HasSubQuestion ? SubQuestion.GetSchema(rootNamespace) : Schema.Empty;
 		}
 	}
 }

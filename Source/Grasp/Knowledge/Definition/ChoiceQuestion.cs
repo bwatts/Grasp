@@ -10,37 +10,42 @@ namespace Grasp.Knowledge.Definition
 	[ContractClass(typeof(ChoiceQuestionContract))]
 	public abstract class ChoiceQuestion : Question
 	{
-		public static readonly Field<Identifier> SelectionVariableNameField = Field.On<ChoiceQuestion>.For(x => x.SelectionVariableName);
-		
-		protected ChoiceQuestion(FullName name, Identifier selectionVariableName) : base(name)
-		{
-			Contract.Requires(selectionVariableName != null);
+		public static readonly Field<ManyInOrder<Choice>> ChoicesField = Field.On<ChoiceQuestion>.For(x => x.Choices);
 
-			SelectionVariableName = selectionVariableName;
+		protected ChoiceQuestion(IEnumerable<Choice> choices = null, FullName name = null) : base(name)
+		{
+			Choices = (choices ?? Enumerable.Empty<Choice>()).ToManyInOrder();
 		}
 
-		public Identifier SelectionVariableName { get { return GetValue(SelectionVariableNameField); } private set { SetValue(SelectionVariableNameField, value); } }
+		public ManyInOrder<Choice> Choices { get { return GetValue(ChoicesField); } private set { SetValue(ChoicesField, value); } }
 
 		public override Schema GetSchema(Namespace rootNamespace)
 		{
-			var selectionNamespace = new Namespace(rootNamespace + SelectionVariableName);
-
-			return GetSelectionSchema(selectionNamespace);
+			return GetSelectionSchema(rootNamespace).Merge(GetChoicesSchema(rootNamespace));
 		}
 
-		protected abstract Schema GetSelectionSchema(Namespace selectionNamespace);
+		private Schema GetSelectionSchema(Namespace rootNamespace)
+		{
+			var selectionVariableName = new FullName(rootNamespace);
+
+			return new Schema(GetSelectionVariable(selectionVariableName));
+		}
+
+		private Schema GetChoicesSchema(Namespace rootNamespace)
+		{
+			return Choices.Count == 0 ? Schema.Empty : Choices.Select(choice => choice.GetSchema(rootNamespace)).Merge();
+		}
+
+		protected abstract Variable GetSelectionVariable(FullName name);
 	}
 
 	[ContractClassFor(typeof(ChoiceQuestion))]
 	internal abstract class ChoiceQuestionContract : ChoiceQuestion
 	{
-		protected ChoiceQuestionContract(FullName name, Identifier selectionVariableName) : base(name, selectionVariableName)
-		{}
-
-		protected override Schema GetSelectionSchema(Namespace selectionNamespace)
+		protected override Variable GetSelectionVariable(FullName name)
 		{
-			Contract.Requires(selectionNamespace != null);
-			Contract.Ensures(Contract.Result<Schema>() != null);
+			Contract.Requires(name != null);
+			Contract.Ensures(Contract.Result<Variable>() != null);
 
 			return null;
 		}

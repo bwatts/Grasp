@@ -37,7 +37,7 @@ namespace Grasp.Knowledge
 		{
 			Contract.Requires(value != null);
 
-			return _regex.IsMatch(value);
+			return value == "" || _regex.IsMatch(value);
 		}
 
 		/// <summary>

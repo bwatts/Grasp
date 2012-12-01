@@ -53,7 +53,7 @@ namespace Grasp.Checks.Conditions
 		{
 			var condition = _conditionRepository.GetCondition(conditionKey);
 
-			return condition == null ? Rule.Constant(true) : condition.Rule;
+			return condition == null ? Rule.True : condition.Rule;
 		}
 	}
 }

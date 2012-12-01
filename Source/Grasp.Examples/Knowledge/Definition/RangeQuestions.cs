@@ -14,41 +14,36 @@ namespace Grasp.Knowledge.Definition
 	{
 		[Fact] public void Create()
 		{
-			var name = new FullName("QRange");
-			var minimum = new ValueQuestion("QMin", typeof(int), new Identifier("Minimum"));
-			var maximum = new ValueQuestion("QMax", typeof(int), new Identifier("Maximum"));
+			var minimum = new RangeBoundaryQuestion(new Identifier("Minimum"), new ValueQuestion<int>());
+			var maximum = new RangeBoundaryQuestion(new Identifier("Maximum"), new ValueQuestion<int>());
 			var validVariableName = new Identifier("Valid");
+			var name = new FullName("Q");
 
-			var question = new RangeQuestion(name, minimum, maximum, validVariableName);
+			var question = new RangeQuestion(minimum, maximum, validVariableName, name);
 
-			question.Name.Should<FullName>().Be(name);
 			question.Minimum.Should().Be(minimum);
 			question.Maximum.Should().Be(maximum);
 			question.ValidVariableName.Should().Be(validVariableName);
+			question.Name.Should<FullName>().Be(name);
 		}
 
 		[Fact] public void GetSchema()
 		{
 			var question = new RangeQuestion(
-				"QRange",
-				new ValueQuestion("QMin", typeof(int), new Identifier("Minimum")),
-				new ValueQuestion("QMax", typeof(int), new Identifier("Maximum")),
+				new RangeBoundaryQuestion(new Identifier("Minimum"), new ValueQuestion<int>()),
+				new RangeBoundaryQuestion(new Identifier("Maximum"), new ValueQuestion<int>()),
 				new Identifier("Valid"));
 
-			var schema = question.GetSchema("Acme.SomeRange");
+			var schema = question.GetSchema("SomeRange");
 
-			schema.Variables.Should().HaveCount(2);
-			schema.Variables.Select(variable => variable.Name.Value).Should().Contain(new[]
-			{
-				"Acme.SomeRange.Minimum",
-				"Acme.SomeRange.Maximum"
-			});
+			schema.ShouldHaveVariables("SomeRange.Minimum", "SomeRange.Maximum");
 
 			schema.Calculations.Should().HaveCount(1);
 
 			var calculation = schema.Calculations.Single();
 
-			calculation.OutputVariable.Name.Value.Should().Be("Acme.SomeRange.__validation.Valid");
+			calculation.ShouldCalculate("SomeRange.__validation.Valid", typeof(bool));
+
 			calculation.Expression.Should().BeAssignableTo<BinaryExpression>();
 
 			var lessThanOrEqual = (BinaryExpression) calculation.Expression;
@@ -57,29 +52,29 @@ namespace Grasp.Knowledge.Definition
 			lessThanOrEqual.Left.Should().BeAssignableTo<VariableExpression>();
 			lessThanOrEqual.Right.Should().BeAssignableTo<VariableExpression>();
 
-			((VariableExpression) lessThanOrEqual.Left).Variable.Name.Value.Should().Be("Acme.SomeRange.Minimum");
-			((VariableExpression) lessThanOrEqual.Right).Variable.Name.Value.Should().Be("Acme.SomeRange.Maximum");
+			((VariableExpression) lessThanOrEqual.Left).Variable.ShouldHaveName("SomeRange.Minimum");
+			((VariableExpression) lessThanOrEqual.Right).Variable.ShouldHaveName("SomeRange.Maximum");
 		}
 
 		[Fact] public void GetSchemaWithValidationRules()
 		{
 			var question = new RangeQuestion(
-				"QRange",
-				new ValueQuestion("QMin", typeof(int), new Identifier("Minimum"), Params.Of(new ValidationRule("SomeRule1", Rule.Constant(true)))),
-				new ValueQuestion("QMax", typeof(int), new Identifier("Maximum"), Params.Of(new ValidationRule("SomeRule2", Rule.Constant(true)))),
+				new RangeBoundaryQuestion(
+					new Identifier("Minimum"),
+					new ValueQuestion<int>(Params.Of(new ValidationRule("SomeMinimumRule", Rule.True)))),
+				new RangeBoundaryQuestion(
+					new Identifier("Maximum"),
+					new ValueQuestion<int>(Params.Of(new ValidationRule("SomeMaximumRule", Rule.True)))),
 				new Identifier("Valid"));
 
-			var schema = question.GetSchema("Acme.SomeRange");
+			var schema = question.GetSchema("SomeRange");
 
-			schema.Variables.Should().HaveCount(2);
-			schema.Calculations.Should().HaveCount(3);
+			schema.ShouldHaveVariables("SomeRange.Minimum", "SomeRange.Maximum");
 
-			schema.Calculations.Select(calculation => calculation.OutputVariable.Name.Value).Should().Contain(new[]
-			{
-				"Acme.SomeRange.Minimum.__validation.SomeRule1",
-				"Acme.SomeRange.Maximum.__validation.SomeRule2",
-				"Acme.SomeRange.__validation.Valid",
-			});
+			schema.ShouldCalculate(
+				"SomeRange.Minimum.__validation.SomeMinimumRule",
+				"SomeRange.Maximum.__validation.SomeMaximumRule",
+				"SomeRange.__validation.Valid");
 		}
 	}
 }

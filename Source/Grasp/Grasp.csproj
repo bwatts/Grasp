@@ -109,9 +109,9 @@
     <Compile Include="Knowledge\Definition\ChoiceQuestion.cs" />
     <Compile Include="Knowledge\Definition\GridQuestion.cs" />
     <Compile Include="Knowledge\Definition\IValidationRule.cs" />
-    <Compile Include="Knowledge\Definition\MultipleChoiceItem.cs" />
     <Compile Include="Knowledge\Definition\Question.cs" />
     <Compile Include="Knowledge\Definition\QuestionSet.cs" />
+    <Compile Include="Knowledge\Definition\RangeBoundaryQuestion.cs" />
     <Compile Include="Knowledge\Definition\RangeQuestion.cs" />
     <Compile Include="Knowledge\Definition\MultipleChoiceQuestion.cs" />
     <Compile Include="Knowledge\Definition\SingleChoiceQuestion.cs" />
@@ -288,6 +288,7 @@
     <Compile Include="Knowledge\Identifier.cs" />
     <Compile Include="Knowledge\Namespace.cs" />
     <Compile Include="Knowledge\SchemaMergeRule.cs" />
+    <Compile Include="Knowledge\SchemaMerging.cs" />
     <Compile Include="Knowledge\Variable.cs" />
     <Compile Include="Lists\ListItemBindings.cs" />
     <Compile Include="Lists\ListSchema.cs" />
