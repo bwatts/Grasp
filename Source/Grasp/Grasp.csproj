@@ -111,7 +111,6 @@
     <Compile Include="Knowledge\Structure\IValidationRule.cs" />
     <Compile Include="Knowledge\Structure\IValidator.cs" />
     <Compile Include="Knowledge\Structure\Question.cs" />
-    <Compile Include="Knowledge\Structure\QuestionSet.cs" />
     <Compile Include="Knowledge\Structure\RangeBoundaryQuestion.cs" />
     <Compile Include="Knowledge\Structure\RangeQuestion.cs" />
     <Compile Include="Knowledge\Structure\MultipleChoiceQuestion.cs" />
