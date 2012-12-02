@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
 
-namespace Grasp.Knowledge.Definition
+namespace Grasp.Knowledge.Structure
 {
 	[ContractClass(typeof(QuestionContract))]
 	public abstract class Question : Notion

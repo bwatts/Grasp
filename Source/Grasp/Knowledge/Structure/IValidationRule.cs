@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Grasp.Knowledge.Definition
+namespace Grasp.Knowledge.Structure
 {
 	[ContractClass(typeof(IValidationRuleContract))]
 	public interface IValidationRule

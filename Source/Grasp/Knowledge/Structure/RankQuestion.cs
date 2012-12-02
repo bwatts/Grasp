@@ -10,7 +10,7 @@ using Cloak.Reflection;
 using Grasp.Checks;
 using Grasp.Checks.Rules;
 
-namespace Grasp.Knowledge.Definition
+namespace Grasp.Knowledge.Structure
 {
 	public class RankQuestion : Question
 	{

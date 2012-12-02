@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using FluentAssertions;
 
-namespace Grasp.Knowledge.Definition
+namespace Grasp.Knowledge.Structure
 {
 	[EditorBrowsable(EditorBrowsableState.Never)]
 	public static class QuestionAssertions

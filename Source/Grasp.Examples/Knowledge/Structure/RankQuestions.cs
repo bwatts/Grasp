@@ -9,7 +9,7 @@ using FluentAssertions;
 using Grasp.Checks;
 using Xunit;
 
-namespace Grasp.Knowledge.Definition
+namespace Grasp.Knowledge.Structure
 {
 	public class RankQuestions
 	{

@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Grasp.Checks.Rules;
 
-namespace Grasp.Knowledge.Definition
+namespace Grasp.Knowledge.Structure
 {
 	public sealed class Validator : Notion, IValidator
 	{

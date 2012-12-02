@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Cloak;
 
-namespace Grasp.Knowledge.Definition
+namespace Grasp.Knowledge.Structure
 {
 	public class SingleChoiceQuestion : ChoiceQuestion
 	{

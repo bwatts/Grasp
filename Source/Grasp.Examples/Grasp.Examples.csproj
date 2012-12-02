@@ -132,18 +132,18 @@
       <Link>Properties\GraspAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Checks\ThatChecks.cs" />
-    <Compile Include="Knowledge\Definition\Choices.cs" />
-    <Compile Include="Knowledge\Definition\SubQuestions.cs" />
-    <Compile Include="Knowledge\Definition\RankQuestions.cs" />
-    <Compile Include="Knowledge\Definition\Validators.cs" />
-    <Compile Include="Knowledge\Definition\MultipleChoiceQuestions.cs" />
-    <Compile Include="Knowledge\Definition\QuestionAssertions.cs" />
-    <Compile Include="Knowledge\Definition\RangeBoundaryQuestions.cs" />
-    <Compile Include="Knowledge\Definition\SingleChoiceQuestions.cs" />
-    <Compile Include="Knowledge\Definition\GridQuestions.cs" />
-    <Compile Include="Knowledge\Definition\RangeQuestions.cs" />
-    <Compile Include="Knowledge\Definition\ValueQuestions.cs" />
-    <Compile Include="Knowledge\Definition\ValidationRules.cs" />
+    <Compile Include="Knowledge\Structure\Choices.cs" />
+    <Compile Include="Knowledge\Structure\SubQuestions.cs" />
+    <Compile Include="Knowledge\Structure\RankQuestions.cs" />
+    <Compile Include="Knowledge\Structure\Validators.cs" />
+    <Compile Include="Knowledge\Structure\MultipleChoiceQuestions.cs" />
+    <Compile Include="Knowledge\Structure\QuestionAssertions.cs" />
+    <Compile Include="Knowledge\Structure\RangeBoundaryQuestions.cs" />
+    <Compile Include="Knowledge\Structure\SingleChoiceQuestions.cs" />
+    <Compile Include="Knowledge\Structure\GridQuestions.cs" />
+    <Compile Include="Knowledge\Structure\RangeQuestions.cs" />
+    <Compile Include="Knowledge\Structure\ValueQuestions.cs" />
+    <Compile Include="Knowledge\Structure\ValidationRules.cs" />
     <Compile Include="Knowledge\Runtime\ApplyCalculations.cs">
       <SubType>Code</SubType>
     </Compile>

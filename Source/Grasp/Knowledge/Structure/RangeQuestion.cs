@@ -12,7 +12,7 @@ using Grasp.Checks;
 using Grasp.Checks.Methods;
 using Grasp.Checks.Rules;
 
-namespace Grasp.Knowledge.Definition
+namespace Grasp.Knowledge.Structure
 {
 	public class RangeQuestion : Question
 	{

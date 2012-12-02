@@ -7,7 +7,7 @@ using Cloak;
 using FluentAssertions;
 using Xunit;
 
-namespace Grasp.Knowledge.Definition
+namespace Grasp.Knowledge.Structure
 {
 	public class SubQuestions
 	{

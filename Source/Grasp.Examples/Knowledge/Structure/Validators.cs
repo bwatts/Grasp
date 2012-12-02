@@ -7,7 +7,7 @@ using FluentAssertions;
 using Grasp.Checks.Rules;
 using Xunit;
 
-namespace Grasp.Knowledge.Definition
+namespace Grasp.Knowledge.Structure
 {
 	public class Validators
 	{
