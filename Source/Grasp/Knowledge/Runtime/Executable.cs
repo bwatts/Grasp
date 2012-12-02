@@ -4,7 +4,7 @@ using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 
-namespace Grasp.Knowledge.Runtime.Compilation
+namespace Grasp.Knowledge.Runtime
 {
 	/// <summary>
 	/// An executable version of a <see cref="_schema"/> which applies its calculations

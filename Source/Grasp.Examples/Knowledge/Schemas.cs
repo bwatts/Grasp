@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 using System.Text;
 using Cloak;
 using FluentAssertions;
-using Grasp.Knowledge.Runtime.Compilation;
+using Grasp.Knowledge.Runtime;
 using Xunit;
 
 namespace Grasp.Knowledge

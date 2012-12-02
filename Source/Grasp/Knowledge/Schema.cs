@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics.Contracts;
 using System.Linq;
 using Cloak;
+using Grasp.Knowledge.Runtime;
 using Grasp.Knowledge.Runtime.Compilation;
 
 namespace Grasp.Knowledge

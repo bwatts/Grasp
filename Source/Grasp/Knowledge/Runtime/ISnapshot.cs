@@ -4,7 +4,7 @@ using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 
-namespace Grasp.Knowledge.Runtime.Compilation
+namespace Grasp.Knowledge.Runtime
 {
 	/// <summary>
 	/// Describes the state of a <see cref="SchemaBinding"/> at a particular point in time

@@ -8,7 +8,7 @@ using FakeItEasy;
 using FluentAssertions;
 using Xunit;
 
-namespace Grasp.Knowledge.Runtime.Compilation
+namespace Grasp.Knowledge.Runtime
 {
 	public class Executables
 	{

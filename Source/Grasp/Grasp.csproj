@@ -131,7 +131,7 @@
     <Compile Include="Knowledge\Runtime\Compilation\DependencyGraph.cs" />
     <Compile Include="Knowledge\Runtime\Compilation\DependencyNode.cs" />
     <Compile Include="Knowledge\Runtime\Compilation\SchemaCompiler.cs" />
-    <Compile Include="Knowledge\Runtime\Compilation\Executable.cs" />
+    <Compile Include="Knowledge\Runtime\Executable.cs" />
     <Compile Include="Knowledge\Runtime\Compilation\InvalidCalculationResultTypeException.cs" />
     <Compile Include="Knowledge\Runtime\Compilation\InvalidCalculationVariableException.cs" />
     <Compile Include="Knowledge\Runtime\Compilation\VariableSearch.cs" />
@@ -140,7 +140,7 @@
     <Compile Include="Knowledge\Runtime\SchemaBinding.cs" />
     <Compile Include="Knowledge\Schema.cs" />
     <Compile Include="Knowledge\Runtime\ICalculator.cs" />
-    <Compile Include="Knowledge\Runtime\Compilation\ISnapshot.cs" />
+    <Compile Include="Knowledge\Runtime\ISnapshot.cs" />
     <Compile Include="Checks\Annotation\AnnotatedConditionSource.cs" />
     <Compile Include="Checks\Annotation\AnnotationException.cs" />
     <Compile Include="Checks\Annotation\CheckAttribute.cs" />

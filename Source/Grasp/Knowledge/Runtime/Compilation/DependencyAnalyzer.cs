@@ -9,14 +9,14 @@ namespace Grasp.Knowledge.Runtime.Compilation
 {
 	internal static class DependencyAnalyzer
 	{
-		internal static IEnumerable<CalculationSchema> OrderByDependency(this IEnumerable<CalculationSchema> calculations)
+		internal static IEnumerable<CalculationSchema> OrderByDependency(this IEnumerable<CalculationSchema> calculations, Schema schema)
 		{
-			return GetGraph(calculations).OrderCalculations();
+			return GetGraph(calculations, schema).OrderCalculations();
 		}
 
-		private static DependencyGraph GetGraph(IEnumerable<CalculationSchema> calculations)
+		private static DependencyGraph GetGraph(IEnumerable<CalculationSchema> calculations, Schema schema)
 		{
-			return new DependencyGraph(GetNodes(calculations));
+			return new DependencyGraph(GetNodes(calculations), schema);
 		}
 
 		private static IEnumerable<DependencyNode> GetNodes(IEnumerable<CalculationSchema> calculations)

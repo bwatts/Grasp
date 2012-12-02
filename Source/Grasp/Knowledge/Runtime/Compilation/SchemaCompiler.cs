@@ -46,9 +46,9 @@ namespace Grasp.Knowledge.Runtime.Compilation
 				if(!_variables.Contains(variable))
 				{
 					throw new InvalidCalculationVariableException(
+						_schema,
 						variable,
 						calculation.Source,
-						_schema,
 						Resources.InvalidCalculationVariable.FormatInvariant(variable, calculation));
 				}
 			}
@@ -59,6 +59,7 @@ namespace Grasp.Knowledge.Runtime.Compilation
 			if(!calculation.OutputVariable.Type.IsAssignableFrom(calculation.Expression.Type))
 			{
 				throw new InvalidCalculationResultTypeException(
+					_schema,
 					calculation.Source,
 					Resources.InvalidCalculationResultType.FormatInvariant(
 						calculation.Expression.Type,
@@ -85,7 +86,7 @@ namespace Grasp.Knowledge.Runtime.Compilation
 
 		private IEnumerable<ICalculator> OrderCalculatorsByDependency()
 		{
-			return _calculations.OrderByDependency().Select(GetCalculator);
+			return _calculations.OrderByDependency(_schema).Select(GetCalculator);
 		}
 	}
 }

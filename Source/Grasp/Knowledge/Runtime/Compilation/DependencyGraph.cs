@@ -9,10 +9,12 @@ namespace Grasp.Knowledge.Runtime.Compilation
 	internal sealed class DependencyGraph
 	{
 		private readonly Dictionary<CalculationSchema, DependencyNode> _nodes;
+		private readonly Schema _schema;
 
-		internal DependencyGraph(IEnumerable<DependencyNode> nodes)
+		internal DependencyGraph(IEnumerable<DependencyNode> nodes, Schema schema)
 		{
 			_nodes = nodes.ToDictionary(node => node.Calculation);
+			_schema = schema;
 		}
 
 		internal IEnumerable<CalculationSchema> OrderCalculations()
@@ -34,13 +36,16 @@ namespace Grasp.Knowledge.Runtime.Compilation
 
 		private sealed class TopologicalSort
 		{
-			private readonly VisitHistory _visitHistory = new VisitHistory();
-			private readonly List<DependencyNode> _sortedNodes = new List<DependencyNode>();
 			private readonly DependencyGraph _graph;
+			private readonly VisitHistory _visitHistory;
+			private readonly List<DependencyNode> _sortedNodes = new List<DependencyNode>();
 
 			internal TopologicalSort(DependencyGraph graph)
 			{
-				_graph = graph;			}
+				_graph = graph;
+
+				_visitHistory = new VisitHistory(_graph._schema);
+			}
 
 			internal IEnumerable<DependencyNode> SortNodes()
 			{
@@ -75,8 +80,14 @@ namespace Grasp.Knowledge.Runtime.Compilation
 		private sealed class VisitHistory
 		{
 			private readonly HashSet<DependencyNode> _visitedNodes = new HashSet<DependencyNode>();
+			private readonly Schema _schema;
 			private HashSet<DependencyNode> _visitedNodesFromRoot;
 			private Stack<DependencyNode> _context;
+
+			internal VisitHistory(Schema schema)
+			{
+				_schema = schema;
+			}
 
 			internal void OnVisitingRootNode()
 			{
@@ -115,6 +126,7 @@ namespace Grasp.Knowledge.Runtime.Compilation
 				var context = _context.Reverse().Select(visitedNode => visitedNode.Calculation.Source).ToList();
 
 				throw new CalculationCycleException(
+					_schema,
 					context,
 					repeatedCalculation,
 					Resources.CalculationHasCycle.FormatInvariant(GetCycleText(context, repeatedCalculation)));

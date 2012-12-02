@@ -153,7 +153,7 @@
     <Compile Include="Knowledge\Runtime\Compilation\CompilationCycles.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Knowledge\Runtime\Compilation\Executables.cs">
+    <Compile Include="Knowledge\Runtime\Executables.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Knowledge\Runtime\SchemaBindings.cs">

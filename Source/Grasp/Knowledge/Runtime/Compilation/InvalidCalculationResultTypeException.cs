@@ -9,13 +9,14 @@ namespace Grasp.Knowledge.Runtime.Compilation
 	/// <summary>
 	/// Indiciates a calculation's result type is not assignable to its variable's output type
 	/// </summary>
-	public class InvalidCalculationResultTypeException : GraspException
+	public class InvalidCalculationResultTypeException : CompilationException
 	{
 		/// <summary>
 		/// Initializes an exception with the specified calculation
 		/// </summary>
+		/// <param name="schema">The schema being compiled</param>
 		/// <param name="calculation">The invalid calculation</param>
-		public InvalidCalculationResultTypeException(Calculation calculation)
+		public InvalidCalculationResultTypeException(Schema schema, Calculation calculation) : base(schema)
 		{
 			Contract.Requires(calculation != null);
 
@@ -25,9 +26,10 @@ namespace Grasp.Knowledge.Runtime.Compilation
 		/// <summary>
 		/// Initializes an exception with the specified calculation and message
 		/// </summary>
+		/// <param name="schema">The schema being compiled</param>
 		/// <param name="calculation">The invalid calculation</param>
 		/// <param name="message">The message that describes the error</param>
-		public InvalidCalculationResultTypeException(Calculation calculation, string message) : base(message)
+		public InvalidCalculationResultTypeException(Schema schema, Calculation calculation, string message) : base(schema, message)
 		{
 			Contract.Requires(calculation != null);
 
@@ -37,10 +39,11 @@ namespace Grasp.Knowledge.Runtime.Compilation
 		/// <summary>
 		/// Initializes an exception with the specified calculation, message, and inner exception
 		/// </summary>
+		/// <param name="schema">The schema being compiled</param>
 		/// <param name="calculation">The invalid calculation</param>
 		/// <param name="message">The message that describes the error</param>
 		/// <param name="inner">The exception that is the cause of this exception</param>
-		public InvalidCalculationResultTypeException(Calculation calculation, string message, Exception inner) : base(message, inner)
+		public InvalidCalculationResultTypeException(Schema schema, Calculation calculation, string message, Exception inner) : base(schema, message, inner)
 		{
 			Contract.Requires(calculation != null);
 
