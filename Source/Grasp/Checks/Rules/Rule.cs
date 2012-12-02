@@ -270,22 +270,24 @@ namespace Grasp.Checks.Rules
 		/// Creates a lambda expression that represents the application of this rule to target data of the specified type
 		/// </summary>
 		/// <param name="targetType">The type to which to apply the rule</param>
+		/// <param name="defaultResult">The result of invoking an empty check</param>
 		/// <returns>A lambda expression with a parameter of the specified target type and a body which applies this rule to the parameter</returns>
-		public LambdaExpression ToLambdaExpression(Type targetType)
+		public LambdaExpression ToLambdaExpression(Type targetType, bool defaultResult = true)
 		{
 			Contract.Requires(targetType != null);
 
-			return new ConvertRuleToLambdaExpression().ConvertToLambdaExpression(this, targetType);
+			return new ConvertRuleToLambdaExpression().ConvertToLambdaExpression(this, targetType, defaultResult);
 		}
 
 		/// <summary>
 		/// Creates a lambda expression that represents the application of this rule to target data of the specified type
 		/// </summary>
 		/// <typeparam name="TTarget">The type to which to apply the rule</typeparam>
+		/// <param name="defaultResult">The result of invoking an empty check</param>
 		/// <returns>A lambda expression with a parameter of the specified target type and a body which applies this rule to the parameter</returns>
-		public Expression<Func<TTarget, bool>> ToLambdaExpression<TTarget>()
+		public Expression<Func<TTarget, bool>> ToLambdaExpression<TTarget>(bool defaultResult = true)
 		{
-			var lambda = ToLambdaExpression(typeof(TTarget));
+			var lambda = ToLambdaExpression(typeof(TTarget), defaultResult);
 
 			return Expression.Lambda<Func<TTarget, bool>>(lambda.Body, lambda.Parameters);
 		}
@@ -294,22 +296,24 @@ namespace Grasp.Checks.Rules
 		/// Compiles a function that applies this rule to target data of the specified type
 		/// </summary>
 		/// <param name="targetType">The type to which to apply the rule</param>
+		/// <param name="defaultResult">The result of invoking an empty check</param>
 		/// <returns>A function which accepts a parameter of the specified type and which applies this rule to the parameter</returns>
-		public Func<object, bool> ToFunction(Type targetType)
+		public Func<object, bool> ToFunction(Type targetType, bool defaultResult = true)
 		{
 			Contract.Requires(targetType != null);
 
-			return ToObjectLambda(targetType).Compile();
+			return ToObjectLambda(targetType, defaultResult).Compile();
 		}
 
 		/// <summary>
 		/// Compiles a function that applies this rule to target data of the specified type
 		/// </summary>
 		/// <typeparam name="TTarget">The type to which to apply the rule</typeparam>
+		/// <param name="defaultResult">The result of invoking an empty check</param>
 		/// <returns>A function which accepts a parameter of the specified type and which applies this rule to the parameter</returns>
-		public Func<TTarget, bool> ToFunction<TTarget>()
+		public Func<TTarget, bool> ToFunction<TTarget>(bool defaultResult = true)
 		{
-			return ToLambdaExpression<TTarget>().Compile();
+			return ToLambdaExpression<TTarget>(defaultResult).Compile();
 		}
 
 		/// <summary>
@@ -326,9 +330,9 @@ namespace Grasp.Checks.Rules
 			return Rule.And(this, otherRule);
 		}
 
-		private Expression<Func<object, bool>> ToObjectLambda(Type targetType)
+		private Expression<Func<object, bool>> ToObjectLambda(Type targetType, bool defaultResult)
 		{
-			var lambda = ToLambdaExpression(targetType);
+			var lambda = ToLambdaExpression(targetType, defaultResult);
 
 			// Building: untypedTarget => lambda(CastTarget<TTarget>(untypedTarget))
 

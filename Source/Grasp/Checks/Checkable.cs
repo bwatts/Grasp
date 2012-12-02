@@ -594,6 +594,7 @@ namespace Grasp.Checks
 		/// <summary>
 		/// Checks if the target data contains the specified value
 		/// </summary>
+		/// <typeparam name="T">The type of items in the target data</typeparam>
 		/// <param name="check">The base check</param>
 		/// <param name="value">The value to locate in the sequence</param>
 		/// <returns>A check which applies the base check and this check</returns>
@@ -607,6 +608,7 @@ namespace Grasp.Checks
 		/// <summary>
 		/// Checks if the target data contains the specified value using the specified comparer
 		/// </summary>
+		/// <typeparam name="T">The type of items in the target data</typeparam>
 		/// <param name="check">The base check</param>
 		/// <param name="value">The value to locate in the sequence</param>
 		/// <param name="comparer">The equality comparer which compares values</param>
@@ -622,6 +624,7 @@ namespace Grasp.Checks
 		/// <summary>
 		/// Checks if the target data has no items
 		/// </summary>
+		/// <typeparam name="T">The type of items in the target data</typeparam>
 		/// <param name="check">The base check</param>
 		/// <returns>A check which applies the base check and this check</returns>
 		public static Check<IEnumerable<T>> HasNone<T>(this ICheckable<IEnumerable<T>> check)
@@ -634,6 +637,7 @@ namespace Grasp.Checks
 		/// <summary>
 		/// Checks if the target data has no items which match the specified item check
 		/// </summary>
+		/// <typeparam name="T">The type of items in the target data</typeparam>
 		/// <param name="check">The base check</param>
 		/// <param name="itemCheck">The function which checks each item</param>
 		/// <returns>A check which applies the base check and this check</returns>
@@ -648,6 +652,7 @@ namespace Grasp.Checks
 		/// <summary>
 		/// Checks if the target data has at least one item
 		/// </summary>
+		/// <typeparam name="T">The type of items in the target data</typeparam>
 		/// <param name="check">The base check</param>
 		/// <returns>A check which applies the base check and this check</returns>
 		public static Check<IEnumerable<T>> HasAny<T>(this ICheckable<IEnumerable<T>> check)
@@ -660,6 +665,7 @@ namespace Grasp.Checks
 		/// <summary>
 		/// Checks if the target data has at least one item which matches the specified item check
 		/// </summary>
+		/// <typeparam name="T">The type of items in the target data</typeparam>
 		/// <param name="check">The base check</param>
 		/// <param name="itemCheck">The function which checks each item</param>
 		/// <returns>A check which applies the base check and this check</returns>
@@ -674,6 +680,7 @@ namespace Grasp.Checks
 		/// <summary>
 		/// Checks if the target data has all items which matches the specified item check
 		/// </summary>
+		/// <typeparam name="T">The type of items in the target data</typeparam>
 		/// <param name="check">The base check</param>
 		/// <param name="itemCheck">The function which checks each item</param>
 		/// <returns>A check which applies the base check and this check</returns>
@@ -683,6 +690,17 @@ namespace Grasp.Checks
 			Contract.Requires(itemCheck != null);
 
 			return check.Passes(source => source != null && source.All(itemCheck));
+		}
+
+		/// <summary>
+		/// Checks if the target data has all distinct items
+		/// </summary>
+		/// <typeparam name="T">The type of items in the target data</typeparam>
+		/// <param name="check">The base check</param>
+		/// <returns>A check which applies the base check and this check</returns>
+		public static Check<IEnumerable<T>> AreDistinct<T>(this ICheckable<IEnumerable<T>> check)
+		{
+			return check.Passes(source => source != null && source.GroupBy(item => item).Any(itemGroup => itemGroup.Skip(1).Any()));
 		}
 		#endregion
 
@@ -1083,6 +1101,17 @@ namespace Grasp.Checks
 			Contract.Requires(itemCheck != null);
 
 			return check.Passes(source => source != null && source.All(itemCheck));
+		}
+
+		/// <summary>
+		/// Checks if the target data has all distinct items
+		/// </summary>
+		/// <typeparam name="T">The type of items in the target data</typeparam>
+		/// <param name="check">The base check</param>
+		/// <returns>A check which applies the base check and this check</returns>
+		public static Check<IQueryable<T>> AreDistinct<T>(this ICheckable<IQueryable<T>> check)
+		{
+			return check.Passes(source => source != null && source.GroupBy(item => item).Any(itemGroup => itemGroup.Skip(1).Any()));
 		}
 		#endregion
 

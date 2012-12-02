@@ -112,5 +112,14 @@ namespace Grasp.Knowledge
 		{
 			return new FullName(this, identifier);
 		}
+
+		/// <summary>
+		/// Interprets the most significat identifier as the identifier of a full name
+		/// </summary>
+		/// <returns>A full name made from interpreting the most significat identifier of this namespace as a name</returns>
+		public FullName ToFullName()
+		{
+			return new FullName(this);
+		}
 	}
 }

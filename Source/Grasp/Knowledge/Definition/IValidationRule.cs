@@ -10,15 +10,14 @@ namespace Grasp.Knowledge.Definition
 	[ContractClass(typeof(IValidationRuleContract))]
 	public interface IValidationRule
 	{
-		Calculation<bool> GetCalculation(Variable target);
+		Calculation<bool> GetCalculation();
 	}
 
 	[ContractClassFor(typeof(IValidationRule))]
 	internal abstract class IValidationRuleContract : IValidationRule
 	{
-		Calculation<bool> IValidationRule.GetCalculation(Variable target)
+		Calculation<bool> IValidationRule.GetCalculation()
 		{
-			Contract.Requires(target != null);
 			Contract.Ensures(Contract.Result<Calculation<bool>>() != null);
 
 			return null;

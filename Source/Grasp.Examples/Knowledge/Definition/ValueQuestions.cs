@@ -20,7 +20,7 @@ namespace Grasp.Knowledge.Definition
 
 			question.Name.Should<FullName>().Be(FullName.Anonymous);
 			question.VariableType.Should().Be(variableType);
-			question.ValidationRules.Should().BeEmpty();
+			question.Validators.Should().BeEmpty();
 		}
 
 		[Fact] public void CreateWithName()
@@ -32,14 +32,14 @@ namespace Grasp.Knowledge.Definition
 			question.Name.Should<FullName>().Be(name);
 		}
 
-		[Fact] public void CreateWithValidationRules()
+		[Fact] public void CreateWithValidators()
 		{
-			var rule1 = new ValidationRule("SomeRule1", Rule.True);
-			var rule2 = new ValidationRule("SomeRule2", Rule.True);
+			var validator1 = new Validator("SomeRule1", Expression.Constant(true));
+			var validator2 = new Validator("SomeRule2", Expression.Constant(true));
 
-			var question = new ValueQuestion<int>(Params.Of(rule1, rule2));
+			var question = new ValueQuestion<int>(Params.Of(validator1, validator2));
 
-			question.ValidationRules.Should().ContainInOrder(rule1, rule2);
+			question.Validators.Should().ContainInOrder(validator1, validator2);
 		}
 
 		[Fact] public void GetSchema()
@@ -58,16 +58,15 @@ namespace Grasp.Knowledge.Definition
 			variable.Type.Should().Be(variableType);
 		}
 
-		[Fact] public void GetSchemaWithValidationRule()
+		[Fact] public void GetSchemaWithValidator()
 		{
-			var question = new ValueQuestion<int>(Params.Of(new ValidationRule("SomeRule", Rule.True)));
+			var question = new ValueQuestion<int>(Params.Of(new Validator("SomeRule", Expression.Constant(true))));
 
 			var schema = question.GetSchema("SomeValue");
 
 			schema.ShouldHaveVariables("SomeValue");
 
 			schema.Calculations.Should().HaveCount(1);
-
 			schema.Calculations.Single().ShouldCalculate("SomeValue.__validation.SomeRule", typeof(bool));
 		}
 	}

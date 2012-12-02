@@ -3,10 +3,14 @@ using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Cloak;
-using Grasp.Work.Items;
+using Cloak.Reflection;
+using Grasp.Checks;
+using Grasp.Checks.Methods;
+using Grasp.Checks.Rules;
 
 namespace Grasp.Knowledge.Definition
 {
@@ -20,6 +24,7 @@ namespace Grasp.Knowledge.Definition
 		{
 			Contract.Requires(minimum != null);
 			Contract.Requires(maximum != null);
+			Contract.Requires(minimum.Value.VariableType == maximum.Value.VariableType);
 			Contract.Requires(validVariableName != null);
 
 			Minimum = minimum;
@@ -39,21 +44,31 @@ namespace Grasp.Knowledge.Definition
 			var minimum = minimumSchema.Variables.Single();
 			var maximum = maximumSchema.Variables.Single();
 
-			var calculations = GetCalculations(minimumSchema, maximumSchema, GetValid(rootNamespace, minimum, maximum));
+			var calculations = GetCalculations(rootNamespace, minimum, maximum, minimumSchema.Calculations, maximumSchema.Calculations);
 
 			return new Schema(Params.Of(minimum, maximum), calculations);
 		}
 
-		private Calculation GetValid(Namespace rootNamespace, Variable minimum, Variable maximum)
+		private IEnumerable<Calculation> GetCalculations(
+			Namespace rootNamespace,
+			Variable minimum,
+			Variable maximumn,
+			IEnumerable<Calculation> minimumCalculations,
+			IEnumerable<Calculation> maximumCalculations)
 		{
-			return new Calculation<bool>(
-				rootNamespace + ValidationRule.Namespace + ValidVariableName,
-				Expression.LessThanOrEqual(minimum.ToExpression(), maximum.ToExpression()));
+			var validCalculation = GetValidationRule(rootNamespace, minimum, maximumn).GetCalculation();
+
+			return minimumCalculations.Concat(maximumCalculations).Concat(Params.Of(validCalculation));
 		}
 
-		private static IEnumerable<Calculation> GetCalculations(Schema minimumSchema, Schema maximumSchema, Calculation valid)
+		private IValidationRule GetValidationRule(Namespace rootNamespace, Variable minimum, Variable maximum)
 		{
-			return minimumSchema.Calculations.Concat(maximumSchema.Calculations).Concat(Params.Of(valid));
+			return new ValidationRule(rootNamespace, ValidVariableName, GetValidExpression(minimum, maximum));
+		}
+
+		private static Expression GetValidExpression(Variable minimum, Variable maximum)
+		{
+			return Expression.LessThanOrEqual(minimum.ToExpression(), maximum.ToExpression());
 		}
 	}
 }

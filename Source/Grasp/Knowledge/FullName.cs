@@ -166,5 +166,14 @@ namespace Grasp.Knowledge
 		{
 			return GetEnumerator();
 		}
+
+		/// <summary>
+		/// Gets a namespace identified by this full name
+		/// </summary>
+		/// <returns>A namespace identified by this full name</returns>
+		public Namespace ToNamespace()
+		{
+			return new Namespace(this);
+		}
 	}
 }

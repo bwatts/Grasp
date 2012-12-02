@@ -56,15 +56,15 @@ namespace Grasp.Knowledge.Definition
 			((VariableExpression) lessThanOrEqual.Right).Variable.ShouldHaveName("SomeRange.Maximum");
 		}
 
-		[Fact] public void GetSchemaWithValidationRules()
+		[Fact] public void GetSchemaWithValidators()
 		{
 			var question = new RangeQuestion(
 				new RangeBoundaryQuestion(
 					new Identifier("Minimum"),
-					new ValueQuestion<int>(Params.Of(new ValidationRule("SomeMinimumRule", Rule.True)))),
+					new ValueQuestion<int>(Params.Of(new Validator("SomeMinimumRule", Expression.Constant(true))))),
 				new RangeBoundaryQuestion(
 					new Identifier("Maximum"),
-					new ValueQuestion<int>(Params.Of(new ValidationRule("SomeMaximumRule", Rule.True)))),
+					new ValueQuestion<int>(Params.Of(new Validator("SomeMaximumRule", Expression.Constant(true))))),
 				new Identifier("Valid"));
 
 			var schema = question.GetSchema("SomeRange");

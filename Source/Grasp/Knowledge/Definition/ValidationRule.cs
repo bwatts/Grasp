@@ -5,55 +5,49 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
-using Grasp.Checks.Rules;
 
 namespace Grasp.Knowledge.Definition
 {
 	public sealed class ValidationRule : Notion, IValidationRule
 	{
+		public static readonly Field<Namespace> RootNamespaceField = Field.On<ValidationRule>.For(x => x.RootNamespace);
 		public static readonly Field<Identifier> OutputVariableIdentifierField = Field.On<ValidationRule>.For(x => x.OutputVariableIdentifier);
-		public static readonly Field<Rule> RuleField = Field.On<ValidationRule>.For(x => x.Rule);
+		public static readonly Field<Expression> ExpressionField = Field.On<ValidationRule>.For(x => x.Expression);
 
 		public static readonly Namespace Namespace = new Namespace(Resources.ValidationNamespace);
 
-		public ValidationRule(Identifier outputVariableIdentifier, Rule rule)
+		public static FullName GetName(FullName variableName, Identifier ruleIdentifier)
 		{
+			Contract.Requires(variableName != null);
+			Contract.Requires(ruleIdentifier != null);
+
+			return variableName.ToNamespace() + Namespace + ruleIdentifier;
+		}
+
+		public ValidationRule(Namespace rootNamespace, Identifier outputVariableIdentifier, Expression expression)
+		{
+			Contract.Requires(rootNamespace != null);
 			Contract.Requires(outputVariableIdentifier != null);
-			Contract.Requires(rule != null);
+			Contract.Requires(expression != null);
+			Contract.Requires(expression.Type == typeof(bool));
 
+			RootNamespace = rootNamespace;
 			OutputVariableIdentifier = outputVariableIdentifier;
-			Rule = rule;
+			Expression = expression;
 		}
 
-		public ValidationRule(string outputVariableIdentifier, Rule rule) : this(new Identifier(outputVariableIdentifier), rule)
-		{}
-
+		public Namespace RootNamespace { get { return GetValue(RootNamespaceField); } private set { SetValue(RootNamespaceField, value); } }
 		public Identifier OutputVariableIdentifier { get { return GetValue(OutputVariableIdentifierField); } private set { SetValue(OutputVariableIdentifierField, value); } }
-		public Rule Rule { get { return GetValue(RuleField); } private set { SetValue(RuleField, value); } }
+		public Expression Expression { get { return GetValue(ExpressionField); } private set { SetValue(ExpressionField, value); } }
 
-		public Calculation<bool> GetCalculation(Variable target)
+		public Calculation<bool> GetCalculation()
 		{
-			return new Calculation<bool>(GetOutputVariableName(target), GetCalculationExpression(target));
+			return new Calculation<bool>(GetOutputVariableName(), Expression);
 		}
 
-		private FullName GetOutputVariableName(Variable target)
+		private FullName GetOutputVariableName()
 		{
-			return GetValidationNamespace(target) + OutputVariableIdentifier;
-		}
-
-		private Namespace GetValidationNamespace(Variable target)
-		{
-			return new Namespace(target.Name.ToString()) + Namespace;
-		}
-
-		private Expression GetCalculationExpression(Variable target)
-		{
-			return Expression.Invoke(GetLambdaExpression(target), target.ToExpression());
-		}
-
-		private LambdaExpression GetLambdaExpression(Variable target)
-		{
-			return Rule.ToLambdaExpression(target.Type);
+			return GetName(RootNamespace.ToFullName(), OutputVariableIdentifier);
 		}
 	}
 }

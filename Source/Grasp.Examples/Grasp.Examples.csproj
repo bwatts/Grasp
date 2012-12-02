@@ -133,6 +133,9 @@
     </Compile>
     <Compile Include="Checks\ThatChecks.cs" />
     <Compile Include="Knowledge\Definition\Choices.cs" />
+    <Compile Include="Knowledge\Definition\SubQuestions.cs" />
+    <Compile Include="Knowledge\Definition\RankQuestions.cs" />
+    <Compile Include="Knowledge\Definition\Validators.cs" />
     <Compile Include="Knowledge\Definition\MultipleChoiceQuestions.cs" />
     <Compile Include="Knowledge\Definition\QuestionAssertions.cs" />
     <Compile Include="Knowledge\Definition\RangeBoundaryQuestions.cs" />

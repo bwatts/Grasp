@@ -79,6 +79,17 @@ namespace Grasp.Knowledge
 			FullName.Anonymous.Value.Should().BeEmpty();
 		}
 
+		[Fact] public void ToNamespace()
+		{
+			var identifier = new Identifier("A");
+			var fullName = new FullName(identifier.Value);
+
+			var @namespace = fullName.ToNamespace();
+
+			@namespace.Should<Identifier>().HaveCount(1);
+			@namespace.Single().Should().Be(identifier);
+		}
+
 		[Theory]
 		[InlineData("")]
 		[InlineData("A")]

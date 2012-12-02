@@ -11,36 +11,35 @@ namespace Grasp.Knowledge.Definition
 	public class ValueQuestion : Question
 	{
 		public static readonly Field<Type> VariableTypeField = Field.On<ValueQuestion>.For(x => x.VariableType);
-		public static readonly Field<Many<IValidationRule>> ValidationRulesField = Field.On<ValueQuestion>.For(x => x.ValidationRules);
+		public static readonly Field<Many<IValidator>> ValidatorsField = Field.On<ValueQuestion>.For(x => x.Validators);
 
-		public ValueQuestion(Type variableType, IEnumerable<IValidationRule> validationRules = null, FullName name = null) : base(name)
+		public ValueQuestion(Type variableType, IEnumerable<IValidator> validators = null, FullName name = null) : base(name)
 		{
 			Contract.Requires(variableType != null);
 
 			VariableType = variableType;
-			ValidationRules = (validationRules ?? Enumerable.Empty<IValidationRule>()).ToMany();
+			Validators = (validators ?? Enumerable.Empty<IValidator>()).ToMany();
 		}
 
 		public Type VariableType { get { return GetValue(VariableTypeField); } private set { SetValue(VariableTypeField, value); } }
-		public Many<IValidationRule> ValidationRules { get { return GetValue(ValidationRulesField); } private set { SetValue(ValidationRulesField, value); } }
+		public Many<IValidator> Validators { get { return GetValue(ValidatorsField); } private set { SetValue(ValidatorsField, value); } }
 
 		public override Schema GetSchema(Namespace rootNamespace)
 		{
 			var variable = new Variable(VariableType, new FullName(rootNamespace));
 
-			return new Schema(Params.Of(variable), GetValidationRuleCalculations(variable));
+			return new Schema(Params.Of(variable), GetValidationCalculations(variable));
 		}
 
-		private IEnumerable<Calculation<bool>> GetValidationRuleCalculations(Variable target)
+		private IEnumerable<Calculation<bool>> GetValidationCalculations(Variable target)
 		{
-			return ValidationRules.Select(rule => rule.GetCalculation(target));
+			return Validators.Select(validator => validator.GetRule(target).GetCalculation());
 		}
 	}
 
 	public class ValueQuestion<T> : ValueQuestion
 	{
-		public ValueQuestion(IEnumerable<IValidationRule> validationRules = null, FullName name = null)
-			: base(typeof(T), validationRules, name)
+		public ValueQuestion(IEnumerable<IValidator> validators = null, FullName name = null) : base(typeof(T), validators, name)
 		{}
 	}
 }

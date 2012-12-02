@@ -13,35 +13,28 @@ namespace Grasp.Knowledge.Definition
 	{
 		[Fact] public void Create()
 		{
-			var rule = Rule.True;
-			var outputVariableIdentifier = new Identifier("O");
+			var rootNamespace = Namespace.Root;
+			var outputVariableIdentifier = new Identifier("SomeRule");
+			var expression = Expression.Constant(true);
 
-			var validationRule = new ValidationRule(outputVariableIdentifier, rule);
+			var validationRule = new ValidationRule(rootNamespace, outputVariableIdentifier, expression);
 
-			validationRule.Rule.Should().Be(rule);
+			validationRule.RootNamespace.Should<Namespace>().Be(rootNamespace);
 			validationRule.OutputVariableIdentifier.Should().Be(outputVariableIdentifier);
+			validationRule.Expression.Should().Be(expression);
 		}
 
 		[Fact] public void GetCalculation()
 		{
-			var validationRule = new ValidationRule("SomeRule", Rule.True);
-			var target = new Variable<int>("SomeTarget");
+			var rootNamespace = new Namespace("SomeNamespace");
+			var outputVariableIdentifier = new Identifier("SomeRule");
+			var expression = Expression.Constant(true);
+			var validationRule = new ValidationRule(rootNamespace, outputVariableIdentifier, expression);
 
-			var calculation = validationRule.GetCalculation(target);
+			var calculation = validationRule.GetCalculation();
 
-			calculation.OutputVariable.Type.Should().Be(typeof(bool));
-			calculation.OutputVariable.Name.Value.Should().Be("SomeTarget.__validation.SomeRule");
-			calculation.Expression.Should().BeAssignableTo<InvocationExpression>();
-
-			var invocation = (InvocationExpression) calculation.Expression;
-
-			invocation.Expression.Type.Should().Be(typeof(Func<int, bool>));
-			invocation.Arguments.Should().HaveCount(1);
-			invocation.Arguments.Single().Should().BeAssignableTo<VariableExpression>();
-
-			var variableArgument = (VariableExpression) invocation.Arguments.Single();
-
-			variableArgument.Variable.Should().Be(target);
+			calculation.ShouldCalculate("SomeNamespace.__validation.SomeRule", typeof(bool));
+			calculation.Expression.Should().Be(expression);
 		}
 	}
 }

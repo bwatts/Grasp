@@ -36,6 +36,17 @@ namespace Grasp.Knowledge
 			Namespace.Root.Should<Identifier>().BeEmpty();
 		}
 
+		[Fact] public void ToFullName()
+		{
+			var identifier = new Identifier("A");
+			var @namespace = new Namespace(identifier.Value);
+
+			var fullName = @namespace.ToFullName();
+
+			fullName.Should<Identifier>().HaveCount(1);
+			fullName.Single().Should().Be(identifier);
+		}
+
 		[Theory]
 		[InlineData("")]
 		[InlineData("A")]

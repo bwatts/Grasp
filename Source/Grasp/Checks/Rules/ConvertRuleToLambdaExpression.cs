@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
+using Cloak;
 using Cloak.Linq;
 
 namespace Grasp.Checks.Rules
@@ -12,12 +13,14 @@ namespace Grasp.Checks.Rules
 	{
 		private Expression _target;
 		private Expression _body;
+		private bool _defaultResult;
 
-		internal LambdaExpression ConvertToLambdaExpression(Rule rule, Type targetType)
+		internal LambdaExpression ConvertToLambdaExpression(Rule rule, Type targetType, bool defaultResult)
 		{
 			var targetParameter = Expression.Parameter(targetType, "target");
 
 			_target = targetParameter;
+			_defaultResult = defaultResult;
 
 			Visit(rule);
 
@@ -26,9 +29,9 @@ namespace Grasp.Checks.Rules
 
 		protected override Rule VisitCheck(CheckRule node)
 		{
-			var baseCheck = Expression.Call(typeof(Check), "That", new[] { _target.Type }, _target);
+			var baseCheck = Expression.Call(typeof(Check), "That", Params.Of(_target.Type), _target, Expression.Constant(_defaultResult));
 
-			var arguments = new[] { baseCheck }.Concat(node.CheckArguments.ToConstants());
+			var arguments = new[] { baseCheck }.Concat(node.CheckArguments.ToExpressions());
 
 			_body = Expression.Call(node.Method, arguments);
 
