@@ -13,7 +13,6 @@ using Grasp.Messaging;
 using Grasp.Work;
 using Grasp.Work.Items;
 using Slate.Forms;
-using Slate.Forms.Structure;
 using Slate.Services;
 
 namespace Slate.Http.Server.Composition.Api
@@ -34,10 +33,6 @@ namespace Slate.Http.Server.Composition.Api
 
 			Register(c => new WorkHandler<ReportProgressCommand, WorkItem>(c.Resolve<IRepository<WorkItem>>(), command => command.WorkItemId))
 			.As<IHandler<ReportProgressCommand>>()
-			.InstancePerDependency();
-
-			Register(c => new WorkHandler<AddSectionCommand, Form>(c.Resolve<IRepository<Form>>(), command => command.FormId))
-			.As<IHandler<AddSectionCommand>>()
 			.InstancePerDependency();
 
 			RegisterType<FormStartedSubscriber>().As<ISubscriber<FormStartedEvent>>().InstancePerDependency();
@@ -67,7 +62,6 @@ namespace Slate.Http.Server.Composition.Api
 				yield return Handle<StartTestingCommand>();
 				yield return Handle<ResumeDraftCommand>();
 				yield return Handle<GoLiveCommand>();
-				yield return Handle<AddSectionCommand>();
 
 				yield return Subscribe<FormStartedEvent>();
 			}

@@ -9,19 +9,16 @@ using Grasp;
 using Grasp.Messaging;
 using Grasp.Work;
 using Grasp.Work.Persistence;
-using Slate.Forms.Structure;
 
 namespace Slate.Forms
 {
 	public class Form : Aggregate,
 		IActor<StartTestingCommand>,
 		IActor<ResumeDraftCommand>,
-		IActor<GoLiveCommand>,
-		IActor<AddSectionCommand>
+		IActor<GoLiveCommand>
 	{
 		public static readonly Field<string> NameField = Field.On<Form>.For(x => x.Name);
 		public static readonly Field<FormPhase> PhaseField = Field.On<Form>.For(x => x.Phase);
-		public static readonly Field<Section> RootSectionField = Field.On<Form>.For(x => x.RootSection);
 
 		public Form(EntityId workItemId, EntityId id, string name)
 		{
@@ -30,7 +27,6 @@ namespace Slate.Forms
 
 		public string Name { get { return GetValue(NameField); } private set { SetValue(NameField, value); } }
 		public FormPhase Phase { get { return GetValue(PhaseField); } private set { SetValue(PhaseField, value); } }
-		public Section RootSection { get { return GetValue(RootSectionField); } private set { SetValue(RootSectionField, value); } }
 
 		public void PerformWork(StartTestingCommand command)
 		{
@@ -81,31 +77,12 @@ namespace Slate.Forms
 			Announce(new WentLiveEvent(Id));
 		}
 
-		public void PerformWork(AddSectionCommand command)
-		{
-			Contract.Requires(command != null);
-			Contract.Requires(command.FormId == Id);
-
-			if(Phase == FormPhase.Live)
-			{
-				throw new InvalidOperationException(Resources.CannotModifyLiveForm.FormatInvariant(Name));
-			}
-
-			if(!RootSection.ContainsSection(command.ParentSectionId))
-			{
-				throw new ArgumentException(Resources.UnknownSection.FormatInvariant(command.ParentSectionId, Name), "command");
-			}
-
-			Announce(new SectionAddedEvent(Id, command.ParentSectionId, EntityId.Generate(), command.Title));
-		}
-
 		private void Observe(FormStartedEvent e)
 		{
 			OnCreated(e.FormId, e.When);
 
 			Name = e.Name;
 			Phase = FormPhase.Draft;
-			RootSection = new Section("");
 		}
 
 		private void Observe(TestingStartedEvent e)
@@ -127,17 +104,6 @@ namespace Slate.Forms
 			OnModified(e.When);
 
 			Phase = FormPhase.Live;
-		}
-
-		private void Observe(SectionAddedEvent e)
-		{
-			OnModified(e.When);
-
-			var section = new Section(e.Title);
-
-			PersistentId.ValueField.Set(section, e.SectionId);
-
-			RootSection.FindSection(e.ParentSectionId).AddSection(section);
 		}
 	}
 }
