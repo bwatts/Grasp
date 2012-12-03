@@ -39,7 +39,7 @@ namespace Grasp.Work
 				throw new WorkException(Resources.NoAggregateWithId.FormatInvariant(typeof(TAggregate), id));
 			}
 
-			aggregate.PerformWork(c);
+			aggregate.Act(c);
 
 			await _repository.SaveAsync(aggregate);
 		}

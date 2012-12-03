@@ -25,7 +25,7 @@ namespace Grasp.Work.Items
 		public TimeSpan RetryInterval { get { return GetValue(RetryIntervalField); } private set { SetValue(RetryIntervalField, value); } }
 		public Uri ResultLocation { get { return GetValue(ResultLocationField); } private set { SetValue(ResultLocationField, value); } }
 
-		public void PerformWork(ReportProgressCommand command)
+		public void Act(ReportProgressCommand command)
 		{
 			Contract.Requires(command != null);
 			Contract.Requires(command.WorkItemId == Id);

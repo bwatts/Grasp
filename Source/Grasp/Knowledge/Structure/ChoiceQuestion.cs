@@ -33,7 +33,7 @@ namespace Grasp.Knowledge.Structure
 
 		private Schema GetChoicesSchema(Namespace rootNamespace)
 		{
-			return Choices.Count == 0 ? Schema.Empty : Choices.Select(choice => choice.GetSchema(rootNamespace)).Merge();
+			return Choices.Select(choice => choice.GetSchema(rootNamespace)).Merge();
 		}
 
 		protected abstract Variable GetSelectionVariable(FullName name);

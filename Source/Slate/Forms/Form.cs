@@ -28,7 +28,7 @@ namespace Slate.Forms
 		public string Name { get { return GetValue(NameField); } private set { SetValue(NameField, value); } }
 		public FormPhase Phase { get { return GetValue(PhaseField); } private set { SetValue(PhaseField, value); } }
 
-		public void PerformWork(StartTestingCommand command)
+		public void Act(StartTestingCommand command)
 		{
 			Contract.Requires(command != null);
 			Contract.Requires(command.FormId == Id);
@@ -46,7 +46,7 @@ namespace Slate.Forms
 			Announce(new TestingStartedEvent(Id));
 		}
 
-		public void PerformWork(ResumeDraftCommand command)
+		public void Act(ResumeDraftCommand command)
 		{
 			Contract.Requires(command != null);
 			Contract.Requires(command.FormId == Id);
@@ -64,7 +64,7 @@ namespace Slate.Forms
 			Announce(new DraftResumedEvent(Id));
 		}
 
-		public void PerformWork(GoLiveCommand command)
+		public void Act(GoLiveCommand command)
 		{
 			Contract.Requires(command != null);
 			Contract.Requires(command.FormId == Id);
