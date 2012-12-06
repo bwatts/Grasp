@@ -37,7 +37,7 @@ namespace Grasp.Knowledge.Structure
 
 		private FullName GetOutputVariableName()
 		{
-			return ValidationRule.GetName(Variable.Name, OutputVariableIdentifier);
+			return Variable.Name.ToNamespace() + OutputVariableIdentifier;
 		}
 	}
 }

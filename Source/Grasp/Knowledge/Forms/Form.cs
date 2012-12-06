@@ -4,6 +4,7 @@ using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Grasp.Knowledge.Structure;
 using Grasp.Messaging;
 using Grasp.Work;
 
@@ -23,9 +24,9 @@ namespace Grasp.Knowledge.Forms
 		public FullName Name { get { return GetValue(NameField); } private set { SetValue(NameField, value); } }
 		public ManyInOrder<Input> Inputs { get { return GetValue(InputsField); } private set { SetValue(InputsField, value); } }
 
-		public Schema GetSchema(Namespace rootNamespace)
+		public IEnumerable<Question> GetQuestions(Namespace rootNamespace)
 		{
-			return Inputs.Select(input => input.GetSchema(rootNamespace)).Merge();
+			throw new NotImplementedException();
 		}
 	}
 }

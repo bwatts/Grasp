@@ -5,10 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Grasp.Checks.Methods;
+using Grasp.Checks.Rules;
 
 namespace Grasp.Knowledge.Forms
 {
-	public class RegexPattern : TextPattern
+	public class RegexPattern : Notion, ITextPattern
 	{
 		public static readonly Field<Regex> RegexField = Field.On<RegexPattern>.For(x => x.Regex);
 
@@ -27,5 +29,10 @@ namespace Grasp.Knowledge.Forms
 		}
 
 		public Regex Regex { get { return GetValue(RegexField); } private set { SetValue(RegexField, value); } }
+
+		public Rule GetRule()
+		{
+			return new MatchesMethod(Regex).GetRule(typeof(string));
+		}
 	}
 }

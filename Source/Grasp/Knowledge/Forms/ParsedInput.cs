@@ -5,6 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using Grasp.Checks.Rules;
 
 namespace Grasp.Knowledge.Forms
 {
@@ -12,7 +13,7 @@ namespace Grasp.Knowledge.Forms
 	{
 		public static readonly Field<TextInput> TextField = Field.On<ParsedInput>.For(x => x.Text);
 
-		public ParsedInput(Type type, TextInput text, bool required = false, FullName name = null) : base(type, required, name)
+		public ParsedInput(Type type, TextInput text, FullName name = null) : base(type, name)
 		{
 			Contract.Requires(text != null);
 
@@ -21,18 +22,18 @@ namespace Grasp.Knowledge.Forms
 
 		public TextInput Text { get { return GetValue(TextField); } private set { SetValue(TextField, value); } }
 
-		public override Expression GetHasValueExpression(Variable valueVariable)
+		public override Rule GetHasValueRule(Variable valueVariable)
 		{
-			return Text.GetHasValueExpression(valueVariable);
+			return Text.GetHasValueRule(valueVariable);
 		}
 
-		public override IEnumerable<Calculation> GetOtherCalculations(Namespace rootNamespace, Variable valueVariable)
+		public override IEnumerable<Calculation> GetOtherCalculations(Namespace rootNamespace, Variable valueVariable, Variable hasValueVariable)
 		{
 			// TODO: Calculation whose output is the parsed value
 
 			// TODO: Calculation whose output is whether the parse succeeded
 
-			return Text.GetOtherCalculations(rootNamespace, valueVariable);
+			return Text.GetOtherCalculations(rootNamespace, valueVariable, hasValueVariable);
 		}
 	}
 }

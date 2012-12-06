@@ -103,7 +103,7 @@ namespace Grasp.Knowledge.Structure
 
 			schema.ShouldHaveVariables("SomeGrid.SomeItem.SomeQuestion");
 
-			schema.ShouldCalculate("SomeGrid.SomeItem.SomeQuestion.__validation.SomeRule");
+			schema.ShouldCalculate("SomeGrid.SomeItem.SomeQuestion.SomeRule");
 		}
 
 		[Fact] public void GetSchemaWithValidationRuleOnMultipleQuestions()
@@ -125,8 +125,8 @@ namespace Grasp.Knowledge.Structure
 				"SomeGrid.SomeItem.SomeQuestion2");
 			
 			schema.ShouldCalculate(
-				"SomeGrid.SomeItem.SomeQuestion1.__validation.SomeRule1",
-				"SomeGrid.SomeItem.SomeQuestion2.__validation.SomeRule2");
+				"SomeGrid.SomeItem.SomeQuestion1.SomeRule1",
+				"SomeGrid.SomeItem.SomeQuestion2.SomeRule2");
 		}
 
 		[Fact] public void GetSchemaWithValidationRuleOnMultipleQuestionsWithMultipleItems()
@@ -152,10 +152,10 @@ namespace Grasp.Knowledge.Structure
 				"SomeGrid.SomeItem2.SomeQuestion2");
 
 			schema.ShouldCalculate(
-				"SomeGrid.SomeItem1.SomeQuestion1.__validation.SomeRule1",
-				"SomeGrid.SomeItem1.SomeQuestion2.__validation.SomeRule2",
-				"SomeGrid.SomeItem2.SomeQuestion1.__validation.SomeRule1",
-				"SomeGrid.SomeItem2.SomeQuestion2.__validation.SomeRule2");
+				"SomeGrid.SomeItem1.SomeQuestion1.SomeRule1",
+				"SomeGrid.SomeItem1.SomeQuestion2.SomeRule2",
+				"SomeGrid.SomeItem2.SomeQuestion1.SomeRule1",
+				"SomeGrid.SomeItem2.SomeQuestion2.SomeRule2");
 		}
 
 		[Fact] public void GetSchemaWithMultipleValidationRules()
@@ -173,8 +173,8 @@ namespace Grasp.Knowledge.Structure
 			schema.ShouldHaveVariables("SomeGrid.SomeItem.SomeQuestion");
 
 			schema.ShouldCalculate(
-				"SomeGrid.SomeItem.SomeQuestion.__validation.SomeRule1",
-				"SomeGrid.SomeItem.SomeQuestion.__validation.SomeRule2");
+				"SomeGrid.SomeItem.SomeQuestion.SomeRule1",
+				"SomeGrid.SomeItem.SomeQuestion.SomeRule2");
 		}
 
 		[Fact] public void GetSchemaWithMultipleValidationRulesAndQuestions()
@@ -200,10 +200,10 @@ namespace Grasp.Knowledge.Structure
 				"SomeGrid.SomeItem.SomeQuestion2");
 
 			schema.ShouldCalculate(
-				"SomeGrid.SomeItem.SomeQuestion1.__validation.SomeRule1",
-				"SomeGrid.SomeItem.SomeQuestion1.__validation.SomeRule2",
-				"SomeGrid.SomeItem.SomeQuestion2.__validation.SomeRule3",
-				"SomeGrid.SomeItem.SomeQuestion2.__validation.SomeRule4");
+				"SomeGrid.SomeItem.SomeQuestion1.SomeRule1",
+				"SomeGrid.SomeItem.SomeQuestion1.SomeRule2",
+				"SomeGrid.SomeItem.SomeQuestion2.SomeRule3",
+				"SomeGrid.SomeItem.SomeQuestion2.SomeRule4");
 		}
 
 		[Fact] public void GetSchemaWithMultipleValidationRulesAndQuestionsAndItems()
@@ -233,14 +233,14 @@ namespace Grasp.Knowledge.Structure
 				"SomeGrid.SomeItem2.SomeQuestion2");
 
 			schema.ShouldCalculate(
-				"SomeGrid.SomeItem1.SomeQuestion1.__validation.SomeRule1",
-				"SomeGrid.SomeItem1.SomeQuestion1.__validation.SomeRule2",
-				"SomeGrid.SomeItem1.SomeQuestion2.__validation.SomeRule3",
-				"SomeGrid.SomeItem1.SomeQuestion2.__validation.SomeRule4",
-				"SomeGrid.SomeItem2.SomeQuestion1.__validation.SomeRule1",
-				"SomeGrid.SomeItem2.SomeQuestion1.__validation.SomeRule2",
-				"SomeGrid.SomeItem2.SomeQuestion2.__validation.SomeRule3",
-				"SomeGrid.SomeItem2.SomeQuestion2.__validation.SomeRule4");
+				"SomeGrid.SomeItem1.SomeQuestion1.SomeRule1",
+				"SomeGrid.SomeItem1.SomeQuestion1.SomeRule2",
+				"SomeGrid.SomeItem1.SomeQuestion2.SomeRule3",
+				"SomeGrid.SomeItem1.SomeQuestion2.SomeRule4",
+				"SomeGrid.SomeItem2.SomeQuestion1.SomeRule1",
+				"SomeGrid.SomeItem2.SomeQuestion1.SomeRule2",
+				"SomeGrid.SomeItem2.SomeQuestion2.SomeRule3",
+				"SomeGrid.SomeItem2.SomeQuestion2.SomeRule4");
 		}
 	}
 }

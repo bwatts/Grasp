@@ -252,12 +252,6 @@
   <data name="UnsupportedTargetType" xml:space="preserve">
     <value>Target type {0} is not supported by check method {1}</value>
   </data>
-  <data name="ValidationNamespace" xml:space="preserve">
-    <value>__validation</value>
-  </data>
-  <data name="Variable" xml:space="preserve">
-    <value>{0} ({1})</value>
-  </data>
   <data name="VariableBindingNonNullValue" xml:space="preserve">
     <value>{0} = {1}</value>
   </data>

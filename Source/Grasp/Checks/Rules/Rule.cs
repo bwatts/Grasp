@@ -45,15 +45,28 @@ namespace Grasp.Checks.Rules
 		}
 		#endregion
 
-		#region Constant
+		#region Result
 		/// <summary>
-		/// Creates a <see cref="Grasp.Checks.Rules.ConstantRule"/> that represents a constant result
+		/// Creates a <see cref="Grasp.Checks.Rules.ResultRule"/> that represents the result of a rule rather than a definition
+		/// </summary>
+		/// <param name="expression">An expression which evaluates to whether the result of the check is true</param>
+		/// <returns>A <see cref="Grasp.Checks.Rules.ResultRule"/> with the specified expression</returns>
+		public static ResultRule Result(Expression expression)
+		{
+			Contract.Requires(expression != null);
+			Contract.Requires(expression.Type == typeof(bool));
+
+			return new ResultRule(expression);
+		}
+
+		/// <summary>
+		/// Creates a <see cref="Grasp.Checks.Rules.ResultRule"/> that represents the result of a rule rather than a definition
 		/// </summary>
 		/// <param name="isTrue">Whether the result of the check is true</param>
-		/// <returns>A <see cref="Grasp.Checks.Rules.ConstantRule"/> with the specified value</returns>
-		public static ConstantRule Constant(bool isTrue)
+		/// <returns>A <see cref="Grasp.Checks.Rules.ResultRule"/> with the specified value</returns>
+		public static ResultRule Result(bool isTrue)
 		{
-			return new ConstantRule(isTrue);
+			return Result(Expression.Constant(isTrue));
 		}
 		#endregion
 
@@ -236,12 +249,12 @@ namespace Grasp.Checks.Rules
 		/// <summary>
 		/// Gets a rule with a constant result of true
 		/// </summary>
-		public static readonly ConstantRule True = Constant(true);
+		public static readonly ResultRule True = Result(true);
 
 		/// <summary>
 		/// Gets a rule with a constant result of false
 		/// </summary>
-		public static readonly ConstantRule False = Constant(false);
+		public static readonly ResultRule False = Result(false);
 
 		/// <summary>
 		/// Intiailizes a rule with the specified type
@@ -270,7 +283,7 @@ namespace Grasp.Checks.Rules
 		/// Creates a lambda expression that represents the application of this rule to target data of the specified type
 		/// </summary>
 		/// <param name="targetType">The type to which to apply the rule</param>
-		/// <param name="defaultResult">The result of invoking an empty check</param>
+		/// <param name="defaultResult">The result if this rule not contain any checks</param>
 		/// <returns>A lambda expression with a parameter of the specified target type and a body which applies this rule to the parameter</returns>
 		public LambdaExpression ToLambdaExpression(Type targetType, bool defaultResult = true)
 		{

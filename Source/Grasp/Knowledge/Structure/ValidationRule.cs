@@ -14,16 +14,6 @@ namespace Grasp.Knowledge.Structure
 		public static readonly Field<Identifier> OutputVariableIdentifierField = Field.On<ValidationRule>.For(x => x.OutputVariableIdentifier);
 		public static readonly Field<Expression> ExpressionField = Field.On<ValidationRule>.For(x => x.Expression);
 
-		public static readonly Namespace Namespace = new Namespace(Resources.ValidationNamespace);
-
-		public static FullName GetName(FullName variableName, Identifier ruleIdentifier)
-		{
-			Contract.Requires(variableName != null);
-			Contract.Requires(ruleIdentifier != null);
-
-			return variableName.ToNamespace() + Namespace + ruleIdentifier;
-		}
-
 		public ValidationRule(Namespace rootNamespace, Identifier outputVariableIdentifier, Expression expression)
 		{
 			Contract.Requires(rootNamespace != null);
@@ -42,12 +32,7 @@ namespace Grasp.Knowledge.Structure
 
 		public Calculation<bool> GetCalculation()
 		{
-			return new Calculation<bool>(GetOutputVariableName(), Expression);
-		}
-
-		private FullName GetOutputVariableName()
-		{
-			return GetName(RootNamespace.ToFullName(), OutputVariableIdentifier);
+			return new Calculation<bool>(RootNamespace + OutputVariableIdentifier, Expression);
 		}
 	}
 }

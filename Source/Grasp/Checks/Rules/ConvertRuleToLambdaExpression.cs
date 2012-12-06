@@ -38,9 +38,9 @@ namespace Grasp.Checks.Rules
 			return node;
 		}
 
-		protected override Rule VisitConstant(ConstantRule node)
+		protected override Rule VisitResult(ResultRule node)
 		{
-			_body = Expression.Constant(node.IsTrue);
+			_body = node.Expression;
 
 			return node;
 		}

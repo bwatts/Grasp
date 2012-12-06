@@ -36,7 +36,7 @@ namespace Grasp.Knowledge
 
 			var text = variable.ToString();
 
-			text.Should().Be("A.B (System.Int32)");
+			text.Should().Be("A.B");
 		}
 
 		[Fact] public void ToExpression()

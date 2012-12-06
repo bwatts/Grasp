@@ -42,7 +42,7 @@ namespace Grasp.Knowledge.Structure
 
 			var calculation = schema.Calculations.Single();
 
-			calculation.ShouldCalculate("SomeRange.__validation.Valid", typeof(bool));
+			calculation.ShouldCalculate("SomeRange.Valid", typeof(bool));
 
 			calculation.Expression.Should().BeAssignableTo<BinaryExpression>();
 
@@ -72,9 +72,9 @@ namespace Grasp.Knowledge.Structure
 			schema.ShouldHaveVariables("SomeRange.Minimum", "SomeRange.Maximum");
 
 			schema.ShouldCalculate(
-				"SomeRange.Minimum.__validation.SomeMinimumRule",
-				"SomeRange.Maximum.__validation.SomeMaximumRule",
-				"SomeRange.__validation.Valid");
+				"SomeRange.Minimum.SomeMinimumRule",
+				"SomeRange.Maximum.SomeMaximumRule",
+				"SomeRange.Valid");
 		}
 	}
 }

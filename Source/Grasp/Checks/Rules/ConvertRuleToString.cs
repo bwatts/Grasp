@@ -48,9 +48,9 @@ namespace Grasp.Checks.Rules
 			return node;
 		}
 
-		protected override Rule VisitConstant(ConstantRule node)
+		protected override Rule VisitResult(ResultRule node)
 		{
-			_builder.Append(node.IsTrue.ToString().ToLower());
+			_builder.Append(node.Expression.ToString().ToLower());
 
 			return node;
 		}

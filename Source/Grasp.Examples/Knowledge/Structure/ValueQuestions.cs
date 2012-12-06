@@ -67,7 +67,7 @@ namespace Grasp.Knowledge.Structure
 			schema.ShouldHaveVariables("SomeValue");
 
 			schema.Calculations.Should().HaveCount(1);
-			schema.Calculations.Single().ShouldCalculate("SomeValue.__validation.SomeRule", typeof(bool));
+			schema.Calculations.Single().ShouldCalculate("SomeValue.SomeRule", typeof(bool));
 		}
 	}
 }

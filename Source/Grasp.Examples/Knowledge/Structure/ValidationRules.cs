@@ -33,7 +33,7 @@ namespace Grasp.Knowledge.Structure
 
 			var calculation = validationRule.GetCalculation();
 
-			calculation.ShouldCalculate("SomeNamespace.__validation.SomeRule", typeof(bool));
+			calculation.ShouldCalculate("SomeNamespace.SomeRule", typeof(bool));
 			calculation.Expression.Should().Be(expression);
 		}
 	}

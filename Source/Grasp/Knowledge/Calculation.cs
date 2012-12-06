@@ -5,6 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using Cloak;
+using Grasp.Checks.Rules;
 
 namespace Grasp.Knowledge
 {
@@ -15,6 +16,27 @@ namespace Grasp.Knowledge
 	{
 		public static readonly Field<Variable> OutputVariableField = Field.On<Calculation>.For(x => x.OutputVariable);
 		public static readonly Field<Expression> ExpressionField = Field.On<Calculation>.For(x => x.Expression);
+
+		/// <summary>
+		/// Creates a calculation that applies the specified rule to the specified target variable
+		/// </summary>
+		/// <param name="targetVariable">The variable to which the rule applies</param>
+		/// <param name="rule">The rule to apply to the variable</param>
+		/// <param name="outputVariableName">The name of the boolean variable to which to assign the result</param>
+		/// <param name="defaultResult">The result if the specified rule does not contain any checks</param>
+		/// <returns>A calculation that applies the specified rule to the specified target variable</returns>
+		public static Calculation<bool> FromRule(Variable targetVariable, Rule rule, FullName outputVariableName, bool defaultResult = true)
+		{
+			Contract.Requires(targetVariable != null);
+			Contract.Requires(rule != null);
+			Contract.Requires(outputVariableName != null);
+
+			var lambda = rule.ToLambdaExpression(targetVariable.Type, defaultResult);
+
+			var invokeLambdaWithTarget = Expression.Invoke(lambda, targetVariable.ToExpression());
+
+			return new Calculation<bool>(outputVariableName, invokeLambdaWithTarget);
+		}
 
 		/// <summary>
 		/// Initializes a calculation with the specified output variable and expression

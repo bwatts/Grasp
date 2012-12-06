@@ -29,8 +29,8 @@ namespace Grasp.Checks.Rules
 					return VisitCheck((CheckRule) node);
 				case RuleType.Lambda:
 					return VisitLambda((LambdaRule) node);
-				case RuleType.Constant:
-					return VisitConstant((ConstantRule) node);
+				case RuleType.Result:
+					return VisitResult((ResultRule) node);
 				case RuleType.And:
 				case RuleType.Or:
 				case RuleType.ExclusiveOr:
@@ -57,11 +57,11 @@ namespace Grasp.Checks.Rules
 		}
 
 		/// <summary>
-		/// Visits the specified constant rule
+		/// Visits the specified result rule
 		/// </summary>
-		/// <param name="node">The constant rule to visit</param>
+		/// <param name="node">The result rule to visit</param>
 		/// <returns>The new form of the rule</returns>
-		protected virtual Rule VisitConstant(ConstantRule node)
+		protected virtual Rule VisitResult(ResultRule node)
 		{
 			return node;
 		}

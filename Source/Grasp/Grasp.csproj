@@ -110,7 +110,7 @@
     <Compile Include="Knowledge\Forms\ParsedInput.cs" />
     <Compile Include="Knowledge\Forms\RegexPattern.cs" />
     <Compile Include="Knowledge\Forms\TextInput.cs" />
-    <Compile Include="Knowledge\Forms\TextPattern.cs" />
+    <Compile Include="Knowledge\Forms\ITextPattern.cs" />
     <Compile Include="Knowledge\Forms\ValueInput.cs" />
     <Compile Include="Knowledge\Structure\Choice.cs" />
     <Compile Include="Knowledge\Structure\ChoiceQuestion.cs" />
@@ -279,7 +279,7 @@
     <Compile Include="Checks\Methods\SingleTypeCheckMethod.cs" />
     <Compile Include="Checks\Rules\CheckRule.cs" />
     <Compile Include="Checks\Rules\BinaryRule.cs" />
-    <Compile Include="Checks\Rules\ConstantRule.cs" />
+    <Compile Include="Checks\Rules\ResultRule.cs" />
     <Compile Include="Checks\Rules\ConvertRuleToLambdaExpression.cs" />
     <Compile Include="Checks\Rules\ConvertRuleToString.cs" />
     <Compile Include="Checks\Rules\LambdaRule.cs" />

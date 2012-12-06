@@ -54,7 +54,7 @@ namespace Grasp.Knowledge
 		/// <returns>The fully-qualified name of this variable</returns>
 		public override string ToString()
 		{
-			return Resources.Variable.FormatCurrent(Name, Type);
+			return Name.ToString();
 		}
 
 		/// <summary>

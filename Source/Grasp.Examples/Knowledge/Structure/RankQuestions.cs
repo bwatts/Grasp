@@ -37,7 +37,7 @@ namespace Grasp.Knowledge.Structure
 
 			var calculation = schema.Calculations.Single();
 
-			calculation.ShouldCalculate("SomeRank.__validation.Valid", typeof(bool));
+			calculation.ShouldCalculate("SomeRank.Valid", typeof(bool));
 
 			calculation.Expression.Should().BeAssignableTo<InvocationExpression>();
 
