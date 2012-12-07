@@ -25,6 +25,11 @@ namespace Grasp.Knowledge
 			return @namespace.Append(identifier);
 		}
 
+		public static FullName operator +(Namespace @namespace, FullName fullName)
+		{
+			return @namespace.Append(fullName);
+		}
+
 		private static readonly Regex _regex = new Regex(@"^([_A-Za-z]+\w*)+(\.[_A-Za-z]+\w*)*$", RegexOptions.Compiled);
 
 		/// <summary>
@@ -100,7 +105,7 @@ namespace Grasp.Knowledge
 		{
 			Contract.Requires(other != null);
 
-			return new Namespace(String.Join(".", new[] { ToString(), other.ToString() }));
+			return this == Root ? other : new Namespace(String.Join(".", new[] { ToString(), other.ToString() }));
 		}
 
 		/// <summary>
@@ -111,6 +116,18 @@ namespace Grasp.Knowledge
 		public FullName Append(Identifier identifier)
 		{
 			return new FullName(this, identifier);
+		}
+
+		/// <summary>
+		/// Gets a full name with this namespace and the specified full name
+		/// </summary>
+		/// <param name="fullName">The full name to to qualify with this namespace</param>
+		/// <returns>A full name with this namespace and the specified full name</returns>
+		public FullName Append(FullName fullName)
+		{
+			Contract.Requires(fullName != null);
+
+			return new FullName(this + fullName.Namespace, fullName.Identifier);
 		}
 
 		/// <summary>

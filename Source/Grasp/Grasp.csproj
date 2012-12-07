@@ -107,11 +107,15 @@
     <Compile Include="Knowledge\Calculation.cs" />
     <Compile Include="Knowledge\Forms\Form.cs" />
     <Compile Include="Knowledge\Forms\Input.cs" />
+    <Compile Include="Knowledge\Forms\IParseAlgorithm.cs" />
     <Compile Include="Knowledge\Forms\ParsedInput.cs" />
+    <Compile Include="Knowledge\Forms\ParseResult.cs" />
     <Compile Include="Knowledge\Forms\RegexPattern.cs" />
     <Compile Include="Knowledge\Forms\TextInput.cs" />
     <Compile Include="Knowledge\Forms\ITextPattern.cs" />
     <Compile Include="Knowledge\Forms\ValueInput.cs" />
+    <Compile Include="Knowledge\SchemaBuilder.cs" />
+    <Compile Include="Knowledge\SchemaElementQueries.cs" />
     <Compile Include="Knowledge\Structure\Choice.cs" />
     <Compile Include="Knowledge\Structure\ChoiceQuestion.cs" />
     <Compile Include="Knowledge\Structure\GridQuestion.cs" />

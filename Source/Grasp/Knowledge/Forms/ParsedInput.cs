@@ -12,28 +12,79 @@ namespace Grasp.Knowledge.Forms
 	public class ParsedInput : ValueInput
 	{
 		public static readonly Field<TextInput> TextField = Field.On<ParsedInput>.For(x => x.Text);
+		public static readonly Field<IParseAlgorithm> AlgorithmField = Field.On<ParsedInput>.For(x => x.Algorithm);
 
-		public ParsedInput(Type type, TextInput text, FullName name = null) : base(type, name)
+		public static readonly Identifier TextIdentifier = new Identifier("Text");
+
+		public ParsedInput(Type type, TextInput text, IParseAlgorithm algorithm, FullName name = null)
+			: base(typeof(ParseResult<>).MakeGenericType(type), name)
 		{
 			Contract.Requires(text != null);
+			Contract.Requires(algorithm != null);
 
 			Text = text;
+			Algorithm = algorithm;
 		}
 
 		public TextInput Text { get { return GetValue(TextField); } private set { SetValue(TextField, value); } }
+		public IParseAlgorithm Algorithm { get { return GetValue(AlgorithmField); } private set { SetValue(AlgorithmField, value); } }
 
-		public override Rule GetHasValueRule(Variable valueVariable)
+		public override Rule GetHasValueRule(SchemaBuilder schema, Variable valueVariable)
 		{
-			return Text.GetHasValueRule(valueVariable);
+			return Rule.Result(Expression.Property(valueVariable.ToExpression(), "Success"));
 		}
 
-		public override IEnumerable<Calculation> GetOtherCalculations(Namespace rootNamespace, Variable valueVariable, Variable hasValueVariable)
+		public override void DefineSchema(SchemaBuilder schema, Variable valueVariable, Variable hasValueVariable)
 		{
-			// TODO: Calculation whose output is the parsed value
+			var x = GetX(schema, valueVariable, hasValueVariable);
 
-			// TODO: Calculation whose output is whether the parse succeeded
+			schema.Add(x.TextSchema);
 
-			return Text.GetOtherCalculations(rootNamespace, valueVariable, hasValueVariable);
+			DefineSchema(x);
+		}
+
+		private X GetX(SchemaBuilder schema, Variable valueVariable, Variable hasValueVariable)
+		{
+			var textNamespace = schema.GetRootedName(TextIdentifier).ToNamespace();
+
+			var textSchema = Text.GetSchema(textNamespace);
+
+			var textVariable = textSchema.GetVariable(textNamespace + TextInput.ValueIdentifier);
+			var hasTextVariable = textSchema.GetVariable(textNamespace + TextInput.HasValueIdentifier);
+
+			return new X
+			{
+				Schema = schema,
+				TextSchema = textSchema,
+				TextVariable = textVariable,
+				HasTextVariable = hasTextVariable,
+				ValueVariable = valueVariable,
+				HasValueVariable = hasValueVariable
+			};
+		}
+
+		private void DefineSchema(X x)
+		{
+			// Value = Text.HasValue ? Algorithm.ParseValue<>(textVariable) : new ParseValue<>()
+
+			x.Schema.Add(new Calculation(
+				x.ValueVariable,
+				Expression.Condition(
+					x.HasTextVariable.ToExpression(),
+					Expression.Call(Expression.Constant(Algorithm), "ParseValue", new[] { Type }, x.TextVariable.ToExpression()),
+					Expression.New(typeof(ParseResult<>).MakeGenericType(Type)))));
+		}
+
+		private sealed class X
+		{
+			internal SchemaBuilder Schema;
+
+			internal Schema TextSchema;
+			internal Variable TextVariable;
+			internal Variable HasTextVariable;
+
+			internal Variable ValueVariable;
+			internal Variable HasValueVariable;
 		}
 	}
 }

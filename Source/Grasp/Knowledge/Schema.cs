@@ -22,7 +22,7 @@ namespace Grasp.Knowledge
 		/// <summary>
 		/// Initializes a schema with the specified variables and calculations
 		/// </summary>
-		/// <param name="variables">The variables in effect for this schema</param>
+		/// <param name="variables">The variables in effect for this schema (not including output variables)</param>
 		/// <param name="calculations">The calculations in effect for this schema</param>
 		public Schema(IEnumerable<Variable> variables = null, IEnumerable<Calculation> calculations = null)
 		{
@@ -33,7 +33,7 @@ namespace Grasp.Knowledge
 		/// <summary>
 		/// Initializes a schema with the specified variables
 		/// </summary>
-		/// <param name="variables">The variables in effect for this schema</param>
+		/// <param name="variables">The variables in effect for this schema (not including output variables)</param>
 		public Schema(params Variable[] variables) : this(variables as IEnumerable<Variable>)
 		{}
 
@@ -47,7 +47,7 @@ namespace Grasp.Knowledge
 		/// <summary>
 		/// Initializes a schema with the specified variable and calculation
 		/// </summary>
-		/// <param name="variable">The variable in effect for this schema</param>
+		/// <param name="variables">The variables in effect for this schema (not including output variables)</param>
 		/// <param name="calculation">The calculation in effect for this schema</param>
 		public Schema(Variable variable, Calculation calculation) : this(variable)
 		{
@@ -59,7 +59,7 @@ namespace Grasp.Knowledge
 		/// <summary>
 		/// Initializes a schema with the specified variable and calculations
 		/// </summary>
-		/// <param name="variable">The variable in effect for this schema</param>
+		/// <param name="variables">The variables in effect for this schema (not including output variables)</param>
 		/// <param name="calculations">The calculations in effect for this schema</param>
 		public Schema(Variable variable, params Calculation[] calculations) : this(Params.Of(variable))
 		{
@@ -72,7 +72,7 @@ namespace Grasp.Knowledge
 		}
 
 		/// <summary>
-		/// Gets the variables in effect for this schema
+		/// Gets the variables in effect for this schema (not including output variables)
 		/// </summary>
 		public Many<Variable> Variables { get { return GetValue(VariablesField); } private set { SetValue(VariablesField, value); } }
 
@@ -82,27 +82,11 @@ namespace Grasp.Knowledge
 		public Many<Calculation> Calculations { get { return GetValue(CalculationsField); } private set { SetValue(CalculationsField, value); } }
 
 		/// <summary>
-		/// Gets the variable with the specified name, or null if not found
+		/// Gets the variables in effect for this schema and the output variables set by calculations
 		/// </summary>
-		/// <param name="name">The name of the variable to get</param>
-		/// <returns>The variable with the specified name, or null if not found</returns>
-		public Variable GetVariable(FullName name)
+		public IEnumerable<Variable> EffectiveVariables
 		{
-			Contract.Requires(name != null);
-
-			return Variables.FirstOrDefault(variable => variable.Name == name);
-		}
-
-		/// <summary>
-		/// Gets the calculation for the variable with the specified name, or null if not found
-		/// </summary>
-		/// <param name="outputVariableName">The name of the output variable of the calculation to get</param>
-		/// <returns>The calculation for the variable with the specified name, or null if not found</returns>
-		public Calculation GetCalculation(FullName outputVariableName)
-		{
-			Contract.Requires(outputVariableName != null);
-
-			return Calculations.FirstOrDefault(calculation => calculation.OutputVariable.Name == outputVariableName);
+			get { return Variables.Concat(Calculations.Select(calculation => calculation.OutputVariable)); }
 		}
 
 		/// <summary>
@@ -123,98 +107,6 @@ namespace Grasp.Knowledge
 			catch(Exception ex)
 			{
 				throw new CompilationException(this, Resources.CompilationError, ex);
-			}
-		}
-
-		/// <summary>
-		/// Merges the variables and calculations of this and the specified schemas, using the specified rules to resolve conflicts
-		/// </summary>
-		/// <param name="other">The schema to merge</param>
-		/// <param name="variableRule">Determines how to resolve conflicts between variables</param>
-		/// <param name="calculationRule">Determines how to resolve conflicts between calculations</param>
-		/// <returns>A schema containing the variables and calculations of this and the specified schemas</returns>
-		public Schema Merge(Schema other, SchemaMergeRule variableRule = SchemaMergeRule.ErrorOnConflict, SchemaMergeRule calculationRule = SchemaMergeRule.ErrorOnConflict)
-		{
-			Contract.Requires(other != null);
-
-			return new Schema(MergeVariables(other, variableRule), MergeCalculations(other, calculationRule));
-		}
-
-		private IEnumerable<Variable> MergeVariables(Schema other, SchemaMergeRule rule)
-		{
-			var variableSets =
-				from variable in Variables.Union(other.Variables)
-				group variable by variable.Name into variablesByName
-				select variablesByName.ToList();
-
-			foreach(var variableSet in variableSets)
-			{
-				if(variableSet.Count == 1)
-				{
-					yield return variableSet[0];
-				}
-				else if(variableSet.Count == 2)
-				{
-					yield return MergeVariable(rule, variableSet[0], variableSet[1]);
-				}
-				else
-				{
-					throw new ArgumentException();	// TODO
-				}
-			}
-		}
-
-		private static Variable MergeVariable(SchemaMergeRule rule, Variable left, Variable right)
-		{
-			switch(rule)
-			{
-				case SchemaMergeRule.ErrorOnConflict:
-					throw new ArgumentException();	// TODO
-				case SchemaMergeRule.UseLeft:
-					return left;
-				case SchemaMergeRule.UseRight:
-					return right;
-				default:
-					throw new NotSupportedException();	// TODO
-			}
-		}
-
-		private IEnumerable<Calculation> MergeCalculations(Schema other, SchemaMergeRule rule)
-		{
-			var calculationSets =
-				from calculation in Calculations.Union(other.Calculations)
-				group calculation by calculation.OutputVariable.Name into calculationsByOutputName
-				select calculationsByOutputName.ToList();
-
-			foreach(var calculationSet in calculationSets)
-			{
-				if(calculationSet.Count == 1)
-				{
-					yield return calculationSet[0];
-				}
-				else if(calculationSet.Count == 2)
-				{
-					yield return MergeCalculation(rule, calculationSet[0], calculationSet[1]);
-				}
-				else
-				{
-					throw new ArgumentException();	// TODO
-				}
-			}
-		}
-
-		private static Calculation MergeCalculation(SchemaMergeRule rule, Calculation left, Calculation right)
-		{
-			switch(rule)
-			{
-				case SchemaMergeRule.ErrorOnConflict:
-					throw new ArgumentException();	// TODO
-				case SchemaMergeRule.UseLeft:
-					return left;
-				case SchemaMergeRule.UseRight:
-					return right;
-				default:
-					throw new NotSupportedException();	// TODO
 			}
 		}
 	}

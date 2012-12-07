@@ -17,6 +17,9 @@ namespace Grasp.Knowledge.Forms
 		public static readonly Field<Count> MaximumLengthField = Field.On<TextInput>.For(x => x.MaximumLength);
 		public static readonly Field<ITextPattern> PatternField = Field.On<TextInput>.For(x => x.Pattern);
 
+		public static readonly Identifier LengthValidIdentifier = new Identifier("LengthValid");
+		public static readonly Identifier PatternValidIdentifier = new Identifier("PatternValid");
+
 		public TextInput(Count? minimumLength = null, Count? maximumLength = null, ITextPattern pattern = null, FullName name = null) : base(typeof(string), name)
 		{
 			MinimumLength = minimumLength ?? Count.None;
@@ -28,63 +31,74 @@ namespace Grasp.Knowledge.Forms
 		public Count MaximumLength { get { return GetValue(MaximumLengthField); } private set { SetValue(MaximumLengthField, value); } }
 		public ITextPattern Pattern { get { return GetValue(PatternField); } private set { SetValue(PatternField, value); } }
 
-		public override Rule GetHasValueRule(Variable valueVariable)
+		public override Rule GetHasValueRule(SchemaBuilder schema, Variable valueVariable)
 		{
 			return new IsNotNullOrEmptyMethod().GetRule(typeof(string));
 		}
 
-		public override IEnumerable<Calculation> GetOtherCalculations(Namespace rootNamespace, Variable valueVariable, Variable hasValueVariable)
+		public override void DefineSchema(SchemaBuilder schema, Variable valueVariable, Variable hasValueVariable)
 		{
 			if(MinimumLength != Count.None || MaximumLength != Count.None)
 			{
-				yield return GetLengthCalculation(rootNamespace, valueVariable, hasValueVariable);
+				DefineLengthSchema(schema, valueVariable, hasValueVariable);
 			}
 
 			if(Pattern != null)
 			{
-				yield return GetPatternCalculation(rootNamespace, valueVariable, hasValueVariable);
+				DefinePatternSchema(schema, valueVariable, hasValueVariable);
 			}
 		}
 
-		private Calculation GetLengthCalculation(Namespace rootNamespace, Variable valueVariable, Variable hasValueVariable)
+		private void DefineLengthSchema(SchemaBuilder schema, Variable valueVariable, Variable hasValueVariable)
 		{
-			return Calculation.FromRule(valueVariable, GetLengthRule(hasValueVariable), rootNamespace + new Identifier("LengthValid"));
+			schema.Add(Calculation.FromRule(
+				valueVariable,
+				GetLengthRule(hasValueVariable),
+				schema.GetRootedName(LengthValidIdentifier)));
 		}
 
 		private Rule GetLengthRule(Variable hasValueVariable)
 		{
 			var hasValueRule = Rule.Result(hasValueVariable.ToExpression());
 
-			var lengthProperty = Reflect.Property((string x) => x.Length);
-
-			var lengthRule = Rule.Property(lengthProperty, GetLengthValueRule());
-
-			return Rule.And(hasValueRule, lengthRule);
+			return Rule.And(hasValueRule, GetLengthRule());
 		}
 
-		private Rule GetLengthValueRule()
+		private Rule GetLengthRule()
+		{
+			var lengthProperty = Reflect.Property((string x) => x.Length);
+
+			var lengthValueRule = GetLengthValueCheck().GetRule(typeof(int));
+
+			return Rule.Property(lengthProperty, lengthValueRule);
+		}
+
+		private ICheckMethod GetLengthValueCheck()
 		{
 			if(MinimumLength != Count.None && MaximumLength != Count.None)
 			{
-				return new IsBetweenMethod(MinimumLength.Value, MaximumLength.Value).GetRule(typeof(int));
+				return new IsBetweenMethod(MinimumLength.Value, MaximumLength.Value);
 			}
 			else if(MinimumLength != Count.None)
 			{
-				return new IsGreaterThanOrEqualToMethod(MinimumLength.Value).GetRule(typeof(int));
+				return new IsGreaterThanOrEqualToMethod(MinimumLength.Value);
 			}
 			else
 			{
-				return new IsLessThanOrEqualToMethod(MaximumLength.Value).GetRule(typeof(int));
+				return new IsLessThanOrEqualToMethod(MaximumLength.Value);
 			}
 		}
 
-		private Calculation GetPatternCalculation(Namespace rootNamespace, Variable valueVariable, Variable hasValueVariable)
+		private void DefinePatternSchema(SchemaBuilder schema, Variable valueVariable, Variable hasValueVariable)
 		{
 			var hasValueRule = Rule.Result(hasValueVariable.ToExpression());
 
 			var patternRule = Rule.And(hasValueRule, Pattern.GetRule());
 
-			return Calculation.FromRule(valueVariable, patternRule, rootNamespace + new Identifier("PatternValid"));
+			schema.Add(Calculation.FromRule(
+				valueVariable,
+				patternRule,
+				schema.GetRootedName(PatternValidIdentifier)));
 		}
 	}
 }

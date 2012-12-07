@@ -15,6 +15,9 @@ namespace Grasp.Knowledge.Forms
 	{
 		public static readonly Field<Type> TypeField = Field.On<ValueInput>.For(x => x.Type);
 
+		public static readonly Identifier ValueIdentifier = new Identifier("Value");
+		public static readonly Identifier HasValueIdentifier = new Identifier("HasValue");
+
 		protected ValueInput(Type type, FullName name = null) : base(name)
 		{
 			Contract.Requires(type != null);
@@ -24,28 +27,31 @@ namespace Grasp.Knowledge.Forms
 
 		public Type Type { get { return GetValue(TypeField); } private set { SetValue(TypeField, value); } }
 
-		public override Schema GetSchema(Namespace rootNamespace)
+		protected override void DefineSchema(SchemaBuilder schema)
 		{
-			var valueVariable = new Variable(Type, rootNamespace + new Identifier("Value"));
+			var valueVariable = schema.Add(Type, ValueIdentifier);
 
-			return new Schema(Params.Of(valueVariable), GetCalculations(rootNamespace, valueVariable));
+			DefineSchema(schema, valueVariable);
 		}
 
-		private IEnumerable<Calculation> GetCalculations(Namespace rootNamespace, Variable valueVariable)
+		protected virtual void DefineSchema(SchemaBuilder schema, Variable valueVariable)
 		{
-			var hasValueCalculation = Calculation.FromRule(valueVariable, GetHasValueRule(valueVariable), rootNamespace + new Identifier("HasValue"));
+			Contract.Requires(schema != null);
+			Contract.Requires(valueVariable != null);
 
-			yield return hasValueCalculation;
+			var hasValueCalculation = Calculation.FromRule(
+				valueVariable,
+				GetHasValueRule(schema, valueVariable),
+				schema.GetRootedName(HasValueIdentifier));
 
-			foreach(var calculation in GetOtherCalculations(rootNamespace, valueVariable, hasValueCalculation.OutputVariable))
-			{
-				yield return calculation;
-			}
+			schema.Add(hasValueCalculation);
+
+			DefineSchema(schema, valueVariable, hasValueCalculation.OutputVariable);
 		}
 
-		public abstract Rule GetHasValueRule(Variable valueVariable);
+		public abstract Rule GetHasValueRule(SchemaBuilder schema, Variable valueVariable);
 
-		public abstract IEnumerable<Calculation> GetOtherCalculations(Namespace rootNamespace, Variable valueVariable, Variable hasValueVariable);
+		public abstract void DefineSchema(SchemaBuilder schema, Variable valueVariable, Variable hasValueVariable);
 	}
 
 	[ContractClassFor(typeof(ValueInput))]
@@ -54,22 +60,20 @@ namespace Grasp.Knowledge.Forms
 		protected ValueInputContract(Type type) : base(type)
 		{}
 
-		public override Rule GetHasValueRule(Variable valueVariable)
+		public override Rule GetHasValueRule(SchemaBuilder schema, Variable valueVariable)
 		{
+			Contract.Requires(schema != null);
 			Contract.Requires(valueVariable != null);
 			Contract.Ensures(Contract.Result<Rule>() != null);
 
 			return null;
 		}
 
-		public override IEnumerable<Calculation> GetOtherCalculations(Namespace rootNamespace, Variable valueVariable, Variable hasValueVariable)
+		public override void DefineSchema(SchemaBuilder schema, Variable valueVariable, Variable hasValueVariable)
 		{
-			Contract.Requires(rootNamespace != null);
+			Contract.Requires(schema != null);
 			Contract.Requires(valueVariable != null);
 			Contract.Requires(hasValueVariable != null);
-			Contract.Ensures(Contract.Result<IEnumerable<Calculation>>() != null);
-
-			return null;
 		}
 	}
 }
