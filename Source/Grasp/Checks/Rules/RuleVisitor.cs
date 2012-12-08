@@ -27,10 +27,12 @@ namespace Grasp.Checks.Rules
 			{
 				case RuleType.Check:
 					return VisitCheck((CheckRule) node);
-				case RuleType.Lambda:
-					return VisitLambda((LambdaRule) node);
 				case RuleType.Result:
 					return VisitResult((ResultRule) node);
+				case RuleType.Literal:
+					return VisitLiteral((LiteralRule) node);
+				case RuleType.Lambda:
+					return VisitLambda((LambdaRule) node);
 				case RuleType.And:
 				case RuleType.Or:
 				case RuleType.ExclusiveOr:
@@ -62,6 +64,16 @@ namespace Grasp.Checks.Rules
 		/// <param name="node">The result rule to visit</param>
 		/// <returns>The new form of the rule</returns>
 		protected virtual Rule VisitResult(ResultRule node)
+		{
+			return node;
+		}
+
+		/// <summary>
+		/// Visits the specified literal rule
+		/// </summary>
+		/// <param name="node">The literal rule to visit</param>
+		/// <returns>The new form of the rule</returns>
+		protected virtual Rule VisitLiteral(LiteralRule node)
 		{
 			return node;
 		}

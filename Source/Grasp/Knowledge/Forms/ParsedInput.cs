@@ -29,21 +29,21 @@ namespace Grasp.Knowledge.Forms
 		public TextInput Text { get { return GetValue(TextField); } private set { SetValue(TextField, value); } }
 		public IParseAlgorithm Algorithm { get { return GetValue(AlgorithmField); } private set { SetValue(AlgorithmField, value); } }
 
-		public override Rule GetHasValueRule(SchemaBuilder schema, Variable valueVariable)
+		public override Rule GetHasValueRule(SchemaBuilder schema)
 		{
-			return Rule.Result(Expression.Property(valueVariable.ToExpression(), "Success"));
+			return Rule.Property(Type.GetProperty("Success"), Rule.Literal);
 		}
 
 		public override void DefineSchema(SchemaBuilder schema, Variable valueVariable, Variable hasValueVariable)
 		{
-			var x = GetX(schema, valueVariable, hasValueVariable);
+			var parseData = GetParseData(schema, valueVariable, hasValueVariable);
 
-			schema.Add(x.TextSchema);
+			schema.Add(parseData.TextSchema);
 
-			DefineSchema(x);
+			DefineSchema(parseData);
 		}
 
-		private X GetX(SchemaBuilder schema, Variable valueVariable, Variable hasValueVariable)
+		private ParseData GetParseData(SchemaBuilder schema, Variable valueVariable, Variable hasValueVariable)
 		{
 			var textNamespace = schema.GetRootedName(TextIdentifier).ToNamespace();
 
@@ -52,7 +52,7 @@ namespace Grasp.Knowledge.Forms
 			var textVariable = textSchema.GetVariable(textNamespace + TextInput.ValueIdentifier);
 			var hasTextVariable = textSchema.GetVariable(textNamespace + TextInput.HasValueIdentifier);
 
-			return new X
+			return new ParseData
 			{
 				Schema = schema,
 				TextSchema = textSchema,
@@ -63,19 +63,19 @@ namespace Grasp.Knowledge.Forms
 			};
 		}
 
-		private void DefineSchema(X x)
+		private void DefineSchema(ParseData parseData)
 		{
 			// Value = Text.HasValue ? Algorithm.ParseValue<>(textVariable) : new ParseValue<>()
 
-			x.Schema.Add(new Calculation(
-				x.ValueVariable,
+			parseData.Schema.Add(new Calculation(
+				parseData.ValueVariable,
 				Expression.Condition(
-					x.HasTextVariable.ToExpression(),
-					Expression.Call(Expression.Constant(Algorithm), "ParseValue", new[] { Type }, x.TextVariable.ToExpression()),
+					parseData.HasTextVariable.ToExpression(),
+					Expression.Call(Expression.Constant(Algorithm), "ParseValue", new[] { Type }, parseData.TextVariable.ToExpression()),
 					Expression.New(typeof(ParseResult<>).MakeGenericType(Type)))));
 		}
 
-		private sealed class X
+		private sealed class ParseData
 		{
 			internal SchemaBuilder Schema;
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using FluentAssertions;
 using Xunit;
@@ -45,7 +46,7 @@ namespace Grasp.Knowledge
 
 			var expression = variable.ToExpression();
 
-			expression.NodeType.Should().Be(VariableExpression.ExpressionType);
+			expression.NodeType.Should().Be(ExpressionType.Extension);
 			expression.Variable.Should().Be(variable);
 			expression.Type.Should().Be(variable.Type);
 		}

@@ -31,7 +31,7 @@ namespace Grasp.Knowledge.Forms
 		public Count MaximumLength { get { return GetValue(MaximumLengthField); } private set { SetValue(MaximumLengthField, value); } }
 		public ITextPattern Pattern { get { return GetValue(PatternField); } private set { SetValue(PatternField, value); } }
 
-		public override Rule GetHasValueRule(SchemaBuilder schema, Variable valueVariable)
+		public override Rule GetHasValueRule(SchemaBuilder schema)
 		{
 			return new IsNotNullOrEmptyMethod().GetRule(typeof(string));
 		}

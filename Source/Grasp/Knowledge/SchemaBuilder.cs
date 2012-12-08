@@ -67,7 +67,7 @@ namespace Grasp.Knowledge
 		{
 			Contract.Requires(fullName != null);
 
-			return fullName.Namespace == RootNamespace ? fullName : RootNamespace + fullName;
+			return RootNamespace.Contains(fullName.Namespace) ? fullName : RootNamespace + fullName;
 		}
 
 		/// <summary>

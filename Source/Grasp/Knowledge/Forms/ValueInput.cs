@@ -39,17 +39,14 @@ namespace Grasp.Knowledge.Forms
 			Contract.Requires(schema != null);
 			Contract.Requires(valueVariable != null);
 
-			var hasValueCalculation = Calculation.FromRule(
-				valueVariable,
-				GetHasValueRule(schema, valueVariable),
-				schema.GetRootedName(HasValueIdentifier));
+			var hasValueCalculation = Calculation.FromRule(valueVariable, GetHasValueRule(schema), schema.GetRootedName(HasValueIdentifier));
 
 			schema.Add(hasValueCalculation);
 
 			DefineSchema(schema, valueVariable, hasValueCalculation.OutputVariable);
 		}
 
-		public abstract Rule GetHasValueRule(SchemaBuilder schema, Variable valueVariable);
+		public abstract Rule GetHasValueRule(SchemaBuilder schema);
 
 		public abstract void DefineSchema(SchemaBuilder schema, Variable valueVariable, Variable hasValueVariable);
 	}
@@ -60,10 +57,9 @@ namespace Grasp.Knowledge.Forms
 		protected ValueInputContract(Type type) : base(type)
 		{}
 
-		public override Rule GetHasValueRule(SchemaBuilder schema, Variable valueVariable)
+		public override Rule GetHasValueRule(SchemaBuilder schema)
 		{
 			Contract.Requires(schema != null);
-			Contract.Requires(valueVariable != null);
 			Contract.Ensures(Contract.Result<Rule>() != null);
 
 			return null;

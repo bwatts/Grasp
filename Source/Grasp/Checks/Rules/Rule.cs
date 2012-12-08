@@ -72,7 +72,7 @@ namespace Grasp.Checks.Rules
 
 		#region Lambda
 		/// <summary>
-		/// Creates a <see cref="Grasp.Checks.Rules.LambdaRule"/> that represents a constant value
+		/// Creates a <see cref="Grasp.Checks.Rules.LambdaRule"/> that represents a lambda expression applied to the target data
 		/// </summary>
 		/// <param name="lambda">The lambda expression applied to the target data</param>
 		/// <returns>A <see cref="Grasp.Checks.Rules.LambdaRule"/> with the specified lambda expression</returns>
@@ -257,6 +257,11 @@ namespace Grasp.Checks.Rules
 		public static readonly ResultRule False = Result(false);
 
 		/// <summary>
+		/// The <see cref="Grasp.Checks.Rules.LiteralRule"/> representing a check whose target type is boolean and whose result is the target value
+		/// </summary>
+		public static readonly LiteralRule Literal = new LiteralRule();
+
+		/// <summary>
 		/// Intiailizes a rule with the specified type
 		/// </summary>
 		/// <param name="type">The type of this node in the tree</param>
@@ -276,7 +281,7 @@ namespace Grasp.Checks.Rules
 		/// <returns>A textual representation of this rule</returns>
 		public override string ToString()
 		{
-			return new ConvertRuleToString().ConvertToString(this);
+			return new RuleToString().GetText(this);
 		}
 
 		/// <summary>
@@ -289,7 +294,7 @@ namespace Grasp.Checks.Rules
 		{
 			Contract.Requires(targetType != null);
 
-			return new ConvertRuleToLambdaExpression().ConvertToLambdaExpression(this, targetType, defaultResult);
+			return new RuleToLambdaExpression().GetLambda(this, targetType, defaultResult);
 		}
 
 		/// <summary>

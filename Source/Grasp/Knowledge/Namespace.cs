@@ -138,5 +138,22 @@ namespace Grasp.Knowledge
 		{
 			return new FullName(this);
 		}
+
+		/// <summary>
+		/// Determines whether the specified namespace is a descendant of this namespace
+		/// </summary>
+		/// <param name="other">The namespace to check</param>
+		/// <returns>Whether the specified namespace is a descendant of this namespace</returns>
+		public bool Contains(Namespace other)
+		{
+			Contract.Requires(other != null);
+
+			var thisParts = this.ToList();
+			var otherParts = other.ToList();
+
+			var samePartCount = thisParts.Zip(otherParts, (thisPart, otherPart) => thisPart == otherPart).Count(partIsSame => partIsSame);
+
+			return samePartCount >= thisParts.Count;
+		}
 	}
 }

@@ -104,7 +104,9 @@
     <Compile Include="..\GraspAssemblyInfo.cs">
       <Link>Properties\GraspAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Checks\Rules\LiteralRule.cs" />
     <Compile Include="Knowledge\Calculation.cs" />
+    <Compile Include="Knowledge\CalculationToString.cs" />
     <Compile Include="Knowledge\Forms\Form.cs" />
     <Compile Include="Knowledge\Forms\Input.cs" />
     <Compile Include="Knowledge\Forms\IParseAlgorithm.cs" />
@@ -135,7 +137,7 @@
     <Compile Include="Knowledge\Runtime\Compilation\CompilationException.cs" />
     <Compile Include="Knowledge\Runtime\Compilation\CalculationCompiler.cs" />
     <Compile Include="Knowledge\Runtime\Compilation\CalculationCycleException.cs" />
-    <Compile Include="Knowledge\Runtime\Compilation\CalculationExpressionVisitor.cs" />
+    <Compile Include="Knowledge\CalculationExpressionVisitor.cs" />
     <Compile Include="Knowledge\Runtime\Compilation\CalculationSchema.cs" />
     <Compile Include="Knowledge\Runtime\Compilation\DependencyAnalyzer.cs" />
     <Compile Include="Knowledge\Runtime\Compilation\DependencyGraph.cs" />
@@ -284,8 +286,8 @@
     <Compile Include="Checks\Rules\CheckRule.cs" />
     <Compile Include="Checks\Rules\BinaryRule.cs" />
     <Compile Include="Checks\Rules\ResultRule.cs" />
-    <Compile Include="Checks\Rules\ConvertRuleToLambdaExpression.cs" />
-    <Compile Include="Checks\Rules\ConvertRuleToString.cs" />
+    <Compile Include="Checks\Rules\RuleToLambdaExpression.cs" />
+    <Compile Include="Checks\Rules\RuleToString.cs" />
     <Compile Include="Checks\Rules\LambdaRule.cs" />
     <Compile Include="Checks\Rules\MemberRule.cs" />
     <Compile Include="Checks\Rules\NotRule.cs" />

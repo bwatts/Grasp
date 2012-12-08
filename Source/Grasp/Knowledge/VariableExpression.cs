@@ -12,22 +12,17 @@ namespace Grasp.Knowledge
 	/// </summary>
 	public sealed class VariableExpression : Expression
 	{
-		/// <summary>
-		/// The value of <see cref="System.Linq.Expressions.ExpressionType"/> associated with variable expressions
-		/// </summary>
-		public static readonly ExpressionType ExpressionType = (ExpressionType) 1000;	// Create a space separate from base expression trees
-
 		internal VariableExpression(Variable variable)
 		{
 			Variable = variable;
 		}
 
 		/// <summary>
-		/// Gets the type of this expression tree node
+		/// Gets the extension node type
 		/// </summary>
 		public override ExpressionType NodeType
 		{
-			get { return ExpressionType; }
+			get { return ExpressionType.Extension; }
 		}
 
 		/// <summary>

@@ -5,11 +5,11 @@ using System.Text;
 
 namespace Grasp.Checks.Rules
 {
-	internal sealed class ConvertRuleToString : RuleVisitor
+	internal sealed class RuleToString : RuleVisitor
 	{
 		private StringBuilder _builder;
 
-		internal string ConvertToString(Rule rule)
+		internal string GetText(Rule rule)
 		{
 			_builder = new StringBuilder();
 

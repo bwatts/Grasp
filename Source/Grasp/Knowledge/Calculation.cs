@@ -5,6 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using Cloak;
+using Cloak.Linq;
 using Grasp.Checks.Rules;
 
 namespace Grasp.Knowledge
@@ -68,7 +69,7 @@ namespace Grasp.Knowledge
 		/// <returns>A textual representation of this calculation</returns>
 		public override string ToString()
 		{
-			return Resources.Calculation.FormatInvariant(OutputVariable.Name, Expression);
+			return new CalculationToString().GetText(this);
 		}
 	}
 

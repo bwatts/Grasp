@@ -5,13 +5,15 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
 
-namespace Grasp.Knowledge.Runtime.Compilation
+namespace Grasp.Knowledge
 {
 	internal abstract class CalculationExpressionVisitor : ExpressionVisitor
 	{
-		public override Expression Visit(Expression node)
+		protected override Expression VisitExtension(Expression node)
 		{
-			return node.NodeType == VariableExpression.ExpressionType ? VisitVariable((VariableExpression) node) : base.Visit(node);
+			var variableNode = node as VariableExpression;
+
+			return variableNode != null ? VisitVariable(variableNode) : base.Visit(variableNode);
 		}
 
 		protected virtual Expression VisitVariable(VariableExpression node)

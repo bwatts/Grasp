@@ -21,6 +21,11 @@ namespace Grasp.Checks.Rules
 		Result,
 
 		/// <summary>
+		/// A rule whose target type is boolean and whose result is the target value
+		/// </summary>
+		Literal,
+
+		/// <summary>
 		/// A rule which applies a lambda expression to the target data
 		/// </summary>
 		Lambda,

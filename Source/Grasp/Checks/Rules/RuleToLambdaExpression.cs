@@ -9,13 +9,13 @@ using Cloak.Linq;
 
 namespace Grasp.Checks.Rules
 {
-	internal sealed class ConvertRuleToLambdaExpression : RuleVisitor
+	internal sealed class RuleToLambdaExpression : RuleVisitor
 	{
 		private Expression _target;
 		private Expression _body;
 		private bool _defaultResult;
 
-		internal LambdaExpression ConvertToLambdaExpression(Rule rule, Type targetType, bool defaultResult)
+		internal LambdaExpression GetLambda(Rule rule, Type targetType, bool defaultResult)
 		{
 			var targetParameter = Expression.Parameter(targetType, "target");
 
@@ -41,6 +41,13 @@ namespace Grasp.Checks.Rules
 		protected override Rule VisitResult(ResultRule node)
 		{
 			_body = node.Expression;
+
+			return node;
+		}
+
+		protected override Rule VisitLiteral(LiteralRule node)
+		{
+			_body = _target;
 
 			return node;
 		}
