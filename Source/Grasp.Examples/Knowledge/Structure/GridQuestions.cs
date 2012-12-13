@@ -95,7 +95,7 @@ namespace Grasp.Knowledge.Structure
 		{
 			var columnQuestion = new SubQuestion(
 				"SomeQuestion",
-				new ValueQuestion<int>(Params.Of(new Validator("SomeRule", Expression.Constant(true)))));
+				new ValueQuestion<int>(Params.Of(new Validator("SomeRule", Rule.True))));
 
 			var question = new GridQuestion(Params.Of(columnQuestion), Params.Of(new Identifier("SomeItem")));
 
@@ -110,11 +110,11 @@ namespace Grasp.Knowledge.Structure
 		{
 			var columnQuestion1 = new SubQuestion(
 				"SomeQuestion1",
-				new ValueQuestion<int>(Params.Of(new Validator("SomeRule1", Expression.Constant(true)))));
+				new ValueQuestion<int>(Params.Of(new Validator("SomeRule1", Rule.True))));
 
 			var columnQuestion2 = new SubQuestion(
 				"SomeQuestion2",
-				new ValueQuestion<int>(Params.Of(new Validator("SomeRule2", Expression.Constant(true)))));
+				new ValueQuestion<int>(Params.Of(new Validator("SomeRule2", Rule.True))));
 
 			var question = new GridQuestion(Params.Of(columnQuestion1, columnQuestion2), Params.Of(new Identifier("SomeItem")));
 
@@ -133,11 +133,11 @@ namespace Grasp.Knowledge.Structure
 		{
 			var columnQuestion1 = new SubQuestion(
 				"SomeQuestion1",
-				new ValueQuestion<int>(Params.Of(new Validator("SomeRule1", Expression.Constant(true)))));
+				new ValueQuestion<int>(Params.Of(new Validator("SomeRule1", Rule.True))));
 
 			var columnQuestion2 = new SubQuestion(
 				"SomeQuestion2",
-				new ValueQuestion<int>(Params.Of(new Validator("SomeRule2", Expression.Constant(true)))));
+				new ValueQuestion<int>(Params.Of(new Validator("SomeRule2", Rule.True))));
 
 			var question = new GridQuestion(
 				Params.Of(columnQuestion1, columnQuestion2),
@@ -163,8 +163,8 @@ namespace Grasp.Knowledge.Structure
 			var columnQuestion = new SubQuestion(
 				"SomeQuestion",
 				new ValueQuestion<int>(Params.Of(
-					new Validator("SomeRule1", Expression.Constant(true)),
-					new Validator("SomeRule2", Expression.Constant(true)))));
+					new Validator("SomeRule1", Rule.True),
+					new Validator("SomeRule2", Rule.True))));
 
 			var question = new GridQuestion(Params.Of(columnQuestion), Params.Of(new Identifier("SomeItem")));
 
@@ -182,14 +182,14 @@ namespace Grasp.Knowledge.Structure
 			var columnQuestion1 = new SubQuestion(
 				"SomeQuestion1",
 				new ValueQuestion<int>(Params.Of(
-					new Validator("SomeRule1", Expression.Constant(true)),
-					new Validator("SomeRule2", Expression.Constant(true)))));
+					new Validator("SomeRule1", Rule.True),
+					new Validator("SomeRule2", Rule.True))));
 
 			var columnQuestion2 = new SubQuestion(
 				"SomeQuestion2",
 				new ValueQuestion<int>(Params.Of(
-					new Validator("SomeRule3", Expression.Constant(true)),
-					new Validator("SomeRule4", Expression.Constant(true)))));
+					new Validator("SomeRule3", Rule.True),
+					new Validator("SomeRule4", Rule.True))));
 
 			var question = new GridQuestion(Params.Of(columnQuestion1, columnQuestion2), Params.Of(new Identifier("SomeItem")));
 
@@ -211,14 +211,14 @@ namespace Grasp.Knowledge.Structure
 			var columnQuestion1 = new SubQuestion(
 				"SomeQuestion1",
 				new ValueQuestion<int>(Params.Of(
-					new Validator("SomeRule1", Expression.Constant(true)),
-					new Validator("SomeRule2", Expression.Constant(true)))));
+					new Validator("SomeRule1", Rule.True),
+					new Validator("SomeRule2", Rule.True))));
 
 			var columnQuestion2 = new SubQuestion(
 				"SomeQuestion2",
 				new ValueQuestion<int>(Params.Of(
-					new Validator("SomeRule3", Expression.Constant(true)),
-					new Validator("SomeRule4", Expression.Constant(true)))));
+					new Validator("SomeRule3", Rule.True),
+					new Validator("SomeRule4", Rule.True))));
 
 			var question = new GridQuestion(
 				Params.Of(columnQuestion1, columnQuestion2),

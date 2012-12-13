@@ -19,8 +19,8 @@ namespace Grasp.Knowledge.Structure
 			var question = new ValueQuestion(variableType);
 
 			question.Name.Should<FullName>().Be(FullName.Anonymous);
-			question.VariableType.Should().Be(variableType);
-			question.Validators.Should().BeEmpty();
+			question.Type.Should().Be(variableType);
+			question.Calculators.Should().BeEmpty();
 		}
 
 		[Fact] public void CreateWithName()
@@ -34,12 +34,12 @@ namespace Grasp.Knowledge.Structure
 
 		[Fact] public void CreateWithValidators()
 		{
-			var validator1 = new Validator("SomeRule1", Expression.Constant(true));
-			var validator2 = new Validator("SomeRule2", Expression.Constant(true));
+			var validator1 = new Validator("SomeRule1", Rule.True);
+			var validator2 = new Validator("SomeRule2", Rule.True);
 
 			var question = new ValueQuestion<int>(Params.Of(validator1, validator2));
 
-			question.Validators.Should().ContainInOrder(validator1, validator2);
+			question.Calculators.Should().ContainInOrder(validator1, validator2);
 		}
 
 		[Fact] public void GetSchema()
@@ -60,7 +60,7 @@ namespace Grasp.Knowledge.Structure
 
 		[Fact] public void GetSchemaWithValidator()
 		{
-			var question = new ValueQuestion<int>(Params.Of(new Validator("SomeRule", Expression.Constant(true))));
+			var question = new ValueQuestion<int>(Params.Of(new Validator("SomeRule", Rule.True)));
 
 			var schema = question.GetSchema("SomeValue");
 

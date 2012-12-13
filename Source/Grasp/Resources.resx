@@ -132,6 +132,9 @@
   <data name="CalculationHasCycle" xml:space="preserve">
     <value>Calculation has a cycle: {0}</value>
   </data>
+  <data name="CalculationVariableTypeDifferent" xml:space="preserve">
+    <value>Variable {0} in calculation "{1}" is of type {2}, which is different from type {3} specified by the schema</value>
+  </data>
   <data name="CardinalityFormat" xml:space="preserve">
     <value>{0}..{1}</value>
   </data>
@@ -140,6 +143,12 @@
   </data>
   <data name="ConditionKey" xml:space="preserve">
     <value>"{0}" ({1})</value>
+  </data>
+  <data name="ConvertResultFailure" xml:space="preserve">
+    <value>Conversion failed</value>
+  </data>
+  <data name="ConvertResultSuccess" xml:space="preserve">
+    <value>Converted: {0}</value>
   </data>
   <data name="CreditCardCvvPattern" xml:space="preserve">
     <value>(?!000)\d{3,4}$</value>
@@ -252,11 +261,14 @@
   <data name="UnsupportedTargetType" xml:space="preserve">
     <value>Target type {0} is not supported by check method {1}</value>
   </data>
-  <data name="VariableBindingNonNullValue" xml:space="preserve">
+  <data name="VariableBinding" xml:space="preserve">
     <value>{0} = {1}</value>
   </data>
-  <data name="VariableBindingNullValue" xml:space="preserve">
+  <data name="VariableBindingNull" xml:space="preserve">
     <value>{0} = (null)</value>
+  </data>
+  <data name="VariableBindingString" xml:space="preserve">
+    <value>{0} = "{1}"</value>
   </data>
   <data name="VariableNotBound" xml:space="preserve">
     <value>Variable "{0}" is not bound</value>

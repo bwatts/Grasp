@@ -10,36 +10,36 @@ namespace Grasp.Knowledge.Structure
 {
 	public class ValueQuestion : Question
 	{
-		public static readonly Field<Type> VariableTypeField = Field.On<ValueQuestion>.For(x => x.VariableType);
-		public static readonly Field<Many<IValidator>> ValidatorsField = Field.On<ValueQuestion>.For(x => x.Validators);
+		public static readonly Field<Type> TypeField = Field.On<ValueQuestion>.For(x => x.Type);
+		public static readonly Field<Many<IValueCalculator>> CalculatorsField = Field.On<ValueQuestion>.For(x => x.Calculators);
 
-		public ValueQuestion(Type variableType, IEnumerable<IValidator> validators = null, FullName name = null) : base(name)
+		public ValueQuestion(Type type, IEnumerable<IValueCalculator> calculators = null, FullName name = null) : base(name)
 		{
-			Contract.Requires(variableType != null);
+			Contract.Requires(type != null);
 
-			VariableType = variableType;
-			Validators = (validators ?? Enumerable.Empty<IValidator>()).ToMany();
+			Type = type;
+			Calculators = (calculators ?? Enumerable.Empty<IValueCalculator>()).ToMany();
 		}
 
-		public Type VariableType { get { return GetValue(VariableTypeField); } private set { SetValue(VariableTypeField, value); } }
-		public Many<IValidator> Validators { get { return GetValue(ValidatorsField); } private set { SetValue(ValidatorsField, value); } }
+		public Type Type { get { return GetValue(TypeField); } private set { SetValue(TypeField, value); } }
+		public Many<IValueCalculator> Calculators { get { return GetValue(CalculatorsField); } private set { SetValue(CalculatorsField, value); } }
 
 		public override Schema GetSchema(Namespace rootNamespace)
 		{
-			var variable = new Variable(VariableType, new FullName(rootNamespace));
+			var variable = new Variable(Type, rootNamespace.ToFullName());
 
-			return new Schema(Params.Of(variable), GetValidationCalculations(variable));
+			return new Schema(Params.Of(variable), GetCalculations(variable));
 		}
 
-		private IEnumerable<Calculation<bool>> GetValidationCalculations(Variable target)
+		private IEnumerable<Calculation> GetCalculations(Variable target)
 		{
-			return Validators.Select(validator => validator.GetRule(target).GetCalculation());
+			return Calculators.Select(calculator => calculator.GetCalculation(target));
 		}
 	}
 
 	public class ValueQuestion<T> : ValueQuestion
 	{
-		public ValueQuestion(IEnumerable<IValidator> validators = null, FullName name = null) : base(typeof(T), validators, name)
+		public ValueQuestion(IEnumerable<IValueCalculator> calculators = null, FullName name = null) : base(typeof(T), calculators, name)
 		{}
 	}
 }

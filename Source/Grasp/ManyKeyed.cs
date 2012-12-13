@@ -109,12 +109,12 @@ namespace Grasp
 			return GetEnumerator();
 		}
 
-		IEnumerable<TKey> IReadOnlyDictionary<TKey, TValue>.Keys
+		public IEnumerable<TKey> Keys
 		{
 			get { return _pairs.Keys; }
 		}
 
-		IEnumerable<TValue> IReadOnlyDictionary<TKey, TValue>.Values
+		public IEnumerable<TValue> Values
 		{
 			get { return _pairs.Values; }
 		}

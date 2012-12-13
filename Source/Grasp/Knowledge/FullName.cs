@@ -140,6 +140,13 @@ namespace Grasp.Knowledge
 		{}
 
 		/// <summary>
+		/// Initializes a full name with the specified identifiers
+		/// </summary>
+		/// <param name="identifiers">The identifiers of the full name</param>
+		public FullName(params Identifier[] identifiers) : this(identifiers as IEnumerable<Identifier>)
+		{}
+
+		/// <summary>
 		/// Gets the namespace of this full name
 		/// </summary>
 		public Namespace Namespace { get { return GetValue(NamespaceField); } private set { SetValue(NamespaceField, value); } }

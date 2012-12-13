@@ -5,86 +5,55 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using Cloak;
 using Grasp.Checks.Rules;
+using Grasp.Knowledge.Structure;
 
 namespace Grasp.Knowledge.Forms
 {
 	public class ParsedInput : ValueInput
 	{
 		public static readonly Field<TextInput> TextField = Field.On<ParsedInput>.For(x => x.Text);
-		public static readonly Field<IParseAlgorithm> AlgorithmField = Field.On<ParsedInput>.For(x => x.Algorithm);
+		public static readonly Field<Type> ParsedTypeField = Field.On<ParsedInput>.For(x => x.ParsedType);
 
-		public static readonly Identifier TextIdentifier = new Identifier("Text");
+		public static readonly Identifier TextQualifier = new Identifier("Text");
 
-		public ParsedInput(Type type, TextInput text, IParseAlgorithm algorithm, FullName name = null)
-			: base(typeof(ParseResult<>).MakeGenericType(type), name)
+		public ParsedInput(TextInput text, Type parsedType, FullName name = null) : base(typeof(ConversionResult<>).MakeGenericType(parsedType), name)
 		{
 			Contract.Requires(text != null);
-			Contract.Requires(algorithm != null);
+			Contract.Requires(parsedType != null);
 
 			Text = text;
-			Algorithm = algorithm;
+			ParsedType = parsedType;
 		}
 
 		public TextInput Text { get { return GetValue(TextField); } private set { SetValue(TextField, value); } }
-		public IParseAlgorithm Algorithm { get { return GetValue(AlgorithmField); } private set { SetValue(AlgorithmField, value); } }
+		public Type ParsedType { get { return GetValue(ParsedTypeField); } private set { SetValue(ParsedTypeField, value); } }
 
-		public override Rule GetHasValueRule(SchemaBuilder schema)
+		public override Question GetQuestion()
+		{
+			var textQuestion = (ValueQuestion) Text.GetQuestion();
+
+			var valueVariable = new Variable(Type, Namespace.Root.ToFullName());
+			var hasValueVariable = new Variable<bool>(Namespace.Root + HasValueIdentifier);
+
+			var calculators = GetCalculators(valueVariable, hasValueVariable);
+
+			return new ConversionQuestion(TextQualifier, textQuestion, TextInput.ValidIdentifier, new ParseConversion(ParsedType), calculators, Name);
+		}
+
+		protected override Rule GetHasValueRule()
 		{
 			return Rule.Property(Type.GetProperty("Success"), Rule.Literal);
 		}
 
-		public override void DefineSchema(SchemaBuilder schema, Variable valueVariable, Variable hasValueVariable)
+		protected override IEnumerable<Validator> GetValidators(Variable valueVariable, Variable hasValueVariable)
 		{
-			var parseData = GetParseData(schema, valueVariable, hasValueVariable);
+			// TODO: Allow validators against the parsed value?
+			//
+			// Also, allow calculations against the parsed value by overriding GetCalculators?
 
-			schema.Add(parseData.TextSchema);
-
-			DefineSchema(parseData);
-		}
-
-		private ParseData GetParseData(SchemaBuilder schema, Variable valueVariable, Variable hasValueVariable)
-		{
-			var textNamespace = schema.GetRootedName(TextIdentifier).ToNamespace();
-
-			var textSchema = Text.GetSchema(textNamespace);
-
-			var textVariable = textSchema.GetVariable(textNamespace + TextInput.ValueIdentifier);
-			var hasTextVariable = textSchema.GetVariable(textNamespace + TextInput.HasValueIdentifier);
-
-			return new ParseData
-			{
-				Schema = schema,
-				TextSchema = textSchema,
-				TextVariable = textVariable,
-				HasTextVariable = hasTextVariable,
-				ValueVariable = valueVariable,
-				HasValueVariable = hasValueVariable
-			};
-		}
-
-		private void DefineSchema(ParseData parseData)
-		{
-			// Value = Text.HasValue ? Algorithm.ParseValue<>(textVariable) : new ParseValue<>()
-
-			parseData.Schema.Add(new Calculation(
-				parseData.ValueVariable,
-				Expression.Condition(
-					parseData.HasTextVariable.ToExpression(),
-					Expression.Call(Expression.Constant(Algorithm), "ParseValue", new[] { Type }, parseData.TextVariable.ToExpression()),
-					Expression.New(typeof(ParseResult<>).MakeGenericType(Type)))));
-		}
-
-		private sealed class ParseData
-		{
-			internal SchemaBuilder Schema;
-
-			internal Schema TextSchema;
-			internal Variable TextVariable;
-			internal Variable HasTextVariable;
-
-			internal Variable ValueVariable;
-			internal Variable HasValueVariable;
+			yield break;
 		}
 	}
 }

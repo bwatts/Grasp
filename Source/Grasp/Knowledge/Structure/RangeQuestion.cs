@@ -24,7 +24,7 @@ namespace Grasp.Knowledge.Structure
 		{
 			Contract.Requires(minimum != null);
 			Contract.Requires(maximum != null);
-			Contract.Requires(minimum.Value.VariableType == maximum.Value.VariableType);
+			Contract.Requires(minimum.Value.Type == maximum.Value.Type);
 			Contract.Requires(validVariableName != null);
 
 			Minimum = minimum;
@@ -56,14 +56,14 @@ namespace Grasp.Knowledge.Structure
 			IEnumerable<Calculation> minimumCalculations,
 			IEnumerable<Calculation> maximumCalculations)
 		{
-			var validCalculation = GetValidationRule(rootNamespace, minimum, maximumn).GetCalculation();
+			var validCalculation = GetCalculation(rootNamespace, minimum, maximumn);
 
 			return minimumCalculations.Concat(maximumCalculations).Concat(Params.Of(validCalculation));
 		}
 
-		private IValidationRule GetValidationRule(Namespace rootNamespace, Variable minimum, Variable maximum)
+		private Calculation GetCalculation(Namespace rootNamespace, Variable minimum, Variable maximum)
 		{
-			return new ValidationRule(rootNamespace, ValidVariableName, GetValidExpression(minimum, maximum));
+			return new Calculation<bool>(rootNamespace + ValidVariableName, GetValidExpression(minimum, maximum));
 		}
 
 		private static Expression GetValidExpression(Variable minimum, Variable maximum)

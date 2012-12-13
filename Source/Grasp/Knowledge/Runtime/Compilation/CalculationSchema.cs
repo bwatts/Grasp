@@ -30,6 +30,11 @@ namespace Grasp.Knowledge.Runtime.Compilation
 
 		internal ISet<Variable> Variables { get; private set; }
 
+		internal IEnumerable<FullName> VariableNames
+		{
+			get { return Variables.Select(variable => variable.Name); }
+		}
+
 		public override string ToString()
 		{
 			return Source.ToString();

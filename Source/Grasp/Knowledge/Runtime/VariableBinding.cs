@@ -52,9 +52,18 @@ namespace Grasp.Knowledge.Runtime
 		/// <returns>A textual representation of this binding</returns>
 		public override string ToString()
 		{
-			return Value == null
-				? Resources.VariableBindingNullValue.FormatInvariant(Name)
-				: Resources.VariableBindingNonNullValue.FormatInvariant(Name, Value);
+			if(Value == null)
+			{
+				return Resources.VariableBindingNull.FormatInvariant(Name);
+			}
+			else if(Value is string)
+			{
+				return Resources.VariableBindingString.FormatInvariant(Name, Value);
+			}
+			else
+			{
+				return Resources.VariableBinding.FormatInvariant(Name, Value);
+			}
 		}
 	}
 }

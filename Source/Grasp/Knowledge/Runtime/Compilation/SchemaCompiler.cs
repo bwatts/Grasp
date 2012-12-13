@@ -10,8 +10,8 @@ namespace Grasp.Knowledge.Runtime.Compilation
 	internal sealed class SchemaCompiler
 	{
 		private readonly Schema _schema;
-		private readonly ISet<Variable> _variables;
 		private readonly IList<CalculationSchema> _calculations;
+		private readonly IDictionary<FullName, Variable> _variablesByName;
 
 		internal SchemaCompiler(Schema schema)
 		{
@@ -19,7 +19,7 @@ namespace Grasp.Knowledge.Runtime.Compilation
 
 			_calculations = schema.Calculations.Select(calculation => new CalculationSchema(calculation)).ToList();
 
-			_variables = new HashSet<Variable>(schema.Variables.Concat(_calculations.Select(calculation => calculation.OutputVariable)));
+			_variablesByName = schema.EffectiveVariables.ToDictionary(variable => variable.Name);
 		}
 
 		internal Executable Compile()
@@ -43,13 +43,24 @@ namespace Grasp.Knowledge.Runtime.Compilation
 		{
 			foreach(var variable in calculation.Variables)
 			{
-				if(!_variables.Contains(variable))
+				Variable knownVariable;
+
+				if(!_variablesByName.TryGetValue(variable.Name, out knownVariable))
 				{
 					throw new InvalidCalculationVariableException(
 						_schema,
 						variable,
 						calculation.Source,
 						Resources.InvalidCalculationVariable.FormatInvariant(variable, calculation));
+				}
+
+				if(knownVariable.Type != variable.Type)
+				{
+					throw new InvalidCalculationVariableException(
+						_schema,
+						variable,
+						calculation.Source,
+						Resources.CalculationVariableTypeDifferent.FormatInvariant(variable, calculation, variable.Type, knownVariable.Type));
 				}
 			}
 		}

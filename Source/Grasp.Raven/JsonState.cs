@@ -99,7 +99,7 @@ namespace Grasp.Raven
 				{
 					var persistentNotionType = _notionModel.Type
 						.GetInheritanceChain()
-						.FirstOrDefault(type => type.IsAssignableFromGenericDefinition(typeof(PersistentNotion<>)));
+						.FirstOrDefault(type => type.IsAssignableToGenericDefinition(typeof(PersistentNotion<>)));
 
 					if(persistentNotionType != null)
 					{

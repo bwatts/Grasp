@@ -106,6 +106,15 @@ namespace Grasp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Variable {0} in calculation &quot;{1}&quot; is of type {2}, which is different from type {3} specified by the schema.
+        /// </summary>
+        internal static string CalculationVariableTypeDifferent {
+            get {
+                return ResourceManager.GetString("CalculationVariableTypeDifferent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0}..{1}.
         /// </summary>
         internal static string CardinalityFormat {
@@ -129,6 +138,24 @@ namespace Grasp {
         internal static string ConditionKey {
             get {
                 return ResourceManager.GetString("ConditionKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Conversion failed.
+        /// </summary>
+        internal static string ConvertResultFailure {
+            get {
+                return ResourceManager.GetString("ConvertResultFailure", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Converted: {0}.
+        /// </summary>
+        internal static string ConvertResultSuccess {
+            get {
+                return ResourceManager.GetString("ConvertResultSuccess", resourceCulture);
             }
         }
         
@@ -459,18 +486,27 @@ namespace Grasp {
         /// <summary>
         ///   Looks up a localized string similar to {0} = {1}.
         /// </summary>
-        internal static string VariableBindingNonNullValue {
+        internal static string VariableBinding {
             get {
-                return ResourceManager.GetString("VariableBindingNonNullValue", resourceCulture);
+                return ResourceManager.GetString("VariableBinding", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to {0} = (null).
         /// </summary>
-        internal static string VariableBindingNullValue {
+        internal static string VariableBindingNull {
             get {
-                return ResourceManager.GetString("VariableBindingNullValue", resourceCulture);
+                return ResourceManager.GetString("VariableBindingNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} = &quot;{1}&quot;.
+        /// </summary>
+        internal static string VariableBindingString {
+            get {
+                return ResourceManager.GetString("VariableBindingString", resourceCulture);
             }
         }
         

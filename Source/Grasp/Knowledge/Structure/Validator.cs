@@ -9,30 +9,36 @@ using Grasp.Checks.Rules;
 
 namespace Grasp.Knowledge.Structure
 {
-	public sealed class Validator : Notion, IValidator
+	public sealed class Validator : Notion, IValueCalculator
 	{
 		public static readonly Field<Identifier> OutputVariableIdentifierField = Field.On<Validator>.For(x => x.OutputVariableIdentifier);
-		public static readonly Field<Expression> ExpressionField = Field.On<Validator>.For(x => x.Expression);
+		public static readonly Field<Rule> RuleField = Field.On<Validator>.For(x => x.Rule);
 
-		public Validator(Identifier outputVariableIdentifier, Expression expression)
+		public Validator(Identifier outputVariableIdentifier, Rule rule)
 		{
 			Contract.Requires(outputVariableIdentifier != null);
-			Contract.Requires(expression != null);
-			Contract.Requires(expression.Type == typeof(bool));
+			Contract.Requires(rule != null);
 
 			OutputVariableIdentifier = outputVariableIdentifier;
-			Expression = expression;
+			Rule = rule;
 		}
 
-		public Validator(string outputVariableIdentifier, Expression expression) : this(new Identifier(outputVariableIdentifier), expression)
+		public Validator(string outputVariableIdentifier, Rule rule) : this(new Identifier(outputVariableIdentifier), rule)
 		{}
 
 		public Identifier OutputVariableIdentifier { get { return GetValue(OutputVariableIdentifierField); } private set { SetValue(OutputVariableIdentifierField, value); } }
-		public Expression Expression { get { return GetValue(ExpressionField); } private set { SetValue(ExpressionField, value); } }
+		public Rule Rule { get { return GetValue(RuleField); } private set { SetValue(RuleField, value); } }
 
-		public IValidationRule GetRule(Variable target)
+		public Calculation GetCalculation(Variable target)
 		{
-			return new ValueRule(target, OutputVariableIdentifier, Expression);
+
+
+
+			// TODO: Variables in the rule need to be qualified with the target variable's namespace
+
+
+
+			return Calculation.FromRule(target, Rule, target.Name.ToNamespace() + OutputVariableIdentifier);
 		}
 	}
 }

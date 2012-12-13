@@ -17,7 +17,7 @@ namespace Grasp.Knowledge.Structure
 		public static readonly Field<ManyInOrder<Identifier>> ItemVariableNamesField = Field.On<RankQuestion>.For(x => x.ItemVariableNames);
 		public static readonly Field<Identifier> ValidVariableNameField = Field.On<RankQuestion>.For(x => x.ValidVariableName);
 
-		public RankQuestion(IEnumerable<Identifier> itemVariableNames, Identifier validVariableName)
+		public RankQuestion(IEnumerable<Identifier> itemVariableNames, Identifier validVariableName, FullName name = null) : base(name)
 		{
 			Contract.Requires(itemVariableNames != null);
 			Contract.Requires(validVariableName != null);
@@ -33,7 +33,7 @@ namespace Grasp.Knowledge.Structure
 		{
 			var variables = GetVariables(rootNamespace).ToList();
 
-			var validCalculation = GetValidationRule(rootNamespace, variables).GetCalculation();
+			var validCalculation = GetValidationRule(rootNamespace, variables);
 
 			return new Schema(variables, Params.Of(validCalculation));
 		}
@@ -43,9 +43,9 @@ namespace Grasp.Knowledge.Structure
 			return ItemVariableNames.Select(itemVariableName => new Variable<int>(rootNamespace + itemVariableName));
 		}
 
-		private IValidationRule GetValidationRule(Namespace rootNamespace, IEnumerable<Variable> variables)
+		private Calculation GetValidationRule(Namespace rootNamespace, IEnumerable<Variable> variables)
 		{
-			return new ValidationRule(rootNamespace, ValidVariableName, GetValidExpression(variables));
+			return new Calculation<bool>(rootNamespace + ValidVariableName, GetValidExpression(variables));
 		}
 
 		private static Expression GetValidExpression(IEnumerable<Variable> variables)

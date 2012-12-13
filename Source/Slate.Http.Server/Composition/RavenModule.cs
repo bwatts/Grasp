@@ -73,7 +73,7 @@ namespace Slate.Http.Server.Composition
 		private static void SetConventions(DocumentConvention conventions)
 		{
 			conventions.FindIdentityProperty =
-				property => property.DeclaringType.IsAssignableFromGenericDefinition(typeof(PersistentNotion<>)) && property.Name == "Id";
+				property => property.DeclaringType.IsAssignableToGenericDefinition(typeof(PersistentNotion<>)) && property.Name == "Id";
 
 			conventions.IdentityTypeConvertors = conventions.IdentityTypeConvertors.Concat(new[] { new RavenEntityIdConverter() }).ToList();
 		}

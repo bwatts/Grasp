@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Cloak;
 using Cloak.Reflection;
@@ -41,6 +42,20 @@ namespace Grasp.Knowledge
 
 				return node;
 			}
+		}
+
+		protected override Expression VisitConstant(ConstantExpression node)
+		{
+			if(node.Type == typeof(string) || node.Type == typeof(Regex))	// Hacky to include anything but string here
+			{
+				_text.Append('"').Append(node.Value).Append('"');
+			}
+			else
+			{
+				_text.Append(node.Value);
+			}
+
+			return node;
 		}
 
 		protected override Expression VisitConditional(ConditionalExpression node)
@@ -132,7 +147,16 @@ namespace Grasp.Knowledge
 			}
 			else
 			{
-				_text.Append(node.Method.Name).Append("(");
+				if(node.Object == null)
+				{
+					_text.Append(node.Type.Name);
+				}
+				else
+				{
+					Visit(node.Object);
+				}
+
+				_text.Append(".").Append(node.Method.Name).Append("(");
 
 				VisitSeparated(", ", node.Arguments);
 
@@ -148,6 +172,8 @@ namespace Grasp.Knowledge
 			{
 				case ExpressionType.Not:
 					_text.Append("!");
+
+					Visit(node.Operand);
 					break;
 				case ExpressionType.Convert:
 					if(IsImplicitBooleanConversion(node))
@@ -207,7 +233,7 @@ namespace Grasp.Knowledge
 		{
 			return node is UnaryExpression
 				|| node is BinaryExpression
-				|| Check.That(node.NodeType).IsIn(ExpressionType.Conditional, ExpressionType.Invoke, ExpressionType.Call);
+				|| Check.That(node.NodeType).IsIn(ExpressionType.Constant, ExpressionType.Conditional, ExpressionType.Invoke, ExpressionType.Call);
 		}
 
 		private string GetInnerText(Action visit)
@@ -234,15 +260,19 @@ namespace Grasp.Knowledge
 				if(wroteFirst)
 				{
 					_text.Append(separator);
-
-					Visit(expression);
 				}
+				else
+				{
+					wroteFirst = true;
+				}
+
+				Visit(expression);
 			}
 		}
 
 		private static bool IsImplicitBooleanConversion(UnaryExpression node)
 		{
-			return node.Type == typeof(bool) && node.Operand.Type.IsAssignableFromGenericDefinition(typeof(Check<>));
+			return node.Type == typeof(bool) && node.Operand.Type.IsAssignableToGenericDefinition(typeof(Check<>));
 		}
 	}
 }

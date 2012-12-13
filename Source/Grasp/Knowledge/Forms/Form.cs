@@ -24,9 +24,9 @@ namespace Grasp.Knowledge.Forms
 		public FullName Name { get { return GetValue(NameField); } private set { SetValue(NameField, value); } }
 		public ManyInOrder<Input> Inputs { get { return GetValue(InputsField); } private set { SetValue(InputsField, value); } }
 
-		public IEnumerable<Question> GetQuestions(Namespace rootNamespace)
+		public IEnumerable<Question> GetQuestions()
 		{
-			throw new NotImplementedException();
+			return Inputs.Select(input => input.GetQuestion());
 		}
 	}
 }

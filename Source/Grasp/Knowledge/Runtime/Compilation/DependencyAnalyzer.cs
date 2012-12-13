@@ -33,7 +33,7 @@ namespace Grasp.Knowledge.Runtime.Compilation
 
 		private static bool IsDependency(CalculationSchema calculation, CalculationSchema possibleDependency)
 		{
-			return calculation.Variables.Contains(possibleDependency.OutputVariable);
+			return calculation.VariableNames.Contains(possibleDependency.OutputVariable.Name);
 		}
 	}
 }

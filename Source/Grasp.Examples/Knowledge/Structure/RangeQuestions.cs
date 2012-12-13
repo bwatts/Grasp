@@ -61,10 +61,10 @@ namespace Grasp.Knowledge.Structure
 			var question = new RangeQuestion(
 				new RangeBoundaryQuestion(
 					new Identifier("Minimum"),
-					new ValueQuestion<int>(Params.Of(new Validator("SomeMinimumRule", Expression.Constant(true))))),
+					new ValueQuestion<int>(Params.Of(new Validator("SomeMinimumRule", Rule.True)))),
 				new RangeBoundaryQuestion(
 					new Identifier("Maximum"),
-					new ValueQuestion<int>(Params.Of(new Validator("SomeMaximumRule", Expression.Constant(true))))),
+					new ValueQuestion<int>(Params.Of(new Validator("SomeMaximumRule", Rule.True)))),
 				new Identifier("Valid"));
 
 			var schema = question.GetSchema("SomeRange");

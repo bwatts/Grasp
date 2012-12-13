@@ -13,31 +13,27 @@ namespace Grasp.Knowledge.Structure
 	{
 		[Fact] public void Create()
 		{
-			var outputVariableIdentifier = new Identifier("O");
-			var expression = Expression.Constant(true);
+			var outputVariableIdentifier = new Identifier("A");
+			var rule = Rule.True;
 
-			var validator = new Validator(outputVariableIdentifier, expression);
+			var validator = new Validator(outputVariableIdentifier, rule);
 
 			validator.OutputVariableIdentifier.Should().Be(outputVariableIdentifier);
-			validator.Expression.Should().Be(expression);
+			validator.Rule.Should().Be(rule);
 		}
 
-		[Fact] public void GetRule()
+		[Fact] public void GetCalculation()
 		{
 			var variable = new Variable<int>("SomeValue");
 			var outputVariableIdentifier = new Identifier("SomeRule");
-			var expression = Expression.Constant(true);
-			var validator = new Validator(outputVariableIdentifier, expression);
+			var rule = Rule.True;
+			var validator = new Validator(outputVariableIdentifier, rule);
 
-			var rule = validator.GetRule(variable);
+			var calculation = validator.GetCalculation(variable);
 
-			rule.Should().BeAssignableTo<ValueRule>();
-
-			var valueRule = (ValueRule) rule;
-
-			valueRule.Variable.Should().Be(variable);
-			valueRule.OutputVariableIdentifier.Should().Be(outputVariableIdentifier);
-			valueRule.Expression.Should().Be(expression);
+			calculation.OutputVariable.Name.Namespace.Should<Namespace>().Be(variable.Name.ToNamespace());
+			calculation.OutputVariable.Name.Identifier.Should<Identifier>().Be(outputVariableIdentifier);
+			calculation.Expression.Should().BeAssignableTo<InvocationExpression>();
 		}
 	}
 }

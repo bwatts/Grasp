@@ -143,7 +143,6 @@
     <Compile Include="Knowledge\Structure\GridQuestions.cs" />
     <Compile Include="Knowledge\Structure\RangeQuestions.cs" />
     <Compile Include="Knowledge\Structure\ValueQuestions.cs" />
-    <Compile Include="Knowledge\Structure\ValidationRules.cs" />
     <Compile Include="Knowledge\Runtime\ApplyCalculations.cs">
       <SubType>Code</SubType>
     </Compile>

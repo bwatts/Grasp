@@ -4,6 +4,7 @@ using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Grasp.Knowledge.Structure;
 
 namespace Grasp.Knowledge.Forms
 {
@@ -19,24 +20,17 @@ namespace Grasp.Knowledge.Forms
 
 		public FullName Name { get { return GetValue(NameField); } private set { SetValue(NameField, value); } }
 
-		public virtual Schema GetSchema(Namespace rootNamespace = null)
-		{
-			var schema = new SchemaBuilder(rootNamespace ?? Namespace.Root);
-
-			DefineSchema(schema);
-
-			return schema;
-		}
-
-		protected abstract void DefineSchema(SchemaBuilder schema);
+		public abstract Question GetQuestion();
 	}
 
 	[ContractClassFor(typeof(Input))]
 	internal abstract class InputContract : Input
 	{
-		protected override void DefineSchema(SchemaBuilder schema)
+		public override Question GetQuestion()
 		{
-			Contract.Requires(schema != null);
+			Contract.Ensures(Contract.Result<Question>() != null);
+
+			return null;
 		}
 	}
 }

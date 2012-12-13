@@ -3,11 +3,81 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
+using Cloak;
 using FluentAssertions;
+using Grasp.Knowledge;
+using Grasp.Knowledge.Forms;
+using Grasp.Knowledge.Runtime;
 using Xunit;
 
 namespace Grasp.Checks
 {
+
+
+	public class XXX
+	{
+		[Fact]
+		public void YYY()
+		{
+			var text = new TextInput(required: true, minimumLength: new Count(5), pattern: new RegexPattern(".*"));
+
+			var parsedInput = new ParsedInput(text, typeof(int));
+
+			var question = parsedInput.GetQuestion();
+
+			var schema = question.GetSchema(new Namespace("SomeInt"));
+
+			foreach(var variable in schema.Variables.OrderByDescending(variable => variable.Name.Count()).ThenBy(variable => variable.Name.Identifier))
+			{
+				Console.WriteLine(variable);
+			}
+
+			Console.WriteLine();
+
+			foreach(var calculation in schema.Calculations.OrderByDescending(calculation => calculation.OutputVariable.Name.Count()).ThenBy(calculation => calculation.OutputVariable.Name.Identifier))
+			{
+				Console.WriteLine(calculation);
+			}
+		}
+
+
+
+
+
+
+		//[Fact]
+		//public void ZZZ()
+		//{
+		//	var someInt = new ParsedInput(typeof(int), new TextInput(minimumLength: new Count(5)), new ParseAlgorithm());
+
+		//	var schema = someInt.GetSchema(new Namespace("SomeInt"));
+
+		//	var executable = schema.Compile();
+
+		//	var binding = executable.Bind(new FakeSnapshot());
+
+		//	binding.ApplyCalculations();
+
+		//	Console.Write(binding);
+		//}
+
+
+		//private sealed class FakeSnapshot : ISnapshot
+		//{
+		//	public object GetValue(FullName name)
+		//	{
+		//		return "1";
+		//	}
+		//}
+
+
+
+	}
+
+
+
+
+
 	public class ThatChecks
 	{
 		[Fact] public void Create()

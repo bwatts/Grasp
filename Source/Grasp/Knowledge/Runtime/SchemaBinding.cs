@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics.Contracts;
@@ -11,7 +12,7 @@ namespace Grasp.Knowledge.Runtime
 	/// <summary>
 	/// A context in which a schema is bound to a calculation function and a set of values
 	/// </summary>
-	public class SchemaBinding : Notion
+	public class SchemaBinding : Notion, IEnumerable<VariableBinding>
 	{
 		public static readonly Field<Schema> SchemaField = Field.On<SchemaBinding>.For(x => x.Schema);
 		public static readonly Field<ICalculator> _calculatorField = Field.On<SchemaBinding>.For(x => x._calculator);
@@ -53,6 +54,47 @@ namespace Grasp.Knowledge.Runtime
 		/// Gets the schema which defines the effective variables and calculations
 		/// </summary>
 		public Schema Schema { get { return GetValue(SchemaField); } private set { SetValue(SchemaField, value); } }
+
+		/// <summary>
+		/// Gets an enumerator for the variable bindings in this schema binding
+		/// </summary>
+		/// <returns>An enumerator for the variable bindings in this schema binding</returns>
+		public IEnumerator<VariableBinding> GetEnumerator()
+		{
+			return _bindingsByVariable.Values.GetEnumerator();
+		}
+
+		IEnumerator IEnumerable.GetEnumerator()
+		{
+			return GetEnumerator();
+		}
+
+		/// <summary>
+		/// Gets text representing this schema binding
+		/// </summary>
+		/// <returns>Text representing this schema binding</returns>
+		public override string ToString()
+		{
+			var text = new StringBuilder();
+
+			var wroteFirst = false;
+
+			foreach(var variableBinding in this.OrderBy(variableBinding => variableBinding.Name.Namespace.Count()).ThenBy(variableBinding => variableBinding.Name))
+			{
+				if(wroteFirst)
+				{
+					text.AppendLine();
+				}
+				else
+				{
+					wroteFirst = true;
+				}
+
+				text.Append(variableBinding);
+			}
+
+			return text.ToString();
+		}
 
 		/// <summary>
 		/// Applies the calculations defined by <see cref="Schema"/>

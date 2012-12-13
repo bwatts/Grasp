@@ -109,9 +109,10 @@
     <Compile Include="Knowledge\CalculationToString.cs" />
     <Compile Include="Knowledge\Forms\Form.cs" />
     <Compile Include="Knowledge\Forms\Input.cs" />
-    <Compile Include="Knowledge\Forms\IParseAlgorithm.cs" />
+    <Compile Include="Knowledge\Forms\ParseConversion.cs" />
     <Compile Include="Knowledge\Forms\ParsedInput.cs" />
-    <Compile Include="Knowledge\Forms\ParseResult.cs" />
+    <Compile Include="Knowledge\Structure\ConversionQuestion.cs" />
+    <Compile Include="Knowledge\Structure\ConversionResult.cs" />
     <Compile Include="Knowledge\Forms\RegexPattern.cs" />
     <Compile Include="Knowledge\Forms\TextInput.cs" />
     <Compile Include="Knowledge\Forms\ITextPattern.cs" />
@@ -121,8 +122,8 @@
     <Compile Include="Knowledge\Structure\Choice.cs" />
     <Compile Include="Knowledge\Structure\ChoiceQuestion.cs" />
     <Compile Include="Knowledge\Structure\GridQuestion.cs" />
-    <Compile Include="Knowledge\Structure\IValidationRule.cs" />
-    <Compile Include="Knowledge\Structure\IValidator.cs" />
+    <Compile Include="Knowledge\Structure\IConversion.cs" />
+    <Compile Include="Knowledge\Structure\IValueCalculator.cs" />
     <Compile Include="Knowledge\Structure\Question.cs" />
     <Compile Include="Knowledge\Structure\RangeBoundaryQuestion.cs" />
     <Compile Include="Knowledge\Structure\RangeQuestion.cs" />
@@ -130,9 +131,7 @@
     <Compile Include="Knowledge\Structure\RankQuestion.cs" />
     <Compile Include="Knowledge\Structure\SingleChoiceQuestion.cs" />
     <Compile Include="Knowledge\Structure\SubQuestion.cs" />
-    <Compile Include="Knowledge\Structure\ValidationRule.cs" />
     <Compile Include="Knowledge\Structure\Validator.cs" />
-    <Compile Include="Knowledge\Structure\ValueRule.cs" />
     <Compile Include="Knowledge\Structure\ValueQuestion.cs" />
     <Compile Include="Knowledge\Runtime\Compilation\CompilationException.cs" />
     <Compile Include="Knowledge\Runtime\Compilation\CalculationCompiler.cs" />
