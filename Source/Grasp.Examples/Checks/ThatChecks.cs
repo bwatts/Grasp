@@ -23,9 +23,7 @@ namespace Grasp.Checks
 
 			var parsedInput = new ParsedInput(text, typeof(int));
 
-			var question = parsedInput.GetQuestion();
-
-			var schema = question.GetSchema(new Namespace("SomeInt"));
+			var schema = parsedInput.GetQuestion().GetSchema(new Namespace("SomeInt"));
 
 			foreach(var variable in schema.Variables.OrderByDescending(variable => variable.Name.Count()).ThenBy(variable => variable.Name.Identifier))
 			{
@@ -45,30 +43,32 @@ namespace Grasp.Checks
 
 
 
-		//[Fact]
-		//public void ZZZ()
-		//{
-		//	var someInt = new ParsedInput(typeof(int), new TextInput(minimumLength: new Count(5)), new ParseAlgorithm());
+		[Fact]
+		public void ZZZ()
+		{
+			var text = new TextInput(required: true, minimumLength: new Count(5), pattern: new RegexPattern(".*"));
 
-		//	var schema = someInt.GetSchema(new Namespace("SomeInt"));
+			var parsedInput = new ParsedInput(text, typeof(int));
 
-		//	var executable = schema.Compile();
+			var schema = parsedInput.GetQuestion().GetSchema(new Namespace("SomeInt"));
 
-		//	var binding = executable.Bind(new FakeSnapshot());
+			var executable = schema.Compile();
 
-		//	binding.ApplyCalculations();
+			var binding = executable.Bind(new FakeSnapshot());
 
-		//	Console.Write(binding);
-		//}
+			binding.ApplyCalculations();
+
+			Console.Write(binding);
+		}
 
 
-		//private sealed class FakeSnapshot : ISnapshot
-		//{
-		//	public object GetValue(FullName name)
-		//	{
-		//		return "1";
-		//	}
-		//}
+		private sealed class FakeSnapshot : ISnapshot
+		{
+			public object GetValue(FullName name)
+			{
+				return "1";
+			}
+		}
 
 
 

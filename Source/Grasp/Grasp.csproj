@@ -117,7 +117,6 @@
     <Compile Include="Knowledge\Forms\TextInput.cs" />
     <Compile Include="Knowledge\Forms\ITextPattern.cs" />
     <Compile Include="Knowledge\Forms\ValueInput.cs" />
-    <Compile Include="Knowledge\SchemaBuilder.cs" />
     <Compile Include="Knowledge\SchemaElementQueries.cs" />
     <Compile Include="Knowledge\Structure\Choice.cs" />
     <Compile Include="Knowledge\Structure\ChoiceQuestion.cs" />
@@ -304,6 +303,7 @@
     <Compile Include="Knowledge\Namespace.cs" />
     <Compile Include="Knowledge\SchemaMergeRule.cs" />
     <Compile Include="Knowledge\SchemaMerging.cs" />
+    <Compile Include="Knowledge\Structure\VariableQualifier.cs" />
     <Compile Include="Knowledge\Variable.cs" />
     <Compile Include="Lists\ListItemBindings.cs" />
     <Compile Include="Lists\ListSchema.cs" />

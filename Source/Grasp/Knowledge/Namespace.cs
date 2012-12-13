@@ -105,7 +105,18 @@ namespace Grasp.Knowledge
 		{
 			Contract.Requires(other != null);
 
-			return this == Root ? other : new Namespace(String.Join(".", new[] { ToString(), other.ToString() }));
+			if(this == Root)
+			{
+				return other;
+			}
+			else if(other == Root)
+			{
+				return this;
+			}
+			else
+			{
+				return new Namespace(String.Join(".", new[] { ToString(), other.ToString() }));
+			}
 		}
 
 		/// <summary>

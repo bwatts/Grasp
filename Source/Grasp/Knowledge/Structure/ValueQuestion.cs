@@ -33,7 +33,27 @@ namespace Grasp.Knowledge.Structure
 
 		private IEnumerable<Calculation> GetCalculations(Variable target)
 		{
-			return Calculators.Select(calculator => calculator.GetCalculation(target));
+			return Calculators.Select(calculator => GetCalculation(target, calculator));
+		}
+
+		private static Calculation GetCalculation(Variable target, IValueCalculator calculator)
+		{
+			// Questions are generally created outside of a root namespace, via classes derived from Grasp.Knowledge.Forms.Input. This means all variables referenced
+			// by calculations are relative to the root of the input. It isn't until a consumer calls GetSchema and provides a root namespace that we can qualify
+			// those variables with the correct namespace.
+			//
+			// Calculations are always defined in the namespace of the target variable.
+
+			return QualifyVariables(target, calculator.GetCalculation(target));
+		}
+
+		private static Calculation QualifyVariables(Variable target, Calculation calculation)
+		{
+			var transposedExpression = new VariableQualifier(target.Name.ToNamespace()).Visit(calculation.Expression);
+
+			return transposedExpression == calculation.Expression
+				? calculation
+				: new Calculation(calculation.OutputVariable, transposedExpression);
 		}
 	}
 

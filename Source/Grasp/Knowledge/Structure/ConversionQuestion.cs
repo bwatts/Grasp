@@ -55,9 +55,16 @@ namespace Grasp.Knowledge.Structure
 
 		private Schema GetConversionSchema(Namespace rootNamespace, Variable sourceVariable, Variable sourceValidVariable)
 		{
+			var resultType = typeof(ConversionResult<>).MakeGenericType(Conversion.ConvertedType);
+
 			return new Schema(new Calculation(
-				new Variable(Conversion.ConvertedType, rootNamespace.ToFullName()),
+				GetConversionOutputVariable(rootNamespace),
 				GetConversionExpression(sourceVariable, sourceValidVariable)));
+		}
+
+		private Variable GetConversionOutputVariable(Namespace rootNamespace)
+		{
+			return new Variable(typeof(ConversionResult<>).MakeGenericType(Conversion.ConvertedType), rootNamespace.ToFullName());
 		}
 
 		private Expression GetConversionExpression(Variable sourceVariable, Variable sourceValidVariable)
