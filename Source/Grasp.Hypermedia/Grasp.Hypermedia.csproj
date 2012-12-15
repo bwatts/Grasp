@@ -125,9 +125,13 @@
     <Compile Include="ApiResource.cs" />
     <Compile Include="ApiSession.cs" />
     <Compile Include="ApiHtmlFormat.cs" />
+    <Compile Include="Forms\Hyperform.cs" />
+    <Compile Include="Forms\HyperformInput.cs" />
+    <Compile Include="Forms\HyperformHtmlFormat.cs" />
     <Compile Include="IApiSession.cs" />
     <Compile Include="HttpResourceStore.cs" />
     <Compile Include="Linq\ContentReading.cs" />
+    <Compile Include="Linq\Forms\MForm.cs" />
     <Compile Include="Linq\HtmlFormat.cs" />
     <Compile Include="Hyperlink.cs" />
     <Compile Include="HttpResource.cs" />
@@ -180,7 +184,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="_Examples\api.html" />
-    <Content Include="_Examples\form.html" />
+    <Content Include="_Examples\survey-page.html" />
     <Content Include="_Examples\error.html" />
     <Content Include="_Examples\work-item_in-progress.html" />
     <Content Include="_Examples\work-item_complete.html" />
@@ -196,6 +200,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

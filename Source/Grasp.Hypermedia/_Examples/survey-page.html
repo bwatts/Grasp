@@ -1,0 +1,31 @@
+﻿<html>
+	<head>
+		<title>Acme Inventory Survey</title>
+		<base href="http://localhost:81" />
+		<link rel="self" href="surveys/Acme.Inventory.Computers" />
+		<link rel="grasp:media-type" class="form" href="api/media/application%2Fvnd.grasp.form%2Bhtml" />
+	</head>
+	<body>
+		<form class="survey-page" action="surveys/Acme.Inventory.Computers" enctype="application/x-www-form-urlencoded">
+			<label for="InUse">Number in use</label>
+			<input name="InUse" type="number" step="1" min="0" required="required" />
+
+			<label for="InStorage">Number in storage</label>
+			<input name="InStorage" type="number" step="1" min="0" required="required" />
+
+			<label for="Pending">Number pending delivery</label>
+			<input name="Pending" type="number" step="1" min="0" required="required" />
+
+			<label for="Decommissioned">Number decommissioned</label>
+			<input name="Decommissioned" type="number" step="1" min="0" required="required" />
+
+			<label for="MostRecentSerialNumber">Most recent serial number</label>
+			<input name="MostRecentSerialNumber" type="text" step="1" min="0" pattern="^d{2}-.*$" title="##-AAAA" />
+
+			<label for="MostRecentDate">Most recent date</label>
+			<input name="MostRecentDate" type="date" />
+
+			<input type="submit" value="Update computer inventory answers" />
+		</form>
+	</body>
+</html>

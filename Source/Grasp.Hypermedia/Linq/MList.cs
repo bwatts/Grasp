@@ -10,13 +10,13 @@ namespace Grasp.Hypermedia.Linq
 	public sealed class MList : MContent
 	{
 		public static readonly Field<int> OrderField = Field.AttachedTo<MContent>.By<MList>.For(() => OrderField);
-		public static readonly Field<Many<MContent>> ItemsField = Field.On<MList>.For(x => x.Items);
+		public static readonly Field<ManyInOrder<MContent>> ItemsField = Field.On<MList>.For(x => x.Items);
 
 		public MList(MClass @class, IEnumerable<MContent> items) : base(@class)
 		{
 			Contract.Requires(items != null);
 
-			Items = items.ToMany();
+			Items = items.ToManyInOrder();
 		}
 
 		public MList(MClass @class, params MContent[] items) : this(@class, items as IEnumerable<MContent>)
@@ -28,7 +28,7 @@ namespace Grasp.Hypermedia.Linq
 		public MList(params MContent[] items) : this(items as IEnumerable<MContent>)
 		{}
 
-		public Many<MContent> Items { get { return GetValue(ItemsField); } private set { SetValue(ItemsField, value); } }
+		public ManyInOrder<MContent> Items { get { return GetValue(ItemsField); } private set { SetValue(ItemsField, value); } }
 
 		protected override object GetHtmlWithoutClass()
 		{
