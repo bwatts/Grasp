@@ -39,7 +39,7 @@ namespace Grasp.Hypermedia.Linq
 		{
 			Contract.Requires(value != null);
 
-			return Conversion.To<T>(value.Object);
+			return ChangeType.To<T>(value.Object);
 		}
 
 		public static MLink ReadLink(this IEnumerable<MContent> contents, Relationship relationship = null)

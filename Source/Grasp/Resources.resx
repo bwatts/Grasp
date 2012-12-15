@@ -148,7 +148,7 @@
     <value>Conversion failed</value>
   </data>
   <data name="ConvertResultSuccess" xml:space="preserve">
-    <value>Converted: {0}</value>
+    <value>{0}</value>
   </data>
   <data name="CreditCardCvvPattern" xml:space="preserve">
     <value>(?!000)\d{3,4}$</value>

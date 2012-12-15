@@ -109,8 +109,8 @@
     <Compile Include="Knowledge\CalculationToString.cs" />
     <Compile Include="Knowledge\Forms\Form.cs" />
     <Compile Include="Knowledge\Forms\Input.cs" />
-    <Compile Include="Knowledge\Forms\ParseConversion.cs" />
     <Compile Include="Knowledge\Forms\ParsedInput.cs" />
+    <Compile Include="Knowledge\Structure\Conversion.cs" />
     <Compile Include="Knowledge\Structure\ConversionQuestion.cs" />
     <Compile Include="Knowledge\Structure\ConversionResult.cs" />
     <Compile Include="Knowledge\Forms\RegexPattern.cs" />

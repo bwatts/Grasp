@@ -23,7 +23,7 @@ namespace Grasp.Work.Persistence
 
 		private static object ConvertValue(Type fieldType, object value)
 		{
-			return Conversion.To(fieldType, value);
+			return ChangeType.To(fieldType, value);
 		}
 	}
 }

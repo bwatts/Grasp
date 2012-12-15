@@ -39,7 +39,7 @@ namespace Grasp.Knowledge.Forms
 
 			var calculators = GetCalculators(valueVariable, hasValueVariable);
 
-			return new ConversionQuestion(TextQualifier, textQuestion, TextInput.ValidIdentifier, new ParseConversion(ParsedType), calculators, Name);
+			return new ConversionQuestion(TextQualifier, textQuestion, TextInput.ValidIdentifier, new Conversion(ParsedType), calculators, Name);
 		}
 
 		protected override Rule GetHasValueRule()

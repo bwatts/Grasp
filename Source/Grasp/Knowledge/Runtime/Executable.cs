@@ -7,7 +7,7 @@ using System.Text;
 namespace Grasp.Knowledge.Runtime
 {
 	/// <summary>
-	/// An executable version of a <see cref="_schema"/> which applies its calculations
+	/// An executable version of a schema which applies its calculations
 	/// </summary>
 	public class Executable : Notion
 	{

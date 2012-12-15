@@ -85,7 +85,7 @@ namespace Grasp.Lists
 
 		public T Read<T>(string key)
 		{
-			return Conversion.To<T>(this[key]);
+			return ChangeType.To<T>(this[key]);
 		}
 	}
 }

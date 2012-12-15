@@ -17,5 +17,10 @@ namespace Grasp.Knowledge.Runtime.Compilation
 		internal CalculationSchema Calculation { get; private set; }
 
 		internal IReadOnlyCollection<CalculationSchema> Dependencies { get; private set; }
+
+		public override string ToString()
+		{
+			return Calculation.OutputVariable.ToString();
+		}
 	}
 }

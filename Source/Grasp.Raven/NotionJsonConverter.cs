@@ -108,7 +108,7 @@ namespace Grasp.Raven
 			{
 				return ((DateTime) value).ToUniversalTime().ToString("o");
 			}
-			else if(Conversion.Try<string>(value, out text))
+			else if(ChangeType.TryTo<string>(value, out text))
 			{
 				return text;
 			}

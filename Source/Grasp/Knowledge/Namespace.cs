@@ -142,6 +142,28 @@ namespace Grasp.Knowledge
 		}
 
 		/// <summary>
+		/// Gets a full name with this namespace and the specified identifiers
+		/// </summary>
+		/// <param name="identifiers">The identifiers to to qualify with this namespace</param>
+		/// <returns>A full name with this namespace and the specified identifiers</returns>
+		public FullName Append(IEnumerable<Identifier> identifiers)
+		{
+			Contract.Requires(identifiers != null);
+
+			return this + new FullName(identifiers);
+		}
+
+		/// <summary>
+		/// Gets a full name with this namespace and the specified identifiers
+		/// </summary>
+		/// <param name="identifiers">The identifiers to to qualify with this namespace</param>
+		/// <returns>A full name with this namespace and the specified identifiers</returns>
+		public FullName Append(params Identifier[] identifiers)
+		{
+			return Append(identifiers as IEnumerable<Identifier>);
+		}
+
+		/// <summary>
 		/// Interprets the most significat identifier as the identifier of a full name
 		/// </summary>
 		/// <returns>A full name made from interpreting the most significat identifier of this namespace as a name</returns>

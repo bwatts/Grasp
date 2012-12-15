@@ -36,9 +36,9 @@ namespace Grasp.Knowledge.Runtime.Compilation
 
 		private sealed class TopologicalSort
 		{
+			private readonly List<DependencyNode> _sortedNodes = new List<DependencyNode>();
 			private readonly DependencyGraph _graph;
 			private readonly VisitHistory _visitHistory;
-			private readonly List<DependencyNode> _sortedNodes = new List<DependencyNode>();
 
 			internal TopologicalSort(DependencyGraph graph)
 			{
@@ -81,7 +81,6 @@ namespace Grasp.Knowledge.Runtime.Compilation
 		{
 			private readonly HashSet<DependencyNode> _visitedNodes = new HashSet<DependencyNode>();
 			private readonly Schema _schema;
-			private HashSet<DependencyNode> _visitedNodesFromRoot;
 			private Stack<DependencyNode> _context;
 
 			internal VisitHistory(Schema schema)
@@ -91,18 +90,20 @@ namespace Grasp.Knowledge.Runtime.Compilation
 
 			internal void OnVisitingRootNode()
 			{
-				_visitedNodesFromRoot = new HashSet<DependencyNode>();
 				_context = new Stack<DependencyNode>();
 			}
 
 			internal void OnVisitedDependencyNode()
 			{
-				_context.Pop();
+				if(_context.Any())
+				{
+					_context.Pop();
+				}
 			}
 
 			internal bool OnVisitingNode(DependencyNode node)
 			{
-				if(_visitedNodesFromRoot.Contains(node))
+				if(_context.Contains(node))
 				{
 					ThrowCalculationCycleException(node.Calculation.Source);
 				}
@@ -112,8 +113,6 @@ namespace Grasp.Knowledge.Runtime.Compilation
 				if(firstVisit)
 				{
 					_visitedNodes.Add(node);
-
-					_visitedNodesFromRoot.Add(node);
 
 					_context.Push(node);
 				}

@@ -151,7 +151,7 @@ namespace Grasp {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Converted: {0}.
+        ///   Looks up a localized string similar to {0}.
         /// </summary>
         internal static string ConvertResultSuccess {
             get {

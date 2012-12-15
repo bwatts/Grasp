@@ -70,7 +70,7 @@ namespace Grasp.Work.Items
 				value = value.Substring(0, value.Length - percentSymbol.Length);
 			}
 
-			var percentage = Conversion.To<double>(value);
+			var percentage = ChangeType.To<double>(value);
 
 			if(isPercentage)
 			{

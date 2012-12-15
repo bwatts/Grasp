@@ -46,7 +46,7 @@ namespace Grasp.Checks
 		[Fact]
 		public void ZZZ()
 		{
-			var text = new TextInput(required: true, minimumLength: new Count(5), pattern: new RegexPattern(".*"));
+			var text = new TextInput(required: true, minimumLength: new Count(1), pattern: new RegexPattern(".*"));
 
 			var parsedInput = new ParsedInput(text, typeof(int));
 
@@ -66,7 +66,7 @@ namespace Grasp.Checks
 		{
 			public object GetValue(FullName name)
 			{
-				return "1";
+				return "4";
 			}
 		}
 

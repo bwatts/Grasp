@@ -288,7 +288,7 @@ namespace Grasp.Hypermedia.Lists
 		{
 			var type = schema[value.Class];
 
-			return Conversion.To(type, value.Object);
+			return ChangeType.To(type, value.Object);
 		}
 		#endregion
 	}

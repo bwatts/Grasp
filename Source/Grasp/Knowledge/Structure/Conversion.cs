@@ -5,15 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Cloak;
-using Grasp.Knowledge.Structure;
 
-namespace Grasp.Knowledge.Forms
+namespace Grasp.Knowledge.Structure
 {
-	public sealed class ParseConversion : Notion, IConversion
+	public sealed class Conversion : Notion, IConversion
 	{
-		public static readonly Field<Type> ConvertedTypeField = Field.On<ParseConversion>.For(x => x.ConvertedType);
+		public static readonly Field<Type> ConvertedTypeField = Field.On<Conversion>.For(x => x.ConvertedType);
 
-		public ParseConversion(Type convertedType)
+		public Conversion(Type convertedType)
 		{
 			Contract.Requires(convertedType != null);
 
@@ -28,7 +27,7 @@ namespace Grasp.Knowledge.Forms
 
 			object converted;
 
-			return Conversion.Try(ConvertedType, source, out converted)
+			return ChangeType.TryTo(ConvertedType, source, out converted)
 				? Activator.CreateInstance(resultType, converted)
 				: Activator.CreateInstance(resultType);
 		}

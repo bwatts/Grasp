@@ -31,13 +31,6 @@ namespace Grasp.Knowledge.Structure
 
 		public Calculation GetCalculation(Variable target)
 		{
-
-
-
-			// TODO: Variables in the rule need to be qualified with the target variable's namespace
-
-
-
 			return Calculation.FromRule(target, Rule, target.Name.ToNamespace() + OutputVariableIdentifier);
 		}
 	}
