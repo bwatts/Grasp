@@ -49,14 +49,14 @@ namespace Grasp
 		bool TryGetValue<T>(Field<T> field, out T value);
 
 		/// <summary>
-		/// Associates the specified value the specified field
+		/// Binds the specified field to the specified value
 		/// </summary>
 		/// <param name="field">The field to set</param>
 		/// <param name="value">The new value of the specified field</param>
 		void SetValue(Field field, object value);
 
 		/// <summary>
-		/// Associates the specified value the specified field
+		/// Binds the specified field to the specified value
 		/// </summary>
 		/// <typeparam name="T">the type of value represented by the specified field</typeparam>
 		/// <param name="field">The field to set</param>

@@ -8,25 +8,36 @@ using Cloak;
 namespace Grasp.Work.Persistence
 {
 	/// <summary>
-	/// A notion with a persistent identifier
+	/// A notion qualified by a unique persistent identifier
 	/// </summary>
 	/// <typeparam name="TId">The type of persistent identifier</typeparam>
-	public abstract class PersistentNotion<TId> : Notion
+	public abstract class PersistentNotion<TId> : QualifiedNotion
 	{
+		/// <summary>
+		/// Initializes a notion with the specified persistent identifier
+		/// </summary>
+		/// <param name="id">The persistent identifier of the notion</param>
 		protected PersistentNotion(TId id = default(TId))
 		{
 			Id = id;
 		}
 
+		/// <summary>
+		/// Gets this notion's persistent identifier
+		/// </summary>
 		public TId Id
 		{
 			get { return (TId) GetValue(PersistentId.ValueField); }
 			private set { SetValue(PersistentId.ValueField, value); }
 		}
 
-		public override string ToString()
+		/// <summary>
+		/// Gets this notion's persistent identifier
+		/// </summary>
+		/// <returns>This notion's persistent identifier</returns>
+		protected override object GetQualifier()
 		{
-			return "{0} (ID: {1})".FormatCurrent(GetType().Name, Id);
+			return Id;
 		}
 	}
 }

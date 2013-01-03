@@ -1,0 +1,10 @@
+﻿<Window
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	x:Class="Dash.Windows.UI.Shell"
+	WindowStartupLocation="CenterScreen"
+	Title="Dash"
+	Width="1024"
+	Height="768">
+	<ContentControl Content="{Binding}" />
+</Window>

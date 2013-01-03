@@ -8,7 +8,7 @@ using Grasp.Work.Persistence;
 
 namespace Grasp.Work.Items
 {
-	public class WorkItem : Aggregate, IActor<ReportProgressCommand>
+	public class WorkItem : Aggregate
 	{
 		public static readonly Field<string> DescriptionField = Field.On<WorkItem>.For(x => x.Description);
 		public static readonly Field<Progress> ProgressField = Field.On<WorkItem>.For(x => x.Progress);
@@ -25,11 +25,11 @@ namespace Grasp.Work.Items
 		public TimeSpan RetryInterval { get { return GetValue(RetryIntervalField); } private set { SetValue(RetryIntervalField, value); } }
 		public Uri ResultLocation { get { return GetValue(ResultLocationField); } private set { SetValue(ResultLocationField, value); } }
 
-		public void Act(ReportProgressCommand command)
+		private void Handle(ReportProgressCommand command)
 		{
-			Contract.Requires(command != null);
-			Contract.Requires(command.WorkItemId == Id);
-			Contract.Requires(command.Progress >= Progress);
+			// TODO: CommandFailedEvent for "Contract.Requires(command.WorkItemId == Id);"
+
+			// TODO: ProgressReversedEvent for "Contract.Requires(command.Progress >= Progress);"
 
 			Announce(command.Progress == Progress.Complete
 				? new ProgressReportedEvent(Id, Progress, command.ResultLocation)

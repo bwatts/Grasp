@@ -13,7 +13,7 @@ namespace Grasp.Semantics.Discovery.Reflection
 {
 	public static class AssemblyBinder
 	{
-		public static ReflectionBinding BindDomainModel(this Assembly assembly, string name)
+		public static ReflectionBinding BindDomainModel(this Assembly assembly, FullName name)
 		{
 			Contract.Requires(name != null);
 			Contract.Requires(assembly != null);
@@ -21,7 +21,7 @@ namespace Grasp.Semantics.Discovery.Reflection
 			return new[] { assembly }.BindDomainModel(name);
 		}
 
-		public static ReflectionBinding BindDomainModel(this IEnumerable<Assembly> assemblies, string name)
+		public static ReflectionBinding BindDomainModel(this IEnumerable<Assembly> assemblies, FullName name)
 		{
 			Contract.Requires(name != null);
 			Contract.Requires(assemblies != null);

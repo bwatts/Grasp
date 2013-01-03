@@ -166,6 +166,9 @@
   <data name="Field" xml:space="preserve">
     <value>{0} ({1})</value>
   </data>
+  <data name="FieldBinding" xml:space="preserve">
+    <value>{0} = {1}</value>
+  </data>
   <data name="FieldSuffix" xml:space="preserve">
     <value>Field</value>
   </data>
@@ -236,6 +239,9 @@
     <value>^(?:\([2-9]\d{2}\)\ ?|[2-9]\d{2}(?:\-?|\ ?))[2-9]\d{2}[- ]?\d{4}$</value>
     <comment>regexlib.com</comment>
   </data>
+  <data name="QualifiedNotion" xml:space="preserve">
+    <value>{0} [{1}]</value>
+  </data>
   <data name="QuerySeparatorRepeated" xml:space="preserve">
     <value>Query separator '?' is repeated: "{0}"</value>
   </data>
@@ -257,6 +263,9 @@
   </data>
   <data name="UnspecifiedLimit" xml:space="preserve">
     <value>Unspecified</value>
+  </data>
+  <data name="UnsupportedArticlePartType" xml:space="preserve">
+    <value>Unsupported article part type {0}</value>
   </data>
   <data name="UnsupportedTargetType" xml:space="preserve">
     <value>Target type {0} is not supported by check method {1}</value>

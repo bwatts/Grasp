@@ -6,6 +6,7 @@ using System.Text;
 using Cloak;
 using FluentAssertions;
 using Grasp.Knowledge;
+using Grasp.Knowledge.Base;
 using Grasp.Knowledge.Forms;
 using Grasp.Knowledge.Runtime;
 using Xunit;
@@ -34,6 +35,7 @@ namespace Grasp.Checks
 
 			foreach(var calculation in schema.Calculations.OrderByDescending(calculation => calculation.OutputVariable.Name.Count()).ThenBy(calculation => calculation.OutputVariable.Name.Identifier))
 			{
+				Console.WriteLine();
 				Console.WriteLine(calculation);
 			}
 		}
@@ -67,6 +69,43 @@ namespace Grasp.Checks
 			public object GetValue(FullName name)
 			{
 				return "4";
+			}
+		}
+
+
+
+
+
+
+
+
+		[Fact]
+		public void AAA()
+		{
+			var createWorkItemId = EntityId.Generate();
+
+			var article = new Article(createWorkItemId, new FullName("Acme.Inventory"), "Acme Inventory Worksheet");
+
+			var addSectionWorkItemIds = new[] { EntityId.Generate(), EntityId.Generate(), EntityId.Generate() };
+
+			article.HandleCommand(new AddSectionCommand(addSectionWorkItemIds[0], new FullName("Acme.Inventory"), new FullName("Computers")));
+			article.HandleCommand(new AddSectionCommand(addSectionWorkItemIds[1], new FullName("Acme.Inventory"), new FullName("Monitors")));
+			article.HandleCommand(new AddSectionCommand(addSectionWorkItemIds[2], new FullName("Acme.Inventory"), new FullName("Software")));
+
+			var addTagWorkItemIds = new[] { EntityId.Generate(), EntityId.Generate() };
+
+			article.HandleCommand(new AddTagCommand(addTagWorkItemIds[0], new FullName("Acme.Inventory"), new FullName("Resources.Physical")));
+			article.HandleCommand(new AddTagCommand(addTagWorkItemIds[1], new FullName("Acme.Inventory"), new FullName("Resources.Virtual")));
+
+
+
+			foreach(var @event in article.ObserveEvents())
+			{
+				Console.WriteLine();
+				Console.WriteLine();
+				Console.WriteLine(@event.GetType().Name);
+
+				Console.WriteLine(@event.BindingsToString());
 			}
 		}
 

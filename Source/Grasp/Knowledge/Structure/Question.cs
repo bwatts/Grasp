@@ -6,16 +6,10 @@ using System.Linq;
 namespace Grasp.Knowledge.Structure
 {
 	[ContractClass(typeof(QuestionContract))]
-	public abstract class Question : Notion
+	public abstract class Question : NamedNotion
 	{
-		public static readonly Field<FullName> NameField = Field.On<Question>.For(x => x.Name);
-
-		protected Question(FullName name = null)
-		{
-			Name = name ?? FullName.Anonymous;
-		}
-
-		public FullName Name { get { return GetValue(NameField); } private set { SetValue(NameField, value); } }
+		protected Question(FullName name = null) : base(name)
+		{}
 
 		public abstract Schema GetSchema(Namespace rootNamespace);
 

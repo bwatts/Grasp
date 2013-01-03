@@ -24,7 +24,7 @@ namespace Grasp
 
 		public override string ToString()
 		{
-			return "{0} = {1}".FormatCurrent(Field, Value);
+			return Resources.FieldBinding.FormatCurrent(Field, Value);
 		}
 	}
 

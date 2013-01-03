@@ -105,11 +105,27 @@
       <Link>Properties\GraspAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Checks\Rules\LiteralRule.cs" />
+    <Compile Include="FieldContextBindingsToString.cs" />
+    <Compile Include="Knowledge\Base\Article.cs" />
+    <Compile Include="Knowledge\Base\AddSectionCommand.cs" />
+    <Compile Include="Knowledge\Base\ArticleCreatedEvent.cs" />
+    <Compile Include="Knowledge\Base\ArticlePart.cs" />
+    <Compile Include="Knowledge\Base\ArticlePartCreatedEvent.cs" />
+    <Compile Include="Knowledge\Base\ArticleEditedEvent.cs" />
+    <Compile Include="Knowledge\Base\AddTagCommand.cs" />
+    <Compile Include="Knowledge\Base\Tag.cs" />
+    <Compile Include="Knowledge\Base\CreateArticleCommand.cs" />
+    <Compile Include="Knowledge\Base\EditArticleCommand.cs" />
+    <Compile Include="Knowledge\Base\PartType.cs" />
+    <Compile Include="Knowledge\Base\Section.cs" />
+    <Compile Include="Knowledge\Base\Title.cs" />
     <Compile Include="Knowledge\Calculation.cs" />
     <Compile Include="Knowledge\CalculationToString.cs" />
     <Compile Include="Knowledge\Forms\Form.cs" />
     <Compile Include="Knowledge\Forms\Input.cs" />
     <Compile Include="Knowledge\Forms\ParsedInput.cs" />
+    <Compile Include="Messaging\CommandFailedEvent.cs" />
+    <Compile Include="NamedNotion.cs" />
     <Compile Include="Knowledge\Structure\Conversion.cs" />
     <Compile Include="Knowledge\Structure\ConversionQuestion.cs" />
     <Compile Include="Knowledge\Structure\ConversionResult.cs" />
@@ -298,9 +314,9 @@
     <Compile Include="Entity.cs" />
     <Compile Include="EntityId.cs" />
     <Compile Include="EntityIdConverter.cs" />
-    <Compile Include="Knowledge\FullName.cs" />
-    <Compile Include="Knowledge\Identifier.cs" />
-    <Compile Include="Knowledge\Namespace.cs" />
+    <Compile Include="FullName.cs" />
+    <Compile Include="Identifier.cs" />
+    <Compile Include="Namespace.cs" />
     <Compile Include="Knowledge\SchemaMergeRule.cs" />
     <Compile Include="Knowledge\SchemaMerging.cs" />
     <Compile Include="Knowledge\Structure\VariableQualifier.cs" />
@@ -325,10 +341,10 @@
     <Compile Include="Messaging\IMessageChannel.cs" />
     <Compile Include="Messaging\Message.cs" />
     <Compile Include="Messaging\Command.cs" />
+    <Compile Include="QualifiedNotion.cs" />
     <Compile Include="Semantics\AggregateModel.cs" />
     <Compile Include="Semantics\FieldAttacherModel.cs" />
     <Compile Include="Semantics\Discovery\Reflection\FieldAttacherBinding.cs" />
-    <Compile Include="Work\IActor.cs" />
     <Compile Include="Work\WorkException.cs" />
     <Compile Include="Work\WorkHandler.cs" />
     <Compile Include="Work\ConcurrencyException.cs" />

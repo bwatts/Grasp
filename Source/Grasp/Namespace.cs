@@ -8,7 +8,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Cloak;
 
-namespace Grasp.Knowledge
+namespace Grasp
 {
 	/// <summary>
 	/// A hierarchical qualification of concepts

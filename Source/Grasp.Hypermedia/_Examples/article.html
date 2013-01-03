@@ -1,0 +1,63 @@
+﻿<html>
+	<head>
+		<title>Acme Inventory Worksheet</title>
+		<base href="http://localhost:81" />
+		<link rel="self" href="articles/Acme.Inventory" />
+		<link rel="grasp:media-type" class="article" href="api/media/application%2Fvnd.grasp.article%2Bhtml" />
+	</head>
+	<body>
+		<article>
+			<h1>Acme Inventory Worksheet</h1>
+
+			<section>
+				<h1>Computers</h1>
+				<form class="section" action="articles/Acme.Inventory/Computers" enctype="application/x-www-form-urlencoded">
+					<label>
+						Number in use
+						<input name="InUse" type="number" step="1" min="0" required="" value="10" />
+					</label>
+					<label>
+						Number in storage
+						<input name="InStorage" type="number" step="1" min="0" required="" value="5" />
+					</label>
+					<label>
+						Number pending delivery
+						<input name="PendingDelivery" type="number" step="1" min="0" required="" value="2" />
+					</label>
+					<label>
+						Number decommissioned
+						<input name="Decommissioned" type="number" step="1" min="0" required="" value="1" />
+					</label>
+					<label>
+						Total
+						<input name="Total" type="number" min="0" readonly="" value="18" />
+					</label>
+					<label>
+						Most recent serial number
+						<input name="MostRecentSerialNumber" type="text" step="1" min="0" pattern="^d{2}-.*$" title="##-AAAA" value="42-ABCD" />
+					</label>
+					<label>
+						Most recent date
+						<input name="MostRecentDate" type="date" value="2012-12-01" />
+					</label>
+					<input type="submit" value="update-answers" title="Update computer inventory answers" />
+					<dl class="calculations">
+						<dt>Total</dt>
+						<dd>InUse + InStorage + PendingDelivery + Decommissioned</dd>
+					</dl>
+				</form>
+			</section>
+
+			
+			
+
+
+
+			<a rel="grasp:article-part" class="section" href="articles/Acme.Inventory/Computers">Computers</a>
+			<a rel="grasp:article-part" class="section" href="articles/Acme.Inventory/Monitors">Monitors</a>
+			<a rel="grasp:article-part" class="section" href="articles/Acme.Inventory/Software">Software</a>
+			<a rel="grasp:article-part" class="tag" href="articles/Acme.Inventory?tag=Resources.Physical">Resources.Physical</a>
+			<a rel="grasp:article-part" class="tag" href="articles/Acme.Inventory?tag=Resources.Virtual">Resources.Virtual</a>
+		</article>
+	</body>
+</html>

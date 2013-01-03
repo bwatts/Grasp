@@ -30,49 +30,62 @@ namespace Slate.Forms
 
 		public void Act(StartTestingCommand command)
 		{
-			Contract.Requires(command != null);
-			Contract.Requires(command.FormId == Id);
+			// TODO: CommandFailedEvent
 
-			if(Phase == FormPhase.Testing)
-			{
-				throw new InvalidOperationException(Resources.FormAlreadyTesting.FormatInvariant(Name));
-			}
+			//Contract.Requires(command.FormId == Id);
 
-			if(Phase == FormPhase.Live)
-			{
-				throw new InvalidOperationException(Resources.CannotTestLiveForm.FormatInvariant(Name));
-			}
+			// TODO: InvalidTransitionEvent
+
+			//if(Phase == FormPhase.Testing)
+			//{
+			//	throw new InvalidOperationException(Resources.FormAlreadyTesting.FormatInvariant(Name));
+			//}
+
+			// TODO: InvalidTransitionEvent
+
+			//if(Phase == FormPhase.Live)
+			//{
+			//	throw new InvalidOperationException(Resources.CannotTestLiveForm.FormatInvariant(Name));
+			//}
 
 			Announce(new TestingStartedEvent(Id));
 		}
 
 		public void Act(ResumeDraftCommand command)
 		{
-			Contract.Requires(command != null);
-			Contract.Requires(command.FormId == Id);
+			// TODO: CommandFailedEvent
 
-			if(Phase == FormPhase.Draft)
-			{
-				throw new InvalidOperationException(Resources.FormAlreadyDraft.FormatInvariant(Name));
-			}
+			//Contract.Requires(command.FormId == Id);
 
-			if(Phase == FormPhase.Live)
-			{
-				throw new InvalidOperationException(Resources.CannotResumeDraftOnLiveForm.FormatInvariant(Name));
-			}
+			// TODO: InvalidTransitionEvent
+
+			//if(Phase == FormPhase.Draft)
+			//{
+			//	throw new InvalidOperationException(Resources.FormAlreadyDraft.FormatInvariant(Name));
+			//}
+
+			// TODO: InvalidTransitionEvent
+
+			//if(Phase == FormPhase.Live)
+			//{
+			//	throw new InvalidOperationException(Resources.CannotResumeDraftOnLiveForm.FormatInvariant(Name));
+			//}
 
 			Announce(new DraftResumedEvent(Id));
 		}
 
 		public void Act(GoLiveCommand command)
 		{
-			Contract.Requires(command != null);
-			Contract.Requires(command.FormId == Id);
+			// TODO: CommandFailedEvent
 
-			if(Phase == FormPhase.Live)
-			{
-				throw new InvalidOperationException(Resources.FormAlreadyLive.FormatInvariant(Name));
-			}
+			//Contract.Requires(command.FormId == Id);
+
+			// TODO: InvalidTransitionEvent
+
+			//if(Phase == FormPhase.Live)
+			//{
+			//	throw new InvalidOperationException(Resources.FormAlreadyLive.FormatInvariant(Name));
+			//}
 
 			Announce(new WentLiveEvent(Id));
 		}

@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Cloak;
 
-namespace Grasp.Knowledge
+namespace Grasp
 {
 	/// <summary>
 	/// An identifier qualified with its position in a namespace hierarchy
@@ -92,6 +92,13 @@ namespace Grasp.Knowledge
 
 		public static readonly Field<Namespace> NamespaceField = Field.On<FullName>.For(x => x.Namespace);
 		public static readonly Field<Identifier> IdentifierField = Field.On<FullName>.For(x => x.Identifier);
+
+		/// <summary>
+		/// Attaches instances of <see cref="FullName"/> to instances of <see cref="Notion"/>, uniquely identifying them within their effective contexts
+		/// </summary>
+		public static readonly Field<FullName> NameField = Field.AttachedTo<Notion>.By<FullName>.For(() => NameField);
+
+		// TODO: When fields support defaults, set the default value of NameField to Anonymous
 
 		/// <summary>
 		/// A name in the root namespace and with an anonymous identifier

@@ -11,23 +11,21 @@ namespace Grasp.Knowledge
 	/// <summary>
 	/// The unit of knowledge in a schema
 	/// </summary>
-	public class Variable : Notion
+	public class Variable : NamedNotion
 	{
 		public static readonly Field<Type> TypeField = Field.On<Variable>.For(x => x.Type);
-		public static readonly Field<FullName> NameField = Field.On<Variable>.For(x => x.Name);
 
 		/// <summary>
 		/// Initializes a variable with the specified type and name
 		/// </summary>
 		/// <param name="type">The type of value represented by the variable</param>
 		/// <param name="name">The name of the variable</param>
-		public Variable(Type type, FullName name)
+		public Variable(Type type, FullName name) : base(name)
 		{
 			Contract.Requires(type != null);
 			Contract.Requires(name != null);
 
 			Type = type;
-			Name = name;
 		}
 
 		/// <summary>
@@ -42,11 +40,6 @@ namespace Grasp.Knowledge
 		/// Gets the type of value represented by this variable
 		/// </summary>
 		public Type Type { get { return GetValue(TypeField); } private set { SetValue(TypeField, value); } }
-
-		/// <summary>
-		/// Gets the name of this variable
-		/// </summary>
-		public FullName Name { get { return GetValue(NameField); } private set { SetValue(NameField, value); } }
 
 		/// <summary>
 		/// Gets the fully-qualified name of this variable
@@ -68,7 +61,7 @@ namespace Grasp.Knowledge
 	}
 
 	/// <summary>
-	/// The unit of data in a schema
+	/// The unit of knowledge in a schema
 	/// </summary>
 	/// <typeparam name="T">The type of value represented by the variable</typeparam>
 	public class Variable<T> : Variable

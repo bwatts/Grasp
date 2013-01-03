@@ -52,7 +52,7 @@ namespace Grasp
 		/// <summary>
 		/// Gets the <see cref="EntityId"/> value which represents an unassigned entity
 		/// </summary>
-		public static readonly EntityId Unassigned = new EntityId(Guid.Empty);
+		public static readonly EntityId Unassigned = new EntityId();
 
 		/// <summary>
 		/// Generates an entity identifier

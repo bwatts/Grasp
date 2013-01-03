@@ -205,6 +205,15 @@ namespace Grasp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} = {1}.
+        /// </summary>
+        internal static string FieldBinding {
+            get {
+                return ResourceManager.GetString("FieldBinding", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Field.
         /// </summary>
         internal static string FieldSuffix {
@@ -412,6 +421,15 @@ namespace Grasp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} [{1}].
+        /// </summary>
+        internal static string QualifiedNotion {
+            get {
+                return ResourceManager.GetString("QualifiedNotion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Query separator &apos;?&apos; is repeated: &quot;{0}&quot;.
         /// </summary>
         internal static string QuerySeparatorRepeated {
@@ -471,6 +489,15 @@ namespace Grasp {
         internal static string UnspecifiedLimit {
             get {
                 return ResourceManager.GetString("UnspecifiedLimit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unsupported article part type {0}.
+        /// </summary>
+        internal static string UnsupportedArticlePartType {
+            get {
+                return ResourceManager.GetString("UnsupportedArticlePartType", resourceCulture);
             }
         }
         

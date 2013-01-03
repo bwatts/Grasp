@@ -1,0 +1,19 @@
+﻿<Application
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	x:Class="Dash.Windows.UI.App">
+	<Application.Resources>
+		
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<!-- Basic elements must be first so they are available everywhere -->
+				<ResourceDictionary Source="Themes/Default/Colors.xaml"/>
+				<ResourceDictionary Source="Themes/Default/Text.xaml"/>
+
+				<!-- Domain-specific elements follow basic elements -->
+				<ResourceDictionary Source="Themes/Default/Board.xaml"/>
+			</ResourceDictionary.MergedDictionaries>
+		</ResourceDictionary>
+		
+	</Application.Resources>
+</Application>

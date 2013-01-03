@@ -11,7 +11,7 @@ using Grasp.Work.Persistence;
 namespace Grasp.Work
 {
 	/// <summary>
-	/// A versioned consistency boundary in which all events occur on the same timeline
+	/// A versioned consistency boundary in which events occur on the same timeline
 	/// </summary>
 	public abstract class Aggregate : Entity
 	{
@@ -26,6 +26,13 @@ namespace Grasp.Work
 		}
 
 		public EntityId RevisionId { get { return GetValue(RevisionIdField); } private set { SetValue(RevisionIdField, value); } }
+
+		public void HandleCommand(Command command)
+		{
+			Contract.Requires(command != null);
+
+			DispatchToImplicitHandler(command);
+		}
 
 		public IEnumerable<Event> ObserveEvents()
 		{
@@ -64,8 +71,31 @@ namespace Grasp.Work
 			// We have the option of detecting field changes and setting this value automagically.
 			//
 			// However, it seems safer and more consistent to treat events as authoritative.
+			//
+			// It would be nice, though, to not require a call to this method within Observe methods.
 
 			SetValue(Lifetime.WhenModifiedField, when);
+		}
+
+		protected void AnnounceCommandFailed(Command command, Identifier causeIdentifier, string causeDescription)
+		{
+			Contract.Requires(causeIdentifier != null);
+
+			// Apply event directly instead of announcing to avoid having these events become part of the aggregate's history
+			//
+			// TODO: Determine any scenarios that may benefit from recording command failure events
+
+			ApplyEvent(new CommandFailedEvent(command, GetCauseName(causeIdentifier), causeDescription), isNew: false);
+		}
+
+		protected void AnnounceCommandFailed(Command command, string causeIdentifier, string causeDescription)
+		{
+			AnnounceCommandFailed(command, new Identifier(causeIdentifier), causeDescription);
+		}
+
+		protected FullName GetCauseName(Identifier rootCauseIdentifier)
+		{
+			return new Namespace(GetType().FullName) + rootCauseIdentifier;
 		}
 
 		protected void Announce(Event @event)
@@ -75,7 +105,7 @@ namespace Grasp.Work
 
 		private void ApplyEvent(Event @event, bool isNew)
 		{
-			DispatchToImplicitObservers(@event);
+			DispatchToImplicitObserver(@event);
 
 			if(isNew)
 			{
@@ -83,7 +113,7 @@ namespace Grasp.Work
 			}
 		}
 
-		private void DispatchToImplicitObservers(Event @event)
+		private void DispatchToImplicitObserver(Event @event)
 		{
 			// This is some neat trickery from a CQRS tutorial repository:
 			//
@@ -98,6 +128,11 @@ namespace Grasp.Work
 			// The original inspiration can be found at https://github.com/davidebbo/ReflectionMagic and is reflected (pun intended) in the DynamicReflector class.
 
 			DynamicReflector.For(this).Observe(@event);
+		}
+
+		private void DispatchToImplicitHandler(Command command)
+		{
+			DynamicReflector.For(this).Handle(command);
 		}
 
 		private void RecordUnobservedEvent(Event @event)

@@ -9,21 +9,17 @@ using System.Threading.Tasks;
 
 namespace Grasp.Semantics.Discovery.Reflection
 {
-	public class ReflectionBinding : Notion, IDomainModelBinding
+	public class ReflectionBinding : NamedNotion, IDomainModelBinding
 	{
-		public static readonly Field<string> NameField = Field.On<ReflectionBinding>.For(x => x.Name);
 		public static readonly Field<Many<NamespaceBinding>> NamespaceBindingsField = Field.On<ReflectionBinding>.For(x => x.NamespaceBindings);
 
-		public ReflectionBinding(string name, IEnumerable<NamespaceBinding> namespaceBindings)
+		public ReflectionBinding(FullName name, IEnumerable<NamespaceBinding> namespaceBindings) : base(name)
 		{
-			Contract.Requires(name != null);
 			Contract.Requires(namespaceBindings != null);
 
-			Name = name;
 			NamespaceBindings = namespaceBindings.ToMany();
 		}
 
-		public string Name { get { return GetValue(NameField); } private set { SetValue(NameField, value); } }
 		public Many<NamespaceBinding> NamespaceBindings { get { return GetValue(NamespaceBindingsField); } private set { SetValue(NamespaceBindingsField, value); } }
 
 		public DomainModel BindDomainModel()

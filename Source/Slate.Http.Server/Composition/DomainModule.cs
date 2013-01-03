@@ -20,7 +20,7 @@ namespace Slate.Http.Server.Composition
 		{
 			Contract.Requires(assemblies != null);
 
-			Register(c => assemblies.BindDomainModel("Slate").BindDomainModel()).Named<DomainModel>("Slate").SingleInstance();
+			Register(c => assemblies.BindDomainModel(new FullName("Slate")).BindDomainModel()).Named<DomainModel>("Slate").SingleInstance();
 
 			RegisterType<IsolatedNotionContext>().As<INotionContext>().InstancePerDependency();
 

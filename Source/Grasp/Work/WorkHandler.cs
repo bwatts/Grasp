@@ -11,7 +11,7 @@ namespace Grasp.Work
 {
 	public sealed class WorkHandler<TCommand, TAggregate> : Notion, IHandler<TCommand>
 		where TCommand : Command
-		where TAggregate : Aggregate, IActor<TCommand>
+		where TAggregate : Aggregate
 	{
 		public static readonly Field<IRepository<TAggregate>> _repositoryField = Field.On<WorkHandler<TCommand, TAggregate>>.For(x => x._repository);
 		public static readonly Field<Func<TCommand, EntityId>> _aggregateIdSelectorField = Field.On<WorkHandler<TCommand, TAggregate>>.For(x => x._aggregateIdSelector);
@@ -39,7 +39,7 @@ namespace Grasp.Work
 				throw new WorkException(Resources.NoAggregateWithId.FormatInvariant(typeof(TAggregate), id));
 			}
 
-			aggregate.Act(c);
+			aggregate.HandleCommand(c);
 
 			await _repository.SaveAsync(aggregate);
 		}

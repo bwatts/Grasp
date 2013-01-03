@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Cloak.Reflection;
+using Grasp.Knowledge;
 
 namespace Grasp
 {
@@ -25,6 +26,14 @@ namespace Grasp
 		{
 			Context = new IsolatedContext();
 		}
+
+
+
+
+		
+
+
+
 
 		IEnumerable<FieldBinding> IFieldContext.GetBindings()
 		{
