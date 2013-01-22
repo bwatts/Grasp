@@ -12,20 +12,20 @@ namespace Grasp.Messaging
 	/// </summary>
 	public abstract class Command : Message
 	{
-		public static readonly Field<EntityId> WorkItemIdField = Field.On<Command>.For(x => x.WorkItemId);
+		public static readonly Field<FullName> WorkItemNameField = Field.On<Command>.For(x => x.WorkItemName);
 
 		/// <summary>
 		/// Initializes a command with the specified handle to a work item which tracks its progress
 		/// </summary>
-		/// <param name="workItemId">The identifier of the work item tracking the command's progress</param>
-		protected Command(EntityId workItemId = default(EntityId))
+		/// <param name="workItemName">The unique hierarchical name of the work item tracking the command's progress</param>
+		protected Command(FullName workItemName = default(FullName))
 		{
-			WorkItemId = workItemId;
+			WorkItemName = workItemName ?? FullName.Anonymous;
 		}
 
 		/// <summary>
-		/// Gets the identifier of the work item tracking the command's progress
+		/// Gets the unique hierarchical name of the work item tracking the command's progress
 		/// </summary>
-		public EntityId WorkItemId { get { return GetValue(WorkItemIdField); } private set { SetValue(WorkItemIdField, value); } }
+		public FullName WorkItemName { get { return GetValue(WorkItemNameField); } private set { SetValue(WorkItemNameField, value); } }
 	}
 }

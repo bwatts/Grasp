@@ -117,8 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AmbientChannelNotConfigured" xml:space="preserve">
-    <value>Ambient channel has not been configured in the current context</value>
+  <data name="AmbientMessageChannelNotConfigured" xml:space="preserve">
+    <value>The ambient message channel has not been configured in the current environment</value>
   </data>
   <data name="Calculation" xml:space="preserve">
     <value>{0} = {1}</value>
@@ -135,8 +135,26 @@
   <data name="CalculationVariableTypeDifferent" xml:space="preserve">
     <value>Variable {0} in calculation "{1}" is of type {2}, which is different from type {3} specified by the schema</value>
   </data>
+  <data name="CannotCommit" xml:space="preserve">
+    <value>Cannot commit from state {0}</value>
+  </data>
+  <data name="CannotStop" xml:space="preserve">
+    <value>Cannot stop from state {0}</value>
+  </data>
+  <data name="CannotUninstall" xml:space="preserve">
+    <value>Cannot uninstall from state {0}</value>
+  </data>
   <data name="CardinalityFormat" xml:space="preserve">
     <value>{0}..{1}</value>
+  </data>
+  <data name="CommandAppliesToDifferentEnvironment" xml:space="preserve">
+    <value>Command applies to environment {0}, expected {1}</value>
+  </data>
+  <data name="CommandAppliesToDifferentWorkItem" xml:space="preserve">
+    <value>Command applies to work item {0}, expected {1}</value>
+  </data>
+  <data name="CommandAppliesToUnknownApp" xml:space="preserve">
+    <value>Command applies to unknown app {0}</value>
   </data>
   <data name="CompilationError" xml:space="preserve">
     <value>An exception occurred while compiling a schema</value>
@@ -184,9 +202,6 @@
   <data name="InvalidCalculationVariable" xml:space="preserve">
     <value>Variable {0} in calculation "{1}" is not specified by the schema</value>
   </data>
-  <data name="InvalidEntityId" xml:space="preserve">
-    <value>Invalid entity identifier: "{0}"</value>
-  </data>
   <data name="InvalidHrefUri" xml:space="preserve">
     <value>Invalid href URI: {0}</value>
   </data>
@@ -198,6 +213,9 @@
   </data>
   <data name="InvalidQueryPair" xml:space="preserve">
     <value>Invalid query pair: "{0}"</value>
+  </data>
+  <data name="InvalidRevisionId" xml:space="preserve">
+    <value>Invalid SHA-1 revision ID: "{0}"</value>
   </data>
   <data name="InvalidSortFieldFormat" xml:space="preserve">
     <value>Invalid sort field format: "{0}"</value>
@@ -223,8 +241,8 @@
   <data name="MemberTypeNotSupported" xml:space="preserve">
     <value>Member type {0} is not supported</value>
   </data>
-  <data name="NoAggregateWithId" xml:space="preserve">
-    <value>There is no aggregate of type {0} with identifier {1}</value>
+  <data name="NoAggregateWithName" xml:space="preserve">
+    <value>There is no aggregate with name "{0}"</value>
   </data>
   <data name="NonAttachedFieldOnNonNotionType" xml:space="preserve">
     <value>Non-attached field "{0}" is not allowed on the non-Notion type {1}</value>

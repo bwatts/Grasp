@@ -39,33 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EnvironmentEvent.cs" />
-    <Compile Include="EnvironmentCommand.cs" />
-    <Compile Include="Applications\Definition\AddPackageSourceCommand.cs" />
-    <Compile Include="Applications\Definition\PackageSourceRemovedEvent.cs" />
-    <Compile Include="Applications\Definition\PackageSourceAddedEvent.cs" />
-    <Compile Include="Applications\Definition\RemovePackageSourceCommand.cs" />
-    <Compile Include="Applications\Definition\PackageSource.cs" />
-    <Compile Include="Applications\Definition\PackageSourceLocation.cs" />
-    <Compile Include="Environment.cs" />
-    <Compile Include="EnvironmentCreatedEvent.cs" />
-    <Compile Include="Applications\Application.cs" />
-    <Compile Include="Applications\Installation\CommitInstallationCommand.cs" />
-    <Compile Include="Applications\Installation\CommitUninstallationCommand.cs" />
-    <Compile Include="Applications\Installation\Installation.cs" />
-    <Compile Include="Applications\Installation\InstallationCommittedEvent.cs" />
-    <Compile Include="Applications\Installation\InstallationStatus.cs" />
-    <Compile Include="Applications\Installation\InstallationStoppedEvent.cs" />
-    <Compile Include="Applications\Installation\InstallCommand.cs" />
-    <Compile Include="Applications\Installation\InstallingEvent.cs" />
-    <Compile Include="Applications\Installation\StopInstallationCommand.cs" />
-    <Compile Include="Applications\Installation\StopUninstallationCommand.cs" />
-    <Compile Include="Applications\Installation\UninstallationCommittedEvent.cs" />
-    <Compile Include="Applications\Installation\UninstallationStoppedEvent.cs" />
-    <Compile Include="Applications\Installation\UninstallCommand.cs" />
-    <Compile Include="Applications\Installation\UninstallingEvent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Topic.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\.submodules\Cloak\Source\Cloak\Cloak.csproj">
@@ -77,6 +51,7 @@
       <Name>Grasp</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

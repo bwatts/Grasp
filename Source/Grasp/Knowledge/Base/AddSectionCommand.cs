@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace Grasp.Knowledge.Base
 {
-	public class AddSectionCommand : EditArticleCommand
+	public class AddSectionCommand : ArticleCommand
 	{
 		public static readonly Field<FullName> SectionNameField = Field.On<AddSectionCommand>.For(x => x.SectionName);
 
-		public AddSectionCommand(EntityId workItemId, FullName articleName, FullName sectionName) : base(workItemId, articleName)
+		public AddSectionCommand(FullName workItemName, FullName articleName, FullName sectionName) : base(workItemName, articleName)
 		{
 			Contract.Requires(sectionName != null);
 

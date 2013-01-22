@@ -14,7 +14,7 @@ namespace Grasp.Hypermedia
 	{
 		public static bool HasVariables(this ICheckable<UriTemplate> check)
 		{
-			return check.Passes(uri => uri.PathSegmentVariableNames.Any() || uri.QueryValueVariableNames.Any());
+			return check.IsTrue(uri => uri.PathSegmentVariableNames.Any() || uri.QueryValueVariableNames.Any());
 		}
 	}
 }

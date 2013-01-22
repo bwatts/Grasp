@@ -61,11 +61,11 @@ namespace Grasp {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ambient channel has not been configured in the current context.
+        ///   Looks up a localized string similar to The ambient message channel has not been configured in the current environment.
         /// </summary>
-        internal static string AmbientChannelNotConfigured {
+        internal static string AmbientMessageChannelNotConfigured {
             get {
-                return ResourceManager.GetString("AmbientChannelNotConfigured", resourceCulture);
+                return ResourceManager.GetString("AmbientMessageChannelNotConfigured", resourceCulture);
             }
         }
         
@@ -115,11 +115,65 @@ namespace Grasp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cannot commit from state {0}.
+        /// </summary>
+        internal static string CannotCommit {
+            get {
+                return ResourceManager.GetString("CannotCommit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cannot stop from state {0}.
+        /// </summary>
+        internal static string CannotStop {
+            get {
+                return ResourceManager.GetString("CannotStop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cannot uninstall from state {0}.
+        /// </summary>
+        internal static string CannotUninstall {
+            get {
+                return ResourceManager.GetString("CannotUninstall", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0}..{1}.
         /// </summary>
         internal static string CardinalityFormat {
             get {
                 return ResourceManager.GetString("CardinalityFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Command applies to environment {0}, expected {1}.
+        /// </summary>
+        internal static string CommandAppliesToDifferentEnvironment {
+            get {
+                return ResourceManager.GetString("CommandAppliesToDifferentEnvironment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Command applies to work item {0}, expected {1}.
+        /// </summary>
+        internal static string CommandAppliesToDifferentWorkItem {
+            get {
+                return ResourceManager.GetString("CommandAppliesToDifferentWorkItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Command applies to unknown app {0}.
+        /// </summary>
+        internal static string CommandAppliesToUnknownApp {
+            get {
+                return ResourceManager.GetString("CommandAppliesToUnknownApp", resourceCulture);
             }
         }
         
@@ -259,15 +313,6 @@ namespace Grasp {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invalid entity identifier: &quot;{0}&quot;.
-        /// </summary>
-        internal static string InvalidEntityId {
-            get {
-                return ResourceManager.GetString("InvalidEntityId", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Invalid href URI: {0}.
         /// </summary>
         internal static string InvalidHrefUri {
@@ -300,6 +345,15 @@ namespace Grasp {
         internal static string InvalidQueryPair {
             get {
                 return ResourceManager.GetString("InvalidQueryPair", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid SHA-1 revision ID: &quot;{0}&quot;.
+        /// </summary>
+        internal static string InvalidRevisionId {
+            get {
+                return ResourceManager.GetString("InvalidRevisionId", resourceCulture);
             }
         }
         
@@ -376,11 +430,11 @@ namespace Grasp {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to There is no aggregate of type {0} with identifier {1}.
+        ///   Looks up a localized string similar to There is no aggregate with name &quot;{0}&quot;.
         /// </summary>
-        internal static string NoAggregateWithId {
+        internal static string NoAggregateWithName {
             get {
-                return ResourceManager.GetString("NoAggregateWithId", resourceCulture);
+                return ResourceManager.GetString("NoAggregateWithName", resourceCulture);
             }
         }
         

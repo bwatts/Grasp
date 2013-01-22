@@ -9,52 +9,55 @@ using Grasp.Work;
 
 namespace Grasp.Knowledge.Base
 {
-	public class Article : Aggregate
+	public class Article : Topic
 	{
-		public static readonly Field<ManyInOrder<ArticlePart>> PartsField = Field.On<Article>.For(x => x.Parts);
+		public static readonly Field<ManyInOrder<ArticlePart>> _partsField = Field.On<Article>.For(x => x._parts);
 
-		public Article(EntityId workItemId, FullName name, string title)
+		private ManyInOrder<ArticlePart> _parts { get { return GetValue(_partsField); } set { SetValue(_partsField, value); } }
+
+		public Article(FullName workItemName, FullName name, string title)
 		{
-			Announce(new ArticleCreatedEvent(workItemId, name, title));
+			Announce(new ArticleStartedEvent(workItemName, name, title));
 		}
-
-		public FullName Name { get { return GetValue(FullName.NameField); } private set { SetValue(FullName.NameField, value); } }
-		public ManyInOrder<ArticlePart> Parts { get { return GetValue(PartsField); } private set { SetValue(PartsField, value); } }
 
 		// TODO: Patch command (http://code.google.com/p/google-diff-match-patch/)
 
-		private void Handle(AddSectionCommand command)
+		private void Handle(AddSectionCommand c)
 		{
-			// TODO: CommandFailedEvent for "Contract.Requires(command.ArticleName == Name);"
+			// TODO: CommandFailedEvent for "Contract.Requires(c.ArticleName == Name);"
 
-			Announce(new ArticlePartCreatedEvent(command.WorkItemId, command.ArticleName, command.SectionName, PartType.Section));
+			Announce(new ArticlePartCreatedEvent(c.WorkItemName, c.ArticleName, c.SectionName, PartType.Section));
 		}
 
-		private void Handle(AddTagCommand command)
+		private void Handle(AddTagCommand c)
 		{
-			// TODO: CommandFailedEvent for "Contract.Requires(command.ArticleName == Name);"
+			// TODO: CommandFailedEvent for "Contract.Requires(c.ArticleName == Name);"
 
-			Announce(new ArticlePartCreatedEvent(command.WorkItemId, command.ArticleName, command.TagName, PartType.Tag));
+			Announce(new ArticlePartCreatedEvent(c.WorkItemName, c.ArticleName, c.TagName, PartType.Tag));
 		}
 
-		private void Observe(ArticleCreatedEvent e)
+		private void Observe(ArticleStartedEvent e)
 		{
-			Parts = Params.Of<ArticlePart>(new Title(e.Title)).ToManyInOrder();
+			OnCreated(e.ArticleName, e.When);
+
+			_parts = new ManyInOrder<ArticlePart>(new Title(e.Title));
 		}
 
 		private void Observe(ArticlePartCreatedEvent e)
 		{
-			Parts.AsWriteable().Add(GetPart(e));
+			OnModified(e.When);
+
+			_parts.AsWriteable().Add(GetPart(e));
 		}
 
-		private ArticlePart GetPart(ArticlePartCreatedEvent e)
+		private static ArticlePart GetPart(ArticlePartCreatedEvent e)
 		{
 			switch(e.Type)
 			{
 				case PartType.Section:
-					return new Section(e.Name);
+					return new Section(e.PartName);
 				case PartType.Tag:
-					return new Tag(e.Name);
+					return new Tag(e.PartName);
 				default:
 					throw new NotSupportedException(Resources.UnsupportedArticlePartType.FormatInvariant(e.Type));
 			}

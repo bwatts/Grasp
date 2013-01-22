@@ -10,7 +10,7 @@ namespace Grasp.Work
 	/// Indicates a conflict in simultaeous work within an aggregate
 	/// </summary>
 	[Serializable]
-	public class ConcurrencyException : Exception
+	public class ConcurrencyException : WorkException
 	{
 		/// <summary>
 		/// Initializes an exception with no message
@@ -45,18 +45,18 @@ namespace Grasp.Work
 		public Type AggregateType { get; set; }
 
 		/// <summary>
-		/// Gets the ID of the aggregate with the concurrency issue
+		/// Gets the name of the aggregate with the concurrency issue
 		/// </summary>
-		public EntityId AggregateId { get; set; }
+		public FullName AggregateName { get; set; }
 
 		/// <summary>
 		/// Gets the revision ID expected to be loaded
 		/// </summary>
-		public EntityId ExpectedRevisionId { get; set; }
+		public RevisionId ExpectedRevisionId { get; set; }
 
 		/// <summary>
 		/// Gets the revision ID actually loaded
 		/// </summary>
-		public EntityId ActualRevisionId { get; set; }
+		public RevisionId ActualRevisionId { get; set; }
 	}
 }

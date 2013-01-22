@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace Grasp.Knowledge.Base
 {
-	public class AddTagCommand : EditArticleCommand
+	public class AddTagCommand : ArticleCommand
 	{
 		public static readonly Field<FullName> TagNameField = Field.On<AddTagCommand>.For(x => x.TagName);
 
-		public AddTagCommand(EntityId workItemId, FullName articleName, FullName tagName) : base(workItemId, articleName)
+		public AddTagCommand(FullName workItemName, FullName articleName, FullName tagName) : base(workItemName, articleName)
 		{
 			Contract.Requires(tagName != null);
 

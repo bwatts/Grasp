@@ -6,7 +6,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Grasp.Knowledge.Structure;
 using Grasp.Messaging;
-using Grasp.Work;
 
 namespace Grasp.Knowledge.Forms
 {

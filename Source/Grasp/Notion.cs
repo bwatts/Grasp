@@ -27,14 +27,6 @@ namespace Grasp
 			Context = new IsolatedContext();
 		}
 
-
-
-
-		
-
-
-
-
 		IEnumerable<FieldBinding> IFieldContext.GetBindings()
 		{
 			return GetBindings();
@@ -113,6 +105,33 @@ namespace Grasp
 		protected void SetValue<T>(Field<T> field, T value)
 		{
 			Context.SetValue(this, field, value);
+		}
+
+		/// <summary>
+		/// Gets the value of <see cref="Grasp.Lifetime.WhenCreatedField"/> associated with this notion
+		/// </summary>
+		/// <returns>The value of <see cref="Grasp.Lifetime.WhenCreatedField"/> associated with this notion</returns>
+		protected DateTime GetWhenCreated()
+		{
+			return GetValue(Lifetime.WhenCreatedField);
+		}
+
+		/// <summary>
+		/// Gets the value of <see cref="Grasp.Lifetime.WhenModifiedField"/> associated with this notion
+		/// </summary>
+		/// <returns>The value of <see cref="Grasp.Lifetime.WhenModifiedField"/> associated with this notion</returns>
+		protected DateTime GetWhenModified()
+		{
+			return GetValue(Lifetime.WhenModifiedField);
+		}
+
+		/// <summary>
+		/// Gets the amount of time that has passed since this notion was created, as specified by <see cref="Grasp.Lifetime.WhenCreatedField"/> and the ambient time context
+		/// </summary>
+		/// <returns>The amount of time that has passed since this notion was created, as specified by <see cref="Grasp.Lifetime.WhenCreatedField"/> and the ambient time context</returns>
+		protected TimeSpan GetAge()
+		{
+			return this.Now() - GetWhenCreated();
 		}
 
 		private sealed class IsolatedContext : INotionContext

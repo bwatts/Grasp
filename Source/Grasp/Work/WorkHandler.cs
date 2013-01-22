@@ -9,39 +9,39 @@ using Grasp.Messaging;
 
 namespace Grasp.Work
 {
-	public sealed class WorkHandler<TCommand, TAggregate> : Notion, IHandler<TCommand>
+	public sealed class WorkHandler<TAggregate, TCommand> : Notion, IHandler<TCommand>
+		where TAggregate : Notion, IAggregate
 		where TCommand : Command
-		where TAggregate : Aggregate
 	{
-		public static readonly Field<IRepository<TAggregate>> _repositoryField = Field.On<WorkHandler<TCommand, TAggregate>>.For(x => x._repository);
-		public static readonly Field<Func<TCommand, EntityId>> _aggregateIdSelectorField = Field.On<WorkHandler<TCommand, TAggregate>>.For(x => x._aggregateIdSelector);
+		public static readonly Field<IRepository> _repositoryField = Field.On<WorkHandler<TAggregate, TCommand>>.For(x => x._repository);
+		public static readonly Field<Func<TCommand, FullName>> _aggregateNameSelectorField = Field.On<WorkHandler<TAggregate, TCommand>>.For(x => x._aggregateNameSelector);
 
-		private IRepository<TAggregate> _repository { get { return GetValue(_repositoryField); } set { SetValue(_repositoryField, value); } }
-		private Func<TCommand, EntityId> _aggregateIdSelector { get { return GetValue(_aggregateIdSelectorField); } set { SetValue(_aggregateIdSelectorField, value); } }
+		private IRepository _repository { get { return GetValue(_repositoryField); } set { SetValue(_repositoryField, value); } }
+		private Func<TCommand, FullName> _aggregateNameSelector { get { return GetValue(_aggregateNameSelectorField); } set { SetValue(_aggregateNameSelectorField, value); } }
 
-		public WorkHandler(IRepository<TAggregate> repository, Func<TCommand, EntityId> aggregateIdSelector)
+		public WorkHandler(IRepository repository, Func<TCommand, FullName> aggregateNameSelector)
 		{
 			Contract.Requires(repository != null);
-			Contract.Requires(aggregateIdSelector != null);
+			Contract.Requires(aggregateNameSelector != null);
 
 			_repository = repository;
-			_aggregateIdSelector = aggregateIdSelector;
+			_aggregateNameSelector = aggregateNameSelector;
 		}
 
-		public async Task HandleAsync(TCommand c)
+		public async Task HandleAsync(TCommand command)
 		{
-			var id = _aggregateIdSelector(c);
+			var name = _aggregateNameSelector(command);
 
-			var aggregate = await _repository.LoadAsync(id);
+			var aggregate = await _repository.LoadAggregateAsync<TAggregate>(name);
 
 			if(aggregate == null)
 			{
-				throw new WorkException(Resources.NoAggregateWithId.FormatInvariant(typeof(TAggregate), id));
+				throw new WorkException(Resources.NoAggregateWithName.FormatInvariant(name));
 			}
 
-			aggregate.HandleCommand(c);
+			aggregate.HandleCommand(command);
 
-			await _repository.SaveAsync(aggregate);
+			await _repository.SaveAggregateAsync(aggregate);
 		}
 	}
 }

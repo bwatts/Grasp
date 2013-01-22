@@ -12,7 +12,7 @@ namespace Grasp.Semantics
 	{
 		public AggregateModel(Type type, Many<Field> attachedFields, Many<Field> fields) : base(type, attachedFields, fields)
 		{
-			Contract.Requires(typeof(Aggregate).IsAssignableFrom(type));
+			Contract.Requires(typeof(IAggregate).IsAssignableFrom(type));
 		}
 	}
 }

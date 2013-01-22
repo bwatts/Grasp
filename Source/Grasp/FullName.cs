@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,7 @@ namespace Grasp
 	/// <summary>
 	/// An identifier qualified with its position in a namespace hierarchy
 	/// </summary>
+	[TypeConverter(typeof(FullNameConverter))]
 	public sealed class FullName : ComparableValue<FullName, string>, IEnumerable<Identifier>
 	{
 		#region Naming

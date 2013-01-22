@@ -4,54 +4,120 @@ using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Grasp.Work.Persistence;
+using Cloak;
+using Grasp.Checks;
+using Grasp.Messaging;
 
 namespace Grasp.Work.Items
 {
-	public class WorkItem : Aggregate
+	public class WorkItem : Topic
 	{
-		public static readonly Field<string> DescriptionField = Field.On<WorkItem>.For(x => x.Description);
-		public static readonly Field<Progress> ProgressField = Field.On<WorkItem>.For(x => x.Progress);
-		public static readonly Field<TimeSpan> RetryIntervalField = Field.On<WorkItem>.For(x => x.RetryInterval);
-		public static readonly Field<Uri> ResultLocationField = Field.On<WorkItem>.For(x => x.ResultLocation);
+		public static readonly Field<TimeSpan> _timeoutField = Field.On<WorkItem>.For(x => x._timeout);
+		public static readonly Field<Progress> _progressField = Field.On<WorkItem>.For(x => x._progress);
+		public static readonly Field<ManyInOrder<Issue>> _issuesField = Field.On<WorkItem>.For(x => x._issues);
 
-		public WorkItem(EntityId id, string description, TimeSpan retryInterval)
+		private TimeSpan _timeout { get { return GetValue(_timeoutField); } set { SetValue(_timeoutField, value); } }
+		private Progress _progress { get { return GetValue(_progressField); } set { SetValue(_progressField, value); } }
+		private ManyInOrder<Issue> _issues { get { return GetValue(_issuesField); } set { SetValue(_issuesField, value); } }
+
+		public WorkItem(FullName name, string description, TimeSpan pollInterval, TimeSpan timeout)
 		{
-			Announce(new WorkItemCreatedEvent(id, description, retryInterval));
+			Announce(new WorkStartedEvent(name, description, pollInterval, timeout));
 		}
 
-		public string Description { get { return GetValue(DescriptionField); } private set { SetValue(DescriptionField, value); } }
-		public Progress Progress { get { return GetValue(ProgressField); } private set { SetValue(ProgressField, value); } }
-		public TimeSpan RetryInterval { get { return GetValue(RetryIntervalField); } private set { SetValue(RetryIntervalField, value); } }
-		public Uri ResultLocation { get { return GetValue(ResultLocationField); } private set { SetValue(ResultLocationField, value); } }
+		// Commands
 
-		private void Handle(ReportProgressCommand command)
+		private void Handle(PollWorkCommand c)
 		{
-			// TODO: CommandFailedEvent for "Contract.Requires(command.WorkItemId == Id);"
+			if(ValidateCommand(c))
+			{
+				var age = GetAge();
 
-			// TODO: ProgressReversedEvent for "Contract.Requires(command.Progress >= Progress);"
+				Announce(new WorkPolledEvent(c.WorkItemName, _progress, _timeout - age));
 
-			Announce(command.Progress == Progress.Complete
-				? new ProgressReportedEvent(Id, Progress, command.ResultLocation)
-				: new ProgressReportedEvent(Id, Progress, command.Progress));
+				if(_progress < Progress.Complete && age >= _timeout)
+				{
+					Announce(new WorkTimedOutEvent(c.WorkItemName, _timeout, age));
+				}
+			}
 		}
 
-		private void Observe(WorkItemCreatedEvent e)
+		private void Handle(ReportProgressCommand c)
 		{
-			OnCreated(e.WorkItemId, e.When);
-
-			Description = e.Description;
-			RetryInterval = e.RetryInterval;
-
-			Progress = Progress.Accepted;
+			if(ValidateCommand(c))
+			{
+				if(c.Progress < Progress.Complete)
+				{
+					Announce(new WorkProgressedEvent(c.WorkItemName, _progress, c.Progress));
+				}
+				else
+				{
+					Announce(new WorkFinishedEvent(c.WorkItemName, c.TopicName, GetAge()));
+				}
+			}
 		}
 
-		private void Observe(ProgressReportedEvent e)
+		private void Handle(ReportIssueCommand c)
+		{
+			if(ValidateCommand(c))
+			{
+				Announce(new WorkHasIssueEvent(c.WorkItemName, c.Issue));
+			}
+		}
+
+		// Events
+
+		private void Observe(WorkStartedEvent e)
+		{
+			OnCreated(e.WorkItemName, e.When);
+
+			_timeout = e.Timeout;
+			_progress = Progress.Accepted;
+			_issues = new ManyInOrder<Issue>();
+		}
+
+		private void Observe(WorkProgressedEvent e)
 		{
 			OnModified(e.When);
 
-			Progress = e.NewProgress;
-			ResultLocation = e.ResultLocation;
+			_progress = e.NewProgress;
+		}
+
+		private void Observe(WorkFinishedEvent e)
+		{
+			OnModified(e.When);
+
+			_progress = Progress.Complete;
+		}
+
+		private void Observe(WorkTimedOutEvent e)
+		{
+			OnModified(e.When);
+
+			_progress = Progress.Complete;
+		}
+
+		private void Observe(WorkHasIssueEvent e)
+		{
+			OnModified(e.When);
+
+			// TODO: What to do with issues? Report them with events that finish the work item?
+
+			_issues.AsWriteable().Add(e.Issue);
+		}
+
+		// Validation
+
+		private bool ValidateCommand(Command command)
+		{
+			if(command.WorkItemName != Name)
+			{
+				AnnounceCommandFailed(command, "DifferentWorkItem", Resources.CommandAppliesToDifferentWorkItem.FormatInvariant(command.WorkItemName, Name));
+
+				return false;
+			}
+
+			return true;
 		}
 	}
 }

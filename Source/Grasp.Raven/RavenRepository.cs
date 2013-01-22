@@ -144,7 +144,7 @@ namespace Grasp.Raven
 					throw new ConcurrencyException(Resources.ConcurrencyViolation.FormatInvariant(typeof(TAggregate), _aggregate.Id, _aggregate.RevisionId, _currentRevision.Id))
 					{
 						AggregateType = typeof(TAggregate),
-						AggregateId = _aggregate.Id,
+						AggregateName = _aggregate.Id,
 						ExpectedRevisionId = _aggregate.RevisionId,
 						ActualRevisionId = _currentRevision.Id
 					};

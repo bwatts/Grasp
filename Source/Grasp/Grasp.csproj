@@ -104,18 +104,53 @@
     <Compile Include="..\GraspAssemblyInfo.cs">
       <Link>Properties\GraspAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="AmbientTimeContext.cs" />
     <Compile Include="Checks\Rules\LiteralRule.cs" />
+    <Compile Include="FullNameConverter.cs" />
+    <Compile Include="Knowledge\Apps\AddAppSourceCommand.cs" />
+    <Compile Include="Knowledge\Apps\AppSource.cs" />
+    <Compile Include="Knowledge\Apps\AppSourceAddedEvent.cs" />
+    <Compile Include="Knowledge\Apps\AppSourceRemovedEvent.cs" />
+    <Compile Include="Knowledge\Apps\RemoveAppSourceCommand.cs" />
+    <Compile Include="Knowledge\Apps\Installation\CommitCommand.cs" />
+    <Compile Include="Knowledge\Apps\Installation\InstallationCommand.cs" />
+    <Compile Include="Knowledge\Apps\Installation\InstallationEvent.cs" />
+    <Compile Include="Knowledge\Apps\Installation\InstalledEvent.cs" />
+    <Compile Include="Knowledge\Apps\Installation\AppInstallationStatus.cs" />
+    <Compile Include="Knowledge\Apps\Installation\InstallationStoppedEvent.cs" />
+    <Compile Include="Knowledge\Apps\Installation\InstallCommand.cs" />
+    <Compile Include="Knowledge\Apps\Installation\InstallingEvent.cs" />
+    <Compile Include="Knowledge\Apps\Installation\StopCommand.cs" />
+    <Compile Include="Knowledge\Apps\Installation\AppInstallation.cs" />
     <Compile Include="FieldContextBindingsToString.cs" />
     <Compile Include="Knowledge\Base\Article.cs" />
     <Compile Include="Knowledge\Base\AddSectionCommand.cs" />
-    <Compile Include="Knowledge\Base\ArticleCreatedEvent.cs" />
+    <Compile Include="Knowledge\Base\ArticleStartedEvent.cs" />
     <Compile Include="Knowledge\Base\ArticlePart.cs" />
     <Compile Include="Knowledge\Base\ArticlePartCreatedEvent.cs" />
-    <Compile Include="Knowledge\Base\ArticleEditedEvent.cs" />
+    <Compile Include="Knowledge\Base\ArticleEvent.cs" />
     <Compile Include="Knowledge\Base\AddTagCommand.cs" />
+    <Compile Include="Knowledge\Apps\EnvironmentEvent.cs" />
+    <Compile Include="Knowledge\Apps\EnvironmentStartedEvent.cs" />
+    <Compile Include="Knowledge\Apps\Environment.cs" />
+    <Compile Include="Knowledge\Apps\EnvironmentCommand.cs" />
+    <Compile Include="Knowledge\Apps\StartEnvironmentCommand.cs" />
+    <Compile Include="Persistence\ExcludedFieldSet.cs" />
+    <Compile Include="Persistence\IExcludedFieldSet.cs" />
+    <Compile Include="Work\Issue.cs" />
+    <Compile Include="Work\Items\WorkHasIssueEvent.cs" />
+    <Compile Include="Work\Items\ReportIssueCommand.cs" />
+    <Compile Include="Work\Items\PollWorkCommand.cs" />
+    <Compile Include="Work\Items\WorkPolledEvent.cs" />
+    <Compile Include="Work\Items\WorkStatus.cs" />
+    <Compile Include="Work\Items\WorkTimedOutEvent.cs" />
+    <Compile Include="Work\Items\WorkFinishedEvent.cs" />
+    <Compile Include="Work\Data\Revision_OLD.cs" />
+    <Compile Include="Work\Data\RevisionId_OLD.cs" />
+    <Compile Include="Work\Data\RevisionIdConverter_OLD.cs" />
     <Compile Include="Knowledge\Base\Tag.cs" />
-    <Compile Include="Knowledge\Base\CreateArticleCommand.cs" />
-    <Compile Include="Knowledge\Base\EditArticleCommand.cs" />
+    <Compile Include="Knowledge\Base\StartArticleCommand.cs" />
+    <Compile Include="Knowledge\Base\ArticleCommand.cs" />
     <Compile Include="Knowledge\Base\PartType.cs" />
     <Compile Include="Knowledge\Base\Section.cs" />
     <Compile Include="Knowledge\Base\Title.cs" />
@@ -124,6 +159,16 @@
     <Compile Include="Knowledge\Forms\Form.cs" />
     <Compile Include="Knowledge\Forms\Input.cs" />
     <Compile Include="Knowledge\Forms\ParsedInput.cs" />
+    <Compile Include="Work\Data\History.cs" />
+    <Compile Include="Work\Data\KnowledgeBase.cs" />
+    <Compile Include="Work\Data\KnowledgeSession.cs" />
+    <Compile Include="Work\Data\Timeline.cs" />
+    <Compile Include="Knowledge\Apps\Installation\UninstalledEvent.cs" />
+    <Compile Include="Knowledge\Apps\Installation\UninstallationStoppedEvent.cs" />
+    <Compile Include="Knowledge\Apps\Installation\UninstallCommand.cs" />
+    <Compile Include="Knowledge\Apps\Installation\UninstallingEvent.cs" />
+    <Compile Include="Work\Data\Timeline_OLD.cs" />
+    <Compile Include="Work\Topic.cs" />
     <Compile Include="Messaging\CommandFailedEvent.cs" />
     <Compile Include="NamedNotion.cs" />
     <Compile Include="Knowledge\Structure\Conversion.cs" />
@@ -311,9 +356,6 @@
     <Compile Include="Checks\Rules\RuleVisitor.cs" />
     <Compile Include="Checks\Specification.cs" />
     <Compile Include="Checks\CheckException.cs" />
-    <Compile Include="Entity.cs" />
-    <Compile Include="EntityId.cs" />
-    <Compile Include="EntityIdConverter.cs" />
     <Compile Include="FullName.cs" />
     <Compile Include="Identifier.cs" />
     <Compile Include="Namespace.cs" />
@@ -345,29 +387,29 @@
     <Compile Include="Semantics\AggregateModel.cs" />
     <Compile Include="Semantics\FieldAttacherModel.cs" />
     <Compile Include="Semantics\Discovery\Reflection\FieldAttacherBinding.cs" />
+    <Compile Include="Work\IAggregate.cs" />
     <Compile Include="Work\WorkException.cs" />
     <Compile Include="Work\WorkHandler.cs" />
     <Compile Include="Work\ConcurrencyException.cs" />
     <Compile Include="Work\CreateHandler.cs" />
     <Compile Include="Work\Items\ReportProgressCommand.cs" />
     <Compile Include="Work\Items\ProgressConverter.cs" />
-    <Compile Include="Work\Persistence\FieldValueConverter.cs" />
-    <Compile Include="Work\Persistence\IFieldValueConverter.cs" />
+    <Compile Include="Persistence\FieldValueConverter.cs" />
+    <Compile Include="Persistence\IFieldValueConverter.cs" />
     <Compile Include="Work\Items\Progress.cs" />
-    <Compile Include="Work\Items\ProgressReportedEvent.cs" />
+    <Compile Include="Work\Items\WorkProgressedEvent.cs" />
     <Compile Include="Work\Items\WorkItem.cs" />
-    <Compile Include="Work\Items\WorkItemCreatedEvent.cs" />
-    <Compile Include="Work\Persistence\NotionActivator.cs" />
-    <Compile Include="Work\Persistence\INotionActivator.cs" />
+    <Compile Include="Work\Items\WorkStartedEvent.cs" />
+    <Compile Include="Persistence\NotionActivator.cs" />
+    <Compile Include="Persistence\INotionActivator.cs" />
     <Compile Include="Work\IRepository.cs" />
     <Compile Include="Lists\ListItem.cs" />
     <Compile Include="Lists\Sort.cs" />
     <Compile Include="Lists\IListService.cs" />
     <Compile Include="Lists\ListView.cs" />
     <Compile Include="Lists\ListViewKey.cs" />
-    <Compile Include="Work\Persistence\INotionState.cs" />
-    <Compile Include="Work\Persistence\PersistentNotion.cs" />
-    <Compile Include="Work\Aggregate.cs" />
+    <Compile Include="Persistence\INotionState.cs" />
+    <Compile Include="Persistence\PersistentNotion.cs" />
     <Compile Include="Messaging\Event.cs" />
     <Compile Include="GraspException.cs" />
     <Compile Include="IStackable.cs" />
@@ -386,7 +428,7 @@
     <Compile Include="INotionContext.cs" />
     <Compile Include="Many.cs" />
     <Compile Include="Notion.cs" />
-    <Compile Include="Work\Persistence\PersistentId.cs" />
+    <Compile Include="Persistence\PersistentId.cs" />
     <Compile Include="Lifetime.cs" />
     <Compile Include="Lists\SortDirection.cs" />
     <Compile Include="Lists\SortField.cs" />
@@ -416,12 +458,12 @@
     <Compile Include="Semantics\ReferenceModel.cs" />
     <Compile Include="Semantics\TwoWayRelationshipModel.cs" />
     <Compile Include="Semantics\TypeModel.cs" />
-    <Compile Include="Work\AggregateVersion.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -112,16 +112,16 @@ namespace Grasp.Semantics.Discovery.Reflection
 			private static IEnumerable<FieldBinding> GetFieldBindings(Type type)
 			{
 				var members = type
-					.GetProperties(BindingFlags.Public | BindingFlags.Instance)
+					.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.FlattenHierarchy)
 					.Cast<MemberInfo>()
-					.Concat(type.GetFields(BindingFlags.Public | BindingFlags.Instance));
+					.Concat(type.GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.FlattenHierarchy));
 
 				var fields =
 					from staticField in type.GetFields(BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy)
 					where !staticField.FieldType.ContainsGenericParameters
 					where typeof(Field).IsAssignableFrom(staticField.FieldType)
 					let declaredField = GetDeclaredField(staticField)
-					where declaredField != null
+					where declaredField != null && !declaredField.IsAttached
 					select new { Static = staticField, Declared = declaredField };
 
 				return

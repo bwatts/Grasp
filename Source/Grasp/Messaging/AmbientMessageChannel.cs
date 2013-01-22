@@ -28,7 +28,7 @@ namespace Grasp.Messaging
 
 			if(channel == null)
 			{
-				throw new InvalidOperationException(Resources.AmbientChannelNotConfigured);
+				throw new InvalidOperationException(Resources.AmbientMessageChannelNotConfigured);
 			}
 
 			return channel;

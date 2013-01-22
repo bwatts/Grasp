@@ -28,7 +28,7 @@ namespace Grasp.Semantics.Discovery.Reflection
 			var fields = fieldsByIsAttached[false].Select(field => field.Field).ToMany();
 			var attachedFields = fieldsByIsAttached[true].Select(attachedField => attachedField.Field).ToMany();
 
-			return typeof(Aggregate).IsAssignableFrom(Type)
+			return typeof(IAggregate).IsAssignableFrom(Type)
 				? new AggregateModel(Type, attachedFields, fields)
 				: new NotionModel(Type, attachedFields, fields);
 		}

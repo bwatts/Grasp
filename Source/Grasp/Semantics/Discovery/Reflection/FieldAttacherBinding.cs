@@ -4,7 +4,6 @@ using System.Collections.ObjectModel;
 using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
-using Grasp.Work;
 
 namespace Grasp.Semantics.Discovery.Reflection
 {

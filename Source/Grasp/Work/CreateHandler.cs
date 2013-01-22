@@ -8,17 +8,15 @@ using Grasp.Messaging;
 
 namespace Grasp.Work
 {
-	public sealed class CreateHandler<TCommand, TAggregate> : Notion, IHandler<TCommand>
-		where TCommand : Command
-		where TAggregate : Aggregate
+	public sealed class CreateHandler<TCommand> : Notion, IHandler<TCommand> where TCommand : Command
 	{
-		public static readonly Field<IRepository<TAggregate>> _repositoryField = Field.On<CreateHandler<TCommand, TAggregate>>.For(x => x._repository);
-		public static readonly Field<Func<TCommand, TAggregate>> _aggregateSelectorField = Field.On<CreateHandler<TCommand, TAggregate>>.For(x => x._aggregateSelector);
+		public static readonly Field<IRepository> _repositoryField = Field.On<CreateHandler<TCommand>>.For(x => x._repository);
+		public static readonly Field<Func<TCommand, IAggregate>> _aggregateSelectorField = Field.On<CreateHandler<TCommand>>.For(x => x._aggregateSelector);
 
-		private IRepository<TAggregate> _repository { get { return GetValue(_repositoryField); } set { SetValue(_repositoryField, value); } }
-		private Func<TCommand, TAggregate> _aggregateSelector { get { return GetValue(_aggregateSelectorField); } set { SetValue(_aggregateSelectorField, value); } }
+		private IRepository _repository { get { return GetValue(_repositoryField); } set { SetValue(_repositoryField, value); } }
+		private Func<TCommand, IAggregate> _aggregateSelector { get { return GetValue(_aggregateSelectorField); } set { SetValue(_aggregateSelectorField, value); } }
 
-		public CreateHandler(IRepository<TAggregate> repository, Func<TCommand, TAggregate> aggregateSelector)
+		public CreateHandler(IRepository repository, Func<TCommand, IAggregate> aggregateSelector)
 		{
 			Contract.Requires(repository != null);
 			Contract.Requires(aggregateSelector != null);
@@ -27,11 +25,11 @@ namespace Grasp.Work
 			_aggregateSelector = aggregateSelector;
 		}
 
-		public async Task HandleAsync(TCommand c)
+		public async Task HandleAsync(TCommand command)
 		{
-			var aggregate = _aggregateSelector(c);
+			var aggregate = _aggregateSelector(command);
 
-			await _repository.SaveAsync(aggregate);
+			await _repository.SaveAggregateAsync(aggregate);
 		}
 	}
 }

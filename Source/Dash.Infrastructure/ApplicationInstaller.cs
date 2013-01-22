@@ -25,7 +25,7 @@ namespace Dash.Infrastructure
 
 		public Task ObserveAsync(InstallingEvent e)
 		{
-			return _installationService.InstallApplicationAsync(e.WorkItemId, e.EnvironmentId, e.ApplicationName, e.PackageSourceLocations);
+			return _installationService.InstallApplicationAsync(e.WorkItemName, e.EnvironmentId, e.ApplicationName, e.PackageSourceLocations);
 		}
 	}
 }

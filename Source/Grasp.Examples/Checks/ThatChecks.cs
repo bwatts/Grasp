@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using System.Text;
 using Cloak;
 using FluentAssertions;
+using Grasp.Git;
 using Grasp.Knowledge;
 using Grasp.Knowledge.Base;
 using Grasp.Knowledge.Forms;
@@ -108,7 +109,6 @@ namespace Grasp.Checks
 				Console.WriteLine(@event.BindingsToString());
 			}
 		}
-
 
 
 	}
