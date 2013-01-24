@@ -126,10 +126,6 @@
       <Project>{a931092c-2916-4d20-a26d-d131d98e3069}</Project>
       <Name>Cloak</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Grasp.Raven\Grasp.Raven.csproj">
-      <Project>{c2b15833-e9e0-421e-a0cd-8a2c677baf48}</Project>
-      <Name>Grasp.Raven</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Grasp\Grasp.csproj">
       <Project>{0a728107-2d52-4e6b-b651-793048876837}</Project>
       <Name>Grasp</Name>

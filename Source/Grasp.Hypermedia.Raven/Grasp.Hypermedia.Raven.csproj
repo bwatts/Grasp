@@ -66,10 +66,6 @@
       <Project>{75771c68-b495-400c-b11f-b1221e2af231}</Project>
       <Name>Grasp.Hypermedia</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Grasp.Raven\Grasp.Raven.csproj">
-      <Project>{c2b15833-e9e0-421e-a0cd-8a2c677baf48}</Project>
-      <Name>Grasp.Raven</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Grasp\Grasp.csproj">
       <Project>{0a728107-2d52-4e6b-b651-793048876837}</Project>
       <Name>Grasp</Name>
