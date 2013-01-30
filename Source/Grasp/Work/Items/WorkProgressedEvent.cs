@@ -8,7 +8,7 @@ using Grasp.Messaging;
 
 namespace Grasp.Work.Items
 {
-	public class WorkProgressedEvent : Event
+	public class WorkProgressedEvent : WorkItemEvent
 	{
 		public static readonly Field<Progress> OldProgressField = Field.On<WorkProgressedEvent>.For(x => x.OldProgress);
 		public static readonly Field<Progress> NewProgressField = Field.On<WorkProgressedEvent>.For(x => x.NewProgress);

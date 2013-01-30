@@ -9,7 +9,10 @@ namespace Grasp.Hypermedia.Linq
 {
 	public sealed class MList : MContent
 	{
-		public static readonly Field<int> OrderField = Field.AttachedTo<MContent>.By<MList>.For(() => OrderField);
+		public static readonly Trait<MContent> OrderTrait = typeof(MList).Trait(() => OrderTrait);
+
+		public static readonly Field<int> OrderField = OrderTrait.Field(() => OrderField);
+
 		public static readonly Field<ManyInOrder<MContent>> ItemsField = Field.On<MList>.For(x => x.Items);
 
 		public MList(MClass @class, IEnumerable<MContent> items) : base(@class)

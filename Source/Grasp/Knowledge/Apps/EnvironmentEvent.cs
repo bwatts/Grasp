@@ -5,10 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Grasp.Messaging;
+using Grasp.Work;
 
 namespace Grasp.Knowledge.Apps
 {
-	public abstract class EnvironmentEvent : Event
+	public abstract class EnvironmentEvent : WorkItemEvent
 	{
 		public static readonly Field<FullName> EnvironmentNameField = Field.On<EnvironmentEvent>.For(x => x.EnvironmentName);
 

@@ -8,57 +8,70 @@ using System.Threading.Tasks;
 using Cloak;
 using Cloak.Reflection;
 using Grasp.Checks;
+using Grasp.Work;
 
 namespace Grasp.Semantics.Discovery.Reflection
 {
 	public static class AssemblyBinder
 	{
-		public static ReflectionBinding BindDomainModel(this Assembly assembly, FullName name)
+		public static ReflectionBinding BindDomainModel(this Assembly assembly, FullName name, bool includeGrasp = true, IAssemblyBindingLog log = null)
 		{
 			Contract.Requires(name != null);
 			Contract.Requires(assembly != null);
 
-			return new[] { assembly }.BindDomainModel(name);
+			return Params.Of(assembly).BindDomainModel(name, includeGrasp, log);
 		}
 
-		public static ReflectionBinding BindDomainModel(this IEnumerable<Assembly> assemblies, FullName name)
+		public static ReflectionBinding BindDomainModel(this IEnumerable<Assembly> assemblies, FullName name, bool includeGrasp = true, IAssemblyBindingLog log = null)
 		{
 			Contract.Requires(name != null);
 			Contract.Requires(assemblies != null);
 
-			return new ReflectionBinding(name, GetNamespaceBindings(assemblies));
+			return new ReflectionBinding(name, BindNamespace(assemblies, includeGrasp, log));
 		}
 
-		private static IEnumerable<NamespaceBinding> GetNamespaceBindings(IEnumerable<Assembly> assemblies)
+		private static IEnumerable<NamespaceBinding> BindNamespace(IEnumerable<Assembly> assemblies, bool includeGrasp, IAssemblyBindingLog log)
 		{
-			assemblies = assemblies.Concat(new[] { Assembly.GetExecutingAssembly() }).Distinct();
+			assemblies = GetEffectiveAssemblies(assemblies, includeGrasp);
 
-			return new AssemblyBinderContext().GetNamespaceBindings(assemblies);
+			return new AssemblyBinderContext(log).BindNamespaces(assemblies);
+		}
+
+		private static IEnumerable<Assembly> GetEffectiveAssemblies(IEnumerable<Assembly> assemblies, bool includeGrasp)
+		{
+			var grasp = Params.Of(Assembly.GetExecutingAssembly());
+
+			assemblies = includeGrasp ? assemblies.Concat(grasp) : assemblies.Except(grasp);
+
+			return assemblies.Distinct();
 		}
 
 		private sealed class AssemblyBinderContext
 		{
-			private readonly Func<Type, EnumBinding> _getEnumBinding;
+			private readonly IAssemblyBindingLog _log;
+			private readonly Func<Type, EnumBinding> _bindEnum;
 
-			internal AssemblyBinderContext()
+			internal AssemblyBinderContext(IAssemblyBindingLog log)
 			{
-				_getEnumBinding = type => new EnumBinding(type);
+				_log = log ?? new ConsoleBindingLog();
 
-				_getEnumBinding = _getEnumBinding.Cached();
+				_bindEnum = type => new EnumBinding(type);
+
+				_bindEnum = _bindEnum.Cached();
 			}
 
-			internal IEnumerable<NamespaceBinding> GetNamespaceBindings(IEnumerable<Assembly> assemblies)
+			internal IEnumerable<NamespaceBinding> BindNamespaces(IEnumerable<Assembly> assemblies)
 			{
 				return
 					from assembly in assemblies
 					from type in assembly.GetTypes()
-					where !IgnoreType(type)
+					where !IsIgnored(type)
 					group type by type.Namespace into typesByNamespace
 					orderby typesByNamespace.Key
-					select new NamespaceBinding(typesByNamespace.Key, GetNamespacePartBindings(typesByNamespace));
+					select new NamespaceBinding(typesByNamespace.Key, BindNamespaceParts(typesByNamespace));
 			}
 
-			private static bool IgnoreType(Type type)
+			private static bool IsIgnored(Type type)
 			{
 				return type.FullName.StartsWith("System.Diagnostics.Contracts")
 					|| type.Name.StartsWith("<")
@@ -66,81 +79,133 @@ namespace Grasp.Semantics.Discovery.Reflection
 					|| Check.That(type.Namespace).IsNullOrEmpty();
 			}
 
-			private IEnumerable<NamespacePartBinding> GetNamespacePartBindings(IEnumerable<Type> types)
+			private IEnumerable<NamespacePartBinding> BindNamespaceParts(IEnumerable<Type> types)
 			{
 				return
 					from type in types
 					group type by type.Assembly into typesByAssembly
 					orderby typesByAssembly.Key.FullName
-					select new NamespacePartBinding(typesByAssembly.Key, GetTypeBindings(types));
+					select new NamespacePartBinding(typesByAssembly.Key, BindTypes(types));
 			}
 
-			private IEnumerable<TypeBinding> GetTypeBindings(IEnumerable<Type> types)
+			private IEnumerable<TypeBinding> BindTypes(IEnumerable<Type> types)
 			{
 				return
 					from type in types
-					orderby type.Name
-					let binding = type.IsEnum ? _getEnumBinding(type) : GetTypeBinding(type)
+					let binding =  BindType(type)
 					where binding != null
+					orderby type.Name
 					select binding;
 			}
 
-			private static TypeBinding GetTypeBinding(Type type)
+			private TypeBinding BindType(Type type)
 			{
-				return typeof(Notion).IsAssignableFrom(type) ? GetNotionBinding(type) : GetFieldAttacherBinding(type) as TypeBinding;
-			}
-
-			private static NotionBinding GetNotionBinding(Type type)
-			{
-				return new NotionBinding(type, GetFieldBindings(type));
-			}
-
-			private static FieldAttacherBinding GetFieldAttacherBinding(Type type)
-			{
-				var attachedFieldBindings = GetFieldBindings(type).ToMany();
-
-				var nonAttachedField = attachedFieldBindings.FirstOrDefault(binding => !binding.Field.IsAttached);
-
-				if(nonAttachedField != null)
+				if(type.IsEnum)
 				{
-					throw new GraspException(Resources.NonAttachedFieldOnNonNotionType.FormatInvariant(nonAttachedField.Field.FullName, type));
+					return _bindEnum(type);
 				}
-
-				return !attachedFieldBindings.Any() ? null : new FieldAttacherBinding(type, attachedFieldBindings);
-			}
-
-			private static IEnumerable<FieldBinding> GetFieldBindings(Type type)
-			{
-				var members = type
-					.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.FlattenHierarchy)
-					.Cast<MemberInfo>()
-					.Concat(type.GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.FlattenHierarchy));
-
-				var fields =
-					from staticField in type.GetFields(BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy)
-					where !staticField.FieldType.ContainsGenericParameters
-					where typeof(Field).IsAssignableFrom(staticField.FieldType)
-					let declaredField = GetDeclaredField(staticField)
-					where declaredField != null && !declaredField.IsAttached
-					select new { Static = staticField, Declared = declaredField };
-
-				return
-					from field in fields
-					join member in members on field.Declared.Name equals member.Name into fieldMembers
-					from member in fieldMembers.DefaultIfEmpty()
-					select new FieldBinding(field.Declared, member ?? field.Static);
-			}
-
-			private static Field GetDeclaredField(FieldInfo staticField)
-			{
-				try
+				else if(typeof(Notion).IsAssignableFrom(type))
 				{
-					return (Field) staticField.GetValue(null);
+					return typeof(IAggregate).IsAssignableFrom(type) ? BindAggregate(type) : BindNotion(type);
 				}
-				catch
+				else
 				{
 					return null;
 				}
+			}
+
+			private NotionBinding BindAggregate(Type type)
+			{
+				return BindNotion(type, (traitBindings, fieldBindings) => new AggregateBinding(type, traitBindings, fieldBindings));
+			}
+
+			private NotionBinding BindNotion(Type type)
+			{
+				return BindNotion(type, (traitBindings, fieldBindings) => new NotionBinding(type, traitBindings, fieldBindings));
+			}
+
+			private NotionBinding BindNotion(Type type, Func<IEnumerable<TraitBinding>, IEnumerable<FieldBinding>, NotionBinding> bindingSelector)
+			{
+				var staticFields = GetStaticFields(type);
+
+				var traitBindings = BindTraits(type, staticFields[StaticFieldType.Trait]);
+				var fieldBindings = BindFields(type, staticFields[StaticFieldType.Field]);
+
+				return bindingSelector(traitBindings, fieldBindings);
+			}
+
+			private enum StaticFieldType { Trait, Field, Ignored };
+
+			private static ILookup<StaticFieldType, FieldInfo> GetStaticFields(Type type)
+			{
+				return type
+					.GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static | BindingFlags.FlattenHierarchy)
+					.Where(staticField => !staticField.FieldType.ContainsGenericParameters)
+					.ToLookup(staticField =>
+					{
+						if(typeof(Trait).IsAssignableFrom(staticField.FieldType))
+						{
+							return StaticFieldType.Trait;
+						}
+						else if(typeof(Field).IsAssignableFrom(staticField.FieldType))
+						{
+							return StaticFieldType.Field;
+						}
+						else
+						{
+							return StaticFieldType.Ignored;
+						}
+					});
+			}
+
+			private IEnumerable<TraitBinding> BindTraits(Type type, IEnumerable<FieldInfo> declarations)
+			{
+				return
+					from declaration in declarations
+					let declaredTrait = GetDeclared<Trait>(declaration, exception => _log.OnTraitDeclarationException(declaration, exception))
+					where declaredTrait != null
+					select new TraitBinding(declaredTrait, declaration);
+			}
+
+			private IEnumerable<FieldBinding> BindFields(Type type, IEnumerable<FieldInfo> declarations)
+			{
+				return
+					from declaration in declarations
+					let declaredField = GetDeclared<Field>(declaration, exception => _log.OnFieldDeclarationException(declaration, exception))
+					where declaredField != null && declaredField.Trait == null
+					join member in GetInstanceMembers(type) on declaredField.Name equals member.Name into fieldMembers
+					from fieldMember in fieldMembers.DefaultIfEmpty()
+					select new FieldBinding(declaredField, fieldMember ?? declaration);
+			}
+
+			private static T GetDeclared<T>(FieldInfo declaration, Action<Exception> logException)
+			{
+				try
+				{
+					var declaredField = (T) declaration.GetValue(null);
+
+					if(declaredField == null)
+					{
+						throw new NullReferenceException();
+					}
+
+					return declaredField;
+				}
+				catch(Exception exception)
+				{
+					// TODO: Determine how to access declarations of fields of generic types (i.e. ConversionResult`1)
+
+					logException(exception);
+
+					return default(T);
+				}
+			}
+
+			private static IEnumerable<MemberInfo> GetInstanceMembers(Type type)
+			{
+				var instanceMembersFlags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.FlattenHierarchy;
+
+				return type.GetProperties(instanceMembersFlags).Cast<MemberInfo>().Concat(type.GetFields(instanceMembersFlags));
 			}
 		}
 	}

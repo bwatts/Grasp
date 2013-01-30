@@ -5,10 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Grasp.Messaging;
+using Grasp.Work;
 
 namespace Grasp.Knowledge.Base
 {
-	public abstract class ArticleEvent : Event
+	public abstract class ArticleEvent : WorkItemEvent
 	{
 		public static readonly Field<FullName> ArticleNameField = Field.On<ArticleEvent>.For(x => x.ArticleName);
 

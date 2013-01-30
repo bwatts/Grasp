@@ -8,7 +8,9 @@ namespace Grasp
 {
 	public static class ItemStack
 	{
-		public static readonly Field<Notion> ParentField = Field.AttachedTo<Notion>.By.Static(typeof(ItemStack)).For(() => ParentField);
+		public static readonly Trait ParentTrait = Trait.DeclaredBy(typeof(ItemStack));
+
+		public static readonly Field<Notion> ParentField = ParentTrait.Field(() => ParentField);
 
 		public static T GetParent<T>(this IStackable<T> item) where T : Notion, IStackable<T>
 		{

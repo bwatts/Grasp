@@ -9,29 +9,42 @@ namespace Grasp.Messaging
 	/// <summary>
 	/// A message representing an occurrence on a timeline
 	/// </summary>
-	public abstract class Event : Message
+	public class Event : Message
 	{
-		public static readonly Field<FullName> WorkItemNameField = Field.On<Event>.For(x => x.WorkItemName);
+		public static readonly Field<DateTime> WhenField = Field.On<Event>.For(x => x.When);
+
+		// TODO: Unoccurred? Really?
 
 		/// <summary>
-		/// Initializes an event with the specified work item identifier and date/time
+		/// The <see cref="DateTime"/> representing an event which has not occurred
 		/// </summary>
-		/// <param name="workItemName">The full name of the work item associated with this event (defaults to <see cref="FullName.Anonymous"/>)</param>
-		/// <param name="when">The date and time at which the event occurred (defaults to the time context specified by <see cref="Lifetime"/>)</param>
-		protected Event(FullName workItemName = default(FullName), DateTime? when = null)
+		public static readonly DateTime UnoccurredDateTime = DateTime.MinValue;
+
+		/// <summary>
+		/// An event which has not occurred
+		/// </summary>
+		public static readonly Event Unoccurred = new Event(UnoccurredDateTime);
+
+		/// <summary>
+		/// Initializes an event with the specified date and time
+		/// </summary>
+		/// <param name="when">The date and time at which the event occurred (defaults to the time context specified by <see cref="Lifetime.TimeContextTrait"/>)</param>
+		protected Event(DateTime? when = null)
 		{
-			WorkItemName = workItemName ?? FullName.Anonymous;
 			When = when ?? this.Now();
 		}
 
 		/// <summary>
-		/// Gets the full name of the work item associated with this event (if any)
+		/// Gets the date and time at which this event occurred
 		/// </summary>
-		public FullName WorkItemName { get { return GetValue(WorkItemNameField); } private set { SetValue(WorkItemNameField, value); } }
+		public DateTime When { get { return GetValue(WhenField); } private set { SetValue(WhenField, value); } }
 
 		/// <summary>
-		/// Gets the date and time at which the event occurred
+		/// Gets whether this event has occurred, defined as <see cref="When"/> not being equal to <see cref="UnoccurredDateTime"/>
 		/// </summary>
-		public DateTime When { get { return GetValue(Lifetime.WhenCreatedField); } private set { SetValue(Lifetime.WhenCreatedField, value); } }
+		public bool HasOccurred
+		{
+			get { return When != UnoccurredDateTime; }
+		}
 	}
 }

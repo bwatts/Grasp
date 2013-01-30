@@ -81,7 +81,7 @@ namespace Grasp.Json
 
 				BindInherentFields();
 
-				BindAttachedFields();
+				BindTraitFields();
 
 				return _bindings;
 			}
@@ -97,9 +97,13 @@ namespace Grasp.Json
 
 				if(Check.That(id).IsNotNullOrEmpty())
 				{
-					var persistentNotionType = _notionModel.Type
-						.GetInheritanceChain()
-						.FirstOrDefault(type => type.IsAssignableToGenericDefinition(typeof(PersistentNotion<>)));
+					throw new NotImplementedException("TODO: Determine how to get field type for conversion");
+
+					var persistentNotionType = (Type) null;
+
+					//var persistentNotionType = _notionModel.Type
+					//	.GetInheritanceChain()
+					//	.FirstOrDefault(type => type.IsAssignableToGenericDefinition(typeof(PersistentNotion<>)));
 
 					if(persistentNotionType != null)
 					{
@@ -115,9 +119,9 @@ namespace Grasp.Json
 				BindFields(_notionModel.Fields, field => field.Name);
 			}
 
-			private void BindAttachedFields()
+			private void BindTraitFields()
 			{
-				BindFields(_notionModel.GetAttachableFields(_domainModel), attachedField => attachedField.FullName);
+				BindFields(_notionModel.GetTraitFields(_domainModel), traitField => traitField.FullName);
 			}
 
 			private void BindFields(IEnumerable<Field> fields, Func<Field, string> propertyNameSelector)

@@ -11,9 +11,10 @@ namespace Grasp.Persistence
 	/// </summary>
 	public static class PersistentId
 	{
-		/// <summary>
-		/// The persistent identifier associated with <see cref="Notion"/> instances
-		/// </summary>
-		public static readonly Field<object> ValueField = Field.AttachedTo<Notion>.By.Static(typeof(PersistentId)).For(() => ValueField);
+		public static readonly Trait ValueTrait = Trait.DeclaredBy(typeof(PersistentId));
+
+		public static readonly Field<object> ValueField = ValueTrait.Field(() => ValueField);
+
+		public static readonly object Local = new object();
 	}
 }

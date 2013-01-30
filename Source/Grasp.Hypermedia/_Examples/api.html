@@ -1,20 +1,33 @@
 ﻿<html>
 	<head>
-		<title>Slate Hypermedia API</title>
+		<title>Dash Hypermedia API</title>
 		<base href="http://localhost:81" />
 		<link rel="self" href="" />
 		<link rel="grasp:media-type" class="api" href="api/media/application%2Fvnd.grasp.api%2Bhtml" />
 	</head>
 	<body>
-		<section class="entity-set">
-			<a rel="grasp:entity-list" class="forms" href="forms" />
-			<a rel="grasp:entity" class="form" href="forms/{id}" />
-			<form id="start" action="forms" method="post">
-				<input name="name" type="text" />
-			</form>
-		</section>
-		<section class="entity-set">
-			<a rel="grasp:entity" class="work" href="work/{id}" />
-		</section>
+		<article class="app">
+			<aside class="lifetime">
+				<span class="when-created">2012-12-2T018:37:52Z</span>
+				<span class="when-modified">2012-12-2T018:37:52Z</span>
+				<a rel="grasp:history" class="api" href="?history" />
+			</aside>
+			<section class="details">
+				<span class="subtitle">Helping software talk to Dash since 2013</span>
+				<span class="description">Exposes a Dash instance as a hypermedia API</span>
+			</section>
+			<section class="entity-set">
+				<a rel="grasp:entity-list" class="environments" href="environments" />
+				<a rel="grasp:entity" class="environment" href="environments/{name}" />
+			</section>
+			<section class="entity-set">
+				<a rel="grasp:entity-list" class="work" href="work" />
+				<a rel="grasp:entity" class="work" href="work/{name}" />
+			</section>
+			<section class="entity-set">
+				<a rel="grasp:entity-list" class="users" href="users" />
+				<a rel="grasp:entity" class="user" href="users/{name}" />
+			</section>
+		</article>
 	</body>
 </html>

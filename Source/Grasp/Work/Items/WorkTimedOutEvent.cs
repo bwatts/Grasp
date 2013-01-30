@@ -9,7 +9,7 @@ using Grasp.Messaging;
 
 namespace Grasp.Work.Items
 {
-	public class WorkTimedOutEvent : Event
+	public class WorkTimedOutEvent : WorkItemEvent
 	{
 		public static readonly Field<TimeSpan> TimeoutField = Field.On<WorkTimedOutEvent>.For(x => x.Timeout);
 		public static readonly Field<TimeSpan> AgeField = Field.On<WorkTimedOutEvent>.For(x => x.Age);

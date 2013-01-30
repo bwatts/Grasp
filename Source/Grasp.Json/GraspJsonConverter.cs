@@ -11,13 +11,13 @@ using Newtonsoft.Json.Linq;
 
 namespace Grasp.Json
 {
-	public class NotionJsonConverter : JsonConverter
+	public class GraspJsonConverter : JsonConverter
 	{
 		private readonly IExcludedFieldSet _excludedFieldSet;
 		private readonly IJsonStateFactory _stateFactory;
 		private readonly INotionActivator _activator;
 
-		public NotionJsonConverter(IExcludedFieldSet excludedFieldSet, IJsonStateFactory stateFactory, INotionActivator activator)
+		public GraspJsonConverter(IExcludedFieldSet excludedFieldSet, IJsonStateFactory stateFactory, INotionActivator activator)
 		{
 			Contract.Requires(excludedFieldSet != null);
 			Contract.Requires(stateFactory != null);
@@ -48,6 +48,25 @@ namespace Grasp.Json
 			{
 				GetNotionObject(notion).WriteTo(writer, serializer.Converters.ToArray());
 			}
+		}
+
+		private JObject GetNotionObject(Notion notion)
+		{
+			var type = notion.GetType();
+
+			return new JObject(
+				new JProperty(JsonState.TypeKey, type.FullName + ", " + type.Assembly.GetName().Name),
+				GetJsonProperties(notion));
+		}
+
+		private IEnumerable<JProperty> GetJsonProperties(IFieldContext notion)
+		{
+			return
+				from binding in notion.GetBindings()
+				let propertyName = GetPropertyName(binding)
+				where propertyName != null
+				orderby binding.Field.Trait != null, binding.Field.IsPlural, propertyName
+				select new JProperty(propertyName, GetJsonValue(binding.Value));
 		}
 
 		private object GetJsonValue(object value)
@@ -91,25 +110,6 @@ namespace Grasp.Json
 			}
 		}
 
-		private JObject GetNotionObject(Notion notion)
-		{
-			var type = notion.GetType();
-
-			return new JObject(
-				new JProperty(JsonState.TypeKey, type.FullName + ", " + type.Assembly.GetName().Name),
-				GetJsonProperties(notion));
-		}
-
-		private IEnumerable<JProperty> GetJsonProperties(IFieldContext notion)
-		{
-			return
-				from binding in notion.GetBindings()
-				let propertyName = GetPropertyName(binding)
-				where propertyName != null
-				orderby binding.Field.IsAttached, binding.Field.IsPlural, propertyName
-				select new JProperty(propertyName, GetJsonValue(binding.Value));
-		}
-
 		private string GetPropertyName(FieldBinding binding)
 		{
 			if(_excludedFieldSet.IsExcluded(binding.Field))
@@ -120,7 +120,7 @@ namespace Grasp.Json
 			{
 				return null;
 			}
-			else if(binding.Field.IsAttached)
+			else if(binding.Field.Trait != null)
 			{
 				return binding.Field.FullName;
 			}

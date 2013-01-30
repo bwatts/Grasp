@@ -49,7 +49,7 @@ namespace Grasp.Persistence
 		{
 			var notion = ActivateNotion(type, state);
 
-			Lifetime.WhenReconstitutedField.Set(notion, this.Now());
+			Lifetime.ReconstitutedEventField.Set(notion, this.Now());
 
 			return notion;
 		}

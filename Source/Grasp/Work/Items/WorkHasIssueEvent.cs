@@ -9,7 +9,7 @@ using Grasp.Messaging;
 
 namespace Grasp.Work.Items
 {
-	public class WorkHasIssueEvent : Event
+	public class WorkHasIssueEvent : WorkItemEvent
 	{
 		public static readonly Field<Issue> IssueField = Field.On<WorkHasIssueEvent>.For(x => x.Issue);
 

@@ -17,7 +17,6 @@ namespace Grasp
 	/// </summary>
 	public class Field
 	{
-		#region Factory
 		/// <summary>
 		/// Specify the class which declares the field
 		/// </summary>
@@ -28,146 +27,40 @@ namespace Grasp
 			/// Specify the instance property: x => x.TheProperty
 			/// </summary>
 			/// <typeparam name="TValue">The type of the property's value</typeparam>
-			/// <param name="getProperty">A lambda expression which accesses the instance property backed by the field</param>
+			/// <param name="propertyGetter">A lambda expression which accesses the instance property backed by the field</param>
 			/// <returns>A field which backs the specified instance member</returns>
 			/// <exception cref="ArgumentException">
 			/// Thrown if the expression does not access a property, -or- if the property is not declared by <typeparamref name="TOwner"/>
 			/// </exception>
-			public static Field<TValue> For<TValue>(Expression<Func<TOwner, TValue>> getProperty)
+			public static Field<TValue> For<TValue>(Expression<Func<TOwner, TValue>> propertyGetter)
 			{
-				Contract.Requires(getProperty != null);
+				Contract.Requires(propertyGetter != null);
 
-				var member = getProperty.GetMemberInfo();
-				var property = member as PropertyInfo;
-
-				if(property == null)
-				{
-					throw new ArgumentException(Resources.MemberIsNotProperty.FormatInvariant(member.Name), "getProperty");
-				}
+				var property = propertyGetter.GetPropertyInfo();
 
 				if(property.DeclaringType != typeof(TOwner))
 				{
-					throw new ArgumentException(Resources.MemberNotDeclaredOnOwningType.FormatInvariant(property.Name, typeof(TOwner)), "getProperty");
+					throw new ArgumentException(Resources.PropertyNotDeclaredOnOwningType.FormatInvariant(property.Name, typeof(TOwner)), "propertyGetter");
 				}
 
-				return new Field<TValue>(typeof(TOwner), typeof(TOwner), property.Name, false);
+				return new Field<TValue>(typeof(TOwner), typeof(TOwner), property.Name, trait: null);
 			}
 		}
 
 		/// <summary>
-		/// Specify the class to which the field is attached
+		/// Represents a field which has not been set in a particular context
+		/// 
+		/// TODO: Teach field declarations about this value
 		/// </summary>
-		/// <typeparam name="TTarget">The class to which the field is attached</typeparam>
-		public static class AttachedTo<TTarget> where TTarget : Notion
-		{
-			/// <summary>
-			/// Specify the static class which declares and owns the attached field
-			/// </summary>
-			public static class By
-			{
-				/// <summary>
-				/// Specify the static class which declares and owns the attached field (static classes cannot be type arguments)
-				/// </summary>
-				/// <param name="ownerType">The static class which declares and owns the attached field</param>
-				/// <returns>A builder to configure the backing field</returns>
-				public static Builder Static(Type ownerType)
-				{
-					return new Builder(ownerType);
-				}
-
-				/// <summary>
-				/// Configures the backing field of an attached field
-				/// </summary>
-				public sealed class Builder
-				{
-					internal Builder(Type ownerType)
-					{
-						OwnerType = ownerType;
-					}
-
-					/// <summary>
-					/// Gets the class which declares and owns the attached field
-					/// </summary>
-					public Type OwnerType { get; private set; }
-
-					/// <summary>
-					/// Specify the attached field being defined: () => TheField
-					/// </summary>
-					/// <typeparam name="TValue">The type of the attached field's value</typeparam>
-					/// <param name="getField">A call which accesses the declared field</param>
-					/// <returns>An attached field defined by the declared field</returns>
-					/// <exception cref="ArgumentException">
-					/// Thrown if <paramref name="getField"/> does not access a static field, -or- the static field is not declared by <see cref="OwnerType"/>,
-					/// -or- the static field's name does not end with the "Field" suffix
-					/// </exception>
-					public Field<TValue> For<TValue>(Expression<Func<Field<TValue>>> getField)
-					{
-						Contract.Requires(getField != null);
-
-						var memberAccess = getField.Body as MemberExpression;
-
-						var field = memberAccess == null ? null : memberAccess.Member as FieldInfo;
-
-						if(field == null)
-						{
-							throw new ArgumentException(Resources.GetterDoesNotAccessField.FormatInvariant(getField));
-						}
-
-						if(!field.IsStatic)
-						{
-							throw new ArgumentException(Resources.DeclaringFieldNotStatic.FormatInvariant(field.Name, OwnerType), "getField");
-						}
-
-						if(field.DeclaringType != OwnerType)
-						{
-							throw new ArgumentException(Resources.DeclaringFieldNotDeclaredOnOwningType.FormatInvariant(field.Name, OwnerType), "getField");
-						}
-
-						if(!field.Name.EndsWith(Resources.FieldSuffix))
-						{
-							throw new ArgumentException(Resources.DeclaringFieldNameDoesNotEndWithSuffix.FormatInvariant(field.Name, Resources.FieldSuffix), "getField");
-						}
-
-						var fieldName = field.Name.Substring(0, field.Name.Length - Resources.FieldSuffix.Length);
-
-						return new Field<TValue>(typeof(TTarget), OwnerType, fieldName, true);
-					}
-				}
-			}
-
-			/// <summary>
-			/// Specify the class which declares and owns the attached field
-			/// </summary>
-			/// <typeparam name="TOwner">The class which declares and owns the attached field</typeparam>
-			public static class By<TOwner>
-			{
-				/// <summary>
-				/// Specify the attached field being defined: () => TheField
-				/// </summary>
-				/// <typeparam name="TValue">The type of the attached field's value</typeparam>
-				/// <param name="getField">A lambda expression which accesses the attached field</param>
-				/// <returns>An attached field defined by the declared field</returns>
-				/// <exception cref="ArgumentException">
-				/// Thrown if <paramref name="getField"/> does not access a static field, -or- the static field is not declared by <see cref="OwnerType"/>,
-				/// -or- the static field's name does not end with the "Field" suffix
-				/// </exception>
-				public static Field<TValue> For<TValue>(Expression<Func<Field<TValue>>> getField)
-				{
-					return By.Static(typeof(TOwner)).For(getField);
-				}
-			}
-		}
-		#endregion
-
 		public static readonly object UnsetValue = new object();
 
-		internal Field(Type targetType, Type ownerType, string name, Type valueType, bool isAttached)
+		internal Field(Type targetType, Type ownerType, string name, Type valueType, Trait trait)
 		{
 			TargetType = targetType;
 			OwnerType = ownerType;
 			Name = name;
 			ValueType = valueType;
-			IsAttached = isAttached;
+			Trait = trait;
 
 			AsMany = new ManyDescriptor(this);
 			AsNonMany = new NonManyDescriptor(this, AsMany.IsMany);
@@ -202,9 +95,9 @@ namespace Grasp
 		public Type ValueType { get; private set; }
 
 		/// <summary>
-		/// Gets whether this field is attached to objects other than the declaring type
+		/// Gets the trait (if any) which declared this field
 		/// </summary>
-		public bool IsAttached { get; private set; }
+		public Trait Trait { get; private set; }
 
 		/// <summary>
 		/// Gets whether null can be assigned to <see cref="ValueType"/>
@@ -238,7 +131,7 @@ namespace Grasp
 		/// <returns>A textual representation of this field</returns>
 		public override string ToString()
 		{
-			return Resources.Field.FormatInvariant(IsAttached ? FullName : Name, ValueType);
+			return Resources.Field.FormatInvariant(Trait != null ? FullName : Name, ValueType);
 		}
 
 		public object Get(Notion notion)
@@ -388,7 +281,7 @@ namespace Grasp
 	/// <typeparam name="TValue">The type of value represented by this field</typeparam>
 	public sealed class Field<TValue> : Field
 	{
-		internal Field(Type targetType, Type ownerType, string name, bool isAttached) : base(targetType, ownerType, name, typeof(TValue), isAttached)
+		internal Field(Type targetType, Type ownerType, string name, Trait trait) : base(targetType, ownerType, name, typeof(TValue), trait)
 		{}
 
 		public new TValue Get(Notion notion)

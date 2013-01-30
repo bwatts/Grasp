@@ -8,7 +8,7 @@ using Grasp.Messaging;
 
 namespace Grasp.Work.Items
 {
-	public class WorkPolledEvent : Event
+	public class WorkPolledEvent : WorkItemEvent
 	{
 		public static readonly Field<Progress> ProgressField = Field.On<WorkPolledEvent>.For(x => x.Progress);
 		public static readonly Field<TimeSpan> TimeBeforeTimeoutField = Field.On<WorkPolledEvent>.For(x => x.TimeBeforeTimeout);

@@ -92,13 +92,12 @@ namespace Grasp
 		}
 		#endregion
 
+		public static readonly Trait NameTrait = Trait.DeclaredBy<FullName>();
+
+		public static readonly Field<FullName> NameField = NameTrait.Field(() => NameField);
+
 		public static readonly Field<Namespace> NamespaceField = Field.On<FullName>.For(x => x.Namespace);
 		public static readonly Field<Identifier> IdentifierField = Field.On<FullName>.For(x => x.Identifier);
-
-		/// <summary>
-		/// Attaches instances of <see cref="FullName"/> to instances of <see cref="Notion"/>, uniquely identifying them within their effective contexts
-		/// </summary>
-		public static readonly Field<FullName> NameField = Field.AttachedTo<Notion>.By<FullName>.For(() => NameField);
 
 		// TODO: When fields support defaults, set the default value of NameField to Anonymous
 

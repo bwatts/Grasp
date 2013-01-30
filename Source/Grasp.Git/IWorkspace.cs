@@ -47,8 +47,8 @@ namespace Grasp.Git
 
 		Task IWorkspace.CommitToRepositoryAsync(string message)
 		{
-			Contract.Ensures(Contract.Result<Task>() != null);
 			Contract.Requires(message != null);
+			Contract.Ensures(Contract.Result<Task>() != null);
 
 			return null;
 		}

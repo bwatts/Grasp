@@ -172,14 +172,17 @@
     <value>(?!000)\d{3,4}$</value>
     <comment>regexlib.com</comment>
   </data>
-  <data name="DeclaringFieldNameDoesNotEndWithSuffix" xml:space="preserve">
-    <value>Declaring field "{0}" does not end with "{1}"</value>
+  <data name="DeclaredFieldNameDoesNotHaveSuffix" xml:space="preserve">
+    <value>Declared field {0}.{1} does not have suffix {2}</value>
   </data>
-  <data name="DeclaringFieldNotDeclaredOnOwningType" xml:space="preserve">
-    <value>Declaring field "{0}" is not declared by owning type {1}</value>
+  <data name="DeclaredFieldNotOnTraitDeclaringType" xml:space="preserve">
+    <value>Declared field {0} is not declared by trait declaring type {1}</value>
   </data>
-  <data name="DeclaringFieldNotStatic" xml:space="preserve">
-    <value>Declaring field "{0}" is not static</value>
+  <data name="DeclaredFieldNotStatic" xml:space="preserve">
+    <value>Declared field {0}.{1} is not static</value>
+  </data>
+  <data name="DuplicateTraitField" xml:space="preserve">
+    <value>Duplicate trait field {0}</value>
   </data>
   <data name="Field" xml:space="preserve">
     <value>{0} ({1})</value>
@@ -192,9 +195,6 @@
   </data>
   <data name="FullName" xml:space="preserve">
     <value>{0}.{1}</value>
-  </data>
-  <data name="GetterDoesNotAccessField" xml:space="preserve">
-    <value>Getter {0} does not access a field</value>
   </data>
   <data name="InvalidCalculationResultType" xml:space="preserve">
     <value>Result type {0} of calculation "{1}" is not assignable to type {2} of variable {3}</value>
@@ -232,20 +232,11 @@
   <data name="ManyLimit" xml:space="preserve">
     <value>*</value>
   </data>
-  <data name="MemberIsNotProperty" xml:space="preserve">
-    <value>Member "{0}" is not a property</value>
-  </data>
-  <data name="MemberNotDeclaredOnOwningType" xml:space="preserve">
-    <value>Member "{0}" is not declared on owning type {1}</value>
-  </data>
   <data name="MemberTypeNotSupported" xml:space="preserve">
     <value>Member type {0} is not supported</value>
   </data>
   <data name="NoAggregateWithName" xml:space="preserve">
     <value>There is no aggregate with name "{0}"</value>
-  </data>
-  <data name="NonAttachedFieldOnNonNotionType" xml:space="preserve">
-    <value>Non-attached field "{0}" is not allowed on the non-Notion type {1}</value>
   </data>
   <data name="NotBinaryType" xml:space="preserve">
     <value>Rule type {0} is not a binary type</value>
@@ -256,6 +247,9 @@
   <data name="PhoneNumberPattern" xml:space="preserve">
     <value>^(?:\([2-9]\d{2}\)\ ?|[2-9]\d{2}(?:\-?|\ ?))[2-9]\d{2}[- ]?\d{4}$</value>
     <comment>regexlib.com</comment>
+  </data>
+  <data name="PropertyNotDeclaredOnOwningType" xml:space="preserve">
+    <value>Property {0} is not declared on owning type {1}</value>
   </data>
   <data name="QualifiedNotion" xml:space="preserve">
     <value>{0} [{1}]</value>
@@ -278,6 +272,9 @@
   </data>
   <data name="TemplatesNotAllowed" xml:space="preserve">
     <value>This URI cannot have templates: "{0}"</value>
+  </data>
+  <data name="TraitFieldNotInitialized" xml:space="preserve">
+    <value>One or more fields of the trait are null. Trait initializers must occur after all associated field initializers.</value>
   </data>
   <data name="UnspecifiedLimit" xml:space="preserve">
     <value>Unspecified</value>

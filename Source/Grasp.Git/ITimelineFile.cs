@@ -14,7 +14,7 @@ namespace Grasp.Git
 	{
 		Task AppendEventsAsync(IEnumerable<Event> events);
 
-		Task<List<Event>> ReadEventsAsync();
+		Task<IEnumerable<Event>> ReadEventsAsync();
 	}
 
 	[ContractClassFor(typeof(ITimelineFile))]
@@ -28,9 +28,9 @@ namespace Grasp.Git
 			return null;
 		}
 
-		Task<List<Event>> ITimelineFile.ReadEventsAsync()
+		Task<IEnumerable<Event>> ITimelineFile.ReadEventsAsync()
 		{
-			Contract.Ensures(Contract.Result<Task<List<Event>>>() != null);
+			Contract.Ensures(Contract.Result<Task<IEnumerable<Event>>>() != null);
 
 			return null;
 		}

@@ -137,6 +137,16 @@
     <Compile Include="Knowledge\Apps\StartEnvironmentCommand.cs" />
     <Compile Include="Persistence\ExcludedFieldSet.cs" />
     <Compile Include="Persistence\IExcludedFieldSet.cs" />
+    <Compile Include="Persistence\IPersistent.cs" />
+    <Compile Include="Semantics\ClassModel.cs" />
+    <Compile Include="Semantics\Discovery\Reflection\AggregateBinding.cs" />
+    <Compile Include="Semantics\Discovery\Reflection\ConsoleBindingLog.cs" />
+    <Compile Include="Semantics\Discovery\Reflection\ClassBinding.cs" />
+    <Compile Include="Semantics\Discovery\Reflection\IAssemblyBindingLog.cs" />
+    <Compile Include="Semantics\Discovery\Reflection\MetatadataBinding.cs" />
+    <Compile Include="Semantics\Discovery\Reflection\TraitBinding.cs" />
+    <Compile Include="Semantics\TraitModel.cs" />
+    <Compile Include="Trait.cs" />
     <Compile Include="Work\Issue.cs" />
     <Compile Include="Work\Items\WorkHasIssueEvent.cs" />
     <Compile Include="Work\Items\ReportIssueCommand.cs" />
@@ -385,8 +395,6 @@
     <Compile Include="Messaging\Command.cs" />
     <Compile Include="QualifiedNotion.cs" />
     <Compile Include="Semantics\AggregateModel.cs" />
-    <Compile Include="Semantics\FieldAttacherModel.cs" />
-    <Compile Include="Semantics\Discovery\Reflection\FieldAttacherBinding.cs" />
     <Compile Include="Work\IAggregate.cs" />
     <Compile Include="Work\WorkException.cs" />
     <Compile Include="Work\WorkHandler.cs" />
@@ -409,7 +417,6 @@
     <Compile Include="Lists\ListView.cs" />
     <Compile Include="Lists\ListViewKey.cs" />
     <Compile Include="Persistence\INotionState.cs" />
-    <Compile Include="Persistence\PersistentNotion.cs" />
     <Compile Include="Messaging\Event.cs" />
     <Compile Include="GraspException.cs" />
     <Compile Include="IStackable.cs" />
@@ -458,6 +465,7 @@
     <Compile Include="Semantics\ReferenceModel.cs" />
     <Compile Include="Semantics\TwoWayRelationshipModel.cs" />
     <Compile Include="Semantics\TypeModel.cs" />
+    <Compile Include="Work\WorkItemEvent.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources.resx">

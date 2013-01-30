@@ -9,7 +9,7 @@ using Grasp.Messaging;
 
 namespace Grasp.Work.Items
 {
-	public class WorkStartedEvent : Event
+	public class WorkStartedEvent : WorkItemEvent
 	{
 		public static readonly Field<string> DescriptionField = Field.On<WorkStartedEvent>.For(x => x.Description);
 		public static readonly Field<TimeSpan> PollIntervalField = Field.On<WorkStartedEvent>.For(x => x.PollInterval);

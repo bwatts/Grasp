@@ -48,7 +48,7 @@
     <Compile Include="IJsonStateFactory.cs" />
     <Compile Include="JsonState.cs" />
     <Compile Include="JsonStateFactory.cs" />
-    <Compile Include="NotionJsonConverter.cs" />
+    <Compile Include="GraspJsonConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

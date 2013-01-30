@@ -13,7 +13,7 @@ namespace Grasp.Persistence
 		public bool IsExcluded(Field field)
 		{
 			return field == PersistentId.ValueField
-				|| field == Lifetime.WhenReconstitutedField
+				|| field == Lifetime.ReconstitutedEventField
 				|| field == Topic._newEventsField
 				|| field == Message.ChannelField;
 		}

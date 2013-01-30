@@ -8,29 +8,32 @@ using Grasp.Work;
 
 namespace Grasp.Semantics.Discovery.Reflection
 {
-	public class NotionBinding : TypeBinding
+	public class NotionBinding : ClassBinding
 	{
 		public static readonly Field<Many<FieldBinding>> FieldBindingsField = Field.On<NotionBinding>.For(x => x.FieldBindings);
 
-		public NotionBinding(Type type, IEnumerable<FieldBinding> fieldBindings) : base(type)
+		public NotionBinding(Type type, IEnumerable<TraitBinding> traitBindings = null, IEnumerable<FieldBinding> fieldBindings = null) : base(type, traitBindings)
 		{
-			Contract.Requires(fieldBindings != null);
+			Contract.Requires(typeof(Notion).IsAssignableFrom(type));
 
-			FieldBindings = fieldBindings.ToMany();
+			FieldBindings = (fieldBindings ?? Enumerable.Empty<FieldBinding>()).ToMany();
 		}
 
 		public Many<FieldBinding> FieldBindings { get { return GetValue(FieldBindingsField); } private set { SetValue(FieldBindingsField, value); } }
 
-		public override TypeModel GetTypeModel()
+		protected override ClassModel GetClassModel(IEnumerable<Trait> traits)
 		{
-			var fieldsByIsAttached = FieldBindings.ToLookup(binding => binding.Field.IsAttached);
+			return GetNotionModel(traits, GetFields());
+		}
 
-			var fields = fieldsByIsAttached[false].Select(field => field.Field).ToMany();
-			var attachedFields = fieldsByIsAttached[true].Select(attachedField => attachedField.Field).ToMany();
+		protected virtual NotionModel GetNotionModel(IEnumerable<Trait> traits, IEnumerable<Field> fields)
+		{
+			return new NotionModel(Type, fields.ToMany(), traits);
+		}
 
-			return typeof(IAggregate).IsAssignableFrom(Type)
-				? new AggregateModel(Type, attachedFields, fields)
-				: new NotionModel(Type, attachedFields, fields);
+		private Many<Field> GetFields()
+		{
+			return FieldBindings.Select(fieldBinding => fieldBinding.Field).Where(field => field.Trait == null).ToMany();
 		}
 	}
 }

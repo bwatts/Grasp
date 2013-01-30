@@ -42,7 +42,9 @@ namespace Grasp.Git.Examples
 				typeof(GitRepository).Assembly.BindDomainModel(new FullName("Grasp.Git")).BindDomainModel(),
 				() => new IsolatedNotionContext());
 
-			var jsonConverter = new NotionJsonConverter(new ExcludedFieldSet(), new JsonStateFactory(new FieldValueConverter()), activator);
+			var jsonConverter = new GraspJsonConverter(new ExcludedFieldSet(), new JsonStateFactory(new FieldValueConverter()), activator);
+
+			var jsonSerializer = new JsonSerializer { Formatting = Formatting.Indented };
 
 
 
@@ -54,7 +56,10 @@ namespace Grasp.Git.Examples
 			var gitRepository = new GitRepository(
 				new Workspace(
 					@"D:\My Documents\Projects\GitHub\Acme.Development\",
-					new JsonEventFormat(jsonConverter),
+					new EventFileFormat(new EventJsonFormat(
+						jsonConverter,
+						jsonSerializer,
+						stream => new JsonTextWriter(new StreamWriter(stream)) { Formatting = Formatting.Indented })),
 					new Repository(@"D:\My Documents\Projects\GitHub\Acme.Development\.git")),
 				activator);
 
@@ -64,24 +69,39 @@ namespace Grasp.Git.Examples
 
 			IAggregate article = new Article(new FullName("WorkItem1"), new FullName("Acme.Inventory"), "Acme Inventory Worksheet");
 
-			article.HandleCommand(new AddSectionCommand(new FullName("WorkItem2"), new FullName("Acme.Inventory"), new FullName("Computers")));
-			article.HandleCommand(new AddSectionCommand(new FullName("WorkItem2"), new FullName("Acme.Inventory"), new FullName("Desks")));
-			article.HandleCommand(new AddTagCommand(new FullName("WorkItem2"), new FullName("Acme.Inventory"), new FullName("Resources")));
+			gitRepository.SaveAggregateAsync(article).Wait();
 
+			var loadTask = gitRepository.LoadAggregateAsync(typeof(Article), new FullName("Acme.Inventory"));
+			loadTask.Wait();
+			article = loadTask.Result;
+
+
+
+			article.HandleCommand(new AddSectionCommand(new FullName("WorkItem2"), new FullName("Acme.Inventory"), new FullName("Computers")));
+
+			gitRepository.SaveAggregateAsync(article).Wait();
+
+			loadTask = gitRepository.LoadAggregateAsync(typeof(Article), new FullName("Acme.Inventory"));
+			loadTask.Wait();
+			article = loadTask.Result;
+
+
+
+			article.HandleCommand(new AddSectionCommand(new FullName("WorkItem3"), new FullName("Acme.Inventory"), new FullName("Desks")));
+
+			gitRepository.SaveAggregateAsync(article).Wait();
+
+			loadTask = gitRepository.LoadAggregateAsync(typeof(Article), new FullName("Acme.Inventory"));
+			loadTask.Wait();
+			article = loadTask.Result;
+
+
+
+			article.HandleCommand(new AddTagCommand(new FullName("WorkItem4"), new FullName("Acme.Inventory"), new FullName("Resources")));
 
 			gitRepository.SaveAggregateAsync(article).Wait();
 
 
-
-
-
-
-
-			var loadTask = gitRepository.LoadAggregateAsync(typeof(Article), new FullName("Acme.Inventory"));
-
-			loadTask.Wait();
-
-			Console.WriteLine(loadTask.Result);
 
 			
 
@@ -89,10 +109,16 @@ namespace Grasp.Git.Examples
 		}
 
 
+		
+
+
+
+
+
 
 		private sealed class ConsoleMessageChannel : IMessageChannel
 		{
-			internal NotionJsonConverter JsonConverter;
+			internal GraspJsonConverter JsonConverter;
 
 			public Task PublishAsync(Message message)
 			{

@@ -184,6 +184,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="_Examples\api.html" />
+    <Content Include="_Examples\app.html" />
     <Content Include="_Examples\article.html" />
     <Content Include="_Examples\error.html" />
     <Content Include="_Examples\timeline.html" />

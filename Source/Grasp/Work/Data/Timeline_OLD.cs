@@ -18,7 +18,7 @@ namespace Grasp.Work
 		public Timeline(IEnumerable<Revision> revisions = null)
 		{
 			Revisions = (revisions ?? Enumerable.Empty<Revision>())
-				.OrderBy(revision => Lifetime.WhenCreatedField.Get(revision))
+				.OrderBy(revision => Lifetime.CreatedEventField.Get(revision))
 				.ToManyInOrder();
 
 			LastRevision = Revisions.LastOrDefault();

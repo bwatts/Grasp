@@ -63,7 +63,7 @@ namespace Grasp.Hypermedia.Server
 		{
 			var header = _resourceContext.CreateHeader(item.Description, "work/" + item.Id.ToString());
 
-			var whenStarted = Lifetime.WhenCreatedField.Get(item);
+			var whenStarted = Lifetime.CreatedEventField.Get(item);
 
 			return item.Progress < Progress.Complete
 				? new WorkItemResource(header, whenStarted, Progress.Accepted, item.RetryInterval)

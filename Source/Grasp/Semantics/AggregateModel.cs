@@ -10,7 +10,7 @@ namespace Grasp.Semantics
 {
 	public class AggregateModel : NotionModel
 	{
-		public AggregateModel(Type type, Many<Field> attachedFields, Many<Field> fields) : base(type, attachedFields, fields)
+		public AggregateModel(Type type, Many<Field> fields, IEnumerable<Trait> traits = null) : base(type, fields, traits)
 		{
 			Contract.Requires(typeof(IAggregate).IsAssignableFrom(type));
 		}

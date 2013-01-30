@@ -11,9 +11,11 @@ namespace Grasp.Messaging
 	/// <summary>
 	/// A message which travels along channels in a reactive system
 	/// </summary>
-	public abstract class Message : NamedNotion
+	public abstract class Message : Notion
 	{
-		public static readonly Field<IMessageChannel> ChannelField = Field.AttachedTo<Notion>.By<Message>.For(() => ChannelField);
+		public static readonly Trait ChannelTrait = Trait.DeclaredBy<Message>();
+
+		public static readonly Field<IMessageChannel> ChannelField = ChannelTrait.Field(() => ChannelField);
 
 		/// <summary>
 		/// Gets the message channel specified by <see cref="ChannelField"/>. If unset, resolves the ambient message channel.
@@ -27,12 +29,5 @@ namespace Grasp.Messaging
 
 			return ChannelField.Get(publisher) ?? AmbientMessageChannel.Resolve();
 		}
-
-		/// <summary>
-		/// Initializes a message with the specified name
-		/// </summary>
-		/// <param name="name">The unique hierarchical name of the message. If null or <see cref="FullName.Anonymous"/>, defaults to the full name of the type.</param>
-		protected Message(FullName name = default(FullName)) : base(name)
-		{}
 	}
 }

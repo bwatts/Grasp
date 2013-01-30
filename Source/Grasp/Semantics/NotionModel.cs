@@ -7,52 +7,51 @@ using System.Text;
 
 namespace Grasp.Semantics
 {
-	public class NotionModel : FieldAttacherModel
+	public class NotionModel : ClassModel
 	{
 		public static readonly Field<Many<Field>> FieldsField = Field.On<NotionModel>.For(x => x.Fields);
 
-		public NotionModel(Type type, Many<Field> attachedFields, Many<Field> fields) : base(type, attachedFields)
+		public NotionModel(Type type, Many<Field> fields, IEnumerable<Trait> traits = null) : base(type, traits)
 		{
 			Contract.Requires(typeof(Notion).IsAssignableFrom(type));
 			Contract.Requires(fields != null);
-			Contract.ForAll(fields, field => !field.IsAttached);
+			Contract.ForAll(fields, field => field.Trait == null);
 
 			Fields = fields;
 		}
 
 		public Many<Field> Fields { get { return GetValue(FieldsField); } private set { SetValue(FieldsField, value); } }
 
-		public IEnumerable<Field> GetAttachableFields(DomainModel domainModel)
+		public IEnumerable<Field> GetTraitFields(DomainModel domain)
 		{
-			Contract.Requires(domainModel != null);
+			Contract.Requires(domain != null);
 
 			return
-				from @namespace in domainModel.Namespaces
-				from type in @namespace.Types
-				let fieldAttacher = type as FieldAttacherModel
-				where fieldAttacher != null
-				from attachedField in fieldAttacher.AttachedFields
-				where attachedField.TargetType.IsAssignableFrom(Type)
-				select attachedField;
+				from @namespace in domain.Namespaces
+				from @class in @namespace.Types.OfType<ClassModel>()
+				from trait in @class.Traits
+				from traitField in trait.Fields
+				where traitField.TargetType.IsAssignableFrom(Type)
+				select traitField;
 		}
 
-		public IEnumerable<Field> GetManyFields(DomainModel domainModel)
+		public IEnumerable<Field> GetManyFields(DomainModel domain)
 		{
-			Contract.Requires(domainModel != null);
+			Contract.Requires(domain != null);
 
-			return GetCollectionFields(domainModel, field => field.AsMany.IsMany);
+			return GetCollectionFields(domain, field => field.AsMany.IsMany);
 		}
 
-		public IEnumerable<Field> GetNonManyFields(DomainModel domainModel)
+		public IEnumerable<Field> GetNonManyFields(DomainModel domain)
 		{
-			Contract.Requires(domainModel != null);
+			Contract.Requires(domain != null);
 
-			return GetCollectionFields(domainModel, field => field.AsNonMany.IsNonMany);
+			return GetCollectionFields(domain, field => field.AsNonMany.IsNonMany);
 		}
 
-		private IEnumerable<Field> GetCollectionFields(DomainModel domainModel, Func<Field, bool> isCollectionPredicate)
+		private IEnumerable<Field> GetCollectionFields(DomainModel domain, Func<Field, bool> isCollectionPredicate)
 		{
-			return Fields.Concat(GetAttachableFields(domainModel)).Where(isCollectionPredicate);
+			return Fields.Concat(GetTraitFields(domain)).Where(isCollectionPredicate);
 		}
 	}
 }

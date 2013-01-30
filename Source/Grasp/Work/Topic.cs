@@ -121,7 +121,7 @@ namespace Grasp.Work
 		}
 
 		/// <summary>
-		/// Sets <see cref="Grasp.FullName.NameField"/> and <see cref="Grasp.Lifetime.WhenCreatedField"/>
+		/// Sets <see cref="Grasp.FullName.NameField"/> and <see cref="Grasp.Lifetime.CreatedEventField"/>
 		/// </summary>
 		/// <param name="name">The unique hierarchical name of the topic</param>
 		/// <param name="when">The date and time at which this topic was created</param>
@@ -129,16 +129,16 @@ namespace Grasp.Work
 		{
 			SetValue(FullName.NameField, name);
 
-			SetValue(Lifetime.WhenCreatedField, when);
+			SetValue(Lifetime.CreatedEventField, when);
 		}
 
 		/// <summary>
-		/// Sets <see cref="Grasp.Lifetime.WhenModifiedField"/>
+		/// Sets <see cref="Grasp.Lifetime.ModifiedEventField"/>
 		/// </summary>
 		/// <param name="when">The date and time at which this topic was modified</param>
 		protected void OnModified(DateTime when)
 		{
-			SetValue(Lifetime.WhenModifiedField, when);
+			SetValue(Lifetime.ModifiedEventField, when);
 		}
 
 		/// <summary>

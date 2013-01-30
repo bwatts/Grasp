@@ -4,13 +4,15 @@ using System.Linq;
 using System.Text;
 using Cloak.Reflection;
 using Grasp.Knowledge;
+using Grasp.Messaging;
+using Grasp.Persistence;
 
 namespace Grasp
 {
 	/// <summary>
-	/// An object which externalizes its state
+	/// A object which externalizes its state
 	/// </summary>
-	public abstract class Notion : IFieldContext
+	public abstract class Notion : IFieldContext, IPersistent
 	{
 		/// <summary>
 		/// Initializes a notion with an isolated context
@@ -62,6 +64,26 @@ namespace Grasp
 			SetValue(field, value);
 		}
 
+		object IPersistent.Id
+		{
+			get { return Id; }
+		}
+
+		Event IPersistent.CreatedEvent
+		{
+			get { return CreatedEvent; }
+		}
+
+		Event IPersistent.ModifiedEvent
+		{
+			get { return ModifiedEvent; }
+		}
+
+		Event IPersistent.ReconstitutedEvent
+		{
+			get { return ReconstitutedEvent; }
+		}
+
 		protected IEnumerable<FieldBinding> GetBindings()
 		{
 			return Context.GetBindings(this);
@@ -108,30 +130,44 @@ namespace Grasp
 		}
 
 		/// <summary>
-		/// Gets the value of <see cref="Grasp.Lifetime.WhenCreatedField"/> associated with this notion
+		/// Gets the value of <see cref="Grasp.Persistence.PersistentId.ValueField"/> associated with this notion
 		/// </summary>
-		/// <returns>The value of <see cref="Grasp.Lifetime.WhenCreatedField"/> associated with this notion</returns>
-		protected DateTime GetWhenCreated()
+		protected internal object Id
 		{
-			return GetValue(Lifetime.WhenCreatedField);
+			get { return GetValue(PersistentId.ValueField) ?? PersistentId.Local; }
 		}
 
 		/// <summary>
-		/// Gets the value of <see cref="Grasp.Lifetime.WhenModifiedField"/> associated with this notion
+		/// Gets the value of <see cref="Grasp.Lifetime.CreatedEventField"/> associated with this notion
 		/// </summary>
-		/// <returns>The value of <see cref="Grasp.Lifetime.WhenModifiedField"/> associated with this notion</returns>
-		protected DateTime GetWhenModified()
+		protected internal Event CreatedEvent
 		{
-			return GetValue(Lifetime.WhenModifiedField);
+			get { return GetValue(Lifetime.CreatedEventField) ?? Event.Unoccurred; }
 		}
 
 		/// <summary>
-		/// Gets the amount of time that has passed since this notion was created, as specified by <see cref="Grasp.Lifetime.WhenCreatedField"/> and the ambient time context
+		/// Gets the value of <see cref="Grasp.Lifetime.ModifiedEventField"/> associated with this notion
 		/// </summary>
-		/// <returns>The amount of time that has passed since this notion was created, as specified by <see cref="Grasp.Lifetime.WhenCreatedField"/> and the ambient time context</returns>
+		protected internal Event ModifiedEvent
+		{
+			get { return GetValue(Lifetime.ModifiedEventField) ?? Event.Unoccurred; }
+		}
+
+		/// <summary>
+		/// Gets the value of <see cref="Grasp.Lifetime.ReconstitutedEventField"/> associated with this notion
+		/// </summary>
+		protected internal Event ReconstitutedEvent
+		{
+			get { return GetValue(Lifetime.ReconstitutedEventField) ?? Event.Unoccurred; }
+		}
+
+		/// <summary>
+		/// Gets the amount of time passed since this notion was created
+		/// </summary>
+		/// <returns>The amount of time passed since this notion was created</returns>
 		protected TimeSpan GetAge()
 		{
-			return this.Now() - GetWhenCreated();
+			return this.NowRelativeTo(CreatedEvent.When).Length;
 		}
 
 		private sealed class IsolatedContext : INotionContext

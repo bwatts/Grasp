@@ -35,7 +35,7 @@ namespace Grasp
 
 			text.Append(".");
 
-			if(binding.Field.IsAttached)
+			if(binding.Field.Trait != null)
 			{
 				text.Append(binding.Field.OwnerType.FullName).Append(".");
 			}
